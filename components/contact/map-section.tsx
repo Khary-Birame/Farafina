@@ -1,0 +1,55 @@
+import { Button } from "@/components/ui/button"
+import { MapPin, Navigation } from "lucide-react"
+
+export function MapSection() {
+  return (
+    <section className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#2E2E2E]">Visit Our Campus</h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Located in the coastal town of Cayar, our world-class facilities are easily accessible from Dakar.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+            {/* Map Placeholder */}
+            <div className="relative h-96 bg-gradient-to-br from-gray-100 to-gray-200">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-[#008037] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <MapPin className="text-white" size={32} />
+                  </div>
+                  <p className="text-gray-600 font-medium">Cayar, Thiès Region, Senegal</p>
+                  <p className="text-sm text-gray-500 mt-1">14.7333° N, 17.1667° W</p>
+                </div>
+              </div>
+
+              {/* Interactive Map Overlay */}
+              <div className="absolute inset-0 bg-[url('/map-of-cayar-senegal.jpg')] bg-cover bg-center opacity-20" />
+            </div>
+
+            {/* Map Info Bar */}
+            <div className="p-6 bg-white border-t border-gray-200">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-[#008037]/10 rounded-lg flex items-center justify-center">
+                    <Navigation className="text-[#008037]" size={24} />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-[#2E2E2E]">Approximately 50km from Dakar</p>
+                    <p className="text-sm text-gray-600">About 1 hour drive via Route de Kayar</p>
+                  </div>
+                </div>
+                <Button className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold px-6">
+                  Get Directions
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
