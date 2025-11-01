@@ -32,7 +32,7 @@ export function Leadership() {
             <div className="relative z-10">
               <Quote className="text-[#D4AF37] mb-6" size={48} />
               <blockquote className="text-2xl md:text-3xl font-sans font-semibold text-white mb-6 leading-relaxed text-balance">
-                "À Farafina, la discipline façonne le talent, et le respect crée les champions."
+                "À la Farafina Foot Academy, la discipline façonne le talent, et le respect crée les champions."
               </blockquote>
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-white/20 rounded-full overflow-hidden">

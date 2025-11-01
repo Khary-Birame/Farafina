@@ -8,7 +8,7 @@ export function IntegratedSchedule() {
       icon: <Sun size={24} />,
       title: "Cours Académiques",
       activities: ["Mathématiques et Sciences", "Langues (Français/Anglais)", "Études Sociales et Histoire"],
-      color: "bg-[#D4AF37]",
+      color: "bg-[#f29200]",
     },
     {
       time: "12:00 - 14:00",

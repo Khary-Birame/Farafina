@@ -19,7 +19,7 @@ export function ProgramsCTA() {
       <div className="container mx-auto px-4 lg:px-8 relative">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-sans font-bold text-4xl lg:text-5xl text-white mb-6 text-balance">
-            Rejoignez un Programme Unique en <span className="text-[#D4AF37]">Afrique</span>
+            Rejoignez un Programme Unique en <span className="text-[#ffffff]">Afrique</span>
           </h2>
           <p className="text-lg text-white/90 leading-relaxed mb-8 text-pretty">
             Faites le premier pas vers l'excellence sur le terrain et dans la vie. Postulez à Farafina Foot Academy dès
@@ -29,7 +29,7 @@ export function ProgramsCTA() {
             <Link href="/apply">
               <Button
                 size="lg"
-                className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] text-base h-12 px-8 font-semibold"
+                className="bg-[#ffffff] hover:bg-[#B8962E] text-[#2E2E2E] text-base h-12 px-8 font-semibold"
               >
                 Postuler maintenant
                 <ArrowRight size={20} className="ml-2" />

@@ -22,7 +22,7 @@ export function SocialInclusion() {
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
-            <div className="w-16 h-16 bg-[#D4AF37] rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-[#2E2E2E] rounded-full flex items-center justify-center mx-auto mb-4">
               <Heart className="text-white" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Programmes de Bourses</h3>
@@ -33,7 +33,7 @@ export function SocialInclusion() {
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
-            <div className="w-16 h-16 bg-[#D4AF37] rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-[#2E2E2E] rounded-full flex items-center justify-center mx-auto mb-4">
               <Users className="text-white" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Programme de Football Féminin</h3>
@@ -44,7 +44,7 @@ export function SocialInclusion() {
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
-            <div className="w-16 h-16 bg-[#D4AF37] rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-[#2E2E2E] rounded-full flex items-center justify-center mx-auto mb-4">
               <Award className="text-white" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Accès Égal</h3>

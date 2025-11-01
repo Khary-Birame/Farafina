@@ -41,14 +41,14 @@ export function MissionVision() {
           {/* Mission */}
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-[#D4AF37] rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-14 h-14 bg-[#f29200] rounded-xl flex items-center justify-center flex-shrink-0">
                 <Target className="text-white" size={28} />
               </div>
               <h2 className="font-sans font-bold text-3xl md:text-4xl text-[#2E2E2E]">Notre Mission</h2>
             </div>
             <p className="text-lg text-gray-700 leading-relaxed">
               Découvrir, former et autonomiser les jeunes talents africains grâce à{" "}
-              <span className="font-semibold text-[#D4AF37]">l'innovation, l'éducation et l'intégrité</span>.
+              <span className="font-semibold text-[#f29200]">l'innovation, l'éducation et l'intégrité</span>.
             </p>
             <div className="space-y-4">
               <div className="flex gap-4">
