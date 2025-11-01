@@ -1,5 +1,6 @@
 import { Heart, Users, Award, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function SocialInclusion() {
   return (
@@ -55,10 +56,12 @@ export function SocialInclusion() {
         </div>
 
         <div className="text-center">
-          <Button size="lg" className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold text-lg px-8 h-14">
-            Soutenir nos Initiatives Sociales
-            <ArrowRight className="ml-2" size={20} />
-          </Button>
+          <Link href="/contact">
+            <Button size="lg" className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold text-lg px-8 h-14">
+              Soutenir nos Initiatives Sociales
+              <ArrowRight className="ml-2" size={20} />
+            </Button>
+          </Link>
           <p className="text-white/70 text-sm mt-4">Aidez-nous à offrir des opportunités aux jeunes joueurs talentueux</p>
         </div>
       </div>

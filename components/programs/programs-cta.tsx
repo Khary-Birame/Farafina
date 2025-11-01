@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 export function ProgramsCTA() {
   return (
@@ -25,20 +26,24 @@ export function ProgramsCTA() {
             aujourd'hui.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] text-base h-12 px-8 font-semibold"
-            >
-              Postuler maintenant
-              <ArrowRight size={20} className="ml-2" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white/10 text-base h-12 px-8 bg-transparent"
-            >
-              Planifier une Visite
-            </Button>
+            <Link href="/apply">
+              <Button
+                size="lg"
+                className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] text-base h-12 px-8 font-semibold"
+              >
+                Postuler maintenant
+                <ArrowRight size={20} className="ml-2" />
+              </Button>
+            </Link>
+            <Link href="/contact">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white/10 text-base h-12 px-8 bg-transparent"
+              >
+                Planifier une Visite
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

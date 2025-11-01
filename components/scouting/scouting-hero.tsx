@@ -50,11 +50,20 @@ export function ScoutingHero() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up">
-          <Button size="lg" className="bg-[#f29200] hover:bg-[#d17f00] text-white px-8">
+          <Button
+            size="lg"
+            className="bg-[#f29200] hover:bg-[#d17f00] text-white px-8"
+            onClick={() => scrollToSection("ai-dashboard")}
+          >
             <TrendingUp className="w-5 h-5 mr-2" />
             Voir le Tableau de Bord Démo
           </Button>
-          <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 bg-transparent">
+          <Button
+            size="lg"
+            variant="outline"
+            className="border-white/20 text-white hover:bg-white/10 bg-transparent"
+            onClick={() => scrollToSection("technology-in-action")}
+          >
             En Savoir Plus
           </Button>
         </div>

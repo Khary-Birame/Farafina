@@ -5,8 +5,34 @@ import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Brain, ArrowRight } from "lucide-react"
+import type React from "react"
+import { useState } from "react"
 
 export function ScoutingCTA() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    organization: "",
+    role: "",
+    message: "",
+    consent: false,
+  })
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log("Demo request submitted:", formData)
+    // Handle form submission
+    alert("Votre demande de démo a été envoyée ! Notre équipe vous contactera sous peu.")
+    setFormData({
+      name: "",
+      email: "",
+      organization: "",
+      role: "",
+      message: "",
+      consent: false,
+    })
+  }
+
   return (
     <section className="py-20 bg-gradient-to-br from-[#2E2E2E] via-[#1a1a1a] to-[#2E2E2E] relative overflow-hidden">
       {/* Background Pattern */}
@@ -37,19 +63,32 @@ export function ScoutingCTA() {
           </div>
 
           <Card className="p-8 md:p-12 bg-white/95 backdrop-blur-sm">
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
                     Nom Complet *
                   </label>
-                  <Input id="name" placeholder="Entrez votre nom" required />
+                  <Input
+                    id="name"
+                    placeholder="Entrez votre nom"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                  />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
                     Adresse Email *
                   </label>
-                  <Input id="email" type="email" placeholder="votre@email.com" required />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="votre@email.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                  />
                 </div>
               </div>
 
@@ -58,13 +97,23 @@ export function ScoutingCTA() {
                   <label htmlFor="organization" className="block text-sm font-medium text-foreground mb-2">
                     Organisation
                   </label>
-                  <Input id="organization" placeholder="Nom de l'académie ou du club" />
+                  <Input
+                    id="organization"
+                    placeholder="Nom de l'académie ou du club"
+                    value={formData.organization}
+                    onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                  />
                 </div>
                 <div>
                   <label htmlFor="role" className="block text-sm font-medium text-foreground mb-2">
                     Votre Rôle
                   </label>
-                  <Input id="role" placeholder="Entraîneur, Recruteur, Directeur..." />
+                  <Input
+                    id="role"
+                    placeholder="Entraîneur, Recruteur, Directeur..."
+                    value={formData.role}
+                    onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                  />
                 </div>
               </div>
 
@@ -76,6 +125,8 @@ export function ScoutingCTA() {
                   id="message"
                   placeholder="Parlez-nous de votre intérêt pour notre plateforme de recrutement IA..."
                   rows={4}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 />
               </div>
 
@@ -84,6 +135,8 @@ export function ScoutingCTA() {
                   type="checkbox"
                   id="consent"
                   className="mt-1 w-4 h-4 rounded border-border text-[#f29200] focus:ring-[#f29200]"
+                  checked={formData.consent}
+                  onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
                   required
                 />
                 <label htmlFor="consent" className="text-sm text-muted-foreground">

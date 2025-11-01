@@ -40,7 +40,7 @@ export function AIDashboard() {
   ]
 
   return (
-    <section className="py-20 bg-background">
+    <section id="ai-dashboard" className="py-20 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">Visualisation du Tableau de Bord IA</h2>

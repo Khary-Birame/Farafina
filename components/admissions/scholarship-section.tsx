@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Heart, Users, Award, TrendingUp } from "lucide-react"
+import Link from "next/link"
 
 const scholarshipTypes = [
   {
@@ -80,16 +81,20 @@ export function ScholarshipSection() {
                 d'excellence et d'autonomisation.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button size="lg" className="bg-white text-[#f29200] hover:bg-gray-100 font-semibold">
-                  Demander une bourse
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white/10 bg-transparent"
-                >
-                  En savoir plus
-                </Button>
+                <Link href="/apply">
+                  <Button size="lg" className="bg-white text-[#f29200] hover:bg-gray-100 font-semibold">
+                    Demander une bourse
+                  </Button>
+                </Link>
+                <Link href="/admissions#scholarship">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-white text-white hover:bg-white/10 bg-transparent"
+                  >
+                    En savoir plus
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

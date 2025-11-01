@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-
+import Link from "next/link"
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 
@@ -110,8 +110,12 @@ export function AdmissionsFAQ() {
               Notre équipe d'admission est là pour vous aider à chaque étape du processus.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button className="bg-[#f29200] hover:bg-[#d17e00] text-white">Contacter l'équipe d'admission</Button>
-              <Button variant="outline">Planifier une visite du campus</Button>
+              <Link href="/contact">
+                <Button className="bg-[#f29200] hover:bg-[#d17e00] text-white">Contacter l'équipe d'admission</Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="outline">Planifier une visite du campus</Button>
+              </Link>
             </div>
           </div>
         </div>

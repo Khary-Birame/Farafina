@@ -260,7 +260,13 @@ export function ApplicationForm() {
                   Étape suivante
                 </Button>
               ) : (
-                <Button className="bg-[#f29200] hover:bg-[#d17e00] text-white">
+                <Button
+                  type="button"
+                  onClick={() => {
+                    alert("Votre candidature a été soumise avec succès ! Nous vous contacterons sous peu.")
+                  }}
+                  className="bg-[#f29200] hover:bg-[#d17e00] text-white"
+                >
                   <CheckCircle2 className="w-4 h-4 mr-2" />
                   Soumettre la candidature
                 </Button>

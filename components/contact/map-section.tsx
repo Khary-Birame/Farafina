@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { MapPin, Navigation } from "lucide-react"
+import Link from "next/link"
 
 export function MapSection() {
   return (
@@ -42,9 +43,15 @@ export function MapSection() {
                     <p className="text-sm text-gray-600">Environ 1 heure de route via la Route de Kayar</p>
                   </div>
                 </div>
-                <Button className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold px-6">
-                  Obtenir l'Itinéraire
-                </Button>
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=Cayar,+Thiès,+Sénégal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold px-6">
+                    Obtenir l'Itinéraire
+                  </Button>
+                </a>
               </div>
             </div>
           </div>

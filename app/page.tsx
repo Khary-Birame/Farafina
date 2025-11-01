@@ -3,6 +3,7 @@ import { Footer } from "@/components/footer"
 import { StatCard } from "@/components/stat-card"
 import { ProgramCard } from "@/components/program-card"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { Trophy, GraduationCap, Users, Globe, Play, ArrowRight, Target, Award, BookOpen, Sparkles } from "lucide-react"
 
 export default function HomePage() {
@@ -29,14 +30,18 @@ export default function HomePage() {
                 du football africain.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-[#f29200] hover:bg-[#d97f00] text-white text-base h-12 px-8">
-                  Postuler maintenant
-                  <ArrowRight size={20} className="ml-2" />
-                </Button>
-                <Button size="lg" variant="outline" className="text-base h-12 px-8 group bg-transparent">
-                  <Play size={20} className="mr-2 group-hover:scale-110 transition-transform" />
-                  Voir notre histoire
-                </Button>
+                <Link href="/apply">
+                  <Button size="lg" className="bg-[#f29200] hover:bg-[#d97f00] text-white text-base h-12 px-8">
+                    Postuler maintenant
+                    <ArrowRight size={20} className="ml-2" />
+                  </Button>
+                </Link>
+                <Link href="/about">
+                  <Button size="lg" variant="outline" className="text-base h-12 px-8 group bg-transparent">
+                    <Play size={20} className="mr-2 group-hover:scale-110 transition-transform" />
+                    Voir notre histoire
+                  </Button>
+                </Link>
               </div>
             </div>
 
@@ -163,10 +168,12 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <Button size="lg" variant="outline" className="text-base h-12 px-8 bg-transparent">
-              Voir tous les programmes
-              <ArrowRight size={20} className="ml-2" />
-            </Button>
+            <Link href="/programs">
+              <Button size="lg" variant="outline" className="text-base h-12 px-8 bg-transparent">
+                Voir tous les programmes
+                <ArrowRight size={20} className="ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -193,17 +200,21 @@ export default function HomePage() {
               Academy.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-[#f29200] hover:bg-gray-100 text-base h-12 px-8">
-                Postuler maintenant
-                <ArrowRight size={20} className="ml-2" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white/10 text-base h-12 px-8 bg-transparent"
-              >
-                Planifier une visite
-              </Button>
+              <Link href="/apply">
+                <Button size="lg" className="bg-white text-[#f29200] hover:bg-gray-100 text-base h-12 px-8">
+                  Postuler maintenant
+                  <ArrowRight size={20} className="ml-2" />
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white/10 text-base h-12 px-8 bg-transparent"
+                >
+                  Planifier une visite
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

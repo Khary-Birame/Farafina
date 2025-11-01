@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import { Play } from "lucide-react"
+import Link from "next/link"
 
 export function UIComponents() {
   return (
@@ -102,9 +103,11 @@ export function UIComponents() {
                 <span className="text-sm font-mono text-[#2E2E2E]">À Propos</span>
                 <span className="text-sm font-mono text-[#2E2E2E]">Programmes</span>
                 <span className="text-sm font-mono text-[#2E2E2E]">Contact</span>
-                <Button size="sm" className="bg-[#f29200] hover:bg-[#d17f00] text-white">
-                  Postuler Maintenant
-                </Button>
+                <Link href="/apply">
+                  <Button size="sm" className="bg-[#f29200] hover:bg-[#d17f00] text-white">
+                    Postuler Maintenant
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

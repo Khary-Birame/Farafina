@@ -69,7 +69,7 @@ export function ImportantInformation() {
           <p className="text-muted-foreground mb-4">
             Visitez notre section FAQ pour obtenir des réponses aux questions courantes sur le processus de candidature
           </p>
-          <Link href="/admissions#faq">
+          <Link href="/faq">
             <Button variant="outline">Voir la FAQ</Button>
           </Link>
         </div>

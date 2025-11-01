@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Handshake, Award, Globe, TrendingUp } from "lucide-react"
+import Link from "next/link"
 
 export function PartnersSection() {
   const partners = [
@@ -86,9 +87,11 @@ export function PartnersSection() {
             <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
               Ensemble, nous pouvons créer des opportunités pour les jeunes talents africains et construire l'avenir du football.
             </p>
-            <Button className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold px-8 h-12 text-base">
-              Devenir Partenaire
-            </Button>
+            <Link href="/contact">
+              <Button className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold px-8 h-12 text-base">
+                Devenir Partenaire
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

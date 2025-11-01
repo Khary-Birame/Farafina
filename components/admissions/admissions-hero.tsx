@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Shield, Award, Users } from "lucide-react"
+import { ArrowRight, Shield, Award, Users, Download } from "lucide-react"
 
 export function AdmissionsHero() {
   const scrollToForm = () => {
@@ -44,7 +44,19 @@ export function AdmissionsHero() {
               Commencez votre inscription
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white text-white hover:bg-white/10 bg-transparent"
+              onClick={() => {
+                // Créer un lien de téléchargement temporaire
+                const link = document.createElement("a")
+                link.href = "#"
+                link.download = "brochure-farafina.pdf"
+                link.click()
+              }}
+            >
+              <Download className="mr-2 w-4 h-4" />
               Télécharger la brochure
             </Button>
           </div>

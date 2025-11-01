@@ -1,3 +1,5 @@
+"use client"
+
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { LiveStreamPlayer } from "@/components/ffa-tv/live-stream-player"
@@ -6,6 +8,13 @@ import { SponsorsSection } from "@/components/ffa-tv/sponsors-section"
 import { UserEngagement } from "@/components/ffa-tv/user-engagement"
 import { Button } from "@/components/ui/button"
 import { Play, Radio } from "lucide-react"
+
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId)
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" })
+  }
+}
 
 export default function FFATVPage() {
   return (
@@ -40,7 +49,11 @@ export default function FFATVPage() {
               Academy.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-[#f29200] hover:bg-[#d17f00] text-white text-base h-12 px-8">
+              <Button
+                size="lg"
+                className="bg-[#f29200] hover:bg-[#d17f00] text-white text-base h-12 px-8"
+                onClick={() => scrollToSection("live-stream")}
+              >
                 <Play size={20} className="mr-2" />
                 Regarder en Direct
               </Button>
@@ -48,6 +61,7 @@ export default function FFATVPage() {
                 size="lg"
                 variant="outline"
                 className="border-white text-white hover:bg-white/10 text-base h-12 px-8 bg-transparent"
+                onClick={() => scrollToSection("video-grid")}
               >
                 Parcourir les Replays
               </Button>
@@ -57,14 +71,14 @@ export default function FFATVPage() {
       </section>
 
       {/* Live Stream Section */}
-      <section className="py-12 lg:py-16">
+      <section id="live-stream" className="py-12 lg:py-16">
         <div className="container mx-auto px-4 lg:px-8">
           <LiveStreamPlayer />
         </div>
       </section>
 
       {/* Replay & Highlights Section */}
-      <section className="py-12 lg:py-16">
+      <section id="video-grid" className="py-12 lg:py-16">
         <div className="container mx-auto px-4 lg:px-8">
           <VideoGrid />
         </div>
