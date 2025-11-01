@@ -24,7 +24,7 @@ export function VideoCard({ title, thumbnail, duration, date, views, isLive = fa
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-          <div className="w-14 h-14 rounded-full bg-[#008037] flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-75 group-hover:scale-100 transition-all shadow-2xl">
+          <div className="w-14 h-14 rounded-full bg-[#f29200] flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-75 group-hover:scale-100 transition-all shadow-2xl">
             <Play size={24} className="text-white ml-1" />
           </div>
         </div>
@@ -37,20 +37,20 @@ export function VideoCard({ title, thumbnail, duration, date, views, isLive = fa
         {/* Live Badge */}
         {isLive && (
           <div className="absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-bold animate-pulse">
-            LIVE
+            EN DIRECT
           </div>
         )}
       </div>
 
       {/* Video Info */}
       <div>
-        <h3 className="font-sans font-bold text-white text-lg mb-2 leading-tight group-hover:text-[#008037] transition-colors line-clamp-2">
+        <h3 className="font-sans font-bold text-white text-lg mb-2 leading-tight group-hover:text-[#f29200] transition-colors line-clamp-2">
           {title}
         </h3>
         <div className="flex items-center gap-3 text-sm text-gray-400">
           <div className="flex items-center gap-1">
             <Eye size={14} />
-            <span>{views} views</span>
+            <span>{views} vues</span>
           </div>
           <span>•</span>
           <span>{date}</span>

@@ -63,9 +63,9 @@ export function PlayerProfiles() {
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">Player Profiles</h2>
+          <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">Profils des Joueurs</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            AI-powered talent assessment with predictive potential analysis
+            Évaluation des talents alimentée par l'IA avec analyse prédictive du potentiel
           </p>
 
           {/* Filter Buttons */}
@@ -73,23 +73,23 @@ export function PlayerProfiles() {
             <Button
               variant={filter === "all" ? "default" : "outline"}
               onClick={() => setFilter("all")}
-              className={filter === "all" ? "bg-[#008037] hover:bg-[#006629]" : ""}
+              className={filter === "all" ? "bg-[#f29200] hover:bg-[#d17f00]" : ""}
             >
-              All Players
+              Tous les Joueurs
             </Button>
             <Button
               variant={filter === "male" ? "default" : "outline"}
               onClick={() => setFilter("male")}
-              className={filter === "male" ? "bg-[#008037] hover:bg-[#006629]" : ""}
+              className={filter === "male" ? "bg-[#f29200] hover:bg-[#d17f00]" : ""}
             >
-              Male
+              Masculin
             </Button>
             <Button
               variant={filter === "female" ? "default" : "outline"}
               onClick={() => setFilter("female")}
-              className={filter === "female" ? "bg-[#008037] hover:bg-[#006629]" : ""}
+              className={filter === "female" ? "bg-[#f29200] hover:bg-[#d17f00]" : ""}
             >
-              Female
+              Féminin
             </Button>
           </div>
         </div>
@@ -98,13 +98,13 @@ export function PlayerProfiles() {
           {filteredPlayers.map((player, index) => (
             <Card
               key={index}
-              className="overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-[#008037]/30"
+              className="overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-[#f29200]/30"
             >
               {/* Player Image */}
               <div className="relative h-64 bg-gradient-to-br from-[#2E2E2E] to-[#1a1a1a]">
                 <Image src={player.image || "/placeholder.svg"} alt={player.name} fill className="object-cover" />
                 <div className="absolute top-3 right-3 flex gap-2">
-                  <Badge className="bg-[#008037] text-white border-0">{player.position}</Badge>
+                  <Badge className="bg-[#f29200] text-white border-0">{player.position}</Badge>
                   <Badge className="bg-[#D4AF37] text-[#2E2E2E] border-0">Age {player.age}</Badge>
                 </div>
               </div>
@@ -118,12 +118,12 @@ export function PlayerProfiles() {
                   <div className="flex items-center gap-1">
                     <Star className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
                     <span className="text-2xl font-bold text-foreground">{player.rating}</span>
-                    <span className="text-sm text-muted-foreground">Rating</span>
+                    <span className="text-sm text-muted-foreground">Note</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <TrendingUp className="w-4 h-4 text-[#008037]" />
-                    <span className="text-2xl font-bold text-[#008037]">{player.potential}</span>
-                    <span className="text-sm text-muted-foreground">Potential</span>
+                    <TrendingUp className="w-4 h-4 text-[#f29200]" />
+                    <span className="text-2xl font-bold text-[#f29200]">{player.potential}</span>
+                    <span className="text-sm text-muted-foreground">Potentiel</span>
                   </div>
                 </div>
 
@@ -131,15 +131,15 @@ export function PlayerProfiles() {
                 <div className="grid grid-cols-3 gap-2 mb-4 p-3 bg-muted/50 rounded-lg">
                   <div className="text-center">
                     <div className="text-lg font-bold text-foreground">{player.stats.goals}</div>
-                    <div className="text-xs text-muted-foreground">Goals</div>
+                    <div className="text-xs text-muted-foreground">Buts</div>
                   </div>
                   <div className="text-center">
                     <div className="text-lg font-bold text-foreground">{player.stats.assists}</div>
-                    <div className="text-xs text-muted-foreground">Assists</div>
+                    <div className="text-xs text-muted-foreground">Passes D</div>
                   </div>
                   <div className="text-center">
                     <div className="text-lg font-bold text-foreground">{player.stats.matches}</div>
-                    <div className="text-xs text-muted-foreground">Matches</div>
+                    <div className="text-xs text-muted-foreground">Matchs</div>
                   </div>
                 </div>
 

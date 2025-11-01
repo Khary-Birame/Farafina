@@ -11,11 +11,11 @@ export function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center overflow-hidden">
                 <Image
-                  src="/ffa.jpg"
+                  src="https://res.cloudinary.com/drkudvdmd/image/upload/v1762007821/ffa_kbbb86.jpg"
                   alt="Farafina Foot Academy"
                   width={48}
                   height={48}
-                  className="w-full h-full object-contain"
+                  // className="w-full h-full object-contain"
                 />
               </div>
               <div>
@@ -145,7 +145,7 @@ export function Footer() {
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-white/10 rounded flex items-center justify-center overflow-hidden">
                 <Image
-                  src="/fg.jpg"
+                  src="https://res.cloudinary.com/drkudvdmd/image/upload/v1762011778/fg_oyv7v0.jpg"
                   alt="Farafina Group"
                   width={32}
                   height={32}

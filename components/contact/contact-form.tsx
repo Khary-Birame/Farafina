@@ -31,18 +31,18 @@ export function ContactForm() {
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Left Column - Contact Form */}
           <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-            <h2 className="font-sans font-bold text-3xl mb-2 text-[#2E2E2E]">Send Us a Message</h2>
-            <p className="text-gray-600 mb-8">We'll get back to you within 24 hours.</p>
+            <h2 className="font-sans font-bold text-3xl mb-2 text-[#2E2E2E]">Envoyez-nous un Message</h2>
+            <p className="text-gray-600 mb-8">Nous vous répondrons dans les 24 heures.</p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <Label htmlFor="fullName" className="text-sm font-medium text-[#2E2E2E] mb-2 block">
-                  Full Name *
+                  Nom Complet *
                 </Label>
                 <Input
                   id="fullName"
                   type="text"
-                  placeholder="Enter your full name"
+                  placeholder="Entrez votre nom complet"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   required
@@ -52,12 +52,12 @@ export function ContactForm() {
 
               <div>
                 <Label htmlFor="email" className="text-sm font-medium text-[#2E2E2E] mb-2 block">
-                  Email Address *
+                  Adresse Email *
                 </Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="your.email@example.com"
+                  placeholder="votre.email@exemple.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
@@ -67,30 +67,30 @@ export function ContactForm() {
 
               <div>
                 <Label htmlFor="role" className="text-sm font-medium text-[#2E2E2E] mb-2 block">
-                  I am a... *
+                  Je suis un(e) *
                 </Label>
                 <Select value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
                   <SelectTrigger className="h-12">
-                    <SelectValue placeholder="Select your role" />
+                    <SelectValue placeholder="Sélectionnez votre rôle" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="parent">Parent</SelectItem>
-                    <SelectItem value="recruiter">Recruiter</SelectItem>
+                    <SelectItem value="recruiter">Recruteur</SelectItem>
                     <SelectItem value="sponsor">Sponsor</SelectItem>
-                    <SelectItem value="media">Media</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="media">Média</SelectItem>
+                    <SelectItem value="other">Autre</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div>
                 <Label htmlFor="subject" className="text-sm font-medium text-[#2E2E2E] mb-2 block">
-                  Subject *
+                  Sujet *
                 </Label>
                 <Input
                   id="subject"
                   type="text"
-                  placeholder="What is this regarding?"
+                  placeholder="De quoi s'agit-il ?"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   required
@@ -104,7 +104,7 @@ export function ContactForm() {
                 </Label>
                 <Textarea
                   id="message"
-                  placeholder="Tell us more about your inquiry..."
+                  placeholder="Parlez-nous de votre demande..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   required
@@ -116,7 +116,7 @@ export function ContactForm() {
                 type="submit"
                 className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold text-base"
               >
-                Send Message
+                Envoyer le Message
               </Button>
             </form>
           </div>
@@ -124,25 +124,25 @@ export function ContactForm() {
           {/* Right Column - Contact Details */}
           <div className="space-y-8">
             <div>
-              <h2 className="font-sans font-bold text-3xl mb-2 text-[#2E2E2E]">Get in Touch</h2>
-              <p className="text-gray-600 mb-8">Reach out to us directly through any of the channels below.</p>
+              <h2 className="font-sans font-bold text-3xl mb-2 text-[#2E2E2E]">Contactez-nous</h2>
+              <p className="text-gray-600 mb-8">Contactez-nous directement via l'un des canaux ci-dessous.</p>
             </div>
 
             {/* Contact Information Cards */}
             <div className="space-y-4">
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#008037] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center flex-shrink-0">
                     <MapPin className="text-white" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-[#2E2E2E] mb-1">Our Location</h3>
+                    <h3 className="font-semibold text-lg text-[#2E2E2E] mb-1">Notre Localisation</h3>
                     <p className="text-gray-600 leading-relaxed">
                       Farafina Foot Academy
                       <br />
-                      Cayar, Thiès Region
+                      Cayar, Région de Thiès
                       <br />
-                      Senegal, West Africa
+                      Sénégal, Afrique de l'Ouest
                     </p>
                   </div>
                 </div>
@@ -150,35 +150,35 @@ export function ContactForm() {
 
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#008037] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center flex-shrink-0">
                     <Phone className="text-white" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-[#2E2E2E] mb-1">Phone</h3>
+                    <h3 className="font-semibold text-lg text-[#2E2E2E] mb-1">Téléphone</h3>
                     <p className="text-gray-600">+221 XX XXX XX XX</p>
-                    <p className="text-sm text-gray-500 mt-1">Mon-Fri, 9:00 AM - 6:00 PM (GMT)</p>
+                    <p className="text-sm text-gray-500 mt-1">Lun-Ven, 9h00 - 18h00 (GMT)</p>
                   </div>
                 </div>
               </div>
 
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#008037] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center flex-shrink-0">
                     <Mail className="text-white" size={24} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg text-[#2E2E2E] mb-1">Email</h3>
                     <p className="text-gray-600">info@farafinafootacademy.com</p>
-                    <p className="text-sm text-gray-500 mt-1">We'll respond within 24 hours</p>
+                    <p className="text-sm text-gray-500 mt-1">Nous répondrons dans les 24 heures</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Social Media */}
-            <div className="bg-gradient-to-br from-[#008037] to-[#006629] rounded-xl p-6 text-white">
-              <h3 className="font-semibold text-lg mb-4">Follow Us</h3>
-              <p className="text-white/90 text-sm mb-4">Stay connected on social media</p>
+            <div className="bg-gradient-to-br from-[#f29200] to-[#d17f00] rounded-xl p-6 text-white">
+              <h3 className="font-semibold text-lg mb-4">Suivez-nous</h3>
+              <p className="text-white/90 text-sm mb-4">Restez connectés sur les réseaux sociaux</p>
               <div className="flex items-center gap-3">
                 <a
                   href="#"

@@ -11,8 +11,8 @@ export function SponsorsSection() {
   return (
     <div>
       <div className="text-center mb-12">
-        <h2 className="font-sans font-bold text-3xl lg:text-4xl text-white mb-3">Official Partners</h2>
-        <p className="text-gray-400">Supported by world-class organizations</p>
+        <h2 className="font-sans font-bold text-3xl lg:text-4xl text-white mb-3">Partenaires Officiels</h2>
+        <p className="text-gray-400">Soutenu par des organisations de classe mondiale</p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">

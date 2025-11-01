@@ -30,7 +30,7 @@ export function LoginForm() {
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Left Side - Illustration with gradient and photo */}
           <div className="hidden lg:block relative h-[600px] rounded-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#008037] via-[#00a045] to-[#d4af37] opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#f29200] via-[#ffa726] to-[#d4af37] opacity-90" />
             <img
               src="/african-youth-football-training-action-shot.jpg"
               alt="Football training action"
@@ -42,23 +42,23 @@ export function LoginForm() {
             </div>
             <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-12">
               <div className="text-center space-y-6">
-                <h2 className="font-sans font-bold text-4xl text-balance">Welcome Back to Excellence</h2>
+                <h2 className="font-sans font-bold text-4xl text-balance">Bienvenue à l'Excellence</h2>
                 <p className="text-lg text-white/90 max-w-md mx-auto text-pretty">
-                  Continue your journey with Farafina Foot Academy. Access your dashboard, track your progress, and stay
-                  connected with your team.
+                  Continuez votre parcours avec Farafina Foot Academy. Accédez à votre tableau de bord, suivez vos progrès et restez
+                  connecté avec votre équipe.
                 </p>
                 <div className="flex items-center justify-center gap-8 pt-8">
                   <div className="text-center">
                     <div className="text-3xl font-bold">24/7</div>
-                    <div className="text-sm text-white/80">Access</div>
+                    <div className="text-sm text-white/80">Accès</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold">100%</div>
-                    <div className="text-sm text-white/80">Secure</div>
+                    <div className="text-sm text-white/80">Sécurisé</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold">500+</div>
-                    <div className="text-sm text-white/80">Active Users</div>
+                    <div className="text-sm text-white/80">Utilisateurs Actifs</div>
                   </div>
                 </div>
               </div>
@@ -71,26 +71,26 @@ export function LoginForm() {
               {/* Header */}
               <div className="text-center mb-8">
                 <h1 className="font-sans font-bold text-3xl text-[#2E2E2E] mb-3">
-                  Welcome Back to Farafina Foot Academy
+                  Bienvenue à Farafina Foot Academy
                 </h1>
                 <p className="text-muted-foreground text-pretty">
-                  Sign in to access your account and continue your journey.
+                  Connectez-vous pour accéder à votre compte et continuer votre parcours.
                 </p>
               </div>
 
               {/* Trust Indicators */}
               <div className="flex items-center justify-center gap-6 mb-8 pb-8 border-b border-border">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Shield className="w-4 h-4 text-[#008037]" />
-                  <span>Secure</span>
+                  <Shield className="w-4 h-4 text-[#f29200]" />
+                  <span>Sécurisé</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Lock className="w-4 h-4 text-[#008037]" />
-                  <span>Encrypted</span>
+                  <Lock className="w-4 h-4 text-[#f29200]" />
+                  <span>Chiffré</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <CheckCircle2 className="w-4 h-4 text-[#008037]" />
-                  <span>Protected</span>
+                  <CheckCircle2 className="w-4 h-4 text-[#f29200]" />
+                  <span>Protégé</span>
                 </div>
               </div>
 
@@ -99,33 +99,33 @@ export function LoginForm() {
                 {/* Email */}
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-sm font-medium text-[#2E2E2E]">
-                    Email Address
+                    Adresse Email
                   </Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="your.email@example.com"
+                    placeholder="votre.email@exemple.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="h-12 transition-all duration-200 focus:ring-2 focus:ring-[#008037] focus:border-[#008037]"
+                    className="h-12 transition-all duration-200 focus:ring-2 focus:ring-[#f29200] focus:border-[#f29200]"
                   />
                 </div>
 
                 {/* Password */}
                 <div className="space-y-2">
                   <Label htmlFor="password" className="text-sm font-medium text-[#2E2E2E]">
-                    Password
+                    Mot de Passe
                   </Label>
                   <div className="relative">
                     <Input
                       id="password"
                       type={showPassword ? "text" : "password"}
-                      placeholder="Enter your password"
+                      placeholder="Entrez votre mot de passe"
                       value={formData.password}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                       required
-                      className="h-12 pr-12 transition-all duration-200 focus:ring-2 focus:ring-[#008037] focus:border-[#008037]"
+                      className="h-12 pr-12 transition-all duration-200 focus:ring-2 focus:ring-[#f29200] focus:border-[#f29200]"
                     />
                     <button
                       type="button"
@@ -146,14 +146,14 @@ export function LoginForm() {
                       onCheckedChange={(checked) => setFormData({ ...formData, rememberMe: checked as boolean })}
                     />
                     <Label htmlFor="rememberMe" className="text-sm text-muted-foreground cursor-pointer">
-                      Remember me
+                      Se souvenir de moi
                     </Label>
                   </div>
                   <Link
                     href="/forgot-password"
-                    className="text-sm text-[#008037] hover:text-[#006629] hover:underline font-medium transition-colors"
+                    className="text-sm text-[#f29200] hover:text-[#d17f00] hover:underline font-medium transition-colors"
                   >
-                    Forgot Password?
+                    Mot de passe oublié ?
                   </Link>
                 </div>
 
@@ -162,7 +162,7 @@ export function LoginForm() {
                   type="submit"
                   className="w-full h-12 bg-[#d4af37] hover:bg-[#b8962e] text-[#2E2E2E] font-semibold text-base transition-all duration-200 hover:shadow-lg"
                 >
-                  Sign In
+                  Se Connecter
                 </Button>
               </form>
 
@@ -173,15 +173,15 @@ export function LoginForm() {
                     <div className="w-full border-t border-border" />
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-4 bg-white text-muted-foreground">New to Farafina?</span>
+                    <span className="px-4 bg-white text-muted-foreground">Nouveau sur Farafina ?</span>
                   </div>
                 </div>
                 <div className="text-center">
                   <Link
                     href="/signup"
-                    className="text-sm text-[#008037] hover:text-[#006629] hover:underline font-medium transition-colors"
+                    className="text-sm text-[#f29200] hover:text-[#d17f00] hover:underline font-medium transition-colors"
                   >
-                    Don't have an account? Create one
+                    Vous n'avez pas de compte ? Créez-en un
                   </Link>
                 </div>
               </div>

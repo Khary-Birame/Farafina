@@ -35,7 +35,7 @@ export function SignUpForm() {
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Left Side - Illustration */}
           <div className="hidden lg:block relative h-[700px] rounded-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#008037] via-[#00a045] to-[#d4af37] opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#f29200] via-[#ffa726] to-[#d4af37] opacity-90" />
             <img
               src="/young-african-players-training-field.jpg"
               alt="Young players training"
@@ -43,23 +43,23 @@ export function SignUpForm() {
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-12">
               <div className="text-center space-y-6">
-                <h2 className="font-sans font-bold text-4xl text-balance">Join the Future of African Football</h2>
+                <h2 className="font-sans font-bold text-4xl text-balance">Rejoignez l'Avenir du Football Africain</h2>
                 <p className="text-lg text-white/90 max-w-md mx-auto text-pretty">
-                  Create your account to access your application portal, track your admission status, and begin your
-                  journey with Farafina Foot Academy.
+                  Créez votre compte pour accéder à votre portail de candidature, suivre votre statut d'admission et commencer votre
+                  parcours avec Farafina Foot Academy.
                 </p>
                 <div className="flex items-center justify-center gap-8 pt-8">
                   <div className="text-center">
                     <div className="text-3xl font-bold">500+</div>
-                    <div className="text-sm text-white/80">Active Students</div>
+                    <div className="text-sm text-white/80">Étudiants Actifs</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold">95%</div>
-                    <div className="text-sm text-white/80">Success Rate</div>
+                    <div className="text-sm text-white/80">Taux de Réussite</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold">20+</div>
-                    <div className="text-sm text-white/80">Countries</div>
+                    <div className="text-sm text-white/80">Pays</div>
                   </div>
                 </div>
               </div>
@@ -71,25 +71,25 @@ export function SignUpForm() {
             <div className="bg-white rounded-2xl shadow-lg p-8 sm:p-12">
               {/* Header */}
               <div className="text-center mb-8">
-                <h1 className="font-sans font-bold text-3xl text-[#2E2E2E] mb-3">Create Your Farafina Account</h1>
+                <h1 className="font-sans font-bold text-3xl text-[#2E2E2E] mb-3">Créez Votre Compte Farafina</h1>
                 <p className="text-muted-foreground text-pretty">
-                  Access your application, upload documents, and track your admission status.
+                  Accédez à votre candidature, téléchargez des documents et suivez votre statut d'admission.
                 </p>
               </div>
 
               {/* Trust Indicators */}
               <div className="flex items-center justify-center gap-6 mb-8 pb-8 border-b border-border">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Shield className="w-4 h-4 text-[#008037]" />
-                  <span>Secure</span>
+                  <Shield className="w-4 h-4 text-[#f29200]" />
+                  <span>Sécurisé</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Lock className="w-4 h-4 text-[#008037]" />
-                  <span>Encrypted</span>
+                  <Lock className="w-4 h-4 text-[#f29200]" />
+                  <span>Chiffré</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <CheckCircle2 className="w-4 h-4 text-[#008037]" />
-                  <span>GDPR Compliant</span>
+                  <CheckCircle2 className="w-4 h-4 text-[#f29200]" />
+                  <span>Conforme RGPD</span>
                 </div>
               </div>
 
@@ -98,12 +98,12 @@ export function SignUpForm() {
                 {/* Full Name */}
                 <div className="space-y-2">
                   <Label htmlFor="fullName" className="text-sm font-medium text-[#2E2E2E]">
-                    Full Name *
+                    Nom Complet *
                   </Label>
                   <Input
                     id="fullName"
                     type="text"
-                    placeholder="Enter your full name"
+                    placeholder="Entrez votre nom complet"
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     required
@@ -114,12 +114,12 @@ export function SignUpForm() {
                 {/* Email */}
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-sm font-medium text-[#2E2E2E]">
-                    Email Address *
+                    Adresse Email *
                   </Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="your.email@example.com"
+                    placeholder="votre.email@exemple.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
@@ -130,13 +130,13 @@ export function SignUpForm() {
                 {/* Password */}
                 <div className="space-y-2">
                   <Label htmlFor="password" className="text-sm font-medium text-[#2E2E2E]">
-                    Password *
+                    Mot de Passe *
                   </Label>
                   <div className="relative">
                     <Input
                       id="password"
                       type={showPassword ? "text" : "password"}
-                      placeholder="Create a strong password"
+                      placeholder="Créez un mot de passe fort"
                       value={formData.password}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                       required
@@ -150,19 +150,19 @@ export function SignUpForm() {
                       {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
                   </div>
-                  <p className="text-xs text-muted-foreground">Must be at least 8 characters long</p>
+                  <p className="text-xs text-muted-foreground">Minimum 8 caractères</p>
                 </div>
 
                 {/* Confirm Password */}
                 <div className="space-y-2">
                   <Label htmlFor="confirmPassword" className="text-sm font-medium text-[#2E2E2E]">
-                    Confirm Password *
+                    Confirmer le Mot de Passe *
                   </Label>
                   <div className="relative">
                     <Input
                       id="confirmPassword"
                       type={showConfirmPassword ? "text" : "password"}
-                      placeholder="Re-enter your password"
+                      placeholder="Ré-entrez votre mot de passe"
                       value={formData.confirmPassword}
                       onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                       required
@@ -181,16 +181,16 @@ export function SignUpForm() {
                 {/* Role Selection */}
                 <div className="space-y-2">
                   <Label htmlFor="role" className="text-sm font-medium text-[#2E2E2E]">
-                    I am a *
+                    Je suis un(e) *
                   </Label>
                   <Select value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
                     <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Select your role" />
+                      <SelectValue placeholder="Sélectionnez votre rôle" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="parent">Parent / Guardian</SelectItem>
-                      <SelectItem value="player">Player / Student</SelectItem>
-                      <SelectItem value="coach">Coach / Scout</SelectItem>
+                      <SelectItem value="parent">Parent / Tuteur</SelectItem>
+                      <SelectItem value="player">Joueur / Étudiant</SelectItem>
+                      <SelectItem value="coach">Entraîneur / Recruteur</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -204,13 +204,13 @@ export function SignUpForm() {
                     className="mt-1"
                   />
                   <Label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed cursor-pointer">
-                    I agree to the{" "}
-                    <Link href="/terms" className="text-[#008037] hover:underline font-medium">
-                      Terms of Service
+                    J'accepte les{" "}
+                    <Link href="/terms" className="text-[#f29200] hover:underline font-medium">
+                      Conditions d'Utilisation
                     </Link>{" "}
-                    and{" "}
-                    <Link href="/privacy" className="text-[#008037] hover:underline font-medium">
-                      Privacy Policy
+                    et la{" "}
+                    <Link href="/privacy" className="text-[#f29200] hover:underline font-medium">
+                      Politique de Confidentialité
                     </Link>
                   </Label>
                 </div>
@@ -221,16 +221,16 @@ export function SignUpForm() {
                   className="w-full h-12 bg-[#d4af37] hover:bg-[#b8962e] text-[#2E2E2E] font-semibold text-base"
                   disabled={!formData.agreeToTerms}
                 >
-                  Create Account
+                  Créer le Compte
                 </Button>
               </form>
 
               {/* Login Redirect */}
               <div className="mt-8 text-center">
                 <p className="text-sm text-muted-foreground">
-                  Already have an account?{" "}
-                  <Link href="/login" className="text-[#008037] hover:underline font-medium">
-                    Sign in
+                  Vous avez déjà un compte ?{" "}
+                  <Link href="/login" className="text-[#f29200] hover:underline font-medium">
+                    Se connecter
                   </Link>
                 </p>
               </div>

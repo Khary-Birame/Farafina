@@ -15,12 +15,12 @@ export default function FFATVPage() {
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20 overflow-hidden">
         {/* Background Video Effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#008037]/20 via-[#1a1a1a]/90 to-[#1a1a1a]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#f29200]/20 via-[#1a1a1a]/90 to-[#1a1a1a]" />
         <div className="absolute inset-0 opacity-20">
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: "radial-gradient(circle at 2px 2px, #008037 1px, transparent 0)",
+              backgroundImage: "radial-gradient(circle at 2px 2px, #f29200 1px, transparent 0)",
               backgroundSize: "40px 40px",
             }}
           />
@@ -30,26 +30,26 @@ export default function FFATVPage() {
           <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
             <div className="inline-flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold mb-6 animate-pulse">
               <Radio size={16} />
-              <span>LIVE NOW</span>
+              <span>EN DIRECT MAINTENANT</span>
             </div>
             <h1 className="font-sans font-bold text-5xl lg:text-7xl text-white mb-6 leading-tight text-balance">
-              FFA TV — Watch the <span className="text-[#008037]">Legends of Tomorrow</span> in Action
+              FFA TV — Regardez les <span className="text-[#f29200]">Légendes de Demain</span> en Action
             </h1>
             <p className="text-lg text-gray-300 leading-relaxed mb-8 text-pretty">
-              Experience live matches, exclusive highlights, and behind-the-scenes training sessions from Farafina Foot
+              Découvrez les matchs en direct, les moments forts exclusifs et les séances d'entraînement en coulisses de Farafina Foot
               Academy.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-[#008037] hover:bg-[#006629] text-white text-base h-12 px-8">
+              <Button size="lg" className="bg-[#f29200] hover:bg-[#d17f00] text-white text-base h-12 px-8">
                 <Play size={20} className="mr-2" />
-                Watch Live Now
+                Regarder en Direct
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="border-white text-white hover:bg-white/10 text-base h-12 px-8 bg-transparent"
               >
-                Browse Replays
+                Parcourir les Replays
               </Button>
             </div>
           </div>

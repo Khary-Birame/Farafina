@@ -5,7 +5,7 @@ export function UserEngagement() {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Sign In CTA */}
-      <div className="bg-gradient-to-br from-[#008037] to-[#006629] rounded-2xl p-8 lg:p-12 mb-8 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-[#f29200] to-[#d17f00] rounded-2xl p-8 lg:p-12 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
@@ -21,15 +21,14 @@ export function UserEngagement() {
             <Lock size={32} className="text-white" />
           </div>
           <h2 className="font-sans font-bold text-3xl lg:text-4xl text-white mb-4 text-balance">
-            Sign In to Access Exclusive Matches
+            Connectez-vous pour Accéder aux Matchs Exclusifs
           </h2>
           <p className="text-lg text-white/90 mb-8 text-pretty max-w-2xl mx-auto">
-            Get unlimited access to live streams, full match replays, player interviews, and exclusive behind-the-scenes
-            content.
+            Accédez à des flux en direct, des replays de matchs complets, des interviews de joueurs et du contenu exclusif en coulisses.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-[#008037] hover:bg-gray-100 text-base h-12 px-8">
-              Sign In
+            <Button size="lg" className="bg-white text-[#f29200] hover:bg-gray-100 text-base h-12 px-8">
+              Se Connecter
               <ArrowRight size={20} className="ml-2" />
             </Button>
             <Button
@@ -37,7 +36,7 @@ export function UserEngagement() {
               variant="outline"
               className="border-white text-white hover:bg-white/10 text-base h-12 px-8 bg-transparent"
             >
-              Create Account
+              Créer un Compte
             </Button>
           </div>
         </div>
@@ -45,33 +44,33 @@ export function UserEngagement() {
 
       {/* Features Grid */}
       <div className="grid md:grid-cols-3 gap-6">
-        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#008037] transition-all">
-          <div className="w-12 h-12 bg-[#008037]/20 rounded-xl flex items-center justify-center mb-4">
-            <MessageCircle size={24} className="text-[#008037]" />
+        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#f29200] transition-all">
+          <div className="w-12 h-12 bg-[#f29200]/20 rounded-xl flex items-center justify-center mb-4">
+            <MessageCircle size={24} className="text-[#f29200]" />
           </div>
-          <h3 className="font-sans font-bold text-white text-lg mb-2">Live Chat</h3>
+          <h3 className="font-sans font-bold text-white text-lg mb-2">Chat en Direct</h3>
           <p className="text-gray-400 text-sm leading-relaxed">
-            Join the conversation with fans during live matches and share your thoughts.
+            Rejoignez la conversation avec les fans pendant les matchs en direct et partagez vos pensées.
           </p>
         </div>
 
-        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#008037] transition-all">
-          <div className="w-12 h-12 bg-[#008037]/20 rounded-xl flex items-center justify-center mb-4">
-            <Bell size={24} className="text-[#008037]" />
+        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#f29200] transition-all">
+          <div className="w-12 h-12 bg-[#f29200]/20 rounded-xl flex items-center justify-center mb-4">
+            <Bell size={24} className="text-[#f29200]" />
           </div>
-          <h3 className="font-sans font-bold text-white text-lg mb-2">Match Alerts</h3>
+          <h3 className="font-sans font-bold text-white text-lg mb-2">Alertes de Match</h3>
           <p className="text-gray-400 text-sm leading-relaxed">
-            Get notified when your favorite teams and players are about to go live.
+            Recevez des notifications lorsque vos équipes et joueurs favoris sont sur le point d'être en direct.
           </p>
         </div>
 
-        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#008037] transition-all">
+        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#f29200] transition-all">
           <div className="w-12 h-12 bg-[#D4AF37]/20 rounded-xl flex items-center justify-center mb-4">
             <Lock size={24} className="text-[#D4AF37]" />
           </div>
-          <h3 className="font-sans font-bold text-white text-lg mb-2">Premium Content</h3>
+          <h3 className="font-sans font-bold text-white text-lg mb-2">Contenu Premium</h3>
           <p className="text-gray-400 text-sm leading-relaxed">
-            Access exclusive interviews, training sessions, and documentary content.
+            Accédez à des interviews exclusives, des séances d'entraînement et du contenu documentaire.
           </p>
         </div>
       </div>

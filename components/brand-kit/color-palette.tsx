@@ -1,38 +1,38 @@
 export function ColorPalette() {
   const colors = [
     {
-      name: "Farafina Green",
-      hex: "#008037",
-      rgb: "0, 128, 55",
-      description: "Vitality, growth, and African heritage",
-      gradient: "from-[#008037] to-[#00a045]",
+      name: "Farafina Orange",
+      hex: "#f29200",
+      rgb: "242, 146, 0",
+      description: "Vitalité, croissance et patrimoine africain",
+      gradient: "from-[#f29200] to-[#ffa726]",
     },
     {
       name: "Anthracite Gray",
       hex: "#2E2E2E",
       rgb: "46, 46, 46",
-      description: "Strength, professionalism, and stability",
+      description: "Force, professionnalisme et stabilité",
       gradient: "from-[#2E2E2E] to-[#3a3a3a]",
     },
     {
       name: "Gold",
       hex: "#D4AF37",
       rgb: "212, 175, 55",
-      description: "Excellence, prestige, and achievement",
+      description: "Excellence, prestige et réussite",
       gradient: "from-[#D4AF37] to-[#e6c966]",
     },
     {
       name: "White",
       hex: "#FFFFFF",
       rgb: "255, 255, 255",
-      description: "Clarity, purity, and openness",
+      description: "Clarté, pureté et ouverture",
       gradient: "from-white to-[#F5F5F5]",
     },
     {
       name: "Light Gray",
       hex: "#F5F5F5",
       rgb: "245, 245, 245",
-      description: "Subtle backgrounds and soft contrast",
+      description: "Arrière-plans subtils et contraste doux",
       gradient: "from-[#F5F5F5] to-[#E5E5E5]",
     },
   ]
@@ -42,8 +42,8 @@ export function ColorPalette() {
       <div className="container mx-auto max-w-6xl">
         {/* Section Title */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-sans font-bold text-white mb-6">Color Palette</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#008037] to-[#D4AF37] mx-auto" />
+          <h2 className="text-5xl md:text-6xl font-sans font-bold text-white mb-6">Palette de Couleurs</h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#f29200] to-[#D4AF37] mx-auto" />
         </div>
 
         {/* Color Swatches */}

@@ -3,33 +3,33 @@ import Image from "next/image"
 export function PageMockups() {
   const pages = [
     {
-      title: "Homepage",
-      description: "Dynamic hero section with academy vision, stats, programs, and values.",
+      title: "Page d'accueil",
+      description: "Section hero dynamique avec la vision de l'académie, statistiques, programmes et valeurs.",
       image: "/farafina-academy-homepage-hero-with-green-and-gold.jpg",
     },
     {
-      title: "Academic & Sports Programs",
-      description: "Dual excellence showcase with integrated schedule and age-group programs.",
+      title: "Programmes Académiques & Sportifs",
+      description: "Vitrine de double excellence avec planning intégré et programmes par groupes d'âge.",
       image: "/sports-and-academic-programs-page-layout.jpg",
     },
     {
-      title: "Admissions & Payments",
-      description: "Clear application process with multi-currency payment and scholarship info.",
+      title: "Admissions & Paiements",
+      description: "Processus de candidature clair avec paiement multi-devises et informations sur les bourses.",
       image: "/admissions-form-with-payment-options.jpg",
     },
     {
       title: "FFA TV",
-      description: "Premium streaming platform with live matches, replays, and highlights.",
+      description: "Plateforme de streaming premium avec matchs en direct, rediffusions et highlights.",
       image: "/video-streaming-platform-dark-theme.jpg",
     },
     {
-      title: "AI & Talent Scouting",
-      description: "Futuristic dashboard showcasing AI-powered player analytics and predictions.",
+      title: "IA & Détection de Talents",
+      description: "Tableau de bord futuriste présentant les analyses et prédictions de joueurs alimentées par l'IA.",
       image: "/ai-dashboard-with-player-metrics-and-analytics.jpg",
     },
     {
-      title: "Partners & Contact",
-      description: "Professional contact form with partnership opportunities and location map.",
+      title: "Partenaires & Contact",
+      description: "Formulaire de contact professionnel avec opportunités de partenariat et carte de localisation.",
       image: "/contact-page-with-form-and-map.jpg",
     },
   ]
@@ -39,10 +39,10 @@ export function PageMockups() {
       <div className="container mx-auto max-w-7xl">
         {/* Section Title */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-sans font-bold text-[#2E2E2E] mb-6">Page Mockups</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#008037] to-[#D4AF37] mx-auto mb-6" />
+          <h2 className="text-5xl md:text-6xl font-sans font-bold text-[#2E2E2E] mb-6">Maquettes de Pages</h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#f29200] to-[#D4AF37] mx-auto mb-6" />
           <p className="text-xl text-[#737373] font-mono max-w-3xl mx-auto">
-            Complete website experience across all major sections
+            Expérience complète du site web à travers toutes les sections principales
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export function PageMockups() {
           {pages.map((page, index) => (
             <div
               key={index}
-              className="group bg-[#F5F5F5] rounded-3xl overflow-hidden border-2 border-[#E5E5E5] hover:border-[#008037] transition-all hover:shadow-2xl"
+              className="group bg-[#F5F5F5] rounded-3xl overflow-hidden border-2 border-[#E5E5E5] hover:border-[#f29200] transition-all hover:shadow-2xl"
             >
               {/* Mockup Image */}
               <div className="relative aspect-video bg-gradient-to-br from-[#2E2E2E] to-[#3a3a3a] overflow-hidden">
@@ -66,7 +66,7 @@ export function PageMockups() {
                   <div className="flex gap-1.5">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
                     <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                    <div className="w-3 h-3 rounded-full bg-green-500" />
+                    <div className="w-3 h-3 rounded-full bg-[#f29200]" />
                   </div>
                 </div>
               </div>

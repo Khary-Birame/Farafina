@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { VideoCard } from "./video-card"
 import { Play } from "lucide-react"
 
-const tabs = ["All", "Live", "Replays", "Highlights"]
+const tabs = ["Tous", "En Direct", "Replays", "Moments Forts"]
 
 const videos = [
   {
@@ -71,17 +71,24 @@ const videos = [
 ]
 
 export function VideoGrid() {
-  const [activeTab, setActiveTab] = useState("All")
+  const [activeTab, setActiveTab] = useState("Tous")
 
-  const filteredVideos = activeTab === "All" ? videos : videos.filter((v) => v.category === activeTab)
+  const filteredVideos = activeTab === "Tous" ? videos : videos.filter((v) => {
+    const tabMap: Record<string, string> = {
+      "En Direct": "Live",
+      "Replays": "Replays",
+      "Moments Forts": "Highlights"
+    }
+    return v.category === tabMap[activeTab]
+  })
 
   return (
     <div>
       {/* Section Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
         <div>
-          <h2 className="font-sans font-bold text-3xl lg:text-4xl text-white mb-2">Replays & Highlights</h2>
-          <p className="text-gray-400">Watch the best moments from FFA matches and training sessions</p>
+          <h2 className="font-sans font-bold text-3xl lg:text-4xl text-white mb-2">Replays et Moments Forts</h2>
+          <p className="text-gray-400">Regardez les meilleurs moments des matchs et séances d'entraînement de la FFA</p>
         </div>
 
         {/* Filter Tabs */}
@@ -93,7 +100,7 @@ export function VideoGrid() {
               variant="ghost"
               className={`px-4 py-2 rounded-lg transition-all ${
                 activeTab === tab
-                  ? "bg-[#008037] text-white hover:bg-[#006629]"
+                  ? "bg-[#f29200] text-white hover:bg-[#d17f00]"
                   : "text-gray-400 hover:text-white hover:bg-[#3a3a3a]"
               }`}
               onClick={() => setActiveTab(tab)}
@@ -119,7 +126,7 @@ export function VideoGrid() {
           className="border-[#3a3a3a] text-white hover:bg-[#2E2E2E] text-base h-12 px-8 bg-transparent"
         >
           <Play size={20} className="mr-2" />
-          Load More Videos
+          Charger Plus de Vidéos
         </Button>
       </div>
     </div>

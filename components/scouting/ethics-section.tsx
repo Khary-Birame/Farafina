@@ -7,41 +7,40 @@ export function EthicsSection() {
   const principles = [
     {
       icon: Shield,
-      title: "GDPR Compliant",
-      description: "Full compliance with European data protection regulations and international privacy standards.",
+      title: "Conforme GDPR",
+      description: "Conformité totale aux règlements européens de protection des données et aux normes internationales de confidentialité.",
     },
     {
       icon: Lock,
-      title: "Parental Consent",
-      description: "All data collection requires explicit parental or guardian consent for players under 18 years old.",
+      title: "Consentement Parental",
+      description: "Toute collecte de données nécessite le consentement explicite des parents ou tuteurs pour les joueurs de moins de 18 ans.",
     },
     {
       icon: Heart,
-      title: "Gender Inclusion",
-      description: "Equal evaluation criteria for male and female players, promoting diversity and fair opportunities.",
+      title: "Inclusion des Genres",
+      description: "Critères d'évaluation égaux pour les joueurs masculins et féminins, favorisant la diversité et des opportunités équitables.",
     },
   ]
 
   const commitments = [
-    "Data is encrypted and stored securely",
-    "Players can request data deletion at any time",
-    "No data is shared with third parties without consent",
-    "AI models are regularly audited for bias",
-    "Transparent scoring methodology available to all families",
+    "Les données sont cryptées et stockées de manière sécurisée",
+    "Les joueurs peuvent demander la suppression de leurs données à tout moment",
+    "Aucune donnée n'est partagée avec des tiers sans consentement",
+    "Les modèles IA sont régulièrement audités pour détecter les biais",
+    "Méthodologie de notation transparente disponible pour toutes les familles",
   ]
 
   return (
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#008037]/10 border border-[#008037]/20 mb-4">
-            <Shield className="w-4 h-4 text-[#008037]" />
-            <span className="text-sm font-medium text-[#008037]">Trust & Transparency</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f29200]/10 border border-[#f29200]/20 mb-4">
+            <Shield className="w-4 h-4 text-[#f29200]" />
+            <span className="text-sm font-medium text-[#f29200]">Confiance et Transparence</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">Ethics & Data Privacy</h2>
+          <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">Éthique et Confidentialité des Données</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Your trust is our foundation. We are committed to the highest standards of data protection and ethical AI
-            use.
+            Votre confiance est notre fondation. Nous nous engageons aux plus hauts standards de protection des données et d'utilisation éthique de l'IA.
           </p>
         </div>
 
@@ -49,10 +48,10 @@ export function EthicsSection() {
           {principles.map((principle, index) => (
             <Card
               key={index}
-              className="p-8 text-center hover:shadow-lg transition-all duration-300 border-2 hover:border-[#008037]/20"
+              className="p-8 text-center hover:shadow-lg transition-all duration-300 border-2 hover:border-[#f29200]/20"
             >
-              <div className="inline-flex p-4 rounded-full bg-[#008037]/10 mb-4">
-                <principle.icon className="w-8 h-8 text-[#008037]" />
+              <div className="inline-flex p-4 rounded-full bg-[#f29200]/10 mb-4">
+                <principle.icon className="w-8 h-8 text-[#f29200]" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">{principle.title}</h3>
               <p className="text-muted-foreground leading-relaxed">{principle.description}</p>
@@ -61,13 +60,13 @@ export function EthicsSection() {
         </div>
 
         {/* Commitments Card */}
-        <Card className="p-8 md:p-12 bg-gradient-to-br from-[#008037]/5 to-transparent border-2 border-[#008037]/20">
+        <Card className="p-8 md:p-12 bg-gradient-to-br from-[#f29200]/5 to-transparent border-2 border-[#f29200]/20">
           <div className="max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold text-foreground mb-6 text-center">Our Data Protection Commitments</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-6 text-center">Nos Engagements de Protection des Données</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {commitments.map((commitment, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-[#008037] flex-shrink-0 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#f29200] flex-shrink-0 mt-0.5" />
                   <span className="text-muted-foreground">{commitment}</span>
                 </div>
               ))}
@@ -76,16 +75,16 @@ export function EthicsSection() {
             {/* Trust Badges */}
             <div className="flex flex-wrap items-center justify-center gap-6 mt-8 pt-8 border-t border-border">
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-border">
-                <Lock className="w-5 h-5 text-[#008037]" />
-                <span className="text-sm font-medium text-foreground">SSL Secured</span>
+                <Lock className="w-5 h-5 text-[#f29200]" />
+                <span className="text-sm font-medium text-foreground">Sécurisé SSL</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-border">
-                <Shield className="w-5 h-5 text-[#008037]" />
-                <span className="text-sm font-medium text-foreground">GDPR Compliant</span>
+                <Shield className="w-5 h-5 text-[#f29200]" />
+                <span className="text-sm font-medium text-foreground">Conforme GDPR</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-border">
-                <Heart className="w-5 h-5 text-[#008037]" />
-                <span className="text-sm font-medium text-foreground">Ethically Designed</span>
+                <Heart className="w-5 h-5 text-[#f29200]" />
+                <span className="text-sm font-medium text-foreground">Conçu Éthiquement</span>
               </div>
             </div>
           </div>

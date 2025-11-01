@@ -11,9 +11,9 @@ export function ScoutingHero() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, #008037 0%, transparent 50%),
+            backgroundImage: `radial-gradient(circle at 20% 50%, #f29200 0%, transparent 50%),
                            radial-gradient(circle at 80% 80%, #D4AF37 0%, transparent 50%),
-                           radial-gradient(circle at 40% 20%, #008037 0%, transparent 50%)`,
+                           radial-gradient(circle at 40% 20%, #f29200 0%, transparent 50%)`,
             filter: "blur(60px)",
           }}
         />
@@ -24,53 +24,52 @@ export function ScoutingHero() {
         <div
           className="h-full w-full"
           style={{
-            backgroundImage: `linear-gradient(#008037 1px, transparent 1px),
-                           linear-gradient(90deg, #008037 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(#f29200 1px, transparent 1px),
+                           linear-gradient(90deg, #f29200 1px, transparent 1px)`,
             backgroundSize: "50px 50px",
           }}
         />
       </div>
 
       <div className="container relative z-10 mx-auto px-4 lg:px-8 py-20 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#008037]/10 border border-[#008037]/20 mb-6 animate-fade-in-up">
-          <Brain className="w-4 h-4 text-[#008037]" />
-          <span className="text-sm font-medium text-[#008037]">Powered by Artificial Intelligence</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f29200]/10 border border-[#f29200]/20 mb-6 animate-fade-in-up">
+          <Brain className="w-4 h-4 text-[#f29200]" />
+          <span className="text-sm font-medium text-[#f29200]">Alimenté par l'Intelligence Artificielle</span>
         </div>
 
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-bold text-white mb-6 animate-fade-in-up text-balance">
-          AI & Talent Scouting
+          IA & Détection de Talents
         </h1>
 
         <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto animate-fade-in-up text-balance">
-          Empowering coaches and players through data-driven insights
+          Renforcer les entraîneurs et les joueurs grâce à des insights basés sur les données
         </p>
 
         <p className="text-base md:text-lg text-gray-400 mb-10 max-w-2xl mx-auto animate-fade-in-up">
-          Farafina Foot Academy integrates cutting-edge AI technology to identify, track, and develop football talent
-          across Africa with precision and fairness.
+          Farafina Foot Academy intègre une technologie IA de pointe pour identifier, suivre et développer les talents du football à travers l'Afrique avec précision et équité.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up">
-          <Button size="lg" className="bg-[#008037] hover:bg-[#006629] text-white px-8">
+          <Button size="lg" className="bg-[#f29200] hover:bg-[#d17f00] text-white px-8">
             <TrendingUp className="w-5 h-5 mr-2" />
-            View Demo Dashboard
+            Voir le Tableau de Bord Démo
           </Button>
           <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 bg-transparent">
-            Learn More
+            En Savoir Plus
           </Button>
         </div>
 
         {/* Floating Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto">
           {[
-            { value: "10K+", label: "Players Tracked" },
-            { value: "98%", label: "Accuracy Rate" },
-            { value: "24/7", label: "Real-time Analysis" },
-            { value: "100%", label: "Gender Inclusive" },
+            { value: "10K+", label: "Joueurs Suivis" },
+            { value: "98%", label: "Taux de Précision" },
+            { value: "24/7", label: "Analyse en Temps Réel" },
+            { value: "100%", label: "Inclusif Genre" },
           ].map((stat, index) => (
             <div
               key={index}
-              className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#008037]/50 transition-all duration-300"
+              className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#f29200]/50 transition-all duration-300"
             >
               <div className="text-3xl font-bold text-[#D4AF37] mb-2">{stat.value}</div>
               <div className="text-sm text-gray-400">{stat.label}</div>

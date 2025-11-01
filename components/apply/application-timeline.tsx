@@ -4,33 +4,33 @@ export function ApplicationTimeline() {
   const steps = [
     {
       icon: FileText,
-      title: "Submit Form",
-      description: "Complete the online application with all required documents",
+      title: "Soumettre le Formulaire",
+      description: "Complétez la candidature en ligne avec tous les documents requis",
       duration: "15-20 minutes",
     },
     {
       icon: Search,
-      title: "Evaluation",
-      description: "Our team reviews your application and supporting materials",
-      duration: "5-7 days",
+      title: "Évaluation",
+      description: "Notre équipe examine votre candidature et les documents à l'appui",
+      duration: "5-7 jours",
     },
     {
       icon: MessageSquare,
-      title: "Interview",
-      description: "Selected candidates invited for virtual or in-person interview",
-      duration: "1-2 weeks",
+      title: "Entretien",
+      description: "Les candidats sélectionnés sont invités pour un entretien virtuel ou en personne",
+      duration: "1-2 semaines",
     },
     {
       icon: CheckCircle,
       title: "Confirmation",
-      description: "Receive admission decision and next steps via email",
-      duration: "3-5 days",
+      description: "Recevez la décision d'admission et les prochaines étapes par email",
+      duration: "3-5 jours",
     },
     {
       icon: UserCheck,
-      title: "Enrollment",
-      description: "Complete enrollment process and prepare for academy life",
-      duration: "2-4 weeks",
+      title: "Inscription",
+      description: "Complétez le processus d'inscription et préparez-vous pour la vie à l'académie",
+      duration: "2-4 semaines",
     },
   ]
 
@@ -38,9 +38,9 @@ export function ApplicationTimeline() {
     <section className="py-20 lg:py-24 bg-[#2E2E2E]">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-sans font-bold text-white mb-4">Application Timeline</h2>
+          <h2 className="text-3xl lg:text-4xl font-sans font-bold text-white mb-4">Calendrier de Candidature</h2>
           <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            From submission to enrollment — here's what to expect during your application journey
+            De la soumission à l'inscription — voici ce à quoi s'attendre pendant votre parcours de candidature
           </p>
         </div>
 
@@ -65,7 +65,7 @@ export function ApplicationTimeline() {
 
                   {/* Content */}
                   <div className="text-center">
-                    <div className="text-sm font-semibold text-[#D4AF37] mb-2">Step {index + 1}</div>
+                    <div className="text-sm font-semibold text-[#D4AF37] mb-2">Étape {index + 1}</div>
                     <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
                     <p className="text-sm text-white/70 mb-3 leading-relaxed">{step.description}</p>
                     <div className="text-xs text-white/50">{step.duration}</div>
@@ -91,7 +91,7 @@ export function ApplicationTimeline() {
 
               {/* Content */}
               <div className="flex-1">
-                <div className="text-sm font-semibold text-[#D4AF37] mb-1">Step {index + 1}</div>
+                <div className="text-sm font-semibold text-[#D4AF37] mb-1">Étape {index + 1}</div>
                 <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
                 <p className="text-sm text-white/70 mb-2 leading-relaxed">{step.description}</p>
                 <div className="text-xs text-white/50">{step.duration}</div>

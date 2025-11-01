@@ -28,13 +28,13 @@ export function NewsletterBanner() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             {/* Left Side - Text */}
             <div className="flex items-start gap-4 flex-1">
-              <div className="w-12 h-12 bg-[#008037] rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center flex-shrink-0">
                 <Mail className="text-white" size={24} />
               </div>
               <div>
-                <h3 className="font-sans font-bold text-xl md:text-2xl text-white mb-2">Stay Updated</h3>
+                <h3 className="font-sans font-bold text-xl md:text-2xl text-white mb-2">Restez Informé</h3>
                 <p className="text-gray-400 text-sm md:text-base">
-                  Subscribe to our newsletter for the latest news, events, and opportunities.
+                  Abonnez-vous à notre newsletter pour les dernières actualités, événements et opportunités.
                 </p>
               </div>
             </div>
@@ -42,15 +42,15 @@ export function NewsletterBanner() {
             {/* Right Side - Form */}
             <div className="w-full md:w-auto md:min-w-96">
               {subscribed ? (
-                <div className="flex items-center gap-3 bg-[#008037]/20 border border-[#008037] rounded-lg px-4 py-3">
-                  <CheckCircle className="text-[#008037]" size={24} />
-                  <span className="text-white font-medium">Successfully subscribed!</span>
+                <div className="flex items-center gap-3 bg-[#f29200]/20 border border-[#f29200] rounded-lg px-4 py-3">
+                  <CheckCircle className="text-[#f29200]" size={24} />
+                  <span className="text-white font-medium">Abonnement réussi !</span>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex gap-2">
                   <Input
                     type="email"
-                    placeholder="Enter your email"
+                    placeholder="Entrez votre email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -60,7 +60,7 @@ export function NewsletterBanner() {
                     type="submit"
                     className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold px-6 h-12"
                   >
-                    Subscribe
+                    S'abonner
                   </Button>
                 </form>
               )}

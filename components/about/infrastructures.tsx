@@ -6,33 +6,33 @@ import { Button } from "@/components/ui/button"
 
 const facilities = [
   {
-    title: "FIFA-Standard Football Fields",
-    description: "Professional-grade natural and synthetic turf fields meeting international standards.",
+    title: "Terrains de Football aux Normes FIFA",
+    description: "Terrains en gazon naturel et synthétique de niveau professionnel respectant les normes internationales.",
     image: "/fifa-standard-football-field.jpg",
   },
   {
-    title: "Modern Classrooms",
-    description: "State-of-the-art learning spaces equipped with digital technology and interactive tools.",
+    title: "Salles de Classe Modernes",
+    description: "Espaces d'apprentissage de pointe équipés de technologie numérique et d'outils interactifs.",
     image: "/modern-classroom-technology.jpg",
   },
   {
-    title: "Medical Center",
-    description: "Comprehensive healthcare facility with sports medicine specialists and rehabilitation equipment.",
+    title: "Centre Médical",
+    description: "Installation de soins de santé complète avec des spécialistes en médecine du sport et équipements de rééducation.",
     image: "/sports-medical-center.jpg",
   },
   {
-    title: "Student Residences",
-    description: "Comfortable, secure accommodation with study areas and recreational facilities.",
+    title: "Résidences Étudiantes",
+    description: "Hébergement confortable et sécurisé avec espaces d'étude et installations récréatives.",
     image: "/student-residence-dormitory.jpg",
   },
   {
-    title: "Performance Center",
-    description: "Advanced gym and fitness facilities with strength training and conditioning equipment.",
+    title: "Centre de Performance",
+    description: "Salle de sport et installations de conditionnement physique avancées avec équipements d'entraînement en force et conditionnement.",
     image: "/sports-performance-gym.jpg",
   },
   {
-    title: "Scout & VIP Spaces",
-    description: "Professional coworking areas and viewing lounges for scouts, agents, and partners.",
+    title: "Espaces Recruteurs & VIP",
+    description: "Espaces de coworking professionnels et salons d'observation pour recruteurs, agents et partenaires.",
     image: "/modern-coworking-space.jpg",
   },
 ]
@@ -52,9 +52,9 @@ export function Infrastructures() {
     <section className="py-24 bg-[#2E2E2E]">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="font-sans font-bold text-4xl md:text-5xl text-white mb-4">World-Class Infrastructures</h2>
+          <h2 className="font-sans font-bold text-4xl md:text-5xl text-white mb-4">Infrastructures de Classe Mondiale</h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Our facilities are designed to provide the best environment for athletic and academic excellence.
+            Nos installations sont conçues pour fournir le meilleur environnement pour l'excellence athlétique et académique.
           </p>
         </div>
 
@@ -112,7 +112,7 @@ export function Infrastructures() {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentIndex ? "bg-[#008037] w-8" : "bg-white/30"
+                    index === currentIndex ? "bg-[#f29200] w-8" : "bg-white/30"
                   }`}
                 />
               ))}

@@ -14,23 +14,23 @@ export function PartnersSection() {
   const benefits = [
     {
       icon: Globe,
-      title: "Global Visibility",
-      description: "Reach audiences across Africa and beyond",
+      title: "Visibilité Mondiale",
+      description: "Atteignez des audiences à travers l'Afrique et au-delà",
     },
     {
       icon: TrendingUp,
-      title: "Brand Growth",
-      description: "Align with excellence and youth development",
+      title: "Croissance de la Marque",
+      description: "Alignez-vous avec l'excellence et le développement des jeunes",
     },
     {
       icon: Award,
-      title: "Social Impact",
-      description: "Support the next generation of African talent",
+      title: "Impact Social",
+      description: "Soutenez la prochaine génération de talents africains",
     },
     {
       icon: Handshake,
-      title: "Strategic Alliance",
-      description: "Join a network of visionary partners",
+      title: "Alliance Stratégique",
+      description: "Rejoignez un réseau de partenaires visionnaires",
     },
   ]
 
@@ -40,9 +40,9 @@ export function PartnersSection() {
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#2E2E2E]">Our Partners</h2>
+            <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#2E2E2E]">Nos Partenaires</h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-              Join our network of visionary partners supporting youth and excellence in Africa.
+              Rejoignez notre réseau de partenaires visionnaires soutenant la jeunesse et l'excellence en Afrique.
             </p>
           </div>
 
@@ -66,12 +66,12 @@ export function PartnersSection() {
 
           {/* Partnership Benefits */}
           <div className="mb-12">
-            <h3 className="font-sans font-bold text-2xl text-center mb-8 text-[#2E2E2E]">Why Partner With Us?</h3>
+            <h3 className="font-sans font-bold text-2xl text-center mb-8 text-[#2E2E2E]">Pourquoi Partenarier avec Nous ?</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {benefits.map((benefit, index) => (
                 <div key={index} className="text-center">
-                  <div className="w-16 h-16 bg-[#008037]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="text-[#008037]" size={32} />
+                  <div className="w-16 h-16 bg-[#f29200]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <benefit.icon className="text-[#f29200]" size={32} />
                   </div>
                   <h4 className="font-semibold text-lg mb-2 text-[#2E2E2E]">{benefit.title}</h4>
                   <p className="text-sm text-gray-600">{benefit.description}</p>
@@ -81,13 +81,13 @@ export function PartnersSection() {
           </div>
 
           {/* CTA */}
-          <div className="bg-gradient-to-br from-[#008037] to-[#006629] rounded-2xl p-8 md:p-12 text-center text-white">
-            <h3 className="font-sans font-bold text-2xl md:text-3xl mb-4">Become a Partner</h3>
+          <div className="bg-gradient-to-br from-[#f29200] to-[#d17f00] rounded-2xl p-8 md:p-12 text-center text-white">
+            <h3 className="font-sans font-bold text-2xl md:text-3xl mb-4">Devenez Partenaire</h3>
             <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-              Together, we can create opportunities for young African talent and build the future of football.
+              Ensemble, nous pouvons créer des opportunités pour les jeunes talents africains et construire l'avenir du football.
             </p>
             <Button className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold px-8 h-12 text-base">
-              Partner With Us
+              Devenir Partenaire
             </Button>
           </div>
         </div>

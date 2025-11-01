@@ -16,11 +16,11 @@ export function Header() {
           <Link href="/" className="flex items-center gap-3">
             <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center overflow-hidden">
               <Image
-                src="/ffa.jpg"
+                src="https://res.cloudinary.com/drkudvdmd/image/upload/v1762007821/ffa_kbbb86.jpg"
                 alt="Farafina Foot Academy"
                 width={48}
                 height={48}
-                className="w-full h-full object-contain"
+                // className="w-full h-full object-contain"
               />
             </div>
             <div className="hidden sm:block">

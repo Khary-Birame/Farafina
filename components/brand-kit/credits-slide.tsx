@@ -3,7 +3,7 @@ export function CreditsSlide() {
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37] via-[#e6c966] to-[#008037] opacity-95" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37] via-[#e6c966] to-[#f29200] opacity-95" />
       </div>
 
       {/* Pattern Overlay */}
@@ -21,7 +21,7 @@ export function CreditsSlide() {
         {/* Logo */}
         <div className="mb-8 flex justify-center">
           <div className="w-24 h-24 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
-            <span className="text-[#008037] font-sans font-bold text-4xl">FFA</span>
+            <span className="text-[#f29200] font-sans font-bold text-4xl">FFA</span>
           </div>
         </div>
 
