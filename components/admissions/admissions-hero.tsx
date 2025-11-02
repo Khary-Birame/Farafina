@@ -9,11 +9,30 @@ export function AdmissionsHero() {
   }
 
   return (
-    <section className="relative bg-gradient-to-br from-[#f29200] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
+    <section className="relative text-white py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-[#2E2E2E] via-[#3a3a3a] to-[#2E2E2E]">
+      {/* Modern Animated Background */}
+      <div className="absolute inset-0">
+        {/* Animated gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#f29200]/20 via-transparent to-[#d17e00]/20 animate-pulse-glow" />
+
+        {/* Geometric shapes */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-[#f29200]/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#D4AF37]/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[#f29200]/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        </div>
+
+        {/* Grid pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, white 1px, transparent 1px),
+              linear-gradient(to bottom, white 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
@@ -44,21 +63,16 @@ export function AdmissionsHero() {
               Commencez votre inscription
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white/10 bg-transparent"
-              onClick={() => {
-                // Créer un lien de téléchargement temporaire
-                const link = document.createElement("a")
-                link.href = "#"
-                link.download = "brochure-farafina.pdf"
-                link.click()
-              }}
-            >
-              <Download className="mr-2 w-4 h-4" />
-              Télécharger la brochure
-            </Button>
+            <a href="/brochure.pdf" download="brochure-farafina-foot-academy.pdf">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white/10 bg-transparent"
+              >
+                <Download className="mr-2 w-4 h-4" />
+                Télécharger la brochure
+              </Button>
+            </a>
           </div>
 
           {/* Trust Indicators */}

@@ -56,15 +56,15 @@ export function ScholarshipSection() {
               return (
                 <div
                   key={index}
-                  className="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-shadow"
+                  className="bg-card border border-border rounded-xl p-6 hover:shadow-xl hover:border-[#f29200] hover:-translate-y-2 transition-all duration-300 group"
                 >
-                  <div className="w-12 h-12 bg-[#f29200]/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-[#f29200]" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-[#f29200]/10 to-[#f29200]/5 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[#f29200] group-hover:to-[#d17e00] transition-transform duration-300">
+                    <Icon className="w-7 h-7 text-[#f29200] group-hover:text-white transition-colors duration-300" />
                   </div>
-                  <h3 className="font-sans font-semibold text-lg mb-2">{scholarship.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{scholarship.description}</p>
-                  <div className="inline-flex items-center gap-2 bg-[#D4AF37]/10 px-3 py-1 rounded-full">
-                    <span className="text-xs font-semibold text-[#D4AF37]">Couverture {scholarship.coverage}</span>
+                  <h3 className="font-sans font-semibold text-lg mb-2 group-hover:text-[#f29200] transition-colors duration-300">{scholarship.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{scholarship.description}</p>
+                  <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37]/10 to-[#D4AF37]/5 px-3 py-2 rounded-full border border-[#D4AF37]/20 group-hover:from-[#D4AF37] group-hover:to-[#B8962E] group-hover:text-white transition-all duration-300">
+                    <span className="text-xs font-semibold text-[#D4AF37] group-hover:text-white transition-colors duration-300">Couverture {scholarship.coverage}</span>
                   </div>
                 </div>
               )

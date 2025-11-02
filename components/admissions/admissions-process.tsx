@@ -49,26 +49,26 @@ export function AdmissionsProcess() {
             {/* Connection Line */}
             <div className="hidden lg:block absolute top-12 left-0 right-0 h-0.5 bg-border" />
 
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
               {steps.map((step, index) => {
                 const Icon = step.icon
                 return (
                   <div key={index} className="relative">
                     {/* Step Card */}
-                    <div className="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-shadow">
+                    <div className="h-full bg-card border border-border rounded-xl p-6 hover:shadow-xl hover:border-[#f29200] transition-all duration-300 group">
                       {/* Icon */}
-                      <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center mb-4 mx-auto lg:mx-0">
-                        <Icon className="w-6 h-6 text-white" />
+                      <div className="w-14 h-14 bg-[#f29200] rounded-xl flex items-center justify-center mb-4 mx-auto lg:mx-0 group-hover:scale-110 group-hover:bg-[#d17e00] transition-transform duration-300">
+                        <Icon className="w-7 h-7 text-white" />
                       </div>
 
                       {/* Step Number */}
-                      <div className="text-xs font-semibold text-[#f29200] mb-2">ÉTAPE {index + 1}</div>
+                      <div className="text-xs font-semibold text-[#f29200] mb-3 text-center lg:text-left">ÉTAPE {index + 1}</div>
 
                       {/* Title */}
-                      <h3 className="font-sans font-semibold text-lg mb-2 text-balance">{step.title}</h3>
+                      <h3 className="font-sans font-semibold text-lg mb-3 text-balance text-center lg:text-left group-hover:text-[#f29200] transition-colors duration-300">{step.title}</h3>
 
                       {/* Description */}
-                      <p className="text-sm text-muted-foreground leading-relaxed text-pretty">{step.description}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed text-pretty text-center lg:text-left min-h-[60px]">{step.description}</p>
                     </div>
 
                     {/* Connector Dot */}

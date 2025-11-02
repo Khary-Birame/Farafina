@@ -1,6 +1,7 @@
 import type React from "react"
 import { Poppins, Inter } from "next/font/google"
 import "./globals.css"
+import { ScrollToTop } from "@/components/scroll-to-top"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,8 +27,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
-      <body>{children}</body>
+    <html lang="fr" className={`${poppins.variable} ${inter.variable}`}>
+      <body>
+        {children}
+        <ScrollToTop />
+      </body>
     </html>
   )
 }

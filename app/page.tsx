@@ -1,3 +1,5 @@
+"use client"
+
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { StatCard } from "@/components/stat-card"
@@ -5,8 +7,16 @@ import { ProgramCard } from "@/components/program-card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Trophy, GraduationCap, Users, Globe, Play, ArrowRight, Target, Award, BookOpen, Sparkles } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export default function HomePage() {
+  const [scrollY, setScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -46,16 +56,23 @@ export default function HomePage() {
             </div>
 
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#f29200] to-[#d97f00] rounded-3xl transform rotate-3" />
+              <div
+                className="absolute inset-0 bg-gradient-to-br from-[#f29200] to-[#d97f00] rounded-3xl transform rotate-3"
+                style={{ transform: `rotate(3deg) translateY(${scrollY * 0.1}px)` }}
+              />
               <div className="relative rounded-3xl overflow-hidden shadow-2xl transform -rotate-3 hover:rotate-0 transition-transform duration-500">
                 <img
                   src="/african-youth-football-training-action-shot.jpg"
                   alt="FFA Training"
                   className="w-full h-auto"
+                  style={{ transform: `translateY(${scrollY * 0.15}px)` }}
                 />
               </div>
               {/* Floating Stats */}
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 border border-border">
+              <div
+                className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 border border-border animate-in fade-in slide-in-from-bottom-4 duration-1000"
+                style={{ transform: `translateY(${scrollY * 0.05}px)` }}
+              >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-[#f29200] rounded-xl flex items-center justify-center">
                     <Trophy size={24} className="text-white" />

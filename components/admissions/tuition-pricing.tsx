@@ -82,15 +82,17 @@ export function TuitionPricing() {
           {pricingPlans.map((plan, index) => (
             <div
               key={index}
-              className={`relative bg-card border rounded-xl p-8 ${
-                plan.popular ? "border-[#f29200] shadow-xl scale-105" : "border-border"
+              className={`relative bg-card border-2 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl group ${
+                plan.popular 
+                  ? "border-[#f29200] shadow-xl scale-105 lg:scale-110" 
+                  : "border-border hover:border-[#f29200]/50 hover:-translate-y-2"
               }`}
             >
               {/* Popular Badge */}
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <div className="bg-[#f29200] text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-                    <Star className="w-3 h-3 fill-current" />
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-10">
+                  <div className="bg-gradient-to-r from-[#f29200] to-[#d17e00] text-white px-5 py-2 rounded-full text-sm font-semibold flex items-center gap-2 shadow-lg">
+                    <Star className="w-4 h-4 fill-current" />
                     Plus populaire
                   </div>
                 </div>
@@ -98,18 +100,24 @@ export function TuitionPricing() {
 
               {/* Plan Header */}
               <div className="text-center mb-6">
-                <h3 className="font-sans font-bold text-2xl mb-2">{plan.name}</h3>
+                <h3 className={`font-sans font-bold text-2xl mb-2 ${plan.popular ? 'text-[#f29200]' : 'text-foreground'}`}>
+                  {plan.name}
+                </h3>
                 <p className="text-sm text-muted-foreground">{plan.description}</p>
               </div>
 
               {/* Pricing */}
-              <div className="text-center mb-6 pb-6 border-b border-border">
+              <div className={`text-center mb-6 pb-6 border-b border-border ${
+                plan.popular ? 'bg-gradient-to-br from-[#f29200]/5 to-transparent rounded-lg py-4' : ''
+              }`}>
                 <div className="space-y-2">
                   <div className="flex items-baseline justify-center gap-2">
-                    <span className="text-3xl font-bold text-[#f29200]">{plan.price.xof}</span>
+                    <span className={`text-4xl font-bold ${plan.popular ? 'text-[#f29200]' : 'text-[#f29200]'}`}>
+                      {plan.price.xof}
+                    </span>
                     <span className="text-sm text-muted-foreground">XOF</span>
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-sm text-muted-foreground font-medium">
                     €{plan.price.eur} / ${plan.price.usd}
                   </div>
                   <div className="text-xs text-muted-foreground">{plan.period}</div>
