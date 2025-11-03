@@ -24,7 +24,7 @@ export function ProgramsHero() {
           </p>
           <Button
             size="lg"
-            className="bg-[#f29200] hover:bg-[#B8962E] text-[#2E2E2E] text-base h-12 px-8 font-semibold"
+            className="bg-[#f29200] hover:bg-[#d17f00] text-white text-base h-12 px-8 font-semibold"
           >
             Postuler maintenant
             <ArrowRight size={20} className="ml-2" />

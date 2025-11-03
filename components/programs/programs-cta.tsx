@@ -29,7 +29,7 @@ export function ProgramsCTA() {
             <Link href="/apply">
               <Button
                 size="lg"
-                className="bg-[#ffffff] hover:bg-[#B8962E] text-[#2E2E2E] text-base h-12 px-8 font-semibold"
+                className="bg-[#ffffff] hover:bg-gray-100 text-[#f29200] text-base h-12 px-8 font-semibold"
               >
                 Postuler maintenant
                 <ArrowRight size={20} className="ml-2" />
