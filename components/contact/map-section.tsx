@@ -48,7 +48,7 @@ export function MapSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Button className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold px-6">
+                  <Button className="bg-[#f29200] hover:bg-[#d17f00] text-[#ffffff] font-semibold px-6">
                     Obtenir l'Itinéraire
                   </Button>
                 </a>

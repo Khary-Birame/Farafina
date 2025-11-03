@@ -30,7 +30,7 @@ export function LoginForm() {
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Left Side - Illustration with gradient and photo */}
           <div className="hidden lg:block relative h-[600px] rounded-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#f29200] via-[#ffa726] to-[#d4af37] opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#008037] via-[#00a045] to-[#d4af37] opacity-90" />
             <img
               src="/african-youth-football-training-action-shot.jpg"
               alt="Football training action"
@@ -160,7 +160,7 @@ export function LoginForm() {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-[#d4af37] hover:bg-[#b8962e] text-[#2E2E2E] font-semibold text-base transition-all duration-200 hover:shadow-lg"
+                  className="w-full h-12 bg-[#f29200] hover:bg-[#d17f00] text-[#ffffff] font-semibold text-base transition-all duration-200 hover:shadow-lg"
                 >
                   Se Connecter
                 </Button>

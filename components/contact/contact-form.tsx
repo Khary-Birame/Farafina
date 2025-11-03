@@ -114,7 +114,7 @@ export function ContactForm() {
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold text-base"
+                className="w-full h-12 bg-[#000000] hover:bg-[#2E2E2E] text-[#ffffff] font-semibold text-base"
               >
                 Envoyer le Message
               </Button>

@@ -58,7 +58,7 @@ export function NewsletterBanner() {
                   />
                   <Button
                     type="submit"
-                    className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold px-6 h-12"
+                    className="bg-[#f29200] hover:bg-[#d17f00] text-[#ffffff] font-semibold px-6 h-12"
                   >
                     S'abonner
                   </Button>

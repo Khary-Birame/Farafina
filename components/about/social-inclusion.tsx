@@ -22,8 +22,8 @@ export function SocialInclusion() {
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
-            <div className="w-16 h-16 bg-[#2E2E2E] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Heart className="text-white" size={32} />
+            <div className="w-16 h-16 bg-[#ffffff] rounded-full flex items-center justify-center mx-auto mb-4">
+              <Heart className="text-[#f29200]" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Programmes de Bourses</h3>
             <p className="text-white/80 leading-relaxed">
@@ -33,8 +33,8 @@ export function SocialInclusion() {
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
-            <div className="w-16 h-16 bg-[#2E2E2E] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users className="text-white" size={32} />
+            <div className="w-16 h-16 bg-[#ffffff] rounded-full flex items-center justify-center mx-auto mb-4">
+              <Users className="text-[#f29200]" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Programme de Football Féminin</h3>
             <p className="text-white/80 leading-relaxed">
@@ -44,8 +44,8 @@ export function SocialInclusion() {
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
-            <div className="w-16 h-16 bg-[#2E2E2E] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Award className="text-white" size={32} />
+            <div className="w-16 h-16 bg-[#ffffff] rounded-full flex items-center justify-center mx-auto mb-4">
+              <Award className="text-[#f29200]" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Accès Égal</h3>
             <p className="text-white/80 leading-relaxed">
@@ -57,7 +57,7 @@ export function SocialInclusion() {
 
         <div className="text-center">
           <Link href="/contact">
-            <Button size="lg" className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold text-lg px-8 h-14">
+            <Button size="lg" className="bg-[#000000] hover:bg-[#2E2E2E] text-[#ffffff] font-semibold text-lg px-8 h-14">
               Soutenir nos Initiatives Sociales
               <ArrowRight className="ml-2" size={20} />
             </Button>

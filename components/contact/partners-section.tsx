@@ -88,7 +88,7 @@ export function PartnersSection() {
               Ensemble, nous pouvons créer des opportunités pour les jeunes talents africains et construire l'avenir du football.
             </p>
             <Link href="/contact">
-              <Button className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold px-8 h-12 text-base">
+              <Button className="bg-[#ffffff] hover:bg-gray-100 text-[#f29200] font-semibold px-8 h-12 text-base">
                 Devenir Partenaire
               </Button>
             </Link>
