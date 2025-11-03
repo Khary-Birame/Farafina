@@ -35,7 +35,7 @@ export function SignUpForm() {
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Left Side - Illustration */}
           <div className="hidden lg:block relative h-[700px] rounded-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#f29200] via-[#ffa726] to-[#d4af37] opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#008037] via-[#00a045] to-[#d4af37] opacity-90" />
             <img
               src="/young-african-players-training-field.jpg"
               alt="Young players training"
@@ -218,7 +218,7 @@ export function SignUpForm() {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-[#d4af37] hover:bg-[#b8962e] text-[#2E2E2E] font-semibold text-base"
+                  className="w-full h-12 bg-[#f29200] hover:bg-[#d17f00] text-[#ffffff] font-semibold text-base"
                   disabled={!formData.agreeToTerms}
                 >
                   Créer le Compte
