@@ -5,6 +5,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import Image from "next/image"
+import { LanguageSelector } from "@/components/ui/language-selector"
+import { NotificationCenter } from "@/components/notifications/notification-center"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -21,13 +23,13 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/90 backdrop-blur-xl shadow-lg border-b border-[#f29200]/10" : "bg-white/95 backdrop-blur-md border-b border-border"
+        scrolled ? "bg-white/90 backdrop-blur-xl shadow-lg border-b border-[#16A34A]/10" : "bg-white/95 backdrop-blur-md border-b border-border"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? "h-16" : "h-20"}`}>
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="w-12 h-12 bg-[#16A34A] rounded-lg flex items-center justify-center overflow-hidden">
               <Image
                 src="https://res.cloudinary.com/drkudvdmd/image/upload/v1762007821/ffa_kbbb86.jpg"
                 alt="Farafina Foot Academy"
@@ -45,53 +47,69 @@ export function Header() {
           <nav className="hidden lg:flex items-center gap-8">
             <Link
               href="/about"
-              className="relative text-sm font-medium text-foreground hover:text-[#f29200] transition-colors group"
+              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
             >
               À Propos
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#f29200] group-hover:w-full transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
             </Link>
             <Link
               href="/programs"
-              className="relative text-sm font-medium text-foreground hover:text-[#f29200] transition-colors group"
+              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
             >
               Programmes
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#f29200] group-hover:w-full transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
             </Link>
             <Link
               href="/admissions"
-              className="relative text-sm font-medium text-foreground hover:text-[#f29200] transition-colors group"
+              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
             >
               Admissions
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#f29200] group-hover:w-full transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
             </Link>
             <Link
               href="/ffa-tv"
-              className="relative text-sm font-medium text-foreground hover:text-[#f29200] transition-colors group"
+              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
             >
               FFA TV
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#f29200] group-hover:w-full transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
+            </Link>
+            <Link
+              href="/dashboard"
+              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
+            >
+              Dashboard
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
+            </Link>
+            <Link
+              href="/club-connect"
+              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
+            >
+              Club Connect
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
             </Link>
             <Link
               href="/scouting"
-              className="relative text-sm font-medium text-foreground hover:text-[#f29200] transition-colors group"
+              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
             >
               IA Scouting
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#f29200] group-hover:w-full transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
             </Link>
             <Link
               href="/contact"
-              className="relative text-sm font-medium text-foreground hover:text-[#f29200] transition-colors group"
+              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
             >
               Contact
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#f29200] group-hover:w-full transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
             </Link>
           </nav>
 
           <div className="hidden lg:flex items-center gap-3">
+            <LanguageSelector />
+            <NotificationCenter />
             <Button variant="outline" size="sm" asChild>
               <Link href="/login">Connexion</Link>
             </Button>
-            <Button size="sm" className="bg-[#f29200] hover:bg-[#d17f00] text-white" asChild>
+            <Button size="sm" className="bg-[#16A34A] hover:bg-[#15803D] text-white" asChild>
               <Link href="/apply">Postuler Maintenant</Link>
             </Button>
           </div>
@@ -110,37 +128,49 @@ export function Header() {
             <nav className="flex flex-col gap-4">
               <Link
                 href="/about"
-                className="text-sm font-medium text-foreground hover:text-[#f29200] transition-colors"
+                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
               >
                 À Propos
               </Link>
               <Link
                 href="/programs"
-                className="text-sm font-medium text-foreground hover:text-[#f29200] transition-colors"
+                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
               >
                 Programmes
               </Link>
               <Link
                 href="/admissions"
-                className="text-sm font-medium text-foreground hover:text-[#f29200] transition-colors"
+                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
               >
                 Admissions
               </Link>
               <Link
                 href="/ffa-tv"
-                className="text-sm font-medium text-foreground hover:text-[#f29200] transition-colors"
+                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
               >
                 FFA TV
               </Link>
               <Link
+                href="/dashboard"
+                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/club-connect"
+                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
+              >
+                Club Connect
+              </Link>
+              <Link
                 href="/scouting"
-                className="text-sm font-medium text-foreground hover:text-[#f29200] transition-colors"
+                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
               >
                 IA Scouting
               </Link>
               <Link
                 href="/contact"
-                className="text-sm font-medium text-foreground hover:text-[#f29200] transition-colors"
+                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
               >
                 Contact
               </Link>
@@ -148,7 +178,7 @@ export function Header() {
                 <Button variant="outline" size="sm" asChild>
                   <Link href="/login">Connexion</Link>
                 </Button>
-                <Button size="sm" className="bg-[#f29200] hover:bg-[#d17f00] text-white" asChild>
+                <Button size="sm" className="bg-[#16A34A] hover:bg-[#15803D] text-white" asChild>
                   <Link href="/apply">Postuler Maintenant</Link>
                 </Button>
               </div>

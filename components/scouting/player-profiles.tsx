@@ -73,21 +73,21 @@ export function PlayerProfiles() {
             <Button
               variant={filter === "all" ? "default" : "outline"}
               onClick={() => setFilter("all")}
-              className={filter === "all" ? "bg-[#f29200] hover:bg-[#d17f00]" : ""}
+              className={filter === "all" ? "bg-[#16A34A] hover:bg-[#15803D]" : ""}
             >
               Tous les Joueurs
             </Button>
             <Button
               variant={filter === "male" ? "default" : "outline"}
               onClick={() => setFilter("male")}
-              className={filter === "male" ? "bg-[#f29200] hover:bg-[#d17f00]" : ""}
+              className={filter === "male" ? "bg-[#16A34A] hover:bg-[#15803D]" : ""}
             >
               Masculin
             </Button>
             <Button
               variant={filter === "female" ? "default" : "outline"}
               onClick={() => setFilter("female")}
-              className={filter === "female" ? "bg-[#f29200] hover:bg-[#d17f00]" : ""}
+              className={filter === "female" ? "bg-[#16A34A] hover:bg-[#15803D]" : ""}
             >
               Féminin
             </Button>
@@ -98,13 +98,13 @@ export function PlayerProfiles() {
           {filteredPlayers.map((player, index) => (
             <Card
               key={index}
-              className="overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-[#f29200]/30"
+              className="overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-[#16A34A]/30"
             >
               {/* Player Image */}
               <div className="relative h-64 bg-gradient-to-br from-[#2E2E2E] to-[#1a1a1a]">
                 <Image src={player.image || "/placeholder.svg"} alt={player.name} fill className="object-cover" />
                 <div className="absolute top-3 right-3 flex gap-2">
-                  <Badge className="bg-[#f29200] text-white border-0">{player.position}</Badge>
+                  <Badge className="bg-[#16A34A] text-white border-0">{player.position}</Badge>
                   <Badge className="bg-[#D4AF37] text-[#2E2E2E] border-0">Age {player.age}</Badge>
                 </div>
               </div>
@@ -121,8 +121,8 @@ export function PlayerProfiles() {
                     <span className="text-sm text-muted-foreground">Note</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <TrendingUp className="w-4 h-4 text-[#f29200]" />
-                    <span className="text-2xl font-bold text-[#f29200]">{player.potential}</span>
+                    <TrendingUp className="w-4 h-4 text-[#16A34A]" />
+                    <span className="text-2xl font-bold text-[#16A34A]">{player.potential}</span>
                     <span className="text-sm text-muted-foreground">Potentiel</span>
                   </div>
                 </div>

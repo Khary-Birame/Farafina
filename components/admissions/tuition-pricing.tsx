@@ -84,14 +84,14 @@ export function TuitionPricing() {
               key={index}
               className={`relative bg-card border-2 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl group ${
                 plan.popular 
-                  ? "border-[#f29200] shadow-xl scale-105 lg:scale-110" 
-                  : "border-border hover:border-[#f29200]/50 hover:-translate-y-2"
+                  ? "border-[#16A34A] shadow-xl scale-105 lg:scale-110" 
+                  : "border-border hover:border-[#16A34A]/50 hover:-translate-y-2"
               }`}
             >
               {/* Popular Badge */}
               {plan.popular && (
                 <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-10">
-                  <div className="bg-gradient-to-r from-[#f29200] to-[#d17e00] text-white px-5 py-2 rounded-full text-sm font-semibold flex items-center gap-2 shadow-lg">
+                  <div className="bg-gradient-to-r from-[#16A34A] to-[#d17e00] text-white px-5 py-2 rounded-full text-sm font-semibold flex items-center gap-2 shadow-lg">
                     <Star className="w-4 h-4 fill-current" />
                     Plus populaire
                   </div>
@@ -100,7 +100,7 @@ export function TuitionPricing() {
 
               {/* Plan Header */}
               <div className="text-center mb-6">
-                <h3 className={`font-sans font-bold text-2xl mb-2 ${plan.popular ? 'text-[#f29200]' : 'text-foreground'}`}>
+                <h3 className={`font-sans font-bold text-2xl mb-2 ${plan.popular ? 'text-[#16A34A]' : 'text-foreground'}`}>
                   {plan.name}
                 </h3>
                 <p className="text-sm text-muted-foreground">{plan.description}</p>
@@ -108,11 +108,11 @@ export function TuitionPricing() {
 
               {/* Pricing */}
               <div className={`text-center mb-6 pb-6 border-b border-border ${
-                plan.popular ? 'bg-gradient-to-br from-[#f29200]/5 to-transparent rounded-lg py-4' : ''
+                plan.popular ? 'bg-gradient-to-br from-[#16A34A]/5 to-transparent rounded-lg py-4' : ''
               }`}>
                 <div className="space-y-2">
                   <div className="flex items-baseline justify-center gap-2">
-                    <span className={`text-4xl font-bold ${plan.popular ? 'text-[#f29200]' : 'text-[#f29200]'}`}>
+                    <span className={`text-4xl font-bold ${plan.popular ? 'text-[#16A34A]' : 'text-[#16A34A]'}`}>
                       {plan.price.xof}
                     </span>
                     <span className="text-sm text-muted-foreground">XOF</span>
@@ -128,7 +128,7 @@ export function TuitionPricing() {
               <ul className="space-y-3 mb-8">
                 {plan.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#f29200] flex-shrink-0 mt-0.5" />
+                    <Check className="w-5 h-5 text-[#16A34A] flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-foreground">{feature}</span>
                   </li>
                 ))}
@@ -138,7 +138,7 @@ export function TuitionPricing() {
               <Button
                 className={`w-full ${
                   plan.popular
-                    ? "bg-[#f29200] hover:bg-[#d17e00] text-white"
+                    ? "bg-[#16A34A] hover:bg-[#d17e00] text-white"
                     : "bg-secondary hover:bg-secondary/80 text-secondary-foreground"
                 }`}
               >
@@ -153,15 +153,15 @@ export function TuitionPricing() {
           <h3 className="font-sans font-semibold text-lg mb-4 text-center">Options de paiement flexibles</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
             <div>
-              <div className="font-semibold text-[#f29200] mb-1">Multi-devises</div>
+              <div className="font-semibold text-[#16A34A] mb-1">Multi-devises</div>
               <div className="text-sm text-muted-foreground">Payez en XOF, EUR ou USD</div>
             </div>
             <div>
-              <div className="font-semibold text-[#f29200] mb-1">Échelonnement</div>
+              <div className="font-semibold text-[#16A34A] mb-1">Échelonnement</div>
               <div className="text-sm text-muted-foreground">Paiements fractionnés disponibles</div>
             </div>
             <div>
-              <div className="font-semibold text-[#f29200] mb-1">Sécurisé</div>
+              <div className="font-semibold text-[#16A34A] mb-1">Sécurisé</div>
               <div className="text-sm text-muted-foreground">Virement bancaire et carte</div>
             </div>
           </div>

@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export function SocialInclusion() {
   return (
-    <section className="py-24 bg-gradient-to-br from-[#f29200] to-[#d17f00] relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-br from-[#16A34A] to-[#15803D] relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
@@ -23,7 +23,7 @@ export function SocialInclusion() {
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
             <div className="w-16 h-16 bg-[#ffffff] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Heart className="text-[#f29200]" size={32} />
+              <Heart className="text-[#16A34A]" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Programmes de Bourses</h3>
             <p className="text-white/80 leading-relaxed">
@@ -34,7 +34,7 @@ export function SocialInclusion() {
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
             <div className="w-16 h-16 bg-[#ffffff] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users className="text-[#f29200]" size={32} />
+              <Users className="text-[#16A34A]" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Programme de Football Féminin</h3>
             <p className="text-white/80 leading-relaxed">
@@ -45,7 +45,7 @@ export function SocialInclusion() {
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
             <div className="w-16 h-16 bg-[#ffffff] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Award className="text-[#f29200]" size={32} />
+              <Award className="text-[#16A34A]" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Accès Égal</h3>
             <p className="text-white/80 leading-relaxed">

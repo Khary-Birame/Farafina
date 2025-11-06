@@ -39,7 +39,7 @@ export function CoachingStaff() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="font-sans font-bold text-4xl lg:text-5xl text-[#2E2E2E] mb-6 text-balance">
-            Entraîneurs & Personnel <span className="text-[#f29200]">Académique</span>
+            Entraîneurs & Personnel <span className="text-[#16A34A]">Académique</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Notre équipe de classe mondiale d'entraîneurs, d'éducateurs et de spécialistes se consacre au développement
@@ -51,7 +51,7 @@ export function CoachingStaff() {
           {staff.map((member, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl overflow-hidden border border-border hover:border-[#f29200] transition-all hover:shadow-lg group"
+              className="bg-white rounded-2xl overflow-hidden border border-border hover:border-[#16A34A] transition-all hover:shadow-lg group"
             >
               {/* Image */}
               <div className="relative h-64 overflow-hidden bg-muted">
@@ -66,7 +66,7 @@ export function CoachingStaff() {
               {/* Content */}
               <div className="p-6">
                 <h3 className="font-sans font-bold text-xl text-[#2E2E2E] mb-1">{member.name}</h3>
-                <div className="text-sm font-semibold text-[#f29200] mb-2">{member.role}</div>
+                <div className="text-sm font-semibold text-[#16A34A] mb-2">{member.role}</div>
                 <div className="text-xs text-muted-foreground mb-4">{member.qualifications}</div>
                 <p className="text-sm text-muted-foreground leading-relaxed italic">"{member.philosophy}"</p>
               </div>

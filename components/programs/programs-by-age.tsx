@@ -60,7 +60,7 @@ export function ProgramsByAge() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="font-sans font-bold text-4xl lg:text-5xl text-[#2E2E2E] mb-6 text-balance">
-            Programmes par <span className="text-[#f29200]">Groupe d'Âge</span>
+            Programmes par <span className="text-[#16A34A]">Groupe d'Âge</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Des parcours de développement sur mesure conçus pour répondre aux besoins uniques de chaque groupe d'âge et
@@ -78,7 +78,7 @@ export function ProgramsByAge() {
               size="lg"
               className={`text-base h-12 px-6 ${
                 activeTab === index
-                  ? "bg-[#f29200] hover:bg-[#d17f00] text-white"
+                  ? "bg-[#16A34A] hover:bg-[#15803D] text-white"
                   : "bg-white hover:bg-muted text-[#2E2E2E]"
               }`}
             >
@@ -93,11 +93,11 @@ export function ProgramsByAge() {
             <div className="p-8 lg:p-12">
               {/* Header */}
               <div className="flex items-start gap-6 mb-8">
-                <div className="w-16 h-16 bg-[#f29200]/10 rounded-2xl flex items-center justify-center flex-shrink-0">
-                  <div className="text-[#f29200]">{programs[activeTab].icon}</div>
+                <div className="w-16 h-16 bg-[#16A34A]/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                  <div className="text-[#16A34A]">{programs[activeTab].icon}</div>
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-[#f29200] mb-2">{programs[activeTab].ageGroup}</div>
+                  <div className="text-sm font-semibold text-[#16A34A] mb-2">{programs[activeTab].ageGroup}</div>
                   <h3 className="font-sans font-bold text-3xl text-[#2E2E2E] mb-3">{programs[activeTab].title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{programs[activeTab].description}</p>
                 </div>
@@ -123,7 +123,7 @@ export function ProgramsByAge() {
                 <div className="grid md:grid-cols-2 gap-4">
                   {programs[activeTab].goals.map((goal, index) => (
                     <div key={index} className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-[#f29200] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-6 h-6 bg-[#16A34A] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <div className="w-2 h-2 bg-white rounded-full" />
                       </div>
                       <span className="text-muted-foreground">{goal}</span>

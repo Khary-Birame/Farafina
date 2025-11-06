@@ -13,13 +13,13 @@ export function AdmissionsHero() {
       {/* Modern Animated Background */}
       <div className="absolute inset-0">
         {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#f29200]/20 via-transparent to-[#d17e00]/20 animate-pulse-glow" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#16A34A]/20 via-transparent to-[#d17e00]/20 animate-pulse-glow" />
 
         {/* Geometric shapes */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-[#f29200]/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-[#16A34A]/10 rounded-full blur-3xl animate-float" />
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#D4AF37]/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[#f29200]/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[#16A34A]/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
         </div>
 
         {/* Grid pattern overlay */}
@@ -58,7 +58,7 @@ export function AdmissionsHero() {
             <Button
               size="lg"
               onClick={scrollToForm}
-              className="bg-white text-[#f29200] hover:bg-gray-100 font-semibold group"
+              className="bg-white text-[#16A34A] hover:bg-gray-100 font-semibold group"
             >
               Commencez votre inscription
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

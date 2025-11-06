@@ -1,11 +1,11 @@
 export function ColorPalette() {
   const colors = [
     {
-      name: "Farafina Orange",
-      hex: "#f29200",
-      rgb: "242, 146, 0",
+      name: "Farafina Green",
+      hex: "#16A34A",
+      rgb: "22, 163, 74",
       description: "Vitalité, croissance et patrimoine africain",
-      gradient: "from-[#f29200] to-[#ffa726]",
+      gradient: "from-[#16A34A] to-[#22C55E]",
     },
     {
       name: "Anthracite Gray",
@@ -15,11 +15,11 @@ export function ColorPalette() {
       gradient: "from-[#2E2E2E] to-[#3a3a3a]",
     },
     {
-      name: "Gold",
-      hex: "#D4AF37",
-      rgb: "212, 175, 55",
-      description: "Excellence, prestige et réussite",
-      gradient: "from-[#D4AF37] to-[#e6c966]",
+      name: "Green Secondary",
+      hex: "#10B981",
+      rgb: "16, 185, 129",
+      description: "Excellence, dynamisme et réussite",
+      gradient: "from-[#10B981] to-[#34D399]",
     },
     {
       name: "White",
@@ -43,7 +43,7 @@ export function ColorPalette() {
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-sans font-bold text-white mb-6">Palette de Couleurs</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#f29200] to-[#D4AF37] mx-auto" />
+          <div className="w-24 h-1 bg-gradient-to-r from-[#16A34A] to-[#10B981] mx-auto" />
         </div>
 
         {/* Color Swatches */}

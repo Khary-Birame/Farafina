@@ -4,10 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { InputField, TextareaField, SelectField } from "@/components/ui/form-field"
 import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react"
 
 export function ContactForm() {
@@ -35,86 +32,65 @@ export function ContactForm() {
             <p className="text-gray-600 mb-8">Nous vous répondrons dans les 24 heures.</p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <Label htmlFor="fullName" className="text-sm font-medium text-[#2E2E2E] mb-2 block">
-                  Nom Complet *
-                </Label>
-                <Input
-                  id="fullName"
-                  type="text"
-                  placeholder="Entrez votre nom complet"
-                  value={formData.fullName}
-                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  required
-                  className="h-12"
-                />
-              </div>
+              <InputField
+                label="Nom Complet"
+                name="fullName"
+                type="text"
+                placeholder="Entrez votre nom complet"
+                value={formData.fullName}
+                onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                required
+              />
 
-              <div>
-                <Label htmlFor="email" className="text-sm font-medium text-[#2E2E2E] mb-2 block">
-                  Adresse Email *
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="votre.email@exemple.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                  className="h-12"
-                />
-              </div>
+              <InputField
+                label="Adresse Email"
+                name="email"
+                type="email"
+                placeholder="votre.email@exemple.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
+              />
 
-              <div>
-                <Label htmlFor="role" className="text-sm font-medium text-[#2E2E2E] mb-2 block">
-                  Je suis un(e) *
-                </Label>
-                <Select value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
-                  <SelectTrigger className="h-12">
-                    <SelectValue placeholder="Sélectionnez votre rôle" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="parent">Parent</SelectItem>
-                    <SelectItem value="recruiter">Recruteur</SelectItem>
-                    <SelectItem value="sponsor">Sponsor</SelectItem>
-                    <SelectItem value="media">Média</SelectItem>
-                    <SelectItem value="other">Autre</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <SelectField
+                label="Je suis un(e)"
+                name="role"
+                placeholder="Sélectionnez votre rôle"
+                value={formData.role}
+                onValueChange={(value) => setFormData({ ...formData, role: value })}
+                required
+                options={[
+                  { value: "parent", label: "Parent" },
+                  { value: "recruiter", label: "Recruteur" },
+                  { value: "sponsor", label: "Sponsor" },
+                  { value: "media", label: "Média" },
+                  { value: "other", label: "Autre" },
+                ]}
+              />
 
-              <div>
-                <Label htmlFor="subject" className="text-sm font-medium text-[#2E2E2E] mb-2 block">
-                  Sujet *
-                </Label>
-                <Input
-                  id="subject"
-                  type="text"
-                  placeholder="De quoi s'agit-il ?"
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  required
-                  className="h-12"
-                />
-              </div>
+              <InputField
+                label="Sujet"
+                name="subject"
+                type="text"
+                placeholder="De quoi s'agit-il ?"
+                value={formData.subject}
+                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                required
+              />
 
-              <div>
-                <Label htmlFor="message" className="text-sm font-medium text-[#2E2E2E] mb-2 block">
-                  Message *
-                </Label>
-                <Textarea
-                  id="message"
-                  placeholder="Parlez-nous de votre demande..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  required
-                  className="min-h-32 resize-none"
-                />
-              </div>
+              <TextareaField
+                label="Message"
+                name="message"
+                placeholder="Parlez-nous de votre demande..."
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                required
+                rows={5}
+              />
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-[#000000] hover:bg-[#2E2E2E] text-[#ffffff] font-semibold text-base"
+                className="w-full h-12 bg-[#16A34A] hover:bg-[#15803D] text-white font-semibold text-base transition-all duration-200"
               >
                 Envoyer le Message
               </Button>
@@ -132,7 +108,7 @@ export function ContactForm() {
             <div className="space-y-4">
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#16A34A] rounded-lg flex items-center justify-center flex-shrink-0">
                     <MapPin className="text-white" size={24} />
                   </div>
                   <div>
@@ -150,7 +126,7 @@ export function ContactForm() {
 
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#16A34A] rounded-lg flex items-center justify-center flex-shrink-0">
                     <Phone className="text-white" size={24} />
                   </div>
                   <div>
@@ -163,7 +139,7 @@ export function ContactForm() {
 
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#16A34A] rounded-lg flex items-center justify-center flex-shrink-0">
                     <Mail className="text-white" size={24} />
                   </div>
                   <div>
@@ -176,7 +152,7 @@ export function ContactForm() {
             </div>
 
             {/* Social Media */}
-            <div className="bg-gradient-to-br from-[#f29200] to-[#d17f00] rounded-xl p-6 text-white">
+            <div className="bg-gradient-to-br from-[#16A34A] to-[#15803D] rounded-xl p-6 text-white">
               <h3 className="font-semibold text-lg mb-4">Suivez-nous</h3>
               <p className="text-white/90 text-sm mb-4">Restez connectés sur les réseaux sociaux</p>
               <div className="flex items-center gap-3">

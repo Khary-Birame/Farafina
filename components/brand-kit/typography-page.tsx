@@ -5,7 +5,7 @@ export function TypographyPage() {
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-sans font-bold text-[#2E2E2E] mb-6">Typography</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#f29200] to-[#D4AF37] mx-auto" />
+          <div className="w-24 h-1 bg-gradient-to-r from-[#16A34A] to-[#D4AF37] mx-auto" />
         </div>
 
         {/* Font Families */}

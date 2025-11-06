@@ -11,7 +11,7 @@ export function AIDashboard() {
       value: 87,
       unit: "km/h",
       trend: "+5%",
-      color: "#f29200",
+      color: "#16A34A",
     },
     {
       icon: Target,
@@ -27,7 +27,7 @@ export function AIDashboard() {
       value: 85,
       unit: "score",
       trend: "+12%",
-      color: "#f29200",
+      color: "#16A34A",
     },
     {
       icon: Calendar,
@@ -53,13 +53,13 @@ export function AIDashboard() {
           {metrics.map((metric, index) => (
             <Card
               key={index}
-              className="p-6 hover:shadow-lg transition-all duration-300 border-2 hover:border-[#f29200]/20"
+              className="p-6 hover:shadow-lg transition-all duration-300 border-2 hover:border-[#16A34A]/20"
             >
               <div className="flex items-start justify-between mb-4">
-                <div className="p-3 rounded-lg bg-[#f29200]/10">
+                <div className="p-3 rounded-lg bg-[#16A34A]/10">
                   <metric.icon className="w-6 h-6" style={{ color: metric.color }} />
                 </div>
-                <span className="text-sm font-medium text-[#f29200] bg-[#f29200]/10 px-2 py-1 rounded">
+                <span className="text-sm font-medium text-[#16A34A] bg-[#16A34A]/10 px-2 py-1 rounded">
                   {metric.trend}
                 </span>
               </div>
@@ -93,7 +93,7 @@ export function AIDashboard() {
             {[65, 72, 68, 78, 85, 82, 87, 92, 89, 94, 91, 96].map((value, index) => (
               <div key={index} className="flex-1 flex flex-col items-center gap-2">
                 <div
-                  className="w-full rounded-t-lg bg-gradient-to-t from-[#f29200] to-[#ffa726] hover:from-[#d17f00] hover:to-[#f29200] transition-all duration-300 cursor-pointer"
+                  className="w-full rounded-t-lg bg-gradient-to-t from-[#16A34A] to-[#22C55E] hover:from-[#15803D] hover:to-[#16A34A] transition-all duration-300 cursor-pointer"
                   style={{ height: `${value}%` }}
                 />
                 <span className="text-xs text-muted-foreground">

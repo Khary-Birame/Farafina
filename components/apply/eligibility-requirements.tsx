@@ -55,7 +55,7 @@ export function EligibilityRequirements() {
             <div className="space-y-3">
               {eligibilityCriteria.map((criterion, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-[#f29200] flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-5 h-5 text-[#16A34A] flex-shrink-0 mt-0.5" />
                   <span className="text-foreground">{criterion}</span>
                 </div>
               ))}
@@ -73,10 +73,10 @@ export function EligibilityRequirements() {
               {requiredDocuments.map((doc, index) => (
                 <div
                   key={index}
-                  className="flex items-start gap-4 p-4 bg-muted/50 rounded-lg border border-border hover:border-[#f29200]/30 transition-colors"
+                  className="flex items-start gap-4 p-4 bg-muted/50 rounded-lg border border-border hover:border-[#16A34A]/30 transition-colors"
                 >
-                  <div className="w-10 h-10 bg-[#f29200]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <doc.icon className="w-5 h-5 text-[#f29200]" />
+                  <div className="w-10 h-10 bg-[#16A34A]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <doc.icon className="w-5 h-5 text-[#16A34A]" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-foreground mb-1">{doc.title}</h4>

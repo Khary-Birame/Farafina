@@ -22,17 +22,16 @@ export default function HomePage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#f29200]/5 via-transparent to-[#D4AF37]/5" />
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-white">
         <div className="container mx-auto px-4 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in-up">
-              <div className="inline-flex items-center gap-2 bg-[#f29200]/10 text-[#f29200] px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 bg-[#16A34A]/20 text-[#16A34A] px-4 py-2 rounded-full text-sm font-medium mb-6 border border-[#16A34A]/30">
                 <Sparkles size={16} />
                 <span>Institution Sport-Études d'Élite</span>
               </div>
               <h1 className="font-sans font-bold text-5xl lg:text-7xl text-[#2E2E2E] mb-6 leading-tight text-balance">
-                L'avenir du football africain <span className="text-[#f29200]">commence ici</span>
+                L'avenir du football africain <span className="text-[#16A34A]">commence ici</span>
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 text-pretty">
                 Farafina Foot Academy combine un entraînement de football de classe mondiale avec l'excellence
@@ -41,7 +40,7 @@ export default function HomePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/apply">
-                  <Button size="lg" className="bg-[#f29200] hover:bg-[#d97f00] text-white text-base h-12 px-8">
+                  <Button size="lg" className="bg-[#16A34A] hover:bg-[#15803D] text-white text-base h-12 px-8">
                     Postuler maintenant
                     <ArrowRight size={20} className="ml-2" />
                   </Button>
@@ -57,7 +56,7 @@ export default function HomePage() {
 
             <div className="relative">
               <div
-                className="absolute inset-0 bg-gradient-to-br from-[#f29200] to-[#d97f00] rounded-3xl transform rotate-3"
+                className="absolute inset-0 bg-gradient-to-br from-[#16A34A] to-[#15803D] rounded-3xl transform rotate-3"
                 style={{ transform: `rotate(3deg) translateY(${scrollY * 0.1}px)` }}
               />
               <div className="relative rounded-3xl overflow-hidden shadow-2xl transform -rotate-3 hover:rotate-0 transition-transform duration-500">
@@ -74,7 +73,7 @@ export default function HomePage() {
                 style={{ transform: `translateY(${scrollY * 0.05}px)` }}
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-[#f29200] rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-[#16A34A] rounded-xl flex items-center justify-center">
                     <Trophy size={24} className="text-white" />
                   </div>
                   <div>
@@ -89,7 +88,7 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-muted/50">
+      <section className="py-16 bg-muted">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             <StatCard value="500+" label="Jeunes athlètes" icon={<Users size={24} />} />
@@ -105,7 +104,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="font-sans font-bold text-4xl lg:text-5xl text-[#2E2E2E] mb-6 text-balance">
-              Une vision panafricaine pour <span className="text-[#f29200]">l'excellence</span>
+              Une vision panafricaine pour <span className="text-[#16A34A]">l'excellence</span>
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed text-pretty">
               Soutenu par Farafina Group et le PDG Abdoulaye Galaye C. Diallo, nous construisons la destination de
@@ -115,9 +114,9 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl p-8 border border-border hover:border-[#f29200] transition-all hover:shadow-lg group">
-              <div className="w-14 h-14 bg-[#f29200]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#f29200] transition-colors">
-                <Target size={28} className="text-[#f29200] group-hover:text-white transition-colors" />
+            <div className="bg-white rounded-2xl p-8 border border-border hover:border-[#16A34A] transition-all hover:shadow-lg group">
+              <div className="w-14 h-14 bg-[#16A34A]/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#16A34A] transition-colors border border-[#16A34A]/30">
+                <Target size={28} className="text-[#16A34A] group-hover:text-white transition-colors" />
               </div>
               <h3 className="font-sans font-bold text-xl text-[#2E2E2E] mb-4">Formation d'élite</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -126,9 +125,9 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 border border-border hover:border-[#f29200] transition-all hover:shadow-lg group">
-              <div className="w-14 h-14 bg-[#f29200]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#f29200] transition-colors">
-                <BookOpen size={28} className="text-[#f29200] group-hover:text-white transition-colors" />
+            <div className="bg-white rounded-2xl p-8 border border-border hover:border-[#16A34A] transition-all hover:shadow-lg group">
+              <div className="w-14 h-14 bg-[#16A34A]/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#16A34A] transition-colors border border-[#16A34A]/30">
+                <BookOpen size={28} className="text-[#16A34A] group-hover:text-white transition-colors" />
               </div>
               <h3 className="font-sans font-bold text-xl text-[#2E2E2E] mb-4">Excellence académique</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -136,9 +135,9 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 border border-border hover:border-[#f29200] transition-all hover:shadow-lg group">
-              <div className="w-14 h-14 bg-[#f29200]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#f29200] transition-colors">
-                <Award size={28} className="text-[#f29200] group-hover:text-white transition-colors" />
+            <div className="bg-white rounded-2xl p-8 border border-border hover:border-[#16A34A] transition-all hover:shadow-lg group">
+              <div className="w-14 h-14 bg-[#16A34A]/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#16A34A] transition-colors border border-[#16A34A]/30">
+                <Award size={28} className="text-[#16A34A] group-hover:text-white transition-colors" />
               </div>
               <h3 className="font-sans font-bold text-xl text-[#2E2E2E] mb-4">Parcours internationaux</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -151,7 +150,7 @@ export default function HomePage() {
       </section>
 
       {/* Programs Section */}
-      <section className="py-20 lg:py-32 bg-muted/50">
+      <section className="py-20 lg:py-32 bg-muted">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-3xl mb-16">
             <h2 className="font-sans font-bold text-4xl lg:text-5xl text-[#2E2E2E] mb-6 text-balance">
@@ -197,7 +196,7 @@ export default function HomePage() {
 
       {/* CTA Section */}
       <section className="py-20 lg:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#f29200] to-[#d97f00]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#16A34A] to-[#15803D]" />
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
@@ -218,7 +217,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/apply">
-                <Button size="lg" className="bg-white text-[#f29200] hover:bg-gray-100 text-base h-12 px-8">
+                <Button size="lg" className="bg-white text-[#16A34A] hover:bg-gray-100 text-base h-12 px-8">
                   Postuler maintenant
                   <ArrowRight size={20} className="ml-2" />
                 </Button>

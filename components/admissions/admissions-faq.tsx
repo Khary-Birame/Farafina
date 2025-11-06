@@ -111,7 +111,7 @@ export function AdmissionsFAQ() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/contact">
-                <Button className="bg-[#f29200] hover:bg-[#d17e00] text-white">Contacter l'équipe d'admission</Button>
+                <Button className="bg-[#16A34A] hover:bg-[#d17e00] text-white">Contacter l'équipe d'admission</Button>
               </Link>
               <Link href="/contact">
                 <Button variant="outline">Planifier une visite du campus</Button>

@@ -80,15 +80,15 @@ export function SignUpForm() {
               {/* Trust Indicators */}
               <div className="flex items-center justify-center gap-6 mb-8 pb-8 border-b border-border">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Shield className="w-4 h-4 text-[#f29200]" />
+                  <Shield className="w-4 h-4 text-[#16A34A]" />
                   <span>Sécurisé</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Lock className="w-4 h-4 text-[#f29200]" />
+                  <Lock className="w-4 h-4 text-[#16A34A]" />
                   <span>Chiffré</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <CheckCircle2 className="w-4 h-4 text-[#f29200]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#16A34A]" />
                   <span>Conforme RGPD</span>
                 </div>
               </div>
@@ -205,11 +205,11 @@ export function SignUpForm() {
                   />
                   <Label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed cursor-pointer">
                     J'accepte les{" "}
-                    <Link href="/terms" className="text-[#f29200] hover:underline font-medium">
+                    <Link href="/terms" className="text-[#16A34A] hover:underline font-medium">
                       Conditions d'Utilisation
                     </Link>{" "}
                     et la{" "}
-                    <Link href="/privacy" className="text-[#f29200] hover:underline font-medium">
+                    <Link href="/privacy" className="text-[#16A34A] hover:underline font-medium">
                       Politique de Confidentialité
                     </Link>
                   </Label>
@@ -218,7 +218,7 @@ export function SignUpForm() {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-[#f29200] hover:bg-[#d17f00] text-[#ffffff] font-semibold text-base"
+                  className="w-full h-12 bg-[#16A34A] hover:bg-[#15803D] text-[#ffffff] font-semibold text-base"
                   disabled={!formData.agreeToTerms}
                 >
                   Créer le Compte
@@ -229,7 +229,7 @@ export function SignUpForm() {
               <div className="mt-8 text-center">
                 <p className="text-sm text-muted-foreground">
                   Vous avez déjà un compte ?{" "}
-                  <Link href="/login" className="text-[#f29200] hover:underline font-medium">
+                  <Link href="/login" className="text-[#16A34A] hover:underline font-medium">
                     Se connecter
                   </Link>
                 </p>

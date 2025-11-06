@@ -27,7 +27,7 @@ export function Leadership() {
       <div className="container mx-auto px-4 lg:px-8">
         {/* CEO Quote */}
         <div className="max-w-4xl mx-auto mb-20">
-          <div className="relative bg-gradient-to-br from-[#f29200] to-[#d17f00] rounded-3xl p-8 md:p-12 overflow-hidden">
+          <div className="relative bg-gradient-to-br from-[#16A34A] to-[#15803D] rounded-3xl p-8 md:p-12 overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl" />
             <div className="relative z-10">
               <Quote className="text-[#D4AF37] mb-6" size={48} />
@@ -70,7 +70,7 @@ export function Leadership() {
               </div>
               <div className="p-6">
                 <h3 className="font-sans font-semibold text-xl text-[#2E2E2E] mb-1">{member.name}</h3>
-                <p className="text-sm font-medium text-[#f29200] mb-3">{member.role}</p>
+                <p className="text-sm font-medium text-[#16A34A] mb-3">{member.role}</p>
                 <p className="text-sm text-gray-600 leading-relaxed">{member.bio}</p>
               </div>
             </div>

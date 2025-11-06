@@ -81,15 +81,15 @@ export function LoginForm() {
               {/* Trust Indicators */}
               <div className="flex items-center justify-center gap-6 mb-8 pb-8 border-b border-border">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Shield className="w-4 h-4 text-[#f29200]" />
+                  <Shield className="w-4 h-4 text-[#16A34A]" />
                   <span>Sécurisé</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Lock className="w-4 h-4 text-[#f29200]" />
+                  <Lock className="w-4 h-4 text-[#16A34A]" />
                   <span>Chiffré</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <CheckCircle2 className="w-4 h-4 text-[#f29200]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#16A34A]" />
                   <span>Protégé</span>
                 </div>
               </div>
@@ -108,7 +108,7 @@ export function LoginForm() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="h-12 transition-all duration-200 focus:ring-2 focus:ring-[#f29200] focus:border-[#f29200]"
+                    className="h-12 transition-all duration-200 focus:ring-2 focus:ring-[#16A34A] focus:border-[#16A34A]"
                   />
                 </div>
 
@@ -125,7 +125,7 @@ export function LoginForm() {
                       value={formData.password}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                       required
-                      className="h-12 pr-12 transition-all duration-200 focus:ring-2 focus:ring-[#f29200] focus:border-[#f29200]"
+                      className="h-12 pr-12 transition-all duration-200 focus:ring-2 focus:ring-[#16A34A] focus:border-[#16A34A]"
                     />
                     <button
                       type="button"
@@ -151,7 +151,7 @@ export function LoginForm() {
                   </div>
                   <Link
                     href="/forgot-password"
-                    className="text-sm text-[#f29200] hover:text-[#d17f00] hover:underline font-medium transition-colors"
+                    className="text-sm text-[#16A34A] hover:text-[#15803D] hover:underline font-medium transition-colors"
                   >
                     Mot de passe oublié ?
                   </Link>
@@ -160,7 +160,7 @@ export function LoginForm() {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-[#f29200] hover:bg-[#d17f00] text-[#ffffff] font-semibold text-base transition-all duration-200 hover:shadow-lg"
+                  className="w-full h-12 bg-[#16A34A] hover:bg-[#15803D] text-[#ffffff] font-semibold text-base transition-all duration-200 hover:shadow-lg"
                 >
                   Se Connecter
                 </Button>
@@ -179,7 +179,7 @@ export function LoginForm() {
                 <div className="text-center">
                   <Link
                     href="/signup"
-                    className="text-sm text-[#f29200] hover:text-[#d17f00] hover:underline font-medium transition-colors"
+                    className="text-sm text-[#16A34A] hover:text-[#15803D] hover:underline font-medium transition-colors"
                   >
                     Vous n'avez pas de compte ? Créez-en un
                   </Link>

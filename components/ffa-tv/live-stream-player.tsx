@@ -21,7 +21,7 @@ export function LiveStreamPlayer() {
 
           {/* Viewer Count */}
           <div className="absolute top-4 right-4 z-10 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-sm font-medium">
-            <span className="text-[#f29200]">●</span> 2 847 spectateurs
+            <span className="text-[#16A34A]">●</span> 2 847 spectateurs
           </div>
 
           {/* Video Placeholder */}
@@ -32,7 +32,7 @@ export function LiveStreamPlayer() {
             <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
               <Button
                 size="lg"
-                className="w-20 h-20 rounded-full bg-[#f29200] hover:bg-[#d17f00] text-white shadow-2xl"
+                className="w-20 h-20 rounded-full bg-[#16A34A] hover:bg-[#15803D] text-white shadow-2xl"
                 onClick={() => setIsPlaying(true)}
               >
                 <Play size={32} className="ml-1" />
@@ -53,7 +53,7 @@ export function LiveStreamPlayer() {
               </Button>
 
               <div className="flex-1 h-1 bg-white/30 rounded-full overflow-hidden">
-                <div className="h-full w-1/3 bg-[#f29200]" />
+                <div className="h-full w-1/3 bg-[#16A34A]" />
               </div>
 
               <Button
@@ -79,7 +79,7 @@ export function LiveStreamPlayer() {
             <div className="flex-1">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-[#f29200] rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                  <div className="w-12 h-12 bg-[#16A34A] rounded-xl flex items-center justify-center text-white font-bold text-lg">
                     FFA
                   </div>
                   <div>
@@ -90,7 +90,7 @@ export function LiveStreamPlayer() {
 
                 <div className="text-center px-6">
                   <div className="font-sans font-bold text-4xl text-white">2 - 1</div>
-                  <div className="text-sm text-[#f29200] font-medium">45' + 2</div>
+                  <div className="text-sm text-[#16A34A] font-medium">45' + 2</div>
                 </div>
 
                 <div className="flex items-center gap-3">
@@ -107,11 +107,11 @@ export function LiveStreamPlayer() {
               {/* Match Info */}
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
                 <div className="flex items-center gap-2">
-                  <MapPin size={16} className="text-[#f29200]" />
+                  <MapPin size={16} className="text-[#16A34A]" />
                   <span>Stade FFA, Cayar</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock size={16} className="text-[#f29200]" />
+                  <Clock size={16} className="text-[#16A34A]" />
                   <span>Match de Ligue U-17</span>
                 </div>
               </div>
@@ -121,7 +121,7 @@ export function LiveStreamPlayer() {
             <div className="lg:w-64 bg-[#1a1a1a] rounded-xl p-4 border border-[#3a3a3a]">
               <div className="text-xs text-gray-400 uppercase tracking-wide mb-3">Meilleur Performeur</div>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-[#f29200] rounded-full flex items-center justify-center text-white font-bold">
+                <div className="w-10 h-10 bg-[#16A34A] rounded-full flex items-center justify-center text-white font-bold">
                   10
                 </div>
                 <div>
@@ -131,7 +131,7 @@ export function LiveStreamPlayer() {
               </div>
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
-                  <div className="font-sans font-bold text-lg text-[#f29200]">2</div>
+                  <div className="font-sans font-bold text-lg text-[#16A34A]">2</div>
                   <div className="text-xs text-gray-400">Buts</div>
                 </div>
                 <div>

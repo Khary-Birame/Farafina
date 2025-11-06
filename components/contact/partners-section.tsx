@@ -71,8 +71,8 @@ export function PartnersSection() {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {benefits.map((benefit, index) => (
                 <div key={index} className="text-center">
-                  <div className="w-16 h-16 bg-[#f29200]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="text-[#f29200]" size={32} />
+                  <div className="w-16 h-16 bg-[#16A34A]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <benefit.icon className="text-[#16A34A]" size={32} />
                   </div>
                   <h4 className="font-semibold text-lg mb-2 text-[#2E2E2E]">{benefit.title}</h4>
                   <p className="text-sm text-gray-600">{benefit.description}</p>
@@ -82,13 +82,13 @@ export function PartnersSection() {
           </div>
 
           {/* CTA */}
-          <div className="bg-gradient-to-br from-[#f29200] to-[#d17f00] rounded-2xl p-8 md:p-12 text-center text-white">
+          <div className="bg-gradient-to-br from-[#16A34A] to-[#15803D] rounded-2xl p-8 md:p-12 text-center text-white">
             <h3 className="font-sans font-bold text-2xl md:text-3xl mb-4">Devenez Partenaire</h3>
             <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
               Ensemble, nous pouvons créer des opportunités pour les jeunes talents africains et construire l'avenir du football.
             </p>
             <Link href="/contact">
-              <Button className="bg-[#ffffff] hover:bg-gray-100 text-[#f29200] font-semibold px-8 h-12 text-base">
+              <Button className="bg-[#ffffff] hover:bg-gray-100 text-[#16A34A] font-semibold px-8 h-12 text-base">
                 Devenir Partenaire
               </Button>
             </Link>

@@ -17,14 +17,14 @@ export function ProgramsHero() {
       <div className="container mx-auto px-4 lg:px-8 relative">
         <div className="max-w-3xl">
           <h1 className="font-sans font-bold text-5xl lg:text-7xl text-white mb-6 leading-tight text-balance">
-            Programmes Sportifs et <span className="text-[#f29200]">Académiques</span>
+            Programmes Sportifs et <span className="text-[#16A34A]">Académiques</span>
           </h1>
           <p className="text-xl text-white/90 leading-relaxed mb-8 text-pretty">
             L'excellence sur le terrain et en classe.
           </p>
           <Button
             size="lg"
-            className="bg-[#f29200] hover:bg-[#d17f00] text-white text-base h-12 px-8 font-semibold"
+            className="bg-[#16A34A] hover:bg-[#15803D] text-white text-base h-12 px-8 font-semibold"
           >
             Postuler maintenant
             <ArrowRight size={20} className="ml-2" />

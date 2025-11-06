@@ -82,7 +82,7 @@ export default function NewsPage() {
       <Header />
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-[#f29200] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
+        <section className="relative bg-gradient-to-br from-[#16A34A] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
@@ -114,7 +114,7 @@ export default function NewsPage() {
               <div className="grid md:grid-cols-2 gap-8">
                 {featuredNews.map((article) => (
                   <Card key={article.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                    <div className="h-48 bg-gradient-to-br from-[#f29200] to-[#d17e00] flex items-center justify-center">
+                    <div className="h-48 bg-gradient-to-br from-[#16A34A] to-[#d17e00] flex items-center justify-center">
                       <Newspaper className="w-16 h-16 text-white/50" />
                     </div>
                     <div className="p-6">
@@ -128,14 +128,14 @@ export default function NewsPage() {
                           {article.author}
                         </span>
                       </div>
-                      <span className="inline-block px-3 py-1 bg-[#f29200]/10 text-[#f29200] rounded-full text-xs font-semibold mb-3">
+                      <span className="inline-block px-3 py-1 bg-[#16A34A]/10 text-[#16A34A] rounded-full text-xs font-semibold mb-3">
                         {article.category}
                       </span>
                       <h3 className="font-sans font-bold text-xl text-[#2E2E2E] mb-3">{article.title}</h3>
                       <p className="text-muted-foreground mb-4 leading-relaxed">{article.excerpt}</p>
                       <Link
                         href="#"
-                        className="inline-flex items-center gap-2 text-[#f29200] hover:text-[#d17e00] font-semibold text-sm"
+                        className="inline-flex items-center gap-2 text-[#16A34A] hover:text-[#d17e00] font-semibold text-sm"
                       >
                         Lire la suite
                         <ArrowRight className="w-4 h-4" />
@@ -155,8 +155,8 @@ export default function NewsPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {regularNews.map((article) => (
                 <Card key={article.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="h-40 bg-gradient-to-br from-[#f29200]/20 to-[#d17e00]/20 flex items-center justify-center">
-                    <Newspaper className="w-12 h-12 text-[#f29200]/30" />
+                  <div className="h-40 bg-gradient-to-br from-[#16A34A]/20 to-[#d17e00]/20 flex items-center justify-center">
+                    <Newspaper className="w-12 h-12 text-[#16A34A]/30" />
                   </div>
                   <div className="p-5">
                     <div className="flex items-center gap-3 mb-2 text-xs text-muted-foreground">
@@ -164,14 +164,14 @@ export default function NewsPage() {
                       <span>•</span>
                       <span>{article.author}</span>
                     </div>
-                    <span className="inline-block px-2 py-1 bg-[#f29200]/10 text-[#f29200] rounded-full text-xs font-semibold mb-2">
+                    <span className="inline-block px-2 py-1 bg-[#16A34A]/10 text-[#16A34A] rounded-full text-xs font-semibold mb-2">
                       {article.category}
                     </span>
                     <h3 className="font-sans font-bold text-lg text-[#2E2E2E] mb-2 line-clamp-2">{article.title}</h3>
                     <p className="text-sm text-muted-foreground mb-3 line-clamp-3 leading-relaxed">{article.excerpt}</p>
                     <Link
                       href="#"
-                      className="inline-flex items-center gap-1 text-[#f29200] hover:text-[#d17e00] font-semibold text-sm"
+                      className="inline-flex items-center gap-1 text-[#16A34A] hover:text-[#d17e00] font-semibold text-sm"
                     >
                       Lire la suite
                       <ArrowRight className="w-3 h-3" />
@@ -186,13 +186,13 @@ export default function NewsPage() {
         {/* Newsletter CTA */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center bg-gradient-to-br from-[#f29200] to-[#d17e00] rounded-2xl p-12 text-white">
+            <div className="max-w-3xl mx-auto text-center bg-gradient-to-br from-[#16A34A] to-[#d17e00] rounded-2xl p-12 text-white">
               <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4">Restez Informé</h2>
               <p className="text-lg text-white/90 mb-8">
                 Abonnez-vous à notre newsletter pour recevoir les dernières actualités et événements directement dans votre boîte de réception.
               </p>
               <Link href="/contact">
-                <button className="bg-white text-[#f29200] hover:bg-gray-100 font-semibold px-8 py-3 rounded-lg transition-colors">
+                <button className="bg-white text-[#16A34A] hover:bg-gray-100 font-semibold px-8 py-3 rounded-lg transition-colors">
                   S'abonner à la Newsletter
                 </button>
               </Link>

@@ -100,7 +100,7 @@ export function VideoGrid() {
               variant="ghost"
               className={`px-4 py-2 rounded-lg transition-all ${
                 activeTab === tab
-                  ? "bg-[#f29200] text-white hover:bg-[#d17f00]"
+                  ? "bg-[#16A34A] text-white hover:bg-[#15803D]"
                   : "text-gray-400 hover:text-white hover:bg-[#3a3a3a]"
               }`}
               onClick={() => setActiveTab(tab)}

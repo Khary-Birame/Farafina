@@ -28,7 +28,7 @@ export function NewsletterBanner() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             {/* Left Side - Text */}
             <div className="flex items-start gap-4 flex-1">
-              <div className="w-12 h-12 bg-[#f29200] rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-[#16A34A] rounded-lg flex items-center justify-center flex-shrink-0">
                 <Mail className="text-white" size={24} />
               </div>
               <div>
@@ -42,8 +42,8 @@ export function NewsletterBanner() {
             {/* Right Side - Form */}
             <div className="w-full md:w-auto md:min-w-96">
               {subscribed ? (
-                <div className="flex items-center gap-3 bg-[#f29200]/20 border border-[#f29200] rounded-lg px-4 py-3">
-                  <CheckCircle className="text-[#f29200]" size={24} />
+                <div className="flex items-center gap-3 bg-[#16A34A]/20 border border-[#16A34A] rounded-lg px-4 py-3">
+                  <CheckCircle className="text-[#16A34A]" size={24} />
                   <span className="text-white font-medium">Abonnement réussi !</span>
                 </div>
               ) : (
@@ -58,7 +58,7 @@ export function NewsletterBanner() {
                   />
                   <Button
                     type="submit"
-                    className="bg-[#f29200] hover:bg-[#d17f00] text-[#ffffff] font-semibold px-6 h-12"
+                    className="bg-[#16A34A] hover:bg-[#15803D] text-[#ffffff] font-semibold px-6 h-12"
                   >
                     S'abonner
                   </Button>

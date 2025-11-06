@@ -8,7 +8,7 @@ export default function TermsPage() {
       <Header />
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-[#f29200] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
+        <section className="relative bg-gradient-to-br from-[#16A34A] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
@@ -40,7 +40,7 @@ export default function TermsPage() {
                 {/* Introduction */}
                 <div>
                   <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4 flex items-center gap-2">
-                    <FileText className="w-6 h-6 text-[#f29200]" />
+                    <FileText className="w-6 h-6 text-[#16A34A]" />
                     Introduction
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
@@ -53,7 +53,7 @@ export default function TermsPage() {
                 {/* Acceptance of Terms */}
                 <div>
                   <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4 flex items-center gap-2">
-                    <Scale className="w-6 h-6 text-[#f29200]" />
+                    <Scale className="w-6 h-6 text-[#16A34A]" />
                     Acceptation des Conditions
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
@@ -143,7 +143,7 @@ export default function TermsPage() {
                 {/* Limitation of Liability */}
                 <div>
                   <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4 flex items-center gap-2">
-                    <AlertCircle className="w-6 h-6 text-[#f29200]" />
+                    <AlertCircle className="w-6 h-6 text-[#16A34A]" />
                     Limitation de Responsabilité
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
@@ -156,7 +156,7 @@ export default function TermsPage() {
                 {/* Indemnification */}
                 <div>
                   <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4 flex items-center gap-2">
-                    <Gavel className="w-6 h-6 text-[#f29200]" />
+                    <Gavel className="w-6 h-6 text-[#16A34A]" />
                     Indemnisation
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
@@ -196,7 +196,7 @@ export default function TermsPage() {
                   <div className="space-y-2 text-muted-foreground">
                     <p>
                       <strong>Email :</strong>{" "}
-                      <a href="mailto:legal@farafinafootacademy.com" className="text-[#f29200] hover:underline">
+                      <a href="mailto:legal@farafinafootacademy.com" className="text-[#16A34A] hover:underline">
                         legal@farafinafootacademy.com
                       </a>
                     </p>

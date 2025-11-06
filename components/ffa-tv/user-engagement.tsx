@@ -6,7 +6,7 @@ export function UserEngagement() {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Sign In CTA */}
-      <div className="bg-gradient-to-br from-[#f29200] to-[#d17f00] rounded-2xl p-8 lg:p-12 mb-8 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-[#16A34A] to-[#15803D] rounded-2xl p-8 lg:p-12 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
@@ -29,7 +29,7 @@ export function UserEngagement() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/login">
-              <Button size="lg" className="bg-white text-[#f29200] hover:bg-gray-100 text-base h-12 px-8">
+              <Button size="lg" className="bg-white text-[#16A34A] hover:bg-gray-100 text-base h-12 px-8">
                 Se Connecter
                 <ArrowRight size={20} className="ml-2" />
               </Button>
@@ -49,9 +49,9 @@ export function UserEngagement() {
 
       {/* Features Grid */}
       <div className="grid md:grid-cols-3 gap-6">
-        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#f29200] transition-all">
-          <div className="w-12 h-12 bg-[#f29200]/20 rounded-xl flex items-center justify-center mb-4">
-            <MessageCircle size={24} className="text-[#f29200]" />
+        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#16A34A] transition-all">
+          <div className="w-12 h-12 bg-[#16A34A]/20 rounded-xl flex items-center justify-center mb-4">
+            <MessageCircle size={24} className="text-[#16A34A]" />
           </div>
           <h3 className="font-sans font-bold text-white text-lg mb-2">Chat en Direct</h3>
           <p className="text-gray-400 text-sm leading-relaxed">
@@ -59,9 +59,9 @@ export function UserEngagement() {
           </p>
         </div>
 
-        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#f29200] transition-all">
-          <div className="w-12 h-12 bg-[#f29200]/20 rounded-xl flex items-center justify-center mb-4">
-            <Bell size={24} className="text-[#f29200]" />
+        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#16A34A] transition-all">
+          <div className="w-12 h-12 bg-[#16A34A]/20 rounded-xl flex items-center justify-center mb-4">
+            <Bell size={24} className="text-[#16A34A]" />
           </div>
           <h3 className="font-sans font-bold text-white text-lg mb-2">Alertes de Match</h3>
           <p className="text-gray-400 text-sm leading-relaxed">
@@ -69,7 +69,7 @@ export function UserEngagement() {
           </p>
         </div>
 
-        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#f29200] transition-all">
+        <div className="bg-[#2E2E2E] rounded-xl p-6 border border-[#3a3a3a] hover:border-[#16A34A] transition-all">
           <div className="w-12 h-12 bg-[#D4AF37]/20 rounded-xl flex items-center justify-center mb-4">
             <Lock size={24} className="text-[#D4AF37]" />
           </div>

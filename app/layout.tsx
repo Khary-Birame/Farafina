@@ -2,6 +2,7 @@ import type React from "react"
 import { Poppins, Inter } from "next/font/google"
 import "./globals.css"
 import { ScrollToTop } from "@/components/scroll-to-top"
+import { CookieConsent } from "@/components/cookie-consent"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body>
         {children}
         <ScrollToTop />
+        <CookieConsent />
       </body>
     </html>
   )

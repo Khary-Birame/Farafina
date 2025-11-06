@@ -44,16 +44,16 @@ export function ImportantInformation() {
           {infoCards.map((card, index) => (
             <div
               key={index}
-              className="bg-white border border-border rounded-xl p-6 hover:border-[#f29200] hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group"
+              className="bg-white border border-border rounded-xl p-6 hover:border-[#16A34A] hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group"
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-[#f29200]/10 to-[#f29200]/5 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[#f29200] group-hover:to-[#d17e00] transition-transform duration-300">
-                <card.icon className="w-7 h-7 text-[#f29200] group-hover:text-white transition-colors duration-300" />
+              <div className="w-14 h-14 bg-gradient-to-br from-[#16A34A]/10 to-[#16A34A]/5 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[#16A34A] group-hover:to-[#d17e00] transition-transform duration-300">
+                <card.icon className="w-7 h-7 text-[#16A34A] group-hover:text-white transition-colors duration-300" />
               </div>
-              <h3 className="text-xl font-bold text-[#2E2E2E] mb-3 group-hover:text-[#f29200] transition-colors duration-300">{card.title}</h3>
+              <h3 className="text-xl font-bold text-[#2E2E2E] mb-3 group-hover:text-[#16A34A] transition-colors duration-300">{card.title}</h3>
               <p className="text-muted-foreground mb-4 leading-relaxed">{card.description}</p>
               <Link
                 href={card.link}
-                className="text-sm font-semibold text-[#f29200] hover:text-[#d17f00] inline-flex items-center gap-1 group/link"
+                className="text-sm font-semibold text-[#16A34A] hover:text-[#15803D] inline-flex items-center gap-1 group/link"
               >
                 {card.linkText}
                 <span className="group-hover/link:translate-x-1 transition-transform duration-300">→</span>
@@ -63,8 +63,8 @@ export function ImportantInformation() {
         </div>
 
         {/* FAQ Link */}
-        <div className="bg-muted/50 rounded-xl p-8 text-center border border-border">
-          <HelpCircle className="w-12 h-12 text-[#f29200] mx-auto mb-4" />
+        <div className="bg-muted rounded-xl p-8 text-center border border-border">
+          <HelpCircle className="w-12 h-12 text-[#16A34A] mx-auto mb-4" />
           <h3 className="text-xl font-bold text-[#2E2E2E] mb-2">Des Questions ?</h3>
           <p className="text-muted-foreground mb-4">
             Visitez notre section FAQ pour obtenir des réponses aux questions courantes sur le processus de candidature

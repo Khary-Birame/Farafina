@@ -8,13 +8,13 @@ export function MissionVision() {
           {/* Vision */}
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-[#f29200] rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-14 h-14 bg-[#16A34A] rounded-xl flex items-center justify-center flex-shrink-0">
                 <Eye className="text-white" size={28} />
               </div>
               <h2 className="font-sans font-bold text-3xl md:text-4xl text-[#2E2E2E]">Notre Vision</h2>
             </div>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Devenir la <span className="font-semibold text-[#f29200]">référence de l'Afrique</span> en éducation sport-études,
+              Devenir la <span className="font-semibold text-[#16A34A]">référence de l'Afrique</span> en éducation sport-études,
               produisant des athlètes de classe mondiale qui excellent à la fois sur le terrain et en classe.
             </p>
             <p className="text-base text-gray-600 leading-relaxed">
@@ -23,16 +23,16 @@ export function MissionVision() {
               individus complets prêts à concourir aux plus hauts niveaux.
             </p>
             <div className="flex flex-wrap gap-3 pt-4">
-              <div className="flex items-center gap-2 px-4 py-2 bg-[#f29200]/10 rounded-lg">
-                <Award className="text-[#f29200]" size={18} />
+              <div className="flex items-center gap-2 px-4 py-2 bg-[#16A34A]/10 rounded-lg">
+                <Award className="text-[#16A34A]" size={18} />
                 <span className="text-sm font-medium text-[#2E2E2E]">Excellence</span>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-[#f29200]/10 rounded-lg">
-                <Target className="text-[#f29200]" size={18} />
+              <div className="flex items-center gap-2 px-4 py-2 bg-[#16A34A]/10 rounded-lg">
+                <Target className="text-[#16A34A]" size={18} />
                 <span className="text-sm font-medium text-[#2E2E2E]">Innovation</span>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-[#f29200]/10 rounded-lg">
-                <Heart className="text-[#f29200]" size={18} />
+              <div className="flex items-center gap-2 px-4 py-2 bg-[#16A34A]/10 rounded-lg">
+                <Heart className="text-[#16A34A]" size={18} />
                 <span className="text-sm font-medium text-[#2E2E2E]">Intégrité</span>
               </div>
             </div>
@@ -41,32 +41,32 @@ export function MissionVision() {
           {/* Mission */}
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-[#f29200] rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-14 h-14 bg-[#16A34A] rounded-xl flex items-center justify-center flex-shrink-0">
                 <Target className="text-white" size={28} />
               </div>
               <h2 className="font-sans font-bold text-3xl md:text-4xl text-[#2E2E2E]">Notre Mission</h2>
             </div>
             <p className="text-lg text-gray-700 leading-relaxed">
               Découvrir, former et autonomiser les jeunes talents africains grâce à{" "}
-              <span className="font-semibold text-[#f29200]">l'innovation, l'éducation et l'intégrité</span>.
+              <span className="font-semibold text-[#16A34A]">l'innovation, l'éducation et l'intégrité</span>.
             </p>
             <div className="space-y-4">
               <div className="flex gap-4">
-                <div className="w-2 h-2 bg-[#f29200] rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-[#16A34A] rounded-full mt-2 flex-shrink-0" />
                 <p className="text-base text-gray-600 leading-relaxed">
                   <span className="font-semibold text-[#2E2E2E]">Découvrir :</span> Identifier les jeunes talents prometteurs à travers
                   l'Afrique en utilisant une technologie de détection IA de pointe et des réseaux de recrutement traditionnels.
                 </p>
               </div>
               <div className="flex gap-4">
-                <div className="w-2 h-2 bg-[#f29200] rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-[#16A34A] rounded-full mt-2 flex-shrink-0" />
                 <p className="text-base text-gray-600 leading-relaxed">
                   <span className="font-semibold text-[#2E2E2E]">Former :</span> Fournir un encadrement de classe mondiale, des installations modernes
                   et une éducation académique complète pour développer des athlètes complets.
                 </p>
               </div>
               <div className="flex gap-4">
-                <div className="w-2 h-2 bg-[#f29200] rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-[#16A34A] rounded-full mt-2 flex-shrink-0" />
                 <p className="text-base text-gray-600 leading-relaxed">
                   <span className="font-semibold text-[#2E2E2E]">Autonomiser :</span> Équiper nos étudiants de compétences de vie,
                   de valeurs et d'opportunités pour réussir professionnellement et personnellement.

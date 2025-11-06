@@ -19,7 +19,7 @@ export function MapSection() {
             <div className="relative h-96 bg-gradient-to-br from-gray-100 to-gray-200">
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-[#f29200] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-[#16A34A] rounded-full flex items-center justify-center mx-auto mb-4">
                     <MapPin className="text-white" size={32} />
                   </div>
                   <p className="text-gray-600 font-medium">Cayar, Région de Thiès, Sénégal</p>
@@ -35,8 +35,8 @@ export function MapSection() {
             <div className="p-6 bg-white border-t border-gray-200">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-[#f29200]/10 rounded-lg flex items-center justify-center">
-                    <Navigation className="text-[#f29200]" size={24} />
+                  <div className="w-12 h-12 bg-[#16A34A]/10 rounded-lg flex items-center justify-center">
+                    <Navigation className="text-[#16A34A]" size={24} />
                   </div>
                   <div>
                     <p className="font-semibold text-[#2E2E2E]">Environ 50 km de Dakar</p>
@@ -48,7 +48,7 @@ export function MapSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Button className="bg-[#f29200] hover:bg-[#d17f00] text-[#ffffff] font-semibold px-6">
+                  <Button className="bg-[#16A34A] hover:bg-[#15803D] text-[#ffffff] font-semibold px-6">
                     Obtenir l'Itinéraire
                   </Button>
                 </a>

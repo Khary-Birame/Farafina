@@ -78,31 +78,31 @@
   --font-sans: "Poppins", "Poppins Fallback", system-ui, sans-serif;
   --font-mono: "Inter", "Inter Fallback", system-ui, sans-serif;
 
-  /* Updated Farafina Brand Colors - Orange as primary */
-  --color-farafina-orange: #f29200;
-  --color-farafina-orange-dark: #d17f00;
-  --color-farafina-orange-light: #ffa726;
+  /* Charte graphique Farafina - Vert et Gris Anthracite */
+  --color-farafina-green: #16A34A;
+  --color-farafina-green-dark: #15803D;
+  --color-farafina-green-light: #22C55E;
 
   --color-anthracite: #2e2e2e;
   --color-anthracite-light: #3a3a3a;
   --color-anthracite-dark: #1a1a1a;
 
-  --color-gold: #d4af37;
-  --color-gold-light: #e6c966;
-  --color-gold-dark: #b8962e;
+  --color-green-secondary: #10B981;
+  --color-green-secondary-light: #34D399;
+  --color-green-secondary-dark: #059669;
 
-  /* Updated Semantic Design Tokens with orange */
+  /* Semantic Design Tokens avec vert/gris anthracite */
   --color-background: 255 255 255;
   --color-foreground: 46 46 46;
 
-  --color-primary: 242 146 0;
+  --color-primary: 22 163 74;
   --color-primary-foreground: 255 255 255;
 
   --color-secondary: 46 46 46;
   --color-secondary-foreground: 255 255 255;
 
-  --color-accent: 212 175 55;
-  --color-accent-foreground: 46 46 46;
+  --color-accent: 22 163 74;
+  --color-accent-foreground: 255 255 255;
 
   --color-muted: 245 245 245;
   --color-muted-foreground: 115 115 115;
@@ -112,7 +112,7 @@
 
   --color-border: 229 229 229;
   --color-input: 229 229 229;
-  --color-ring: 242 146 0;
+  --color-ring: 22 163 74;
 
   --radius: 0.75rem;
 
@@ -143,7 +143,7 @@
   }
 }
 
-/* Updated custom animations with orange */
+/* Animations personnalisées avec vert */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -170,7 +170,7 @@
 
 .animate-shimmer {
   animation: shimmer 2s infinite;
-  background: linear-gradient(to right, transparent 0%, rgba(242, 146, 0, 0.1) 50%, transparent 100%);
+  background: linear-gradient(to right, transparent 0%, rgba(22, 163, 74, 0.1) 50%, transparent 100%);
   background-size: 1000px 100%;
 }
 
@@ -189,10 +189,10 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(242, 146, 0, 0.3);
+    box-shadow: 0 0 20px rgba(22, 163, 74, 0.3);
   }
   50% {
-    box-shadow: 0 0 40px rgba(242, 146, 0, 0.6);
+    box-shadow: 0 0 40px rgba(22, 163, 74, 0.6);
   }
 }
 
@@ -245,10 +245,10 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #f29200, #d17e00);
+  background: linear-gradient(to bottom, #16A34A, #15803D);
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #d17e00, #b87000);
+  background: linear-gradient(to bottom, #15803D, #166534);
 }

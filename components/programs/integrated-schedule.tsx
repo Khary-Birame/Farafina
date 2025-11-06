@@ -8,7 +8,7 @@ export function IntegratedSchedule() {
       icon: <Sun size={24} />,
       title: "Cours Académiques",
       activities: ["Mathématiques et Sciences", "Langues (Français/Anglais)", "Études Sociales et Histoire"],
-      color: "bg-[#f29200]",
+      color: "bg-[#16A34A]",
     },
     {
       time: "12:00 - 14:00",
@@ -16,7 +16,7 @@ export function IntegratedSchedule() {
       icon: <Sunset size={24} />,
       title: "Déjeuner et Repos",
       activities: ["Repas nutritifs", "Temps de récupération", "Préparation mentale"],
-      color: "bg-[#f29200]",
+      color: "bg-[#16A34A]",
     },
     {
       time: "14:00 - 18:00",
@@ -24,7 +24,7 @@ export function IntegratedSchedule() {
       icon: <Dumbbell size={24} />,
       title: "Entraînement Sportif",
       activities: ["Exercices techniques", "Sessions tactiques", "Conditionnement physique"],
-      color: "bg-[#f29200]",
+      color: "bg-[#16A34A]",
     },
     {
       time: "18:00 - 21:00",
@@ -41,7 +41,7 @@ export function IntegratedSchedule() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="font-sans font-bold text-4xl lg:text-5xl text-[#2E2E2E] mb-6 text-balance">
-            Une Journée Typique à <span className="text-[#f29200]">FFA</span>
+            Une Journée Typique à <span className="text-[#16A34A]">FFA</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Notre planning intégré équilibre la rigueur académique avec un entraînement sportif intensif, assurant un
@@ -58,21 +58,21 @@ export function IntegratedSchedule() {
                   <div className="hidden lg:block absolute top-16 left-full w-full h-0.5 bg-border -translate-x-1/2 z-0" />
                 )}
 
-                <div className="relative bg-white border-2 border-border rounded-2xl p-6 hover:border-[#f29200] transition-all hover:shadow-lg z-10">
+                <div className="relative bg-white border-2 border-border rounded-2xl p-6 hover:border-[#16A34A] transition-all hover:shadow-lg z-10">
                   <div
                     className={`w-14 h-14 ${item.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
                   >
                     <div className="text-white">{item.icon}</div>
                   </div>
 
-                  <div className="text-sm font-semibold text-[#f29200] mb-2">{item.time}</div>
+                  <div className="text-sm font-semibold text-[#16A34A] mb-2">{item.time}</div>
 
                   <h3 className="font-sans font-bold text-xl text-[#2E2E2E] mb-3">{item.title}</h3>
 
                   <ul className="space-y-2">
                     {item.activities.map((activity, actIndex) => (
                       <li key={actIndex} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 bg-[#f29200] rounded-full mt-1.5 flex-shrink-0" />
+                        <div className="w-1.5 h-1.5 bg-[#16A34A] rounded-full mt-1.5 flex-shrink-0" />
                         <span>{activity}</span>
                       </li>
                     ))}

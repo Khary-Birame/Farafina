@@ -31,12 +31,12 @@ export function EthicsSection() {
   ]
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-20 bg-muted">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f29200]/10 border border-[#f29200]/20 mb-4">
-            <Shield className="w-4 h-4 text-[#f29200]" />
-            <span className="text-sm font-medium text-[#f29200]">Confiance et Transparence</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#16A34A]/20 border border-[#16A34A]/30 mb-4">
+            <Shield className="w-4 h-4 text-[#16A34A]" />
+            <span className="text-sm font-medium text-[#16A34A]">Confiance et Transparence</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">Éthique et Confidentialité des Données</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -48,10 +48,10 @@ export function EthicsSection() {
           {principles.map((principle, index) => (
             <Card
               key={index}
-              className="p-8 text-center hover:shadow-lg transition-all duration-300 border-2 hover:border-[#f29200]/20"
+              className="p-8 text-center hover:shadow-lg transition-all duration-300 border-2 hover:border-[#16A34A]/20"
             >
-              <div className="inline-flex p-4 rounded-full bg-[#f29200]/10 mb-4">
-                <principle.icon className="w-8 h-8 text-[#f29200]" />
+              <div className="inline-flex p-4 rounded-full bg-[#16A34A]/20 border border-[#16A34A]/30 mb-4">
+                <principle.icon className="w-8 h-8 text-[#16A34A]" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3">{principle.title}</h3>
               <p className="text-muted-foreground leading-relaxed">{principle.description}</p>
@@ -60,13 +60,13 @@ export function EthicsSection() {
         </div>
 
         {/* Commitments Card */}
-        <Card className="p-8 md:p-12 bg-gradient-to-br from-[#f29200]/5 to-transparent border-2 border-[#f29200]/20">
+        <Card className="p-8 md:p-12 bg-gradient-to-br from-[#16A34A]/20 to-[#10B981]/15 border-2 border-[#16A34A]/30">
           <div className="max-w-3xl mx-auto">
             <h3 className="text-2xl font-bold text-foreground mb-6 text-center">Nos Engagements de Protection des Données</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {commitments.map((commitment, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-[#f29200] flex-shrink-0 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-[#16A34A] flex-shrink-0 mt-0.5" />
                   <span className="text-muted-foreground">{commitment}</span>
                 </div>
               ))}
@@ -75,15 +75,15 @@ export function EthicsSection() {
             {/* Trust Badges */}
             <div className="flex flex-wrap items-center justify-center gap-6 mt-8 pt-8 border-t border-border">
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-border">
-                <Lock className="w-5 h-5 text-[#f29200]" />
+                <Lock className="w-5 h-5 text-[#16A34A]" />
                 <span className="text-sm font-medium text-foreground">Sécurisé SSL</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-border">
-                <Shield className="w-5 h-5 text-[#f29200]" />
+                <Shield className="w-5 h-5 text-[#16A34A]" />
                 <span className="text-sm font-medium text-foreground">Conforme GDPR</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-border">
-                <Heart className="w-5 h-5 text-[#f29200]" />
+                <Heart className="w-5 h-5 text-[#16A34A]" />
                 <span className="text-sm font-medium text-foreground">Conçu Éthiquement</span>
               </div>
             </div>

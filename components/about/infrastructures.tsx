@@ -112,7 +112,7 @@ export function Infrastructures() {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentIndex ? "bg-[#f29200] w-8" : "bg-white/30"
+                    index === currentIndex ? "bg-[#16A34A] w-8" : "bg-white/30"
                   }`}
                 />
               ))}
