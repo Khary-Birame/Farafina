@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button"
+﻿import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 export function ProgramsCTA() {
   return (
     <section className="py-20 lg:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#16A34A] to-[#15803D]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37] to-[#B8941F]" />
       <div className="absolute inset-0 opacity-10">
         <div
           className="absolute inset-0"
@@ -29,7 +29,7 @@ export function ProgramsCTA() {
             <Link href="/apply">
               <Button
                 size="lg"
-                className="bg-[#ffffff] hover:bg-gray-100 text-[#16A34A] text-base h-12 px-8 font-semibold"
+                className="bg-[#ffffff] hover:bg-gray-100 text-[#D4AF37] text-base h-12 px-8 font-semibold"
               >
                 Postuler maintenant
                 <ArrowRight size={20} className="ml-2" />

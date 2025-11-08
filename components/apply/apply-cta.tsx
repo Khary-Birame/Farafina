@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button"
+﻿import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
 import Link from "next/link"
 
 export function ApplyCTA() {
   return (
-    <section className="py-20 lg:py-24 bg-gradient-to-br from-[#16A34A] via-[#16A34A] to-[#15803D] relative overflow-hidden">
+    <section className="py-20 lg:py-24 bg-gradient-to-br from-[#D4AF37] via-[#D4AF37] to-[#B8941F] relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
@@ -34,7 +34,7 @@ export function ApplyCTA() {
             <Link href="/signup">
               <Button
                 size="lg"
-                className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#2E2E2E] font-semibold group w-full sm:w-auto"
+                className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#1A1A1A] font-semibold group w-full sm:w-auto"
               >
                 Créer un Compte
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />

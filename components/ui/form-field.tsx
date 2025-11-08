@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
@@ -66,7 +66,7 @@ export function InputField({
         className="text-sm font-medium text-foreground"
       >
         {label}
-        {required && <span className="text-[#16A34A] ml-1">*</span>}
+        {required && <span className="text-[#D4AF37] ml-1">*</span>}
       </Label>
       <div className="relative">
         <Input
@@ -83,7 +83,7 @@ export function InputField({
           aria-describedby={error ? `${fieldId}-error` : hint ? `${fieldId}-hint` : undefined}
           className={cn(
             "h-12 transition-all duration-200",
-            "focus:ring-2 focus:ring-[#16A34A]/20 focus:border-[#16A34A]",
+            "focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37]",
             error && "border-destructive focus:ring-destructive/20 focus:border-destructive",
             disabled && "opacity-50 cursor-not-allowed"
           )}
@@ -127,7 +127,7 @@ export function TextareaField({
         className="text-sm font-medium text-foreground"
       >
         {label}
-        {required && <span className="text-[#16A34A] ml-1">*</span>}
+        {required && <span className="text-[#D4AF37] ml-1">*</span>}
       </Label>
       <div className="relative">
         <Textarea
@@ -143,7 +143,7 @@ export function TextareaField({
           aria-describedby={error ? `${fieldId}-error` : hint ? `${fieldId}-hint` : undefined}
           className={cn(
             "min-h-[100px] resize-none transition-all duration-200",
-            "focus:ring-2 focus:ring-[#16A34A]/20 focus:border-[#16A34A]",
+            "focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37]",
             error && "border-destructive focus:ring-destructive/20 focus:border-destructive",
             disabled && "opacity-50 cursor-not-allowed"
           )}
@@ -187,7 +187,7 @@ export function SelectField({
         className="text-sm font-medium text-foreground"
       >
         {label}
-        {required && <span className="text-[#16A34A] ml-1">*</span>}
+        {required && <span className="text-[#D4AF37] ml-1">*</span>}
       </Label>
       <div className="relative">
         <Select
@@ -202,7 +202,7 @@ export function SelectField({
             aria-describedby={error ? `${fieldId}-error` : hint ? `${fieldId}-hint` : undefined}
             className={cn(
               "h-12 transition-all duration-200",
-              "focus:ring-2 focus:ring-[#16A34A]/20 focus:border-[#16A34A]",
+              "focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37]",
               error && "border-destructive focus:ring-destructive/20 focus:border-destructive",
               disabled && "opacity-50 cursor-not-allowed"
             )}

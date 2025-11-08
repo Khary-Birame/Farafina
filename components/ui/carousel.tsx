@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import * as React from 'react'
 import useEmblaCarousel, {
@@ -17,7 +17,7 @@ type CarouselPlugin = UseCarouselParameters[1]
 type CarouselProps = {
   opts?: CarouselOptions
   plugins?: CarouselPlugin
-  orientation?: 'horizontal' | 'vertical'
+  orientation?: 'horizontal' | 'Orical'
   setApi?: (api: CarouselApi) => void
 }
 
@@ -111,7 +111,7 @@ function Carousel({
         api: api,
         opts,
         orientation:
-          orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
+          orientation || (opts?.axis === 'y' ? 'Orical' : 'horizontal'),
         scrollPrev,
         scrollNext,
         canScrollPrev,

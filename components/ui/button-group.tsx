@@ -1,4 +1,4 @@
-import { Slot } from '@radix-ui/react-slot'
+﻿import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
@@ -11,7 +11,7 @@ const buttonGroupVariants = cva(
       orientation: {
         horizontal:
           '[&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none',
-        vertical:
+        Orical:
           'flex-col [&>*:not(:first-child)]:rounded-t-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:rounded-b-none',
       },
     },
@@ -59,7 +59,7 @@ function ButtonGroupText({
 
 function ButtonGroupSeparator({
   className,
-  orientation = 'vertical',
+  orientation = 'Orical',
   ...props
 }: React.ComponentProps<typeof Separator>) {
   return (
@@ -67,7 +67,7 @@ function ButtonGroupSeparator({
       data-slot="button-group-separator"
       orientation={orientation}
       className={cn(
-        'bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto',
+        'bg-input relative !m-0 self-stretch data-[orientation=Orical]:h-auto',
         className,
       )}
       {...props}

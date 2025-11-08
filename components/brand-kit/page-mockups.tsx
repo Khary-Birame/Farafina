@@ -1,4 +1,4 @@
-import Image from "next/image"
+﻿import Image from "next/image"
 
 export function PageMockups() {
   const pages = [
@@ -39,8 +39,8 @@ export function PageMockups() {
       <div className="container mx-auto max-w-7xl">
         {/* Section Title */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-sans font-bold text-[#2E2E2E] mb-6">Maquettes de Pages</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#16A34A] to-[#D4AF37] mx-auto mb-6" />
+          <h2 className="text-5xl md:text-6xl font-sans font-bold text-[#1A1A1A] mb-6">Maquettes de Pages</h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#D4AF37] to-[#D4AF37] mx-auto mb-6" />
           <p className="text-xl text-[#737373] font-mono max-w-3xl mx-auto">
             Expérience complète du site web à travers toutes les sections principales
           </p>
@@ -51,10 +51,10 @@ export function PageMockups() {
           {pages.map((page, index) => (
             <div
               key={index}
-              className="group bg-[#F5F5F5] rounded-3xl overflow-hidden border-2 border-[#E5E5E5] hover:border-[#16A34A] transition-all hover:shadow-2xl"
+              className="group bg-[#F5F5F5] rounded-3xl overflow-hidden border-2 border-[#E5E5E5] hover:border-[#D4AF37] transition-all hover:shadow-2xl"
             >
               {/* Mockup Image */}
-              <div className="relative aspect-video bg-gradient-to-br from-[#2E2E2E] to-[#3a3a3a] overflow-hidden">
+              <div className="relative aspect-video bg-gradient-to-br from-[#1A1A1A] to-[#2a2a2a] overflow-hidden">
                 <Image
                   src={page.image || "/placeholder.svg"}
                   alt={page.title}
@@ -66,14 +66,14 @@ export function PageMockups() {
                   <div className="flex gap-1.5">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
                     <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                    <div className="w-3 h-3 rounded-full bg-[#16A34A]" />
+                    <div className="w-3 h-3 rounded-full bg-[#D4AF37]" />
                   </div>
                 </div>
               </div>
 
               {/* Page Info */}
               <div className="p-8">
-                <h3 className="text-2xl font-sans font-bold text-[#2E2E2E] mb-3">{page.title}</h3>
+                <h3 className="text-2xl font-sans font-bold text-[#1A1A1A] mb-3">{page.title}</h3>
                 <p className="text-[#737373] font-mono leading-relaxed">{page.description}</p>
               </div>
             </div>

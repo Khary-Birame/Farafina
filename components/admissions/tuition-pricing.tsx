@@ -1,9 +1,13 @@
+﻿'use client'
+
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Check, Star } from "lucide-react"
 
 const pricingPlans = [
   {
     name: "Programme Externe",
+    secondaryLabel: "École de foot",
     description: "Formation à temps partiel pour étudiants locaux",
     price: {
       xof: "500 000",
@@ -23,6 +27,7 @@ const pricingPlans = [
   },
   {
     name: "Programme Résident",
+    secondaryLabel: "Internat",
     description: "Programme résidentiel à temps plein",
     price: {
       xof: "2 500 000",
@@ -44,6 +49,7 @@ const pricingPlans = [
   },
   {
     name: "Programme Féminin",
+    secondaryLabel: undefined,
     description: "Autonomisation des athlètes féminines",
     price: {
       xof: "1 800 000",
@@ -65,6 +71,8 @@ const pricingPlans = [
 ]
 
 export function TuitionPricing() {
+  const [showContact, setShowContact] = useState(false)
+
   return (
     <section className="py-20 lg:py-28 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
@@ -76,22 +84,34 @@ export function TuitionPricing() {
             Tarification transparente pour une formation de classe mondiale. Choisissez le programme qui correspond à
             vos objectifs et votre budget.
           </p>
+          <div className="mt-6 flex flex-col items-center gap-3">
+            <Button
+              onClick={() => setShowContact((prev) => !prev)}
+              className="rounded-full bg-[#D4AF37] px-6 text-white transition hover:bg-[#b98d2c]"
+            >
+              En savoir +
+            </Button>
+            {showContact && (
+              <p className="text-sm font-medium text-[#1A1A1A]">
+                Appelez-nous au +221 763171202
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {pricingPlans.map((plan, index) => (
             <div
               key={index}
-              className={`relative bg-card border-2 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl group ${
-                plan.popular 
-                  ? "border-[#16A34A] shadow-xl scale-105 lg:scale-110" 
-                  : "border-border hover:border-[#16A34A]/50 hover:-translate-y-2"
-              }`}
+              className={`relative bg-card border-2 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl group ${plan.popular
+                ? "border-[#D4AF37] shadow-xl scale-105 lg:scale-110"
+                : "border-border hover:border-[#D4AF37]/50 hover:-translate-y-2"
+                }`}
             >
               {/* Popular Badge */}
               {plan.popular && (
                 <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-10">
-                  <div className="bg-gradient-to-r from-[#16A34A] to-[#d17e00] text-white px-5 py-2 rounded-full text-sm font-semibold flex items-center gap-2 shadow-lg">
+                  <div className="bg-gradient-to-r from-[#D4AF37] to-[#d17e00] text-white px-5 py-2 rounded-full text-sm font-semibold flex items-center gap-2 shadow-lg">
                     <Star className="w-4 h-4 fill-current" />
                     Plus populaire
                   </div>
@@ -100,47 +120,40 @@ export function TuitionPricing() {
 
               {/* Plan Header */}
               <div className="text-center mb-6">
-                <h3 className={`font-sans font-bold text-2xl mb-2 ${plan.popular ? 'text-[#16A34A]' : 'text-foreground'}`}>
+                <h3 className={`font-sans font-bold text-2xl ${plan.popular ? 'text-[#D4AF37]' : 'text-foreground'}`}>
                   {plan.name}
                 </h3>
-                <p className="text-sm text-muted-foreground">{plan.description}</p>
+                {plan.secondaryLabel && (
+                  <p className="mt-2 font-semibold uppercase tracking-[0.3em] text-sm text-[#D4AF37]">
+                    {plan.secondaryLabel}
+                  </p>
+                )}
+                <p className="mt-3 text-sm text-muted-foreground">{plan.description}</p>
               </div>
 
               {/* Pricing */}
-              <div className={`text-center mb-6 pb-6 border-b border-border ${
-                plan.popular ? 'bg-gradient-to-br from-[#16A34A]/5 to-transparent rounded-lg py-4' : ''
-              }`}>
-                <div className="space-y-2">
-                  <div className="flex items-baseline justify-center gap-2">
-                    <span className={`text-4xl font-bold ${plan.popular ? 'text-[#16A34A]' : 'text-[#16A34A]'}`}>
-                      {plan.price.xof}
-                    </span>
-                    <span className="text-sm text-muted-foreground">XOF</span>
-                  </div>
-                  <div className="text-sm text-muted-foreground font-medium">
-                    €{plan.price.eur} / ${plan.price.usd}
-                  </div>
-                  <div className="text-xs text-muted-foreground">{plan.period}</div>
-                </div>
+              <div className="mb-6 rounded-xl border border-dashed border-[#D4AF37]/30 bg-[#D4AF37]/5 px-4 py-3 text-center text-sm font-medium text-[#1A1A1A]">
+                Contactez-nous pour une proposition personnalisée.
               </div>
 
               {/* Features */}
               <ul className="space-y-3 mb-8">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-[#16A34A] flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">{feature}</span>
-                  </li>
-                ))}
+                {Array.from(new Set([...plan.features, "Assurance incluse", "Équipements inclus"])).map(
+                  (feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-start gap-3">
+                      <Check className="w-5 h-5 text-[#D4AF37] flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground">{feature}</span>
+                    </li>
+                  ),
+                )}
               </ul>
 
               {/* CTA Button */}
               <Button
-                className={`w-full ${
-                  plan.popular
-                    ? "bg-[#16A34A] hover:bg-[#d17e00] text-white"
-                    : "bg-secondary hover:bg-secondary/80 text-secondary-foreground"
-                }`}
+                className={`w-full ${plan.popular
+                  ? "bg-[#D4AF37] hover:bg-[#d17e00] text-white"
+                  : "bg-secondary hover:bg-secondary/80 text-secondary-foreground"
+                  }`}
               >
                 Sélectionner {plan.name}
               </Button>
@@ -153,15 +166,15 @@ export function TuitionPricing() {
           <h3 className="font-sans font-semibold text-lg mb-4 text-center">Options de paiement flexibles</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
             <div>
-              <div className="font-semibold text-[#16A34A] mb-1">Multi-devises</div>
+              <div className="font-semibold text-[#D4AF37] mb-1">Multi-devises</div>
               <div className="text-sm text-muted-foreground">Payez en XOF, EUR ou USD</div>
             </div>
             <div>
-              <div className="font-semibold text-[#16A34A] mb-1">Échelonnement</div>
+              <div className="font-semibold text-[#D4AF37] mb-1">Échelonnement</div>
               <div className="text-sm text-muted-foreground">Paiements fractionnés disponibles</div>
             </div>
             <div>
-              <div className="font-semibold text-[#16A34A] mb-1">Sécurisé</div>
+              <div className="font-semibold text-[#D4AF37] mb-1">Sécurisé</div>
               <div className="text-sm text-muted-foreground">Virement bancaire et carte</div>
             </div>
           </div>

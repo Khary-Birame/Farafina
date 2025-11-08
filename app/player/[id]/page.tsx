@@ -70,7 +70,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
           <div className="mb-8">
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-6">
-                <Avatar className="w-24 h-24 border-4 border-[#16A34A]">
+                <Avatar className="w-24 h-24 border-4 border-[#D4AF37]">
                   <AvatarImage src={playerData.photo} />
                   <AvatarFallback className="text-2xl">
                     {playerData.name.charAt(0)}
@@ -89,7 +89,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
                       <MapPin className="w-4 h-4" />
                       <span>{playerData.city}, {playerData.country}</span>
                     </div>
-                    <Badge className="bg-[#16A34A] text-white">
+                    <Badge className="bg-[#D4AF37] text-white">
                       {playerData.position}
                     </Badge>
                   </div>
@@ -104,7 +104,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
                   <Download className="w-4 h-4 mr-2" />
                   Exporter
                 </Button>
-                <Button className="bg-[#16A34A] hover:bg-[#15803D] text-white">
+                <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
                   <MessageSquare className="w-4 h-4 mr-2" />
                   Contacter
                 </Button>
@@ -112,12 +112,12 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
             </div>
 
             {/* Performance Score */}
-            <Card className="bg-gradient-to-br from-[#16A34A]/20 to-[#10B981]/15 border-[#16A34A]/30">
+            <Card className="bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/15 border-[#D4AF37]/30">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">Score de Performance</div>
-                    <div className="text-4xl font-bold text-[#16A34A]">{playerData.performance}%</div>
+                    <div className="text-4xl font-bold text-[#D4AF37]">{playerData.performance}%</div>
                   </div>
                   <div className="text-right">
                     <div className="text-sm text-muted-foreground mb-1">Potentiel</div>
@@ -144,7 +144,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Award className="w-5 h-5 text-[#16A34A]" />
+                      <Award className="w-5 h-5 text-[#D4AF37]" />
                       Buts
                     </CardTitle>
                   </CardHeader>
@@ -159,7 +159,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <TrendingUp className="w-5 h-5 text-[#10B981]" />
+                      <TrendingUp className="w-5 h-5 text-[#D4AF37]" />
                       Passes Décisives
                     </CardTitle>
                   </CardHeader>
@@ -174,7 +174,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Calendar className="w-5 h-5 text-[#22C55E]" />
+                      <Calendar className="w-5 h-5 text-[#E8C966]" />
                       Matchs
                     </CardTitle>
                   </CardHeader>
@@ -272,7 +272,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle>{eval_.coach}</CardTitle>
-                      <Badge className="bg-[#16A34A] text-white">
+                      <Badge className="bg-[#D4AF37] text-white">
                         {eval_.rating}/10
                       </Badge>
                     </div>
@@ -291,7 +291,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
                   <Card key={index}>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
-                        <FileText className="w-5 h-5 text-[#16A34A]" />
+                        <FileText className="w-5 h-5 text-[#D4AF37]" />
                         {cert.name}
                       </CardTitle>
                       <CardDescription>

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import type React from "react"
 
@@ -71,7 +71,7 @@ export function SignUpForm() {
             <div className="bg-white rounded-2xl shadow-lg p-8 sm:p-12">
               {/* Header */}
               <div className="text-center mb-8">
-                <h1 className="font-sans font-bold text-3xl text-[#2E2E2E] mb-3">Créez Votre Compte Farafina</h1>
+                <h1 className="font-sans font-bold text-3xl text-[#1A1A1A] mb-3">Créez Votre Compte Farafina</h1>
                 <p className="text-muted-foreground text-pretty">
                   Accédez à votre candidature, téléchargez des documents et suivez votre statut d'admission.
                 </p>
@@ -80,15 +80,15 @@ export function SignUpForm() {
               {/* Trust Indicators */}
               <div className="flex items-center justify-center gap-6 mb-8 pb-8 border-b border-border">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Shield className="w-4 h-4 text-[#16A34A]" />
+                  <Shield className="w-4 h-4 text-[#D4AF37]" />
                   <span>Sécurisé</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Lock className="w-4 h-4 text-[#16A34A]" />
+                  <Lock className="w-4 h-4 text-[#D4AF37]" />
                   <span>Chiffré</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <CheckCircle2 className="w-4 h-4 text-[#16A34A]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#D4AF37]" />
                   <span>Conforme RGPD</span>
                 </div>
               </div>
@@ -97,7 +97,7 @@ export function SignUpForm() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Full Name */}
                 <div className="space-y-2">
-                  <Label htmlFor="fullName" className="text-sm font-medium text-[#2E2E2E]">
+                  <Label htmlFor="fullName" className="text-sm font-medium text-[#1A1A1A]">
                     Nom Complet *
                   </Label>
                   <Input
@@ -113,7 +113,7 @@ export function SignUpForm() {
 
                 {/* Email */}
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-sm font-medium text-[#2E2E2E]">
+                  <Label htmlFor="email" className="text-sm font-medium text-[#1A1A1A]">
                     Adresse Email *
                   </Label>
                   <Input
@@ -129,7 +129,7 @@ export function SignUpForm() {
 
                 {/* Password */}
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-sm font-medium text-[#2E2E2E]">
+                  <Label htmlFor="password" className="text-sm font-medium text-[#1A1A1A]">
                     Mot de Passe *
                   </Label>
                   <div className="relative">
@@ -155,7 +155,7 @@ export function SignUpForm() {
 
                 {/* Confirm Password */}
                 <div className="space-y-2">
-                  <Label htmlFor="confirmPassword" className="text-sm font-medium text-[#2E2E2E]">
+                  <Label htmlFor="confirmPassword" className="text-sm font-medium text-[#1A1A1A]">
                     Confirmer le Mot de Passe *
                   </Label>
                   <div className="relative">
@@ -180,7 +180,7 @@ export function SignUpForm() {
 
                 {/* Role Selection */}
                 <div className="space-y-2">
-                  <Label htmlFor="role" className="text-sm font-medium text-[#2E2E2E]">
+                  <Label htmlFor="role" className="text-sm font-medium text-[#1A1A1A]">
                     Je suis un(e) *
                   </Label>
                   <Select value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
@@ -205,11 +205,11 @@ export function SignUpForm() {
                   />
                   <Label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed cursor-pointer">
                     J'accepte les{" "}
-                    <Link href="/terms" className="text-[#16A34A] hover:underline font-medium">
+                    <Link href="/terms" className="text-[#D4AF37] hover:underline font-medium">
                       Conditions d'Utilisation
                     </Link>{" "}
                     et la{" "}
-                    <Link href="/privacy" className="text-[#16A34A] hover:underline font-medium">
+                    <Link href="/privacy" className="text-[#D4AF37] hover:underline font-medium">
                       Politique de Confidentialité
                     </Link>
                   </Label>
@@ -218,7 +218,7 @@ export function SignUpForm() {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-[#16A34A] hover:bg-[#15803D] text-[#ffffff] font-semibold text-base"
+                  className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8941F] text-[#ffffff] font-semibold text-base"
                   disabled={!formData.agreeToTerms}
                 >
                   Créer le Compte
@@ -229,7 +229,7 @@ export function SignUpForm() {
               <div className="mt-8 text-center">
                 <p className="text-sm text-muted-foreground">
                   Vous avez déjà un compte ?{" "}
-                  <Link href="/login" className="text-[#16A34A] hover:underline font-medium">
+                  <Link href="/login" className="text-[#D4AF37] hover:underline font-medium">
                     Se connecter
                   </Link>
                 </p>

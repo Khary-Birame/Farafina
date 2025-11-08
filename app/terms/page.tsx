@@ -1,4 +1,4 @@
-import { Header } from "@/components/header"
+﻿import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { FileText, Scale, Gavel, AlertCircle } from "lucide-react"
 
@@ -8,7 +8,7 @@ export default function TermsPage() {
       <Header />
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-[#16A34A] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
+        <section className="relative bg-gradient-to-br from-[#D4AF37] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
@@ -39,8 +39,8 @@ export default function TermsPage() {
               <div className="space-y-8">
                 {/* Introduction */}
                 <div>
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4 flex items-center gap-2">
-                    <FileText className="w-6 h-6 text-[#16A34A]" />
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4 flex items-center gap-2">
+                    <FileText className="w-6 h-6 text-[#D4AF37]" />
                     Introduction
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
@@ -52,8 +52,8 @@ export default function TermsPage() {
 
                 {/* Acceptance of Terms */}
                 <div>
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4 flex items-center gap-2">
-                    <Scale className="w-6 h-6 text-[#16A34A]" />
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4 flex items-center gap-2">
+                    <Scale className="w-6 h-6 text-[#D4AF37]" />
                     Acceptation des Conditions
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
@@ -66,7 +66,7 @@ export default function TermsPage() {
 
                 {/* Use of Website */}
                 <div>
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4">Utilisation du Site</h2>
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4">Utilisation du Site</h2>
                   <p className="text-muted-foreground mb-3">Vous vous engagez à utiliser notre site uniquement à des fins légales et de manière qui ne viole pas :</p>
                   <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
                     <li>Les droits de tiers</li>
@@ -85,7 +85,7 @@ export default function TermsPage() {
 
                 {/* Intellectual Property */}
                 <div>
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4">Propriété Intellectuelle</h2>
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4">Propriété Intellectuelle</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     Tout le contenu de ce site, y compris mais sans s'y limiter, les textes, graphiques, logos, icônes,
                     images, clips audio et vidéo, est la propriété de Farafina Foot Academy ou de ses concédants de
@@ -101,14 +101,14 @@ export default function TermsPage() {
 
                 {/* User Accounts */}
                 <div>
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4">Comptes Utilisateurs</h2>
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4">Comptes Utilisateurs</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     Si vous créez un compte sur notre site, vous êtes responsable de :
                   </p>
                   <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
                     <li>Maintenir la confidentialité de votre mot de passe</li>
                     <li>Toutes les activités qui se produisent sous votre compte</li>
-                    <li>Nous avertir immédiatement de tout usage non autorisé</li>
+                    <li>Nous aOrir immédiatement de tout usage non autorisé</li>
                     <li>Fournir des informations exactes et à jour</li>
                   </ul>
                   <p className="text-muted-foreground mt-3">
@@ -118,7 +118,7 @@ export default function TermsPage() {
 
                 {/* Applications and Admissions */}
                 <div>
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4">Candidatures et Admissions</h2>
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4">Candidatures et Admissions</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     En soumettant une candidature à Farafina Foot Academy, vous acceptez que :
                   </p>
@@ -132,7 +132,7 @@ export default function TermsPage() {
 
                 {/* Payments */}
                 <div>
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4">Paiements</h2>
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4">Paiements</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     Tous les paiements doivent être effectués conformément aux conditions convenues. Les retards de
                     paiement peuvent entraîner la suspension ou l'annulation de l'inscription. Les frais de scolarité et
@@ -142,8 +142,8 @@ export default function TermsPage() {
 
                 {/* Limitation of Liability */}
                 <div>
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4 flex items-center gap-2">
-                    <AlertCircle className="w-6 h-6 text-[#16A34A]" />
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4 flex items-center gap-2">
+                    <AlertCircle className="w-6 h-6 text-[#D4AF37]" />
                     Limitation de Responsabilité
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
@@ -155,8 +155,8 @@ export default function TermsPage() {
 
                 {/* Indemnification */}
                 <div>
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4 flex items-center gap-2">
-                    <Gavel className="w-6 h-6 text-[#16A34A]" />
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4 flex items-center gap-2">
+                    <Gavel className="w-6 h-6 text-[#D4AF37]" />
                     Indemnisation
                   </h2>
                   <p className="text-muted-foreground leading-relaxed">
@@ -169,7 +169,7 @@ export default function TermsPage() {
 
                 {/* Changes to Terms */}
                 <div>
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4">Modifications des Conditions</h2>
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4">Modifications des Conditions</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     Nous nous réservons le droit de modifier ces conditions d'utilisation à tout moment. Les
                     modifications prendront effet immédiatement après leur publication sur cette page. Votre utilisation
@@ -179,7 +179,7 @@ export default function TermsPage() {
 
                 {/* Governing Law */}
                 <div>
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4">Loi Applicable</h2>
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4">Loi Applicable</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     Ces conditions d'utilisation sont régies et interprétées conformément aux lois du Sénégal. Tout
                     litige découlant de ces conditions sera soumis à la juridiction exclusive des tribunaux compétents
@@ -189,14 +189,14 @@ export default function TermsPage() {
 
                 {/* Contact */}
                 <div className="bg-muted/50 rounded-xl p-6">
-                  <h2 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-4">Nous Contacter</h2>
+                  <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4">Nous Contacter</h2>
                   <p className="text-muted-foreground leading-relaxed mb-4">
                     Si vous avez des questions concernant ces conditions d'utilisation, veuillez nous contacter :
                   </p>
                   <div className="space-y-2 text-muted-foreground">
                     <p>
                       <strong>Email :</strong>{" "}
-                      <a href="mailto:legal@farafinafootacademy.com" className="text-[#16A34A] hover:underline">
+                      <a href="mailto:legal@farafinafootacademy.com" className="text-[#D4AF37] hover:underline">
                         legal@farafinafootacademy.com
                       </a>
                     </p>

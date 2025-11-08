@@ -1,8 +1,8 @@
-import { Handshake, Globe, Users } from "lucide-react"
+﻿import { Handshake, Globe, Users } from "lucide-react"
 
 export function ContactHero() {
   return (
-    <section className="relative bg-gradient-to-br from-[#16A34A] to-[#15803D] text-white py-24 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-[#D4AF37] to-[#B8941F] text-white py-24 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-32 h-32 border-2 border-white rounded-full" />

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import type React from "react"
 
@@ -70,7 +70,7 @@ export function LoginForm() {
             <div className="bg-white rounded-2xl shadow-lg p-8 sm:p-12">
               {/* Header */}
               <div className="text-center mb-8">
-                <h1 className="font-sans font-bold text-3xl text-[#2E2E2E] mb-3">
+                <h1 className="font-sans font-bold text-3xl text-[#1A1A1A] mb-3">
                   Bienvenue à Farafina Foot Academy
                 </h1>
                 <p className="text-muted-foreground text-pretty">
@@ -81,15 +81,15 @@ export function LoginForm() {
               {/* Trust Indicators */}
               <div className="flex items-center justify-center gap-6 mb-8 pb-8 border-b border-border">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Shield className="w-4 h-4 text-[#16A34A]" />
+                  <Shield className="w-4 h-4 text-[#D4AF37]" />
                   <span>Sécurisé</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Lock className="w-4 h-4 text-[#16A34A]" />
+                  <Lock className="w-4 h-4 text-[#D4AF37]" />
                   <span>Chiffré</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <CheckCircle2 className="w-4 h-4 text-[#16A34A]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#D4AF37]" />
                   <span>Protégé</span>
                 </div>
               </div>
@@ -98,7 +98,7 @@ export function LoginForm() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Email */}
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-sm font-medium text-[#2E2E2E]">
+                  <Label htmlFor="email" className="text-sm font-medium text-[#1A1A1A]">
                     Adresse Email
                   </Label>
                   <Input
@@ -108,13 +108,13 @@ export function LoginForm() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="h-12 transition-all duration-200 focus:ring-2 focus:ring-[#16A34A] focus:border-[#16A34A]"
+                    className="h-12 transition-all duration-200 focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37]"
                   />
                 </div>
 
                 {/* Password */}
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-sm font-medium text-[#2E2E2E]">
+                  <Label htmlFor="password" className="text-sm font-medium text-[#1A1A1A]">
                     Mot de Passe
                   </Label>
                   <div className="relative">
@@ -125,7 +125,7 @@ export function LoginForm() {
                       value={formData.password}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                       required
-                      className="h-12 pr-12 transition-all duration-200 focus:ring-2 focus:ring-[#16A34A] focus:border-[#16A34A]"
+                      className="h-12 pr-12 transition-all duration-200 focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37]"
                     />
                     <button
                       type="button"
@@ -151,7 +151,7 @@ export function LoginForm() {
                   </div>
                   <Link
                     href="/forgot-password"
-                    className="text-sm text-[#16A34A] hover:text-[#15803D] hover:underline font-medium transition-colors"
+                    className="text-sm text-[#D4AF37] hover:text-[#B8941F] hover:underline font-medium transition-colors"
                   >
                     Mot de passe oublié ?
                   </Link>
@@ -160,7 +160,7 @@ export function LoginForm() {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-[#16A34A] hover:bg-[#15803D] text-[#ffffff] font-semibold text-base transition-all duration-200 hover:shadow-lg"
+                  className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8941F] text-[#ffffff] font-semibold text-base transition-all duration-200 hover:shadow-lg"
                 >
                   Se Connecter
                 </Button>
@@ -179,7 +179,7 @@ export function LoginForm() {
                 <div className="text-center">
                   <Link
                     href="/signup"
-                    className="text-sm text-[#16A34A] hover:text-[#15803D] hover:underline font-medium transition-colors"
+                    className="text-sm text-[#D4AF37] hover:text-[#B8941F] hover:underline font-medium transition-colors"
                   >
                     Vous n'avez pas de compte ? Créez-en un
                   </Link>

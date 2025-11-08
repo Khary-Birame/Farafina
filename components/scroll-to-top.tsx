@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import { ArrowUp } from "lucide-react"
@@ -32,7 +32,7 @@ export function ScrollToTop() {
       {isVisible && (
         <Button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-[#16A34A] hover:bg-[#d17e00] text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-in fade-in zoom-in group"
+          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-[#D4AF37] hover:bg-[#d17e00] text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-in fade-in zoom-in group"
           size="icon"
         >
           <ArrowUp size={20} className="group-hover:-translate-y-1 transition-transform duration-300" />

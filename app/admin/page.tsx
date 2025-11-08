@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -94,7 +94,7 @@ export default function AdminPage() {
                 Gestion complète de la plateforme Farafina
               </p>
             </div>
-            <Button className="bg-[#16A34A] hover:bg-[#15803D] text-white">
+            <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
               <Plus className="w-4 h-4 mr-2" />
               Nouveau
             </Button>
@@ -102,54 +102,54 @@ export default function AdminPage() {
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card className="border-l-4 border-l-[#16A34A]">
+            <Card className="border-l-4 border-l-[#D4AF37]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Candidatures</CardTitle>
-                <FileText className="h-4 w-4 text-[#16A34A]" />
+                <FileText className="h-4 w-4 text-[#D4AF37]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">156</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="text-[#16A34A]">12</span> en attente
+                  <span className="text-[#D4AF37]">12</span> en attente
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-[#10B981]">
+            <Card className="border-l-4 border-l-[#D4AF37]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Utilisateurs</CardTitle>
-                <Users className="h-4 w-4 text-[#10B981]" />
+                <Users className="h-4 w-4 text-[#D4AF37]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">2,450</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="text-[#10B981]">+45</span> ce mois
+                  <span className="text-[#D4AF37]">+45</span> ce mois
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-[#22C55E]">
+            <Card className="border-l-4 border-l-[#E8C966]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Paiements</CardTitle>
-                <DollarSign className="h-4 w-4 text-[#22C55E]" />
+                <DollarSign className="h-4 w-4 text-[#E8C966]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">€125K</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="text-[#22C55E]">+8.2%</span> ce mois
+                  <span className="text-[#E8C966]">+8.2%</span> ce mois
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-[#34D399]">
+            <Card className="border-l-4 border-l-[#E8C966]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Clubs</CardTitle>
-                <Shield className="h-4 w-4 text-[#34D399]" />
+                <Shield className="h-4 w-4 text-[#E8C966]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">24</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="text-[#34D399]">3</span> nouveaux
+                  <span className="text-[#E8C966]">3</span> nouveaux
                 </p>
               </CardContent>
             </Card>
@@ -184,7 +184,7 @@ export default function AdminPage() {
                           placeholder="Rechercher..."
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
-                          className="pl-10 pr-4 py-2 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-[#16A34A]/20 focus:border-[#16A34A]"
+                          className="pl-10 pr-4 py-2 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37]"
                         />
                       </div>
                       <Button variant="outline" size="sm">
@@ -206,8 +206,8 @@ export default function AdminPage() {
                         className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
                       >
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 bg-[#16A34A]/10 rounded-lg flex items-center justify-center">
-                            <span className="text-[#16A34A] font-bold">
+                          <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-lg flex items-center justify-center">
+                            <span className="text-[#D4AF37] font-bold">
                               {app.name.charAt(0)}
                             </span>
                           </div>
@@ -223,7 +223,7 @@ export default function AdminPage() {
                           <Badge
                             className={
                               app.status === "approved"
-                                ? "bg-[#16A34A]"
+                                ? "bg-[#D4AF37]"
                                 : app.status === "rejected"
                                 ? "bg-red-500"
                                 : "bg-yellow-500"
@@ -291,7 +291,7 @@ export default function AdminPage() {
                         <Badge
                           className={
                             payment.status === "completed"
-                              ? "bg-[#16A34A]"
+                              ? "bg-[#D4AF37]"
                               : "bg-yellow-500"
                           }
                         >

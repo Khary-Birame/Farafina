@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useMemo } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
@@ -59,7 +59,7 @@ const fieldVariants = cva(
   {
     variants: {
       orientation: {
-        vertical: ['flex-col [&>*]:w-full [&>.sr-only]:w-auto'],
+        Orical: ['flex-col [&>*]:w-full [&>.sr-only]:w-auto'],
         horizontal: [
           'flex-row items-center',
           '[&>[data-slot=field-label]]:flex-auto',
@@ -73,14 +73,14 @@ const fieldVariants = cva(
       },
     },
     defaultVariants: {
-      orientation: 'vertical',
+      orientation: 'Orical',
     },
   },
 )
 
 function Field({
   className,
-  orientation = 'vertical',
+  orientation = 'Orical',
   ...props
 }: React.ComponentProps<'div'> & VariantProps<typeof fieldVariants>) {
   return (

@@ -1,4 +1,4 @@
-# Documentation - Vitrine Digitale FFA Farafina
+﻿# Documentation - Vitrine Digitale FFA Farafina
 
 ## Table des Matières
 
@@ -82,20 +82,15 @@ farafina/
 
 ### Couleurs Principales
 
-#### Vert Farafina (Primaire)
-- **Principal** : `#16A34A` (RGB: 22, 163, 74)
-- **Foncé** : `#15803D` (RGB: 21, 128, 61)
-- **Clair** : `#22C55E` (RGB: 34, 197, 94)
+#### Or Farafina (Primaire)
+- **Principal** : `#D4AF37` (RGB: 212, 175, 55)
+- **Foncé** : `#B8941F` (RGB: 184, 148, 31)
+- **Clair** : `#E8C966` (RGB: 232, 201, 102)
 
-#### Gris Anthracite (Secondaire)
-- **Principal** : `#2E2E2E` (RGB: 46, 46, 46)
-- **Clair** : `#3A3A3A` (RGB: 58, 58, 58)
-- **Foncé** : `#1A1A1A` (RGB: 26, 26, 26)
-
-#### Vert Secondaire
-- **Principal** : `#10B981` (RGB: 16, 185, 129)
-- **Clair** : `#34D399` (RGB: 52, 211, 153)
-- **Foncé** : `#059669` (RGB: 5, 150, 105)
+#### Noir (Secondaire)
+- **Principal** : `#1A1A1A` (RGB: 26, 26, 26)
+- **Clair** : `#2a2a2a` (RGB: 42, 42, 42)
+- **Foncé** : `#000000` (RGB: 0, 0, 0)
 
 #### Neutres
 - **Blanc** : `#FFFFFF`
@@ -197,7 +192,7 @@ Les composants UI sont basés sur Radix UI et personnalisés avec Tailwind CSS :
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 
-<Button variant="default" className="bg-[#16A34A]">
+<Button variant="default" className="bg-[#D4AF37]">
   Cliquer
 </Button>
 ```

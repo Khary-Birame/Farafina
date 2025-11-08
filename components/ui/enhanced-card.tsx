@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
@@ -34,7 +34,7 @@ export function EnhancedCard({
     default: "bg-card border-border shadow-sm",
     elevated: "bg-card border-border shadow-lg",
     outlined: "bg-transparent border-2 border-border shadow-none",
-    gradient: "bg-gradient-to-br from-[#16A34A]/10 to-[#10B981]/5 border-[#16A34A]/20",
+    gradient: "bg-gradient-to-br from-[#D4AF37]/10 to-[#D4AF37]/5 border-[#D4AF37]/20",
   }
 
   return (
@@ -64,8 +64,8 @@ export function CardWithIcon({
     <EnhancedCard variant={variant} hover={hover} className={className}>
       <CardHeader>
         {icon && (
-          <div className="w-12 h-12 bg-[#16A34A]/10 rounded-xl flex items-center justify-center mb-4">
-            <div className="text-[#16A34A]">{icon}</div>
+          <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-xl flex items-center justify-center mb-4">
+            <div className="text-[#D4AF37]">{icon}</div>
           </div>
         )}
         <CardTitle className="text-xl font-bold text-foreground">{title}</CardTitle>
@@ -80,7 +80,7 @@ export function CardWithIcon({
           {action.href ? (
             <a
               href={action.href}
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#16A34A] hover:text-[#15803D] transition-colors group"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[#D4AF37] hover:text-[#B8941F] transition-colors group"
             >
               {action.label}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -88,7 +88,7 @@ export function CardWithIcon({
           ) : (
             <button
               onClick={action.onClick}
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#16A34A] hover:text-[#15803D] transition-colors group"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[#D4AF37] hover:text-[#B8941F] transition-colors group"
             >
               {action.label}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -120,14 +120,14 @@ export function StatCard({
   return (
     <EnhancedCard
       variant="elevated"
-      className={cn("border-l-4 border-l-[#16A34A]", className)}
+      className={cn("border-l-4 border-l-[#D4AF37]", className)}
     >
       <CardContent className="pt-6">
         <div className="flex items-start justify-between">
           <div className="space-y-2">
             {icon && (
-              <div className="w-10 h-10 bg-[#16A34A]/10 rounded-lg flex items-center justify-center">
-                <div className="text-[#16A34A]">{icon}</div>
+              <div className="w-10 h-10 bg-[#D4AF37]/10 rounded-lg flex items-center justify-center">
+                <div className="text-[#D4AF37]">{icon}</div>
               </div>
             )}
             <div className="text-3xl font-bold text-foreground">{value}</div>
@@ -138,7 +138,7 @@ export function StatCard({
               className={cn(
                 "text-xs font-medium px-2 py-1 rounded-full",
                 trend.isPositive
-                  ? "bg-[#16A34A]/10 text-[#16A34A]"
+                  ? "bg-[#D4AF37]/10 text-[#D4AF37]"
                   : "bg-destructive/10 text-destructive"
               )}
             >
@@ -187,14 +187,14 @@ export function ProgramCardEnhanced({
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           />
           <div className="absolute top-4 left-4">
-            <span className="bg-[#16A34A] text-white text-xs font-medium px-3 py-1 rounded-full shadow-lg">
+            <span className="bg-[#D4AF37] text-white text-xs font-medium px-3 py-1 rounded-full shadow-lg">
               {category}
             </span>
           </div>
         </div>
       )}
       <CardHeader>
-        <CardTitle className="text-xl font-bold text-foreground group-hover:text-[#16A34A] transition-colors">
+        <CardTitle className="text-xl font-bold text-foreground group-hover:text-[#D4AF37] transition-colors">
           {title}
         </CardTitle>
         <CardDescription className="text-muted-foreground leading-relaxed">
@@ -206,7 +206,7 @@ export function ProgramCardEnhanced({
           <ul className="space-y-2">
             {features.map((feature, index) => (
               <li key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
-                <div className="w-1.5 h-1.5 bg-[#16A34A] rounded-full" />
+                <div className="w-1.5 h-1.5 bg-[#D4AF37] rounded-full" />
                 {feature}
               </li>
             ))}
@@ -218,7 +218,7 @@ export function ProgramCardEnhanced({
           {action.href ? (
             <a
               href={action.href}
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#16A34A] hover:text-[#15803D] transition-colors group"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[#D4AF37] hover:text-[#B8941F] transition-colors group"
             >
               {action.label}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -226,7 +226,7 @@ export function ProgramCardEnhanced({
           ) : (
             <button
               onClick={action.onClick}
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#16A34A] hover:text-[#15803D] transition-colors group"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[#D4AF37] hover:text-[#B8941F] transition-colors group"
             >
               {action.label}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

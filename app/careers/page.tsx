@@ -1,4 +1,4 @@
-import { Header } from "@/components/header"
+﻿import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -95,7 +95,7 @@ export default function CareersPage() {
       <Header />
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-[#16A34A] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
+        <section className="relative bg-gradient-to-br from-[#D4AF37] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
@@ -125,7 +125,7 @@ export default function CareersPage() {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#2E2E2E]">Pourquoi Nous Rejoindre ?</h2>
+                <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#1A1A1A]">Pourquoi Nous Rejoindre ?</h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                   Chez Farafina Foot Academy, nous croyons que notre équipe est notre plus grande force. Découvrez pourquoi
                   vous devriez faire partie de notre mission.
@@ -137,10 +137,10 @@ export default function CareersPage() {
                   const Icon = benefit.icon
                   return (
                     <Card key={index} className="p-6 text-center hover:shadow-lg transition-shadow">
-                      <div className="w-14 h-14 bg-[#16A34A]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
-                        <Icon className="w-7 h-7 text-[#16A34A]" />
+                      <div className="w-14 h-14 bg-[#D4AF37]/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <Icon className="w-7 h-7 text-[#D4AF37]" />
                       </div>
-                      <h3 className="font-sans font-bold text-lg text-[#2E2E2E] mb-2">{benefit.title}</h3>
+                      <h3 className="font-sans font-bold text-lg text-[#1A1A1A] mb-2">{benefit.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">{benefit.description}</p>
                     </Card>
                   )
@@ -155,7 +155,7 @@ export default function CareersPage() {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#2E2E2E]">Postes Disponibles</h2>
+                <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#1A1A1A]">Postes Disponibles</h2>
                 <p className="text-lg text-muted-foreground">
                   Découvrez les opportunités actuelles et rejoignez notre équipe exceptionnelle.
                 </p>
@@ -167,7 +167,7 @@ export default function CareersPage() {
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                       <div className="flex-1">
                         <div className="flex flex-wrap items-center gap-3 mb-3">
-                          <span className="inline-block px-3 py-1 bg-[#16A34A]/10 text-[#16A34A] rounded-full text-xs font-semibold">
+                          <span className="inline-block px-3 py-1 bg-[#D4AF37]/10 text-[#D4AF37] rounded-full text-xs font-semibold">
                             {job.department}
                           </span>
                           <span className="inline-flex items-center gap-1 text-sm text-muted-foreground">
@@ -179,10 +179,10 @@ export default function CareersPage() {
                             {job.type}
                           </span>
                         </div>
-                        <h3 className="font-sans font-bold text-2xl text-[#2E2E2E] mb-3">{job.title}</h3>
+                        <h3 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-3">{job.title}</h3>
                         <p className="text-muted-foreground mb-4 leading-relaxed">{job.description}</p>
                         <div className="mb-4">
-                          <h4 className="font-semibold text-[#2E2E2E] mb-2">Exigences :</h4>
+                          <h4 className="font-semibold text-[#1A1A1A] mb-2">Exigences :</h4>
                           <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
                             {job.requirements.map((req, idx) => (
                               <li key={idx}>{req}</li>
@@ -192,7 +192,7 @@ export default function CareersPage() {
                       </div>
                       <div className="md:ml-4">
                         <Link href={`/contact?job=${job.id}`}>
-                          <Button className="bg-[#16A34A] hover:bg-[#d17e00] text-white whitespace-nowrap">
+                          <Button className="bg-[#D4AF37] hover:bg-[#d17e00] text-white whitespace-nowrap">
                             Postuler
                             <ArrowRight className="w-4 h-4 ml-2" />
                           </Button>
@@ -209,14 +209,14 @@ export default function CareersPage() {
         {/* CTA Section */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center bg-gradient-to-br from-[#16A34A] to-[#d17e00] rounded-2xl p-12 text-white">
+            <div className="max-w-3xl mx-auto text-center bg-gradient-to-br from-[#D4AF37] to-[#d17e00] rounded-2xl p-12 text-white">
               <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4">Vous ne trouvez pas le poste idéal ?</h2>
               <p className="text-lg text-white/90 mb-8">
                 Envoyez-nous une candidature spontanée. Nous sommes toujours à la recherche de talents exceptionnels
                 qui partagent notre vision.
               </p>
               <Link href="/contact">
-                <Button size="lg" className="bg-white text-[#16A34A] hover:bg-gray-100">
+                <Button size="lg" className="bg-white text-[#D4AF37] hover:bg-gray-100">
                   Envoyer une Candidature Spontanée
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>

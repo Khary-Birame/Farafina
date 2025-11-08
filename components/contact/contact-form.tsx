@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import type React from "react"
 
@@ -28,7 +28,7 @@ export function ContactForm() {
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Left Column - Contact Form */}
           <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-            <h2 className="font-sans font-bold text-3xl mb-2 text-[#2E2E2E]">Envoyez-nous un Message</h2>
+            <h2 className="font-sans font-bold text-3xl mb-2 text-[#1A1A1A]">Envoyez-nous un Message</h2>
             <p className="text-gray-600 mb-8">Nous vous répondrons dans les 24 heures.</p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -90,7 +90,7 @@ export function ContactForm() {
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-[#16A34A] hover:bg-[#15803D] text-white font-semibold text-base transition-all duration-200"
+                className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8941F] text-white font-semibold text-base transition-all duration-200"
               >
                 Envoyer le Message
               </Button>
@@ -100,7 +100,7 @@ export function ContactForm() {
           {/* Right Column - Contact Details */}
           <div className="space-y-8">
             <div>
-              <h2 className="font-sans font-bold text-3xl mb-2 text-[#2E2E2E]">Contactez-nous</h2>
+              <h2 className="font-sans font-bold text-3xl mb-2 text-[#1A1A1A]">Contactez-nous</h2>
               <p className="text-gray-600 mb-8">Contactez-nous directement via l'un des canaux ci-dessous.</p>
             </div>
 
@@ -108,11 +108,11 @@ export function ContactForm() {
             <div className="space-y-4">
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#16A34A] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#D4AF37] rounded-lg flex items-center justify-center flex-shrink-0">
                     <MapPin className="text-white" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-[#2E2E2E] mb-1">Notre Localisation</h3>
+                    <h3 className="font-semibold text-lg text-[#1A1A1A] mb-1">Notre Localisation</h3>
                     <p className="text-gray-600 leading-relaxed">
                       Farafina Foot Academy
                       <br />
@@ -126,11 +126,11 @@ export function ContactForm() {
 
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#16A34A] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#D4AF37] rounded-lg flex items-center justify-center flex-shrink-0">
                     <Phone className="text-white" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-[#2E2E2E] mb-1">Téléphone</h3>
+                    <h3 className="font-semibold text-lg text-[#1A1A1A] mb-1">Téléphone</h3>
                     <p className="text-gray-600">+221 XX XXX XX XX</p>
                     <p className="text-sm text-gray-500 mt-1">Lun-Ven, 9h00 - 18h00 (GMT)</p>
                   </div>
@@ -139,11 +139,11 @@ export function ContactForm() {
 
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#16A34A] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#D4AF37] rounded-lg flex items-center justify-center flex-shrink-0">
                     <Mail className="text-white" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-[#2E2E2E] mb-1">Email</h3>
+                    <h3 className="font-semibold text-lg text-[#1A1A1A] mb-1">Email</h3>
                     <p className="text-gray-600">info@farafinafootacademy.com</p>
                     <p className="text-sm text-gray-500 mt-1">Nous répondrons dans les 24 heures</p>
                   </div>
@@ -152,7 +152,7 @@ export function ContactForm() {
             </div>
 
             {/* Social Media */}
-            <div className="bg-gradient-to-br from-[#16A34A] to-[#15803D] rounded-xl p-6 text-white">
+            <div className="bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-xl p-6 text-white">
               <h3 className="font-semibold text-lg mb-4">Suivez-nous</h3>
               <p className="text-white/90 text-sm mb-4">Restez connectés sur les réseaux sociaux</p>
               <div className="flex items-center gap-3">

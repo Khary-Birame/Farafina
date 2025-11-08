@@ -1,8 +1,8 @@
-export function CoverSlide() {
+﻿export function CoverSlide() {
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#16A34A] via-[#00a045] to-[#D4AF37] opacity-90" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37] via-[#00a045] to-[#D4AF37] opacity-90" />
 
       {/* Pattern Overlay */}
       <div className="absolute inset-0 opacity-10">
@@ -19,7 +19,7 @@ export function CoverSlide() {
         {/* Logo */}
         <div className="mb-8 flex justify-center">
           <div className="w-32 h-32 bg-white rounded-3xl flex items-center justify-center shadow-2xl">
-            <span className="text-[#16A34A] font-sans font-bold text-5xl">FFA</span>
+            <span className="text-[#D4AF37] font-sans font-bold text-5xl">FFA</span>
           </div>
         </div>
 

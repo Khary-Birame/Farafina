@@ -1,10 +1,10 @@
-import { Heart, Users, Award, ArrowRight } from "lucide-react"
+﻿import { Heart, Users, Award, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export function SocialInclusion() {
   return (
-    <section className="py-24 bg-gradient-to-br from-[#16A34A] to-[#15803D] relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
@@ -13,7 +13,7 @@ export function SocialInclusion() {
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center mb-12">
-          <h2 className="font-sans font-bold text-4xl md:text-5xl text-white mb-6">Inclusion Sociale & Genres</h2>
+          <h2 className="font-sans font-bold text-4xl md:text-5xl text-white mb-6">Inclusion Sociale</h2>
           <p className="text-xl text-white/90 leading-relaxed">
             À Farafina Foot Academy, nous croyons que le talent ne connaît pas de frontières. Notre engagement envers l'inclusion sociale
             garantit que chaque jeune joueur, quel que soit son origine ou son genre, a accès à une formation et une éducation de classe mondiale.
@@ -23,7 +23,7 @@ export function SocialInclusion() {
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
             <div className="w-16 h-16 bg-[#ffffff] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Heart className="text-[#16A34A]" size={32} />
+              <Heart className="text-[#D4AF37]" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Programmes de Bourses</h3>
             <p className="text-white/80 leading-relaxed">
@@ -34,7 +34,7 @@ export function SocialInclusion() {
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
             <div className="w-16 h-16 bg-[#ffffff] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users className="text-[#16A34A]" size={32} />
+              <Users className="text-[#D4AF37]" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Programme de Football Féminin</h3>
             <p className="text-white/80 leading-relaxed">
@@ -45,7 +45,7 @@ export function SocialInclusion() {
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
             <div className="w-16 h-16 bg-[#ffffff] rounded-full flex items-center justify-center mx-auto mb-4">
-              <Award className="text-[#16A34A]" size={32} />
+              <Award className="text-[#D4AF37]" size={32} />
             </div>
             <h3 className="font-sans font-semibold text-xl text-white mb-3">Accès Égal</h3>
             <p className="text-white/80 leading-relaxed">
@@ -57,7 +57,7 @@ export function SocialInclusion() {
 
         <div className="text-center">
           <Link href="/contact">
-            <Button size="lg" className="bg-[#000000] hover:bg-[#2E2E2E] text-[#ffffff] font-semibold text-lg px-8 h-14">
+            <Button size="lg" className="bg-[#000000] hover:bg-[#1A1A1A] text-[#ffffff] font-semibold text-lg px-8 h-14">
               Soutenir nos Initiatives Sociales
               <ArrowRight className="ml-2" size={20} />
             </Button>

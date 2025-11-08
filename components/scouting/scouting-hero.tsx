@@ -1,19 +1,19 @@
-"use client"
+﻿"use client"
 
 import { Button } from "@/components/ui/button"
 import { Brain, TrendingUp } from "lucide-react"
 
 export function ScoutingHero() {
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#2E2E2E] via-[#1a1a1a] to-[#2E2E2E]">
+    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1A1A1A] via-[#1a1a1a] to-[#1A1A1A]">
       {/* Neural Network Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, #16A34A 0%, transparent 50%),
+            backgroundImage: `radial-gradient(circle at 20% 50%, #D4AF37 0%, transparent 50%),
                            radial-gradient(circle at 80% 80%, #D4AF37 0%, transparent 50%),
-                           radial-gradient(circle at 40% 20%, #16A34A 0%, transparent 50%)`,
+                           radial-gradient(circle at 40% 20%, #D4AF37 0%, transparent 50%)`,
             filter: "blur(60px)",
           }}
         />
@@ -24,17 +24,17 @@ export function ScoutingHero() {
         <div
           className="h-full w-full"
           style={{
-            backgroundImage: `linear-gradient(#16A34A 1px, transparent 1px),
-                           linear-gradient(90deg, #16A34A 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(#D4AF37 1px, transparent 1px),
+                           linear-gradient(90deg, #D4AF37 1px, transparent 1px)`,
             backgroundSize: "50px 50px",
           }}
         />
       </div>
 
       <div className="container relative z-10 mx-auto px-4 lg:px-8 py-20 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#16A34A]/10 border border-[#16A34A]/20 mb-6 animate-fade-in-up">
-          <Brain className="w-4 h-4 text-[#16A34A]" />
-          <span className="text-sm font-medium text-[#16A34A]">Alimenté par l'Intelligence Artificielle</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 mb-6 animate-fade-in-up">
+          <Brain className="w-4 h-4 text-[#D4AF37]" />
+          <span className="text-sm font-medium text-[#D4AF37]">Alimenté par l'Intelligence Artificielle</span>
         </div>
 
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-bold text-white mb-6 animate-fade-in-up text-balance">
@@ -52,7 +52,7 @@ export function ScoutingHero() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up">
           <Button
             size="lg"
-            className="bg-[#16A34A] hover:bg-[#15803D] text-white px-8"
+            className="bg-[#D4AF37] hover:bg-[#B8941F] text-white px-8"
             onClick={() => scrollToSection("ai-dashboard")}
           >
             <TrendingUp className="w-5 h-5 mr-2" />
@@ -78,7 +78,7 @@ export function ScoutingHero() {
           ].map((stat, index) => (
             <div
               key={index}
-              className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#16A34A]/50 transition-all duration-300"
+              className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#D4AF37]/50 transition-all duration-300"
             >
               <div className="text-3xl font-bold text-[#D4AF37] mb-2">{stat.value}</div>
               <div className="text-sm text-gray-400">{stat.label}</div>

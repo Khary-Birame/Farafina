@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -9,12 +9,12 @@ const faqs = [
   {
     question: "Quelles sont les conditions d'âge pour l'admission ?",
     answer:
-      "Nous acceptons les étudiants âgés de 12 à 18 ans. Pour nos programmes de développement jeunesse, nous avons également des options pour les joueurs âgés de 8 à 11 ans. Les conditions d'âge peuvent varier légèrement selon le programme spécifique.",
+      "Nous acceptons les joueurs âgés de 8 ans et plus. Les conditions d'âge peuvent varier légèrement selon le programme spécifique.",
   },
   {
     question: "Quand la période de candidature ouvre-t-elle ?",
     answer:
-      "Les candidatures pour l'année académique 2025/2026 sont actuellement ouvertes. Nous acceptons les candidatures toute l'année, mais la priorité est donnée aux candidatures soumises avant le 31 mars pour la rentrée de septembre.",
+      "Les candidatures ouvriront début décembre 2025. Nous acceptons les candidatures toute l'année.",
   },
   {
     question: "Ai-je besoin d'une expérience footballistique préalable pour postuler ?",
@@ -24,7 +24,7 @@ const faqs = [
   {
     question: "Quels documents sont requis pour la candidature ?",
     answer:
-      "Les documents requis comprennent : acte de naissance, photo d'identité récente, certificat médical (si disponible), relevés académiques et formulaire de consentement parental/tuteur. Optionnel : vidéo de compétences ou bande de moments forts.",
+      "Les documents requis comprennent : acte de naissance, photo d'identité récente, certificat médical , relevés académiques et formulaire de consentement parental/tuteur. Optionnel : vidéo de compétences ou bande de moments forts.",
   },
   {
     question: "Combien de temps dure le processus d'admission ?",
@@ -36,20 +36,15 @@ const faqs = [
     answer:
       "Oui ! Nous proposons des plans de paiement flexibles incluant des versements trimestriels et mensuels. Nous acceptons également les paiements en plusieurs devises (XOF, EUR, USD) pour accommoder les familles internationales.",
   },
-  {
-    question: "Comment puis-je demander une bourse ?",
-    answer:
-      "Les demandes de bourses sont intégrées dans le formulaire de candidature principal. Indiquez simplement votre intérêt pour l'aide financière, et notre équipe évaluera votre éligibilité en fonction du mérite, du besoin et du potentiel. Tous les candidats sont automatiquement considérés pour des bourses partielles.",
-  },
-  {
-    question: "Les étudiants internationaux peuvent-ils postuler ?",
-    answer:
-      "Nous accueillons les étudiants de toute l'Afrique et au-delà. Nous aidons avec les demandes de visa et fournissons des conseils sur la relocalisation. Notre communauté diversifiée comprend des étudiants de plus de 15 pays.",
-  },
+  // {
+  //   question: "Les étudiants internationaux peuvent-ils postuler ?",
+  //   answer:
+  //     "Nous accueillons les étudiants de toute l'Afrique et au-delà. Nous aidons avec les demandes de visa et fournissons des conseils sur la relocalisation. Notre communauté diversifiée comprend des étudiants de plus de 15 pays.",
+  // },
   {
     question: "Qu'est-ce qui est inclus dans les frais de scolarité ?",
     answer:
-      "Les frais de scolarité couvrent la formation, le coaching, l'éducation académique, la psychologie du sport, les conseils nutritionnels, le soutien médical et le suivi des performances. Les programmes résidents incluent également l'hébergement, les repas et les services de blanchisserie.",
+      "Les frais de scolarité couvrent la formation, le coaching, l'éducation académique, la psychologie du sport, les conseils nutritionnels, le soutien médical, l'assurance et le suivi des performances. Les programmes résidents incluent également l'hébergement, les repas et les services de blanchisserie.",
   },
   {
     question: "Y a-t-il un essai ou une journée d'évaluation ?",
@@ -111,7 +106,7 @@ export function AdmissionsFAQ() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/contact">
-                <Button className="bg-[#16A34A] hover:bg-[#d17e00] text-white">Contacter l'équipe d'admission</Button>
+                <Button className="bg-[#D4AF37] hover:bg-[#d17e00] text-white">Contacter l'équipe d'admission</Button>
               </Link>
               <Link href="/contact">
                 <Button variant="outline">Planifier une visite du campus</Button>

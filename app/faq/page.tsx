@@ -1,4 +1,4 @@
-import { Header } from "@/components/header"
+﻿import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, HelpCircle } from "lucide-react"
@@ -11,7 +11,7 @@ export default function FAQPage() {
       <Header />
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-[#16A34A] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
+        <section className="relative bg-gradient-to-br from-[#D4AF37] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
@@ -42,7 +42,7 @@ export default function FAQPage() {
         <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#2E2E2E]">
+              <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#1A1A1A]">
                 Vous avez encore des questions ?
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
@@ -50,7 +50,7 @@ export default function FAQPage() {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link href="/contact">
-                  <Button size="lg" className="bg-[#16A34A] hover:bg-[#d17e00] text-white">
+                  <Button size="lg" className="bg-[#D4AF37] hover:bg-[#d17e00] text-white">
                     Nous Contacter
                   </Button>
                 </Link>

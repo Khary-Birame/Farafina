@@ -4,18 +4,18 @@ import Image from "next/image"
 
 export function Footer() {
   return (
-    <footer className="bg-[#2E2E2E] text-white">
+    <footer className="bg-[#1A1A1A] text-white">
       <div className="container mx-auto px-4 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-[#16A34A] rounded-lg flex items-center justify-center overflow-hidden">
+              <div className="w-12 h-12 bg-[#D4AF37] rounded-lg flex items-center justify-center flex-shrink-0 p-2">
                 <Image
-                  src="https://res.cloudinary.com/drkudvdmd/image/upload/v1762007821/ffa_kbbb86.jpg"
+                  src="ffa.png"
                   alt="Farafina Foot Academy"
                   width={48}
                   height={48}
-                  // className="w-full h-full object-contain"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <div>
@@ -26,31 +26,31 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <a
                 href="#"
-                className="w-9 h-9 bg-white/10 hover:bg-[#16A34A] rounded-lg flex items-center justify-center transition-colors"
+                className="w-9 h-9 bg-white/10 hover:bg-[#D4AF37] rounded-lg flex items-center justify-center transition-colors"
               >
                 <Facebook size={18} />
               </a>
               <a
                 href="#"
-                className="w-9 h-9 bg-white/10 hover:bg-[#16A34A] rounded-lg flex items-center justify-center transition-colors"
+                className="w-9 h-9 bg-white/10 hover:bg-[#D4AF37] rounded-lg flex items-center justify-center transition-colors"
               >
                 <Twitter size={18} />
               </a>
               <a
                 href="#"
-                className="w-9 h-9 bg-white/10 hover:bg-[#16A34A] rounded-lg flex items-center justify-center transition-colors"
+                className="w-9 h-9 bg-white/10 hover:bg-[#D4AF37] rounded-lg flex items-center justify-center transition-colors"
               >
                 <Instagram size={18} />
               </a>
               <a
                 href="#"
-                className="w-9 h-9 bg-white/10 hover:bg-[#16A34A] rounded-lg flex items-center justify-center transition-colors"
+                className="w-9 h-9 bg-white/10 hover:bg-[#D4AF37] rounded-lg flex items-center justify-center transition-colors"
               >
                 <Youtube size={18} />
               </a>
               <a
                 href="#"
-                className="w-9 h-9 bg-white/10 hover:bg-[#16A34A] rounded-lg flex items-center justify-center transition-colors"
+                className="w-9 h-9 bg-white/10 hover:bg-[#D4AF37] rounded-lg flex items-center justify-center transition-colors"
               >
                 <Linkedin size={18} />
               </a>
@@ -61,27 +61,42 @@ export function Footer() {
             <h3 className="font-sans font-semibold text-lg mb-4">Liens Rapides</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-sm text-gray-400 hover:text-[#16A34A] transition-colors">
+                <Link href="/about" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   À Propos
                 </Link>
               </li>
               <li>
-                <Link href="/programs" className="text-sm text-gray-400 hover:text-[#16A34A] transition-colors">
+                <Link href="/programs" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   Programmes
                 </Link>
               </li>
               <li>
-                <Link href="/admissions" className="text-sm text-gray-400 hover:text-[#16A34A] transition-colors">
+                <Link href="/admissions" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   Admissions
                 </Link>
               </li>
               <li>
-                <Link href="/ffa-tv" className="text-sm text-gray-400 hover:text-[#16A34A] transition-colors">
+                <Link href="/events" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
+                  Événements
+                </Link>
+              </li>
+              <li>
+                <Link href="/international" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
+                  International
+                </Link>
+              </li>
+              <li>
+                <Link href="/boutique" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
+                  Boutique
+                </Link>
+              </li>
+              <li>
+                <Link href="/ffa-tv" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   FFA TV
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-sm text-gray-400 hover:text-[#16A34A] transition-colors">
+                <Link href="/contact" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   Partenaires
                 </Link>
               </li>
@@ -92,27 +107,27 @@ export function Footer() {
             <h3 className="font-sans font-semibold text-lg mb-4">Ressources</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/news" className="text-sm text-gray-400 hover:text-[#16A34A] transition-colors">
+                <Link href="/news" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   Actualités
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="text-sm text-gray-400 hover:text-[#16A34A] transition-colors">
+                <Link href="/careers" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   Carrières
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-sm text-gray-400 hover:text-[#16A34A] transition-colors">
+                <Link href="/faq" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-sm text-gray-400 hover:text-[#16A34A] transition-colors">
+                <Link href="/privacy" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   Politique de Confidentialité
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-sm text-gray-400 hover:text-[#16A34A] transition-colors">
+                <Link href="/terms" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   Conditions d'Utilisation
                 </Link>
               </li>
@@ -123,15 +138,15 @@ export function Footer() {
             <h3 className="font-sans font-semibold text-lg mb-4">Nous Contacter</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
-                <MapPin size={18} className="text-[#16A34A] mt-0.5 flex-shrink-0" />
+                <MapPin size={18} className="text-[#D4AF37] mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-gray-400">Cayar, Région de Thiès, Sénégal</span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone size={18} className="text-[#16A34A] flex-shrink-0" />
+                <Phone size={18} className="text-[#D4AF37] flex-shrink-0" />
                 <span className="text-sm text-gray-400">+221 XX XXX XX XX</span>
               </li>
               <li className="flex items-center gap-3">
-                <Mail size={18} className="text-[#16A34A] flex-shrink-0" />
+                <Mail size={18} className="text-[#D4AF37] flex-shrink-0" />
                 <span className="text-sm text-gray-400">info@farafinafootacademy.com</span>
               </li>
             </ul>

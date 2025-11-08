@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -88,7 +88,7 @@ export function NotificationCenter() {
     const getTypeStyles = (type: string) => {
         switch (type) {
             case "success":
-                return "bg-[#16A34A]/20 text-[#16A34A] border-[#16A34A]/30"
+                return "bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30"
             case "warning":
                 return "bg-yellow-500/20 text-yellow-600 border-yellow-500/30"
             case "error":
@@ -108,7 +108,7 @@ export function NotificationCenter() {
             >
                 <Bell className="w-4 h-4" />
                 {unreadCount > 0 && (
-                    <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-[#16A34A] text-white text-xs">
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-[#D4AF37] text-white text-xs">
                         {unreadCount}
                     </Badge>
                 )}
@@ -153,7 +153,7 @@ export function NotificationCenter() {
                                                 key={notification.id}
                                                 className={cn(
                                                     "p-4 hover:bg-muted transition-colors",
-                                                    !notification.read && "bg-[#16A34A]/10"
+                                                    !notification.read && "bg-[#D4AF37]/10"
                                                 )}
                                             >
                                                 <div className="flex items-start gap-3">
@@ -181,7 +181,7 @@ export function NotificationCenter() {
                                                                 </div>
                                                             </div>
                                                             {!notification.read && (
-                                                                <div className="w-2 h-2 bg-[#16A34A] rounded-full flex-shrink-0 mt-1" />
+                                                                <div className="w-2 h-2 bg-[#D4AF37] rounded-full flex-shrink-0 mt-1" />
                                                             )}
                                                         </div>
                                                         <div className="flex items-center gap-2 mt-2">

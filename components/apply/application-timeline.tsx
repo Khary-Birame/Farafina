@@ -1,4 +1,4 @@
-import { FileText, Search, MessageSquare, CheckCircle, UserCheck } from "lucide-react"
+﻿import { FileText, Search, MessageSquare, CheckCircle, UserCheck } from "lucide-react"
 
 export function ApplicationTimeline() {
   const steps = [
@@ -7,7 +7,7 @@ export function ApplicationTimeline() {
       title: "Soumettre le Formulaire",
       description: "Complétez la candidature en ligne avec tous les documents requis",
       duration: "15-20 minutes",
-      color: "from-[#16A34A] to-[#d17e00]",
+      color: "from-[#D4AF37] to-[#d17e00]",
     },
     {
       icon: Search,
@@ -21,7 +21,7 @@ export function ApplicationTimeline() {
       title: "Entretien",
       description: "Les candidats sélectionnés sont invités pour un entretien virtuel ou en personne",
       duration: "1-2 semaines",
-      color: "from-[#16A34A] to-[#22C55E]",
+      color: "from-[#D4AF37] to-[#E8C966]",
     },
     {
       icon: CheckCircle,
@@ -35,23 +35,23 @@ export function ApplicationTimeline() {
       title: "Inscription",
       description: "Complétez le processus d'inscription et préparez-vous pour la vie à l'académie",
       duration: "2-4 semaines",
-      color: "from-[#16A34A] to-[#d17e00]",
+      color: "from-[#D4AF37] to-[#d17e00]",
     },
   ]
 
   return (
-    <section className="py-20 lg:py-28 bg-gradient-to-br from-[#1a1a1a] via-[#2E2E2E] to-[#1a1a1a] relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-gradient-to-br from-[#1a1a1a] via-[#1A1A1A] to-[#1a1a1a] relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-1/4 left-10 w-96 h-96 bg-[#16A34A] rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-10 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#16A34A]/20 to-[#D4AF37]/20 px-4 py-2 rounded-full mb-4 border border-[#16A34A]/30">
-            <CheckCircle className="w-4 h-4 text-[#16A34A]" />
-            <span className="text-sm font-medium text-[#16A34A]">Parcours de Candidature</span>
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37]/20 to-[#D4AF37]/20 px-4 py-2 rounded-full mb-4 border border-[#D4AF37]/30">
+            <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
+            <span className="text-sm font-medium text-[#D4AF37]">Parcours de Candidature</span>
           </div>
           <h2 className="text-3xl lg:text-5xl font-sans font-bold text-white mb-4 text-balance">
             Calendrier de Candidature
@@ -66,7 +66,7 @@ export function ApplicationTimeline() {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="group relative bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#16A34A] hover:shadow-2xl hover:shadow-[#16A34A]/20 transition-all duration-500 hover:-translate-y-2"
+              className="group relative bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-[#D4AF37] hover:shadow-2xl hover:shadow-[#D4AF37]/20 transition-all duration-500 hover:-translate-y-2"
             >
               {/* Gradient Accent */}
               <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${step.color} rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
@@ -84,7 +84,7 @@ export function ApplicationTimeline() {
 
               {/* Content */}
               <div className="text-center">
-                <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#16A34A] transition-colors duration-300">
+                <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#D4AF37] transition-colors duration-300">
                   {step.title}
                 </h3>
                 <p className="text-sm text-white/70 mb-4 leading-relaxed min-h-[50px]">{step.description}</p>
@@ -97,14 +97,14 @@ export function ApplicationTimeline() {
               </div>
 
               {/* Hover Glow Effect */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#16A34A]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             </div>
           ))}
         </div>
 
         {/* Call to Action */}
         <div className="mt-16 text-center">
-          <div className="inline-block bg-gradient-to-r from-[#16A34A]/20 to-[#D4AF37]/20 backdrop-blur-sm border border-[#16A34A]/30 rounded-2xl p-6 max-w-2xl">
+          <div className="inline-block bg-gradient-to-r from-[#D4AF37]/20 to-[#D4AF37]/20 backdrop-blur-sm border border-[#D4AF37]/30 rounded-2xl p-6 max-w-2xl">
             <CheckCircle className="w-12 h-12 text-[#D4AF37] mx-auto mb-4" />
             <h3 className="text-2xl font-bold text-white mb-2">Prêt à Commencer ?</h3>
             <p className="text-white/80 mb-4">

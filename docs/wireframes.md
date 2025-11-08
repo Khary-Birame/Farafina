@@ -1,4 +1,4 @@
-# Wireframes - Vitrine Digitale FFA
+﻿# Wireframes - Vitrine Digitale FFA
 
 ## Vue d'ensemble
 
@@ -221,7 +221,7 @@ Ce document présente les wireframes de la vitrine digitale mondiale pour la Fé
 
 ### Mobile (< 768px)
 - Navigation hamburger
-- Stack vertical pour les cards
+- Stack Orical pour les cards
 - Grille 1 colonne
 
 ### Tablet (768px - 1024px)
@@ -236,7 +236,7 @@ Ce document présente les wireframes de la vitrine digitale mondiale pour la Fé
 
 ## Notes de Design
 
-- Utilisation de la charte graphique vert/gris anthracite
+- Utilisation de la charte graphique or/noir
 - Espacement cohérent (8px grid system)
 - Typographie hiérarchisée
 - Contraste suffisant pour l'accessibilité

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -78,41 +78,41 @@
   --font-sans: "Poppins", "Poppins Fallback", system-ui, sans-serif;
   --font-mono: "Inter", "Inter Fallback", system-ui, sans-serif;
 
-  /* Charte graphique Farafina - Vert et Gris Anthracite */
-  --color-farafina-green: #16A34A;
-  --color-farafina-green-dark: #15803D;
-  --color-farafina-green-light: #22C55E;
+  /* Charte graphique Farafina - Or et Noir */
+  --color-farafina-gold: #D4AF37;
+  --color-farafina-gold-dark: #B8941F;
+  --color-farafina-gold-light: #E8C966;
 
-  --color-anthracite: #2e2e2e;
-  --color-anthracite-light: #3a3a3a;
-  --color-anthracite-dark: #1a1a1a;
+  --color-anthracite: #1a1a1a;
+  --color-anthracite-light: #2a2a2a;
+  --color-anthracite-dark: #000000;
 
-  --color-green-secondary: #10B981;
-  --color-green-secondary-light: #34D399;
-  --color-green-secondary-dark: #059669;
+  --color-gold-secondary: #D4AF37;
+  --color-gold-secondary-light: #E8C966;
+  --color-gold-secondary-dark: #B8941F;
 
-  /* Semantic Design Tokens avec vert/gris anthracite */
+  /* Semantic Design Tokens avec or/noir */
   --color-background: 255 255 255;
-  --color-foreground: 46 46 46;
+  --color-foreground: 26 26 26;
 
-  --color-primary: 22 163 74;
+  --color-primary: 212 175 55;
   --color-primary-foreground: 255 255 255;
 
-  --color-secondary: 46 46 46;
+  --color-secondary: 26 26 26;
   --color-secondary-foreground: 255 255 255;
 
-  --color-accent: 22 163 74;
+  --color-accent: 212 175 55;
   --color-accent-foreground: 255 255 255;
 
   --color-muted: 245 245 245;
   --color-muted-foreground: 115 115 115;
 
   --color-card: 255 255 255;
-  --color-card-foreground: 46 46 46;
+  --color-card-foreground: 26 26 26;
 
   --color-border: 229 229 229;
   --color-input: 229 229 229;
-  --color-ring: 22 163 74;
+  --color-ring: 212 175 55;
 
   --radius: 0.75rem;
 
@@ -143,7 +143,7 @@
   }
 }
 
-/* Animations personnalisées avec vert */
+/* Animations personnalisées avec Or */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -170,7 +170,7 @@
 
 .animate-shimmer {
   animation: shimmer 2s infinite;
-  background: linear-gradient(to right, transparent 0%, rgba(22, 163, 74, 0.1) 50%, transparent 100%);
+  background: linear-gradient(to right, transparent 0%, rgba(212, 175, 55, 0.1) 50%, transparent 100%);
   background-size: 1000px 100%;
 }
 
@@ -189,10 +189,10 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(22, 163, 74, 0.3);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
   }
   50% {
-    box-shadow: 0 0 40px rgba(22, 163, 74, 0.6);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
   }
 }
 
@@ -245,10 +245,10 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #16A34A, #15803D);
+  background: linear-gradient(to bottom, #D4AF37, #B8941F);
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #15803D, #166534);
+  background: linear-gradient(to bottom, #B8941F, #000000);
 }

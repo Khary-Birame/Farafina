@@ -1,4 +1,4 @@
-# Livrables - Vitrine Digitale FFA Farafina
+﻿# Livrables - Vitrine Digitale FFA Farafina
 
 ## Résumé des Livrables
 
@@ -11,7 +11,7 @@ Ce document récapitule tous les livrables créés pour la vitrine digitale mond
 ### Statut : **Terminé**
 
 ### Description
-Charte graphique complète avec les couleurs **vert/gris anthracite** comme demandé.
+Charte graphique complète avec les couleurs **or/noir** comme demandé.
 
 ### Fichiers Modifiés
 - `app/globals.css` - Variables CSS et couleurs principales
@@ -19,9 +19,10 @@ Charte graphique complète avec les couleurs **vert/gris anthracite** comme dema
 - `components/header.tsx` - Navigation mise à jour avec nouvelles couleurs
 
 ### Couleurs Principales
-- **Vert Farafina** : `#16A34A` (RGB: 22, 163, 74)
-- **Gris Anthracite** : `#2E2E2E` (RGB: 46, 46, 46)
-- **Vert Secondaire** : `#10B981` (RGB: 16, 185, 129)
+- **Or Farafina** : `#D4AF37` (RGB: 212, 175, 55)
+- **Noir** : `#1A1A1A` (RGB: 26, 26, 26)
+- **Blanc** : `#FFFFFF` (RGB: 255, 255, 255)
+- **Noir Pur** : `#000000` (RGB: 0, 0, 0)
 
 ### Accès
 - Page Brand Kit : `/brand-kit`
@@ -197,7 +198,7 @@ farafina/
 ## Notes Importantes
 
 - ✅ Tous les livrables demandés ont été créés
-- ✅ La charte graphique utilise maintenant **vert/gris anthracite**
+- ✅ La charte graphique utilise maintenant **or/noir**
 - ✅ Le dashboard KPI est fonctionnel et accessible via `/dashboard`
 - ✅ Tous les documents sont en français comme demandé
 - ✅ La structure est prête pour une vitrine digitale mondiale

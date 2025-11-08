@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -24,12 +24,12 @@ export default function FFATVPage() {
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20 overflow-hidden">
         {/* Background Video Effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#16A34A]/20 via-[#1a1a1a]/90 to-[#1a1a1a]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/20 via-[#1a1a1a]/90 to-[#1a1a1a]" />
         <div className="absolute inset-0 opacity-20">
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: "radial-gradient(circle at 2px 2px, #16A34A 1px, transparent 0)",
+              backgroundImage: "radial-gradient(circle at 2px 2px, #D4AF37 1px, transparent 0)",
               backgroundSize: "40px 40px",
             }}
           />
@@ -42,7 +42,7 @@ export default function FFATVPage() {
               <span>EN DIRECT MAINTENANT</span>
             </div>
             <h1 className="font-sans font-bold text-5xl lg:text-7xl text-white mb-6 leading-tight text-balance">
-              FFA TV — Regardez les <span className="text-[#16A34A]">Légendes de Demain</span> en Action
+              FFA TV — Regardez les <span className="text-[#D4AF37]">Légendes de Demain</span> en Action
             </h1>
             <p className="text-lg text-gray-300 leading-relaxed mb-8 text-pretty">
               Découvrez les matchs en direct, les moments forts exclusifs et les séances d'entraînement en coulisses de Farafina Foot
@@ -51,7 +51,7 @@ export default function FFATVPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                className="bg-[#16A34A] hover:bg-[#15803D] text-white text-base h-12 px-8"
+                className="bg-[#D4AF37] hover:bg-[#B8941F] text-white text-base h-12 px-8"
                 onClick={() => scrollToSection("live-stream")}
               >
                 <Play size={20} className="mr-2" />
@@ -85,7 +85,7 @@ export default function FFATVPage() {
       </section>
 
       {/* Sponsors Section */}
-      <section className="py-12 lg:py-16 bg-[#2E2E2E]/50">
+      <section className="py-12 lg:py-16 bg-[#1A1A1A]/50">
         <div className="container mx-auto px-4 lg:px-8">
           <SponsorsSection />
         </div>

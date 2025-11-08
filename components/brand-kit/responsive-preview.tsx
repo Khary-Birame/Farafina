@@ -1,13 +1,13 @@
-import { Monitor, Tablet, Smartphone } from "lucide-react"
+﻿import { Monitor, Tablet, Smartphone } from "lucide-react"
 
 export function ResponsivePreview() {
   return (
-    <section className="py-24 px-4 bg-[#2E2E2E]">
+    <section className="py-24 px-4 bg-[#1A1A1A]">
       <div className="container mx-auto max-w-6xl">
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-sans font-bold text-white mb-6">Responsive Design</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#16A34A] to-[#D4AF37] mx-auto mb-6" />
+          <div className="w-24 h-1 bg-gradient-to-r from-[#D4AF37] to-[#D4AF37] mx-auto mb-6" />
           <p className="text-xl text-white/80 font-mono max-w-3xl mx-auto">
             Optimized experience across all devices and screen sizes
           </p>
@@ -17,9 +17,9 @@ export function ResponsivePreview() {
         <div className="grid md:grid-cols-3 gap-8">
           {/* Desktop */}
           <div className="text-center">
-            <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 mb-6 border border-white/20 hover:border-[#16A34A] transition-colors">
+            <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 mb-6 border border-white/20 hover:border-[#D4AF37] transition-colors">
               <Monitor className="w-20 h-20 text-[#D4AF37] mx-auto mb-4" />
-              <div className="bg-gradient-to-br from-[#16A34A] to-[#00a045] h-32 rounded-xl mb-4" />
+              <div className="bg-gradient-to-br from-[#D4AF37] to-[#00a045] h-32 rounded-xl mb-4" />
             </div>
             <h3 className="text-2xl font-sans font-bold text-white mb-2">Desktop</h3>
             <p className="text-white/70 font-mono">1920px+ • Full Experience</p>
@@ -27,9 +27,9 @@ export function ResponsivePreview() {
 
           {/* Tablet */}
           <div className="text-center">
-            <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 mb-6 border border-white/20 hover:border-[#16A34A] transition-colors">
+            <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 mb-6 border border-white/20 hover:border-[#D4AF37] transition-colors">
               <Tablet className="w-20 h-20 text-[#D4AF37] mx-auto mb-4" />
-              <div className="bg-gradient-to-br from-[#16A34A] to-[#00a045] h-32 rounded-xl mb-4 max-w-[200px] mx-auto" />
+              <div className="bg-gradient-to-br from-[#D4AF37] to-[#00a045] h-32 rounded-xl mb-4 max-w-[200px] mx-auto" />
             </div>
             <h3 className="text-2xl font-sans font-bold text-white mb-2">Tablet</h3>
             <p className="text-white/70 font-mono">768px - 1919px • Adaptive</p>
@@ -37,9 +37,9 @@ export function ResponsivePreview() {
 
           {/* Mobile */}
           <div className="text-center">
-            <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 mb-6 border border-white/20 hover:border-[#16A34A] transition-colors">
+            <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 mb-6 border border-white/20 hover:border-[#D4AF37] transition-colors">
               <Smartphone className="w-20 h-20 text-[#D4AF37] mx-auto mb-4" />
-              <div className="bg-gradient-to-br from-[#16A34A] to-[#00a045] h-32 rounded-xl mb-4 max-w-[120px] mx-auto" />
+              <div className="bg-gradient-to-br from-[#D4AF37] to-[#00a045] h-32 rounded-xl mb-4 max-w-[120px] mx-auto" />
             </div>
             <h3 className="text-2xl font-sans font-bold text-white mb-2">Mobile</h3>
             <p className="text-white/70 font-mono">320px - 767px • Optimized</p>

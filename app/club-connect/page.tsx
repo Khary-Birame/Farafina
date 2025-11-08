@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -73,31 +73,31 @@ export default function ClubConnectPage() {
         <section className="py-16 lg:py-24 bg-white">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 bg-[#16A34A]/20 text-[#16A34A] px-4 py-2 rounded-full text-sm font-medium mb-6 border border-[#16A34A]/30">
+              <div className="inline-flex items-center gap-2 bg-[#D4AF37]/20 text-[#D4AF37] px-4 py-2 rounded-full text-sm font-medium mb-6 border border-[#D4AF37]/30">
                 <Shield className="w-4 h-4" />
                 <span>Espace Professionnel Réservé</span>
               </div>
               <h1 className="font-sans font-bold text-4xl md:text-5xl lg:text-6xl text-foreground mb-6 text-balance">
-                Club Connect — Découvrez les <span className="text-[#16A34A]">Talents de Demain</span>
+                Club Connect — Découvrez les <span className="text-[#D4AF37]">Talents de Demain</span>
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 text-pretty max-w-2xl mx-auto">
                 Accédez à la base de données exclusive de talents africains. Fiches détaillées, statistiques, vidéos et outils de recrutement pour les clubs professionnels.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
-                  <Users className="w-5 h-5 text-[#16A34A]" />
+                  <Users className="w-5 h-5 text-[#D4AF37]" />
                   <span>500+ Joueurs</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Video className="w-5 h-5 text-[#16A34A]" />
+                  <Video className="w-5 h-5 text-[#D4AF37]" />
                   <span>Vidéos HD</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Globe className="w-5 h-5 text-[#16A34A]" />
+                  <Globe className="w-5 h-5 text-[#D4AF37]" />
                   <span>15+ Pays</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-[#16A34A]" />
+                  <Shield className="w-5 h-5 text-[#D4AF37]" />
                   <span>Données Sécurisées</span>
                 </div>
               </div>
@@ -109,10 +109,10 @@ export default function ClubConnectPage() {
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              <Card className="border-l-4 border-l-[#16A34A]">
+              <Card className="border-l-4 border-l-[#D4AF37]">
                 <CardHeader>
-                  <div className="w-12 h-12 bg-[#16A34A]/10 rounded-xl flex items-center justify-center mb-4">
-                    <FileText className="w-6 h-6 text-[#16A34A]" />
+                  <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-xl flex items-center justify-center mb-4">
+                    <FileText className="w-6 h-6 text-[#D4AF37]" />
                   </div>
                   <CardTitle>Fiches Joueurs Complètes</CardTitle>
                   <CardDescription>
@@ -121,10 +121,10 @@ export default function ClubConnectPage() {
                 </CardHeader>
               </Card>
 
-              <Card className="border-l-4 border-l-[#10B981]">
+              <Card className="border-l-4 border-l-[#D4AF37]">
                 <CardHeader>
-                  <div className="w-12 h-12 bg-[#10B981]/10 rounded-xl flex items-center justify-center mb-4">
-                    <Video className="w-6 h-6 text-[#10B981]" />
+                  <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-xl flex items-center justify-center mb-4">
+                    <Video className="w-6 h-6 text-[#D4AF37]" />
                   </div>
                   <CardTitle>Bibliothèque Vidéo HD</CardTitle>
                   <CardDescription>
@@ -133,10 +133,10 @@ export default function ClubConnectPage() {
                 </CardHeader>
               </Card>
 
-              <Card className="border-l-4 border-l-[#22C55E]">
+              <Card className="border-l-4 border-l-[#E8C966]">
                 <CardHeader>
-                  <div className="w-12 h-12 bg-[#22C55E]/10 rounded-xl flex items-center justify-center mb-4">
-                    <MessageSquare className="w-6 h-6 text-[#22C55E]" />
+                  <div className="w-12 h-12 bg-[#E8C966]/10 rounded-xl flex items-center justify-center mb-4">
+                    <MessageSquare className="w-6 h-6 text-[#E8C966]" />
                   </div>
                   <CardTitle>Communication Directe</CardTitle>
                   <CardDescription>
@@ -222,7 +222,7 @@ export default function ClubConnectPage() {
                         </CardDescription>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-bold text-[#16A34A]">{player.performance}%</div>
+                        <div className="text-2xl font-bold text-[#D4AF37]">{player.performance}%</div>
                         <div className="text-xs text-muted-foreground">Performance</div>
                       </div>
                     </div>
@@ -257,7 +257,7 @@ export default function ClubConnectPage() {
                             Vidéo
                           </Button>
                         )}
-                        <Button size="sm" className="bg-[#16A34A] hover:bg-[#15803D] text-white">
+                        <Button size="sm" className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
                           <MessageSquare className="w-4 h-4" />
                         </Button>
                       </div>
@@ -270,7 +270,7 @@ export default function ClubConnectPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-br from-[#16A34A] to-[#15803D] text-white">
+        <section className="py-16 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] text-white">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4">
@@ -280,7 +280,7 @@ export default function ClubConnectPage() {
                 Accédez à la base de données exclusive de talents et connectez-vous avec les futurs champions africains.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="secondary" className="bg-white text-[#16A34A] hover:bg-gray-100">
+                <Button size="lg" variant="secondary" className="bg-white text-[#D4AF37] hover:bg-gray-100">
                   Demander un Accès
                 </Button>
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">

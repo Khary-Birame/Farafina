@@ -1,7 +1,8 @@
-"use client"
+﻿"use client"
 
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Shield, Award, Users, Download } from "lucide-react"
+import Link from "next/link"
 
 export function AdmissionsHero() {
   const scrollToForm = () => {
@@ -9,17 +10,17 @@ export function AdmissionsHero() {
   }
 
   return (
-    <section className="relative text-white py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-[#2E2E2E] via-[#3a3a3a] to-[#2E2E2E]">
+    <section className="relative text-white py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-[#1A1A1A] via-[#2a2a2a] to-[#1A1A1A]">
       {/* Modern Animated Background */}
       <div className="absolute inset-0">
         {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#16A34A]/20 via-transparent to-[#d17e00]/20 animate-pulse-glow" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/20 via-transparent to-[#d17e00]/20 animate-pulse-glow" />
 
         {/* Geometric shapes */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-[#16A34A]/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-[#D4AF37]/10 rounded-full blur-3xl animate-float" />
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#D4AF37]/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[#16A34A]/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[#D4AF37]/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
         </div>
 
         {/* Grid pattern overlay */}
@@ -40,12 +41,18 @@ export function AdmissionsHero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
             <Award className="w-4 h-4 text-white" />
-            <span className="text-sm font-medium">Candidatures ouvertes pour 2025/2026</span>
+            <span className="text-sm font-medium">Candidatures Ouvertes pour 2025/2026</span>
           </div>
 
           {/* Heading */}
-          <h1 className="font-sans font-bold text-4xl md:text-5xl lg:text-6xl mb-6 text-balance">
-            Rejoignez l'Académie — Postulez Maintenant
+          <h1 className="font-sans font-bold text-4xl md:text-5xl lg:text-6xl mb-6 text-balance leading-tight">
+            Rejoignez l'Académie{" "}
+            <Link
+              href="/apply"
+              className="text-[#D4AF37] hover:text-[#B8941F] transition-colors duration-300 underline decoration-[#D4AF37]/40 hover:decoration-[#B8941F]/60 underline-offset-4"
+            >
+              Postulez Maintenant
+            </Link>
           </h1>
 
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto text-pretty leading-relaxed">
@@ -58,7 +65,7 @@ export function AdmissionsHero() {
             <Button
               size="lg"
               onClick={scrollToForm}
-              className="bg-white text-[#16A34A] hover:bg-gray-100 font-semibold group"
+              className="bg-white text-[#D4AF37] hover:bg-gray-100 font-semibold group"
             >
               Commencez votre inscription
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

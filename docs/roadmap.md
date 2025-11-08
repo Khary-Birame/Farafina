@@ -1,4 +1,4 @@
-# Roadmap - Vitrine Digitale FFA Farafina
+﻿# Roadmap - Vitrine Digitale FFA Farafina
 
 ## Vue d'ensemble
 
@@ -12,7 +12,7 @@ Cette roadmap présente le plan de développement et de déploiement de la vitri
 - Architecture de base
 
 ### Livrables
-- [x] Charte graphique (vert/gris anthracite)
+- [x] Charte graphique (or/noir)
 - [x] Structure du projet Next.js
 - [x] Configuration Tailwind CSS
 - [x] Composants UI de base
@@ -212,7 +212,7 @@ Cette roadmap présente le plan de développement et de déploiement de la vitri
 - UI Components : shadcn/ui
 
 ### Design
-- Charte graphique : Vert/Gris Anthracite
+- Charte graphique : or/noir
 - Typographie : Poppins, Inter
 - Design system : En cours
 

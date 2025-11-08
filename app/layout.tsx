@@ -3,6 +3,7 @@ import { Poppins, Inter } from "next/font/google"
 import "./globals.css"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { CookieConsent } from "@/components/cookie-consent"
+import { CartProvider } from "@/components/providers/cart-provider"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,9 +31,11 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${poppins.variable} ${inter.variable}`}>
       <body>
-        {children}
-        <ScrollToTop />
-        <CookieConsent />
+        <CartProvider>
+          {children}
+          <ScrollToTop />
+          <CookieConsent />
+        </CartProvider>
       </body>
     </html>
   )

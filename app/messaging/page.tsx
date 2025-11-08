@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -17,7 +17,7 @@ import {
   Smile,
   Video,
   Phone,
-  MoreVertical
+  MoreOrical
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -136,7 +136,7 @@ export default function MessagingPage() {
                     <input
                       type="text"
                       placeholder="Rechercher une conversation..."
-                      className="w-full pl-10 pr-4 py-2 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-[#16A34A]/20 focus:border-[#16A34A]"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37]"
                     />
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export default function MessagingPage() {
                       onClick={() => setSelectedConversation(conversation)}
                       className={`w-full p-4 border-b hover:bg-muted/50 transition-colors text-left ${
                         selectedConversation.id === conversation.id
-                          ? "bg-[#16A34A]/10 border-l-4 border-l-[#16A34A]"
+                          ? "bg-[#D4AF37]/10 border-l-4 border-l-[#D4AF37]"
                           : ""
                       }`}
                     >
@@ -162,7 +162,7 @@ export default function MessagingPage() {
                             </AvatarFallback>
                           </Avatar>
                           {conversation.online && (
-                            <div className="absolute bottom-0 right-0 w-3 h-3 bg-[#16A34A] rounded-full border-2 border-white" />
+                            <div className="absolute bottom-0 right-0 w-3 h-3 bg-[#D4AF37] rounded-full border-2 border-white" />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -171,7 +171,7 @@ export default function MessagingPage() {
                               {conversation.name}
                             </div>
                             {conversation.unread > 0 && (
-                              <Badge className="bg-[#16A34A] text-white text-xs">
+                              <Badge className="bg-[#D4AF37] text-white text-xs">
                                 {conversation.unread}
                               </Badge>
                             )}
@@ -217,7 +217,7 @@ export default function MessagingPage() {
                       <Video className="w-4 h-4" />
                     </Button>
                     <Button variant="ghost" size="sm">
-                      <MoreVertical className="w-4 h-4" />
+                      <MoreOrical className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
@@ -232,7 +232,7 @@ export default function MessagingPage() {
                       <div
                         className={`max-w-[70%] rounded-lg p-3 ${
                           msg.isOwn
-                            ? "bg-[#16A34A] text-white"
+                            ? "bg-[#D4AF37] text-white"
                             : "bg-muted text-foreground"
                         }`}
                       >
@@ -276,7 +276,7 @@ export default function MessagingPage() {
                     </Button>
                     <Button
                       onClick={handleSendMessage}
-                      className="bg-[#16A34A] hover:bg-[#15803D] text-white"
+                      className="bg-[#D4AF37] hover:bg-[#B8941F] text-white"
                       size="sm"
                     >
                       <Send className="w-4 h-4" />

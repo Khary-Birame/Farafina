@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -39,7 +39,7 @@ export function ApplicationForm() {
             </div>
             <div className="h-2 bg-muted rounded-full overflow-hidden">
               <div
-                className="h-full bg-[#16A34A] transition-all duration-300 ease-out"
+                className="h-full bg-[#D4AF37] transition-all duration-300 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -85,6 +85,18 @@ export function ApplicationForm() {
                   </div>
                 </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="height">Taille (cm) *</Label>
+                    <Input id="height" type="number" placeholder="Ex: 175" required />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="weight">Poids (kg) *</Label>
+                    <Input id="weight" type="number" placeholder="Ex: 70" required />
+                  </div>
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="country">Pays *</Label>
                   <Select>
@@ -103,15 +115,20 @@ export function ApplicationForm() {
                   </Select>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Adresse e-mail *</Label>
-                    <Input id="email" type="email" placeholder="votre@email.com" required />
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Adresse e-mail *</Label>
+                  <Input id="email" type="email" placeholder="votre@email.com" required />
+                </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="phone">Numéro de téléphone *</Label>
                     <Input id="phone" type="tel" placeholder="+221 XX XXX XX XX" required />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="phone2">Deuxième numéro de téléphone</Label>
+                    <Input id="phone2" type="tel" placeholder="+221 XX XXX XX XX (Optionnel)" />
                   </div>
                 </div>
               </div>
@@ -145,9 +162,14 @@ export function ApplicationForm() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="goalkeeper">Gardien de but</SelectItem>
-                      <SelectItem value="defender">Défenseur</SelectItem>
-                      <SelectItem value="midfielder">Milieu de terrain</SelectItem>
+                      <SelectItem value="defender-center">Défenseur central</SelectItem>
+                      <SelectItem value="defender-lateral">Défenseur latéral</SelectItem>
+                      <SelectItem value="midfielder-defensive">Milieu défensif</SelectItem>
+                      <SelectItem value="midfielder-central">Milieu central</SelectItem>
+                      <SelectItem value="midfielder-offensive">Milieu offensif</SelectItem>
+                      <SelectItem value="winger">Ailier</SelectItem>
                       <SelectItem value="forward">Attaquant</SelectItem>
+                      <SelectItem value="striker">Avant-centre</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -190,7 +212,7 @@ export function ApplicationForm() {
                 <h3 className="font-sans font-semibold text-xl mb-6">Télécharger les documents</h3>
 
                 <div className="space-y-4">
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#16A34A] transition-colors cursor-pointer">
+                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
                     <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                     <p className="font-medium mb-1">Acte de naissance *</p>
                     <p className="text-sm text-muted-foreground mb-4">PDF, JPG ou PNG (Max 5MB)</p>
@@ -199,7 +221,7 @@ export function ApplicationForm() {
                     </Button>
                   </div>
 
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#16A34A] transition-colors cursor-pointer">
+                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
                     <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                     <p className="font-medium mb-1">Photo récente *</p>
                     <p className="text-sm text-muted-foreground mb-4">JPG ou PNG (Max 2MB)</p>
@@ -208,7 +230,7 @@ export function ApplicationForm() {
                     </Button>
                   </div>
 
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#16A34A] transition-colors cursor-pointer">
+                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
                     <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                     <p className="font-medium mb-1">Certificat médical</p>
                     <p className="text-sm text-muted-foreground mb-4">PDF ou JPG (Max 5MB)</p>
@@ -217,7 +239,7 @@ export function ApplicationForm() {
                     </Button>
                   </div>
 
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#16A34A] transition-colors cursor-pointer">
+                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
                     <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                     <p className="font-medium mb-1">Vidéo de compétences (Optionnel)</p>
                     <p className="text-sm text-muted-foreground mb-4">MP4 ou lien YouTube (Max 50MB)</p>
@@ -229,7 +251,7 @@ export function ApplicationForm() {
 
                 {/* Privacy Notice */}
                 <div className="bg-muted/50 border border-border rounded-lg p-4 flex items-start gap-3">
-                  <Lock className="w-5 h-5 text-[#16A34A] flex-shrink-0 mt-0.5" />
+                  <Lock className="w-5 h-5 text-[#D4AF37] flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-sm font-medium mb-1">Vos données sont protégées</p>
                     <p className="text-xs text-muted-foreground leading-relaxed">
@@ -255,7 +277,7 @@ export function ApplicationForm() {
               {currentStep < totalSteps ? (
                 <Button
                   onClick={() => setCurrentStep(Math.min(totalSteps, currentStep + 1))}
-                  className="bg-[#16A34A] hover:bg-[#d17e00] text-white"
+                  className="bg-[#D4AF37] hover:bg-[#d17e00] text-white"
                 >
                   Étape suivante
                 </Button>
@@ -265,7 +287,7 @@ export function ApplicationForm() {
                   onClick={() => {
                     alert("Votre candidature a été soumise avec succès ! Nous vous contacterons sous peu.")
                   }}
-                  className="bg-[#16A34A] hover:bg-[#d17e00] text-white"
+                  className="bg-[#D4AF37] hover:bg-[#d17e00] text-white"
                 >
                   <CheckCircle2 className="w-4 h-4 mr-2" />
                   Soumettre la candidature
@@ -276,7 +298,7 @@ export function ApplicationForm() {
 
           {/* Security Badge */}
           <div className="flex items-center justify-center gap-2 mt-6 text-sm text-muted-foreground">
-            <Shield className="w-4 h-4 text-[#16A34A]" />
+            <Shield className="w-4 h-4 text-[#D4AF37]" />
             <span>Sécurisé par cryptage SSL</span>
           </div>
         </div>

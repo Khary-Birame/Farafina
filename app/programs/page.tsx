@@ -11,15 +11,17 @@ import { ProgramsCTA } from "@/components/programs/programs-cta"
 export default function ProgramsPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-      <ProgramsHero />
-      <SportsExcellence />
-      <AcademicExcellence />
-      <IntegratedSchedule />
-      <ProgramsByAge />
-      <CoachingStaff />
-      <ProgramsCTA />
-      <Footer />
+      <Header variant="solid" />
+      <main>
+        <ProgramsHero />
+        <SportsExcellence />
+        <AcademicExcellence />
+        <IntegratedSchedule />
+        <ProgramsByAge />
+        <CoachingStaff />
+        <ProgramsCTA />
+        <Footer />
+      </main>
     </div>
   )
 }

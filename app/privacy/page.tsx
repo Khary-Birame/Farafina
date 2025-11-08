@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -13,8 +13,8 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4 lg:px-8 py-12 max-w-4xl">
           {/* Header */}
           <div className="text-center mb-12">
-            <div className="w-16 h-16 bg-[#16A34A]/20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Shield className="w-8 h-8 text-[#16A34A]" />
+            <div className="w-16 h-16 bg-[#D4AF37]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Shield className="w-8 h-8 text-[#D4AF37]" />
             </div>
             <h1 className="font-sans font-bold text-4xl md:text-5xl text-foreground mb-4">
               Politique de Confidentialité
@@ -33,7 +33,7 @@ export default function PrivacyPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Lock className="w-5 h-5 text-[#16A34A]" />
+                  <Lock className="w-5 h-5 text-[#D4AF37]" />
                   Collecte des Données
                 </CardTitle>
               </CardHeader>
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Eye className="w-5 h-5 text-[#16A34A]" />
+                  <Eye className="w-5 h-5 text-[#D4AF37]" />
                   Utilisation des Données
                 </CardTitle>
               </CardHeader>
@@ -78,7 +78,7 @@ export default function PrivacyPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-[#16A34A]" />
+                  <FileText className="w-5 h-5 text-[#D4AF37]" />
                   Vos Droits RGPD
                 </CardTitle>
               </CardHeader>
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-[#16A34A]" />
+                  <Shield className="w-5 h-5 text-[#D4AF37]" />
                   Sécurité des Données
                 </CardTitle>
               </CardHeader>
@@ -155,7 +155,7 @@ export default function PrivacyPage() {
             </Card>
 
             {/* Section 6 - Contact */}
-            <Card className="bg-gradient-to-br from-[#16A34A]/20 to-[#10B981]/15 border-[#16A34A]/30">
+            <Card className="bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/15 border-[#D4AF37]/30">
               <CardHeader>
                 <CardTitle>Contact DPO</CardTitle>
               </CardHeader>

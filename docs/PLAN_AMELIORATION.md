@@ -1,10 +1,10 @@
-# Plan d'Amélioration - Vision Stratégique FFA 2025-2027
+﻿# Plan d'Amélioration - Vision Stratégique FFA 2025-2027
 
 ## Analyse de l'Existant vs Vision Stratégique
 
 ### ✅ Ce qui est déjà en place
 
-1. **Charte graphique** - Vert/gris anthracite harmonisé ✅
+1. **Charte graphique** - or/noir harmonisé ✅
 2. **KPI Dashboards** - Dashboard avec métriques de base ✅
 3. **Wireframes** - Documentation complète ✅
 4. **Roadmap** - Plan de développement ✅

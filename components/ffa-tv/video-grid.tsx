@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -92,7 +92,7 @@ export function VideoGrid() {
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex items-center gap-2 bg-[#2E2E2E] p-1 rounded-xl border border-[#3a3a3a]">
+        <div className="flex items-center gap-2 bg-[#1A1A1A] p-1 rounded-xl border border-[#2a2a2a]">
           {tabs.map((tab) => (
             <Button
               key={tab}
@@ -100,8 +100,8 @@ export function VideoGrid() {
               variant="ghost"
               className={`px-4 py-2 rounded-lg transition-all ${
                 activeTab === tab
-                  ? "bg-[#16A34A] text-white hover:bg-[#15803D]"
-                  : "text-gray-400 hover:text-white hover:bg-[#3a3a3a]"
+                  ? "bg-[#D4AF37] text-white hover:bg-[#B8941F]"
+                  : "text-gray-400 hover:text-white hover:bg-[#2a2a2a]"
               }`}
               onClick={() => setActiveTab(tab)}
             >
@@ -123,7 +123,7 @@ export function VideoGrid() {
         <Button
           size="lg"
           variant="outline"
-          className="border-[#3a3a3a] text-white hover:bg-[#2E2E2E] text-base h-12 px-8 bg-transparent"
+          className="border-[#2a2a2a] text-white hover:bg-[#1A1A1A] text-base h-12 px-8 bg-transparent"
         >
           <Play size={20} className="mr-2" />
           Charger Plus de Vidéos

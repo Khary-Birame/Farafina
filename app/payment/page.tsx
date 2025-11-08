@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -77,7 +77,7 @@ export default function PaymentPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <DollarSign className="w-5 h-5 text-[#16A34A]" />
+                    <DollarSign className="w-5 h-5 text-[#D4AF37]" />
                     Sélection de la Devise
                   </CardTitle>
                   <CardDescription>
@@ -92,8 +92,8 @@ export default function PaymentPage() {
                         onClick={() => setSelectedCurrency(currency.code)}
                         className={`p-4 rounded-lg border-2 transition-all ${
                           selectedCurrency === currency.code
-                            ? "border-[#16A34A] bg-[#16A34A]/20"
-                            : "border-border hover:border-[#16A34A]/50"
+                            ? "border-[#D4AF37] bg-[#D4AF37]/20"
+                            : "border-border hover:border-[#D4AF37]/50"
                         }`}
                       >
                         <div className="font-bold text-lg">{currency.code}</div>
@@ -109,7 +109,7 @@ export default function PaymentPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-[#16A34A]" />
+                    <Calendar className="w-5 h-5 text-[#D4AF37]" />
                     Plan de Paiement
                   </CardTitle>
                   <CardDescription>
@@ -124,8 +124,8 @@ export default function PaymentPage() {
                         onClick={() => setSelectedPlan(plan.id)}
                         className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
                           selectedPlan === plan.id
-                            ? "border-[#16A34A] bg-[#16A34A]/20"
-                            : "border-border hover:border-[#16A34A]/50"
+                            ? "border-[#D4AF37] bg-[#D4AF37]/20"
+                            : "border-border hover:border-[#D4AF37]/50"
                         }`}
                       >
                         <div className="flex items-center justify-between">
@@ -137,13 +137,13 @@ export default function PaymentPage() {
                               </div>
                             )}
                             {plan.discount > 0 && (
-                              <div className="text-sm text-[#16A34A] font-medium">
+                              <div className="text-sm text-[#D4AF37] font-medium">
                                 Réduction de {plan.discount}%
                               </div>
                             )}
                           </div>
                           {selectedPlan === plan.id && (
-                            <CheckCircle2 className="w-5 h-5 text-[#16A34A]" />
+                            <CheckCircle2 className="w-5 h-5 text-[#D4AF37]" />
                           )}
                         </div>
                       </button>
@@ -156,7 +156,7 @@ export default function PaymentPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <CreditCard className="w-5 h-5 text-[#16A34A]" />
+                    <CreditCard className="w-5 h-5 text-[#D4AF37]" />
                     Mode de Paiement
                   </CardTitle>
                 </CardHeader>
@@ -166,8 +166,8 @@ export default function PaymentPage() {
                       onClick={() => setPaymentMethod("card")}
                         className={`p-4 rounded-lg border-2 transition-all ${
                           paymentMethod === "card"
-                            ? "border-[#16A34A] bg-[#16A34A]/20"
-                            : "border-border hover:border-[#16A34A]/50"
+                            ? "border-[#D4AF37] bg-[#D4AF37]/20"
+                            : "border-border hover:border-[#D4AF37]/50"
                         }`}
                     >
                       <CreditCard className="w-6 h-6 mx-auto mb-2" />
@@ -177,8 +177,8 @@ export default function PaymentPage() {
                       onClick={() => setPaymentMethod("bank")}
                         className={`p-4 rounded-lg border-2 transition-all ${
                           paymentMethod === "bank"
-                            ? "border-[#16A34A] bg-[#16A34A]/20"
-                            : "border-border hover:border-[#16A34A]/50"
+                            ? "border-[#D4AF37] bg-[#D4AF37]/20"
+                            : "border-border hover:border-[#D4AF37]/50"
                         }`}
                     >
                       <DollarSign className="w-6 h-6 mx-auto mb-2" />
@@ -189,10 +189,10 @@ export default function PaymentPage() {
               </Card>
 
               {/* Security Badge */}
-              <Card className="bg-gradient-to-br from-[#16A34A]/20 to-[#10B981]/15 border-[#16A34A]/30">
+              <Card className="bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/15 border-[#D4AF37]/30">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
-                    <Shield className="w-6 h-6 text-[#16A34A] flex-shrink-0 mt-1" />
+                    <Shield className="w-6 h-6 text-[#D4AF37] flex-shrink-0 mt-1" />
                     <div>
                       <h3 className="font-semibold mb-2">Paiement 100% Sécurisé</h3>
                       <p className="text-sm text-muted-foreground">
@@ -222,7 +222,7 @@ export default function PaymentPage() {
                     {currentPlan.discount > 0 && (
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Réduction</span>
-                        <span className="text-[#16A34A] font-medium">
+                        <span className="text-[#D4AF37] font-medium">
                           -{currentPlan.discount}%
                         </span>
                       </div>
@@ -236,7 +236,7 @@ export default function PaymentPage() {
                     <div className="border-t pt-2 mt-2">
                       <div className="flex justify-between font-bold text-lg">
                         <span>Montant {currentPlan.installments ? "par versement" : "total"}</span>
-                        <span className="text-[#16A34A]">
+                        <span className="text-[#D4AF37]">
                           {calculateAmount().toLocaleString()} {currentCurrency.symbol}
                         </span>
                       </div>
@@ -245,7 +245,7 @@ export default function PaymentPage() {
 
                   <Button
                     onClick={handlePayment}
-                    className="w-full h-12 bg-[#16A34A] hover:bg-[#15803D] text-white font-semibold"
+                    className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8941F] text-white font-semibold"
                   >
                     <Lock className="w-4 h-4 mr-2" />
                     Payer Maintenant

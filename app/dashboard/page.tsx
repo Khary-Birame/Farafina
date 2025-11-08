@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -34,7 +34,7 @@ import {
   ResponsiveContainer
 } from "recharts"
 
-const COLORS = ['#16A34A', '#10B981', '#22C55E', '#34D399', '#059669']
+const COLORS = ['#D4AF37', '#D4AF37', '#E8C966', '#E8C966', '#B8941F']
 
 // Données de performance
 const performanceData = [
@@ -48,10 +48,10 @@ const performanceData = [
 
 // Données de répartition
 const distributionData = [
-  { name: 'Football', value: 45, color: '#16A34A' },
-  { name: 'Académique', value: 30, color: '#10B981' },
-  { name: 'Formation', value: 15, color: '#22C55E' },
-  { name: 'Autres', value: 10, color: '#34D399' },
+  { name: 'Football', value: 45, color: '#D4AF37' },
+  { name: 'Académique', value: 30, color: '#D4AF37' },
+  { name: 'Formation', value: 15, color: '#E8C966' },
+  { name: 'Autres', value: 10, color: '#E8C966' },
 ]
 
 // Données géographiques
@@ -90,15 +90,15 @@ export default function DashboardPage() {
 
           {/* KPI Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card className="border-l-4 border-l-[#16A34A]">
+            <Card className="border-l-4 border-l-[#D4AF37]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Étudiants</CardTitle>
-                <Users className="h-4 w-4 text-[#16A34A]" />
+                <Users className="h-4 w-4 text-[#D4AF37]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">2,450</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="text-[#16A34A]">+12.5%</span> vs mois dernier
+                  <span className="text-[#D4AF37]">+12.5%</span> vs mois dernier
                 </p>
                 <div className="mt-2 flex gap-2 text-xs">
                   <span className="text-muted-foreground">Filles: 980 (40%)</span>
@@ -107,15 +107,15 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-[#10B981]">
+            <Card className="border-l-4 border-l-[#D4AF37]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Taux de Réussite</CardTitle>
-                <Award className="h-4 w-4 text-[#10B981]" />
+                <Award className="h-4 w-4 text-[#D4AF37]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">94.2%</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="text-[#10B981]">+2.3%</span> vs trimestre dernier
+                  <span className="text-[#D4AF37]">+2.3%</span> vs trimestre dernier
                 </p>
                 <div className="mt-2 flex gap-2 text-xs">
                   <span className="text-muted-foreground">Filles: 96.1%</span>
@@ -124,15 +124,15 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-[#22C55E]">
+            <Card className="border-l-4 border-l-[#E8C966]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Formations Actives</CardTitle>
-                <GraduationCap className="h-4 w-4 text-[#22C55E]" />
+                <GraduationCap className="h-4 w-4 text-[#E8C966]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">156</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="text-[#22C55E]">+8</span> nouvelles formations
+                  <span className="text-[#E8C966]">+8</span> nouvelles formations
                 </p>
                 <div className="mt-2 text-xs text-muted-foreground">
                   Assiduité moyenne: 92.5%
@@ -140,15 +140,15 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-l-4 border-l-[#34D399]">
+            <Card className="border-l-4 border-l-[#E8C966]">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Performance Moyenne</CardTitle>
-                <TrendingUp className="h-4 w-4 text-[#34D399]" />
+                <TrendingUp className="h-4 w-4 text-[#E8C966]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">89.5%</div>
                 <p className="text-xs text-muted-foreground">
-                  <span className="text-[#34D399]">+1.8%</span> vs mois dernier
+                  <span className="text-[#E8C966]">+1.8%</span> vs mois dernier
                 </p>
                 <div className="mt-2 text-xs text-muted-foreground">
                   Impact social: 85%
@@ -185,21 +185,21 @@ export default function DashboardPage() {
                         <Line 
                           type="monotone" 
                           dataKey="admissions" 
-                          stroke="#16A34A" 
+                          stroke="#D4AF37" 
                           strokeWidth={2}
                           name="Admissions"
                         />
                         <Line 
                           type="monotone" 
                           dataKey="formations" 
-                          stroke="#10B981" 
+                          stroke="#D4AF37" 
                           strokeWidth={2}
                           name="Formations"
                         />
                         <Line 
                           type="monotone" 
                           dataKey="performances" 
-                          stroke="#22C55E" 
+                          stroke="#E8C966" 
                           strokeWidth={2}
                           name="Performances"
                         />
@@ -253,7 +253,7 @@ export default function DashboardPage() {
                       <YAxis />
                       <Tooltip />
                       <Legend />
-                      <Bar dataKey="students" fill="#16A34A" name="Nombre d'étudiants" />
+                      <Bar dataKey="students" fill="#D4AF37" name="Nombre d'étudiants" />
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>
@@ -278,14 +278,14 @@ export default function DashboardPage() {
                       <Line 
                         type="monotone" 
                         dataKey="students" 
-                        stroke="#16A34A" 
+                        stroke="#D4AF37" 
                         strokeWidth={3}
                         name="Étudiants"
                       />
                       <Line 
                         type="monotone" 
                         dataKey="graduates" 
-                        stroke="#10B981" 
+                        stroke="#D4AF37" 
                         strokeWidth={3}
                         name="Diplômés"
                       />
@@ -301,7 +301,7 @@ export default function DashboardPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <DollarSign className="h-5 w-5 text-[#16A34A]" />
+                      <DollarSign className="h-5 w-5 text-[#D4AF37]" />
                       Budget Annuel
                     </CardTitle>
                   </CardHeader>
@@ -316,7 +316,7 @@ export default function DashboardPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <TrendingUp className="h-5 w-5 text-[#10B981]" />
+                      <TrendingUp className="h-5 w-5 text-[#D4AF37]" />
                       Dépenses
                     </CardTitle>
                   </CardHeader>
@@ -331,7 +331,7 @@ export default function DashboardPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Activity className="h-5 w-5 text-[#22C55E]" />
+                      <Activity className="h-5 w-5 text-[#E8C966]" />
                       ROI
                     </CardTitle>
                   </CardHeader>

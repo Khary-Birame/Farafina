@@ -1,4 +1,4 @@
-export function AboutHero() {
+﻿export function AboutHero() {
   return (
     <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -8,7 +8,7 @@ export function AboutHero() {
           alt="Farafina Foot Academy Campus"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#2E2E2E]/80 via-[#2E2E2E]/60 to-[#2E2E2E]/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1A1A1A]/80 via-[#1A1A1A]/60 to-[#1A1A1A]/80" />
       </div>
 
       {/* Content */}

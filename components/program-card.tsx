@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+﻿import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 
 interface ProgramCardProps {
@@ -10,7 +10,7 @@ interface ProgramCardProps {
 
 export function ProgramCard({ title, description, image, category }: ProgramCardProps) {
   return (
-    <div className="group bg-white rounded-2xl overflow-hidden border border-border hover:border-[#16A34A] transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+    <div className="group bg-white rounded-2xl overflow-hidden border border-border hover:border-[#D4AF37] transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
       <div className="relative h-48 overflow-hidden">
         <img
           src={image || "/placeholder.svg"}
@@ -18,14 +18,14 @@ export function ProgramCard({ title, description, image, category }: ProgramCard
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
         />
         <div className="absolute top-4 left-4">
-          <span className="bg-[#16A34A] text-white text-xs font-medium px-3 py-1 rounded-full shadow-lg">{category}</span>
+          <span className="bg-[#D4AF37] text-white text-xs font-medium px-3 py-1 rounded-full shadow-lg">{category}</span>
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
       <div className="p-6">
-        <h3 className="font-sans font-bold text-xl text-[#2E2E2E] mb-3 text-balance group-hover:text-[#16A34A] transition-colors duration-300">{title}</h3>
+        <h3 className="font-sans font-bold text-xl text-[#1A1A1A] mb-3 text-balance group-hover:text-[#D4AF37] transition-colors duration-300">{title}</h3>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">{description}</p>
-        <Button variant="ghost" className="text-[#16A34A] hover:text-[#15803D] p-0 h-auto font-medium group/btn">
+        <Button variant="ghost" className="text-[#D4AF37] hover:text-[#B8941F] p-0 h-auto font-medium group/btn">
           En savoir plus
           <ArrowRight size={16} className="ml-2 group-hover/btn:translate-x-2 transition-transform duration-300" />
         </Button>

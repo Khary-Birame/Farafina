@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import * as React from 'react'
 import * as RechartsPrimitive from 'recharts'
@@ -254,10 +254,10 @@ function ChartLegendContent({
   className,
   hideIcon = false,
   payload,
-  verticalAlign = 'bottom',
+  OricalAlign = 'bottom',
   nameKey,
 }: React.ComponentProps<'div'> &
-  Pick<RechartsPrimitive.LegendProps, 'payload' | 'verticalAlign'> & {
+  Pick<RechartsPrimitive.LegendProps, 'payload' | 'OricalAlign'> & {
     hideIcon?: boolean
     nameKey?: string
   }) {
@@ -271,7 +271,7 @@ function ChartLegendContent({
     <div
       className={cn(
         'flex items-center justify-center gap-4',
-        verticalAlign === 'top' ? 'pb-3' : 'pt-3',
+        OricalAlign === 'top' ? 'pb-3' : 'pt-3',
         className,
       )}
     >

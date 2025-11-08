@@ -1,17 +1,17 @@
-# Design System - Formulaires et Cartes Harmonisés
+﻿# Design System - Formulaires et Cartes Harmonisés
 
 ## Vue d'ensemble
 
-Ce document décrit le système de design harmonisé pour les formulaires et cartes de l'application Farafina. Tous les composants suivent maintenant une charte graphique cohérente avec les couleurs vert/gris anthracite.
+Ce document décrit le système de design harmonisé pour les formulaires et cartes de l'application Farafina. Tous les composants suivent maintenant une charte graphique cohérente avec les couleurs or/noir.
 
 ---
 
 ## 🎨 Charte Graphique Appliquée
 
 ### Couleurs
-- **Vert Principal** : `#16A34A` (focus, bordures actives)
-- **Vert Foncé** : `#15803D` (hover states)
-- **Gris Anthracite** : `#2E2E2E` (textes, arrière-plans)
+- **Or Principal** : `#D4AF37` (focus, bordures actives)
+- **Or Foncé** : `#B8941F` (hover states)
+- **Noir** : `#1A1A1A` (textes, arrière-plans)
 - **Erreurs** : Rouge destructif (messages d'erreur)
 
 ---
@@ -40,8 +40,8 @@ import { InputField } from "@/components/ui/form-field"
 **Caractéristiques :**
 - Hauteur standardisée : `h-12` (48px)
 - Bordures arrondies : `rounded-lg`
-- Focus ring vert : `ring-[#16A34A]/20`
-- Hover state : bordure verte à 50% d'opacité
+- Focus ring Or : `ring-[#D4AF37]/20`
+- Hover state : bordure Ore à 50% d'opacité
 - Gestion des erreurs intégrée
 - Support des hints/aide contextuelle
 
@@ -91,13 +91,13 @@ import { SelectField } from "@/components/ui/form-field"
 #### Dimensions Standard
 - **Hauteur des champs** : `h-12` (48px)
 - **Padding horizontal** : `px-4` (16px)
-- **Padding vertical** : `py-2.5` (10px)
+- **Padding Orical** : `py-2.5` (10px)
 - **Border radius** : `rounded-lg` (8px)
 
 #### États Visuels
 - **Par défaut** : Bordure grise, fond blanc
-- **Hover** : Bordure verte à 50% (`border-[#16A34A]/50`)
-- **Focus** : Bordure verte + ring (`ring-[#16A34A]/20`)
+- **Hover** : Bordure Ore à 50% (`border-[#D4AF37]/50`)
+- **Focus** : Bordure Ore + ring (`ring-[#D4AF37]/20`)
 - **Erreur** : Bordure rouge + ring destructif
 - **Désactivé** : Opacité 50%, curseur not-allowed
 
@@ -129,7 +129,7 @@ import { EnhancedCard } from "@/components/ui/enhanced-card"
 - `default` : Bordure légère, ombre douce
 - `elevated` : Ombre plus prononcée
 - `outlined` : Bordure épaisse, pas d'ombre
-- `gradient` : Dégradé vert subtil
+- `gradient` : Dégradé Or subtil
 
 #### 2. `CardWithIcon` - Carte avec icône
 Carte avec icône et action optionnelle.
@@ -206,7 +206,7 @@ import { ProgramCardEnhanced } from "@/components/ui/enhanced-card"
 
 #### Bordures
 - **Carte par défaut** : `border-border`
-- **Carte avec accent** : `border-l-4 border-l-[#16A34A]`
+- **Carte avec accent** : `border-l-4 border-l-[#D4AF37]`
 
 ---
 
@@ -220,7 +220,7 @@ import { ProgramCardEnhanced } from "@/components/ui/enhanced-card"
 
 2. **Labels clairs**
    - Toujours inclure un label descriptif
-   - Marquer les champs requis avec `*` en vert
+   - Marquer les champs requis avec `*` en Or
 
 3. **Feedback utilisateur**
    - Afficher les erreurs immédiatement
@@ -362,9 +362,9 @@ import { StatCard, ProgramCardEnhanced } from "@/components/ui/enhanced-card"
 ### Formulaires
 - [ ] Utilisation des composants `InputField`, `TextareaField`, `SelectField`
 - [ ] Hauteur standardisée à `h-12`
-- [ ] Focus ring vert (`ring-[#16A34A]/20`)
+- [ ] Focus ring Or (`ring-[#D4AF37]/20`)
 - [ ] Gestion des erreurs avec icônes
-- [ ] Labels avec astérisque vert pour les champs requis
+- [ ] Labels avec astérisque Or pour les champs requis
 - [ ] Transitions fluides (`duration-200`)
 
 ### Cartes

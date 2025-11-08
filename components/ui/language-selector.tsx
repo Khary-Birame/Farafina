@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import * as React from "react"
 import { Button } from "@/components/ui/button"
@@ -54,7 +54,7 @@ export function LanguageSelector({ className }: { className?: string }) {
               <span>{language.name}</span>
             </div>
             {currentLang === language.code && (
-              <Check className="w-4 h-4 text-[#16A34A]" />
+              <Check className="w-4 h-4 text-[#D4AF37]" />
             )}
           </DropdownMenuItem>
         ))}

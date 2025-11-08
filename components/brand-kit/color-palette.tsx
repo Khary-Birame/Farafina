@@ -1,49 +1,42 @@
-export function ColorPalette() {
+﻿export function ColorPalette() {
   const colors = [
     {
-      name: "Farafina Green",
-      hex: "#16A34A",
-      rgb: "22, 163, 74",
-      description: "Vitalité, croissance et patrimoine africain",
-      gradient: "from-[#16A34A] to-[#22C55E]",
+      name: "Farafina Gold",
+      hex: "#D4AF37",
+      rgb: "212, 175, 55",
+      description: "Prestige, excellence et réussite",
+      gradient: "from-[#D4AF37] to-[#E8C966]",
     },
     {
-      name: "Anthracite Gray",
-      hex: "#2E2E2E",
-      rgb: "46, 46, 46",
+      name: "Noir",
+      hex: "#1A1A1A",
+      rgb: "26, 26, 26",
       description: "Force, professionnalisme et stabilité",
-      gradient: "from-[#2E2E2E] to-[#3a3a3a]",
+      gradient: "from-[#1A1A1A] to-[#000000]",
     },
     {
-      name: "Green Secondary",
-      hex: "#10B981",
-      rgb: "16, 185, 129",
-      description: "Excellence, dynamisme et réussite",
-      gradient: "from-[#10B981] to-[#34D399]",
-    },
-    {
-      name: "White",
+      name: "Blanc",
       hex: "#FFFFFF",
       rgb: "255, 255, 255",
-      description: "Clarté, pureté et ouverture",
+      description: "Clarté, pureté et ouOrure",
       gradient: "from-white to-[#F5F5F5]",
     },
     {
-      name: "Light Gray",
-      hex: "#F5F5F5",
-      rgb: "245, 245, 245",
-      description: "Arrière-plans subtils et contraste doux",
-      gradient: "from-[#F5F5F5] to-[#E5E5E5]",
+      name: "Noir Pur",
+      hex: "#000000",
+      rgb: "0, 0, 0",
+      description: "Élégance, modernité et distinction",
+      gradient: "from-[#000000] to-[#1A1A1A]",
     },
   ]
 
   return (
-    <section className="py-24 px-4 bg-[#2E2E2E]">
+    <section className="py-24 px-4 bg-[#1A1A1A]">
       <div className="container mx-auto max-w-6xl">
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-sans font-bold text-white mb-6">Palette de Couleurs</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#16A34A] to-[#10B981] mx-auto" />
+          <div className="w-24 h-1 bg-gradient-to-r from-[#D4AF37] to-[#E8C966] mx-auto" />
         </div>
 
         {/* Color Swatches */}
@@ -56,21 +49,21 @@ export function ColorPalette() {
               {/* Color Swatch */}
               <div
                 className={`h-48 bg-gradient-to-br ${color.gradient} ${
-                  color.name === "White" ? "border-b-2 border-[#E5E5E5]" : ""
+                  color.name === "Blanc" ? "border-b-2 border-[#E5E5E5]" : ""
                 }`}
               />
 
               {/* Color Info */}
               <div className="p-6">
-                <h3 className="text-2xl font-sans font-bold text-[#2E2E2E] mb-2">{color.name}</h3>
+                <h3 className="text-2xl font-sans font-bold text-[#1A1A1A] mb-2">{color.name}</h3>
                 <div className="flex gap-4 mb-4 font-mono text-sm">
                   <div>
                     <span className="text-[#737373]">HEX</span>
-                    <p className="text-[#2E2E2E] font-bold">{color.hex}</p>
+                    <p className="text-[#1A1A1A] font-bold">{color.hex}</p>
                   </div>
                   <div>
                     <span className="text-[#737373]">RGB</span>
-                    <p className="text-[#2E2E2E] font-bold">{color.rgb}</p>
+                    <p className="text-[#1A1A1A] font-bold">{color.rgb}</p>
                   </div>
                 </div>
                 <p className="text-[#737373] leading-relaxed">{color.description}</p>

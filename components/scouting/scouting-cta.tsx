@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -34,14 +34,14 @@ export function ScoutingCTA() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-[#2E2E2E] via-[#1a1a1a] to-[#2E2E2E] relative overflow-hidden">
+    <section className="py-20 bg-gradient-to-br from-[#1A1A1A] via-[#1a1a1a] to-[#1A1A1A] relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
           className="h-full w-full"
           style={{
-            backgroundImage: `linear-gradient(#16A34A 1px, transparent 1px),
-                           linear-gradient(90deg, #16A34A 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(#D4AF37 1px, transparent 1px),
+                           linear-gradient(90deg, #D4AF37 1px, transparent 1px)`,
             backgroundSize: "50px 50px",
           }}
         />
@@ -50,9 +50,9 @@ export function ScoutingCTA() {
       <div className="container relative z-10 mx-auto px-4 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#16A34A]/20 border border-[#16A34A]/30 mb-6">
-              <Brain className="w-4 h-4 text-[#16A34A]" />
-              <span className="text-sm font-medium text-[#16A34A]">Demander une Démo</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/30 mb-6">
+              <Brain className="w-4 h-4 text-[#D4AF37]" />
+              <span className="text-sm font-medium text-[#D4AF37]">Demander une Démo</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-sans font-bold text-white mb-4 text-balance">
               Découvrez l'Avenir du Recrutement avec Farafina IA
@@ -62,7 +62,7 @@ export function ScoutingCTA() {
             </p>
           </div>
 
-          <Card className="p-8 md:p-12 bg-white border-2 border-[#16A34A]/20">
+          <Card className="p-8 md:p-12 bg-white border-2 border-[#D4AF37]/20">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -134,7 +134,7 @@ export function ScoutingCTA() {
                 <input
                   type="checkbox"
                   id="consent"
-                  className="mt-1 w-4 h-4 rounded border-border text-[#16A34A] focus:ring-[#16A34A]"
+                  className="mt-1 w-4 h-4 rounded border-border text-[#D4AF37] focus:ring-[#D4AF37]"
                   checked={formData.consent}
                   onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
                   required
@@ -145,7 +145,7 @@ export function ScoutingCTA() {
                 </label>
               </div>
 
-              <Button type="submit" size="lg" className="w-full bg-[#16A34A] hover:bg-[#15803D] text-white">
+              <Button type="submit" size="lg" className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-white">
                 Demander l'Accès à la Démo
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
@@ -154,7 +154,7 @@ export function ScoutingCTA() {
             <div className="mt-8 pt-8 border-t border-border text-center">
               <p className="text-sm text-muted-foreground">
                 Des questions ? Contactez notre équipe IA à{" "}
-                <a href="mailto:ai@farafinafoot.com" className="text-[#16A34A] hover:underline font-medium">
+                <a href="mailto:ai@farafinafoot.com" className="text-[#D4AF37] hover:underline font-medium">
                   ai@farafinafoot.com
                 </a>
               </p>

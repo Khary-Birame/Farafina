@@ -2,190 +2,156 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
 import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Menu, X, User } from "lucide-react"
 import { LanguageSelector } from "@/components/ui/language-selector"
-import { NotificationCenter } from "@/components/notifications/notification-center"
+import { CartSheet } from "@/components/boutique/cart-sheet"
 
-export function Header() {
+
+type HeaderVariant = "default" | "solid"
+type HeaderProps = { variant?: HeaderVariant }
+
+export function Header({ variant = "default" }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 10)
+    handleScroll()
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const isSolid = variant === "solid" || scrolled
+
+  // Styles PSG.fr : Fond sombre par défaut, Blanc/Clair au scroll
+  const bgColor = "bg-white shadow-lg border-b border-gray-200"
+  const textColor = "text-[#1A1A1A]"
+
+  // Conservation des entrées de navigation originales
+  const navItems = [
+    ["Accueil", "/"],
+    ["À Propos", "/about"],
+    ["Programmes", "/programs"],
+    ["Admissions", "/admissions"],
+    ["Événements", "/events"],
+    ["International", "/international"],
+    ["Boutique", "/boutique"],
+    ["FFA TV", "/ffa-tv"],
+    ["IA Scouting", "/scouting"],
+    ["Contact", "/contact"],
+  ]
+
+  const mobileNavItems = navItems
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/90 backdrop-blur-xl shadow-lg border-b border-[#16A34A]/10" : "bg-white/95 backdrop-blur-md border-b border-border"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${bgColor}`}
     >
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? "h-16" : "h-20"}`}>
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-[#16A34A] rounded-lg flex items-center justify-center overflow-hidden">
+      <div className={`max-w-[1400px] mx-auto flex items-center justify-between px-2 sm:px-4 lg:px-6 transition-all duration-300 h-16 lg:h-20 ${textColor}`}>
+
+        {/* --- Partie Gauche (Menu & Logo) --- */}
+        <div className="flex items-center gap-4">
+
+          {/* Bouton Menu (Style PSG : Menu + Texte) */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex flex-col items-center justify-center p-1 rounded-md transition-colors text-sm font-medium text-[#1A1A1A] hover:bg-gray-100"
+            aria-label="Menu Principal"
+          >
+            {mobileMenuOpen ? (
+              <X size={22} className="text-[#1A1A1A]" />
+            ) : (
+              <Menu size={22} className="text-[#1A1A1A]" />
+            )}
+            <span className="text-[10px] mt-0.5 uppercase tracking-wide">MENU</span>
+          </button>
+
+          {/* Logo FFA */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 lg:w-12 lg:h-12 transition-all duration-300 flex-shrink-0">
               <Image
-                src="https://res.cloudinary.com/drkudvdmd/image/upload/v1762007821/ffa_kbbb86.jpg"
+                src="/ffa.jpg"
                 alt="Farafina Foot Academy"
                 width={48}
                 height={48}
-                // className="w-full h-full object-contain"
+                className="w-full h-full object-contain rounded-full"
+                priority
               />
             </div>
-            <div className="hidden sm:block">
-              <div className="font-sans font-bold text-xl text-[#2E2E2E]">Farafina Foot Academy</div>
-              <div className="text-xs text-muted-foreground">Cayar, Sénégal</div>
-            </div>
+            <span className={`hidden md:block font-bold text-lg lg:text-xl tracking-tight transition-colors ${textColor}`}>
+              Farafina Foot Academy
+            </span>
           </Link>
-
-          <nav className="hidden lg:flex items-center gap-8">
-            <Link
-              href="/about"
-              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
-            >
-              À Propos
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
-            </Link>
-            <Link
-              href="/programs"
-              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
-            >
-              Programmes
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
-            </Link>
-            <Link
-              href="/admissions"
-              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
-            >
-              Admissions
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
-            </Link>
-            <Link
-              href="/ffa-tv"
-              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
-            >
-              FFA TV
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
-            </Link>
-            <Link
-              href="/dashboard"
-              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
-            >
-              Dashboard
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
-            </Link>
-            <Link
-              href="/club-connect"
-              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
-            >
-              Club Connect
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
-            </Link>
-            <Link
-              href="/scouting"
-              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
-            >
-              IA Scouting
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
-            </Link>
-            <Link
-              href="/contact"
-              className="relative text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors group"
-            >
-              Contact
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#16A34A] group-hover:w-full transition-all duration-300" />
-            </Link>
-          </nav>
-
-          <div className="hidden lg:flex items-center gap-3">
-            <LanguageSelector />
-            <NotificationCenter />
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/login">Connexion</Link>
-            </Button>
-            <Button size="sm" className="bg-[#16A34A] hover:bg-[#15803D] text-white" asChild>
-              <Link href="/apply">Postuler Maintenant</Link>
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
-          >
-            {mobileMenuOpen ? <X size={24} className="animate-in fade-in duration-200" /> : <Menu size={24} className="animate-in fade-in duration-200" />}
-          </button>
         </div>
 
-        {mobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-border animate-in slide-in-from-top-2 duration-300">
-            <nav className="flex flex-col gap-4">
-              <Link
-                href="/about"
-                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
-              >
-                À Propos
-              </Link>
-              <Link
-                href="/programs"
-                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
-              >
-                Programmes
-              </Link>
-              <Link
-                href="/admissions"
-                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
-              >
-                Admissions
-              </Link>
-              <Link
-                href="/ffa-tv"
-                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
-              >
-                FFA TV
-              </Link>
-              <Link
-                href="/dashboard"
-                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="/club-connect"
-                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
-              >
-                Club Connect
-              </Link>
-              <Link
-                href="/scouting"
-                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
-              >
-                IA Scouting
-              </Link>
-              <Link
-                href="/contact"
-                className="text-sm font-medium text-foreground hover:text-[#16A34A] transition-colors"
-              >
-                Contact
-              </Link>
-              <div className="flex flex-col gap-2 pt-4">
-                <Button variant="outline" size="sm" asChild>
-                  <Link href="/login">Connexion</Link>
-                </Button>
-                <Button size="sm" className="bg-[#16A34A] hover:bg-[#15803D] text-white" asChild>
-                  <Link href="/apply">Postuler Maintenant</Link>
-                </Button>
-              </div>
-            </nav>
-          </div>
-        )}
+        {/* Navigation desktop masquée : toutes les entrées sont dans le menu */}
+        <div className="hidden lg:flex flex-1" />
+
+        {/* --- Actions de Droite (Style PSG) --- */}
+        <div className="ml-auto flex items-center gap-2 lg:gap-4 xl:gap-6">
+          <Link
+            href="/login"
+            className="hidden lg:inline-flex items-center uppercase tracking-wider text-xs font-semibold px-3 py-2 rounded-md transition-colors text-[#1A1A1A] hover:bg-gray-100"
+          >
+            Connexion
+          </Link>
+          <Link
+            href="/login"
+            aria-label="Connexion"
+            className="lg:hidden p-2 rounded-md text-[#1A1A1A] hover:bg-gray-100"
+          >
+            <User size={22} />
+          </Link>
+          <LanguageSelector
+            className="hidden lg:inline-flex text-xs font-semibold uppercase tracking-wider transition-colors text-[#1A1A1A] hover:text-[#D4AF37]"
+          />
+          <Button
+            size="sm"
+            asChild
+            className="hidden lg:inline-flex bg-[#D4AF37] hover:bg-[#b98d2c] text-white text-xs font-semibold uppercase tracking-widest"
+          >
+            <Link href="/apply">Postuler</Link>
+          </Button>
+          <CartSheet />
+        </div>
       </div>
+
+      {/* --- Menu Mobile --- */}
+      {mobileMenuOpen && (
+        <div className="border-t border-gray-200 bg-white/95 text-[#1A1A1A] animate-in slide-in-from-top duration-200">
+          <nav className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 py-6 text-sm lg:grid lg:grid-cols-2 lg:gap-6">
+            {mobileNavItems.map(([label, href]) => (
+              <Link
+                key={href}
+                href={href}
+                className="font-semibold uppercase tracking-wide transition-colors text-[#1A1A1A] hover:text-[#D4AF37]"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
+            <div className="mt-4 flex flex-col gap-2 border-t border-gray-200 pt-4 lg:col-span-2">
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
+                className="uppercase tracking-widest border-[#1A1A1A] text-[#1A1A1A] hover:border-[#D4AF37] hover:text-[#D4AF37]"
+              >
+                <Link href="/login">Connexion</Link>
+              </Button>
+              <Button
+                size="sm"
+                asChild
+                className="bg-[#D4AF37] hover:bg-[#b38f1f] text-white uppercase tracking-widest"
+              >
+                <Link href="/apply">Postuler</Link>
+              </Button>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   )
 }

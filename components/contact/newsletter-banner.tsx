@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import type React from "react"
 
@@ -22,13 +22,13 @@ export function NewsletterBanner() {
   }
 
   return (
-    <section className="py-16 bg-[#2E2E2E]">
+    <section className="py-16 bg-[#1A1A1A]">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             {/* Left Side - Text */}
             <div className="flex items-start gap-4 flex-1">
-              <div className="w-12 h-12 bg-[#16A34A] rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-[#D4AF37] rounded-lg flex items-center justify-center flex-shrink-0">
                 <Mail className="text-white" size={24} />
               </div>
               <div>
@@ -42,8 +42,8 @@ export function NewsletterBanner() {
             {/* Right Side - Form */}
             <div className="w-full md:w-auto md:min-w-96">
               {subscribed ? (
-                <div className="flex items-center gap-3 bg-[#16A34A]/20 border border-[#16A34A] rounded-lg px-4 py-3">
-                  <CheckCircle className="text-[#16A34A]" size={24} />
+                <div className="flex items-center gap-3 bg-[#D4AF37]/20 border border-[#D4AF37] rounded-lg px-4 py-3">
+                  <CheckCircle className="text-[#D4AF37]" size={24} />
                   <span className="text-white font-medium">Abonnement réussi !</span>
                 </div>
               ) : (
@@ -58,7 +58,7 @@ export function NewsletterBanner() {
                   />
                   <Button
                     type="submit"
-                    className="bg-[#16A34A] hover:bg-[#15803D] text-[#ffffff] font-semibold px-6 h-12"
+                    className="bg-[#D4AF37] hover:bg-[#B8941F] text-[#ffffff] font-semibold px-6 h-12"
                   >
                     S'abonner
                   </Button>

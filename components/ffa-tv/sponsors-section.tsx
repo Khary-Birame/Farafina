@@ -1,4 +1,4 @@
-export function SponsorsSection() {
+﻿export function SponsorsSection() {
   const sponsors = [
     { name: "Farafina Group", logo: "/farafina-group-logo.jpg" },
     { name: "Nike", logo: "/nike-logo-white.png" },
@@ -19,7 +19,7 @@ export function SponsorsSection() {
         {sponsors.map((sponsor) => (
           <div
             key={sponsor.name}
-            className="flex items-center justify-center p-6 bg-[#2E2E2E] rounded-xl border border-[#3a3a3a] hover:border-[#D4AF37] transition-all group"
+            className="flex items-center justify-center p-6 bg-[#1A1A1A] rounded-xl border border-[#2a2a2a] hover:border-[#D4AF37] transition-all group"
           >
             <img
               src={sponsor.logo || "/placeholder.svg"}

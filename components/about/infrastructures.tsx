@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -49,7 +49,7 @@ export function Infrastructures() {
   }
 
   return (
-    <section className="py-24 bg-[#2E2E2E]">
+    <section className="py-24 bg-[#1A1A1A]">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="font-sans font-bold text-4xl md:text-5xl text-white mb-4">Infrastructures de Classe Mondiale</h2>
@@ -112,7 +112,7 @@ export function Infrastructures() {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentIndex ? "bg-[#16A34A] w-8" : "bg-white/30"
+                    index === currentIndex ? "bg-[#D4AF37] w-8" : "bg-white/30"
                   }`}
                 />
               ))}
