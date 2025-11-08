@@ -36,6 +36,7 @@ export function Header({ variant = "default" }: HeaderProps) {
     ["Programmes", "/programs"],
     ["Admissions", "/admissions"],
     ["Événements", "/events"],
+    ["Joueurs", "/players"],
     ["International", "/international"],
     ["Boutique", "/boutique"],
     ["FFA TV", "/ffa-tv"],

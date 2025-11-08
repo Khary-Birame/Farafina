@@ -81,6 +81,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/players" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
+                  Joueurs
+                </Link>
+              </li>
+              <li>
                 <Link href="/international" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   International
                 </Link>
