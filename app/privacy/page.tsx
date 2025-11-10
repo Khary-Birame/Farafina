@@ -105,7 +105,7 @@ export default function PrivacyPage() {
                       Vous pouvez exporter vos données dans un format structuré.
                     </p>
                   </div>
-                  <div className="p-4 border rounded-lg">
+                  {/* <div className="p-4 border rounded-lg">
                     <div className="font-semibold mb-2 flex items-center gap-2">
                       <Trash2 className="w-4 h-4" />
                       Droit à l'Oubli
@@ -113,7 +113,7 @@ export default function PrivacyPage() {
                     <p className="text-sm text-muted-foreground">
                       Vous pouvez demander la suppression de vos données.
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </CardContent>
             </Card>
