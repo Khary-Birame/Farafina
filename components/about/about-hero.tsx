@@ -14,7 +14,7 @@
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center">
         <h1 className="font-sans font-bold text-5xl md:text-6xl lg:text-7xl text-white mb-6 animate-fade-in-up text-balance">
-          À Propos de Farafina Foot Academy
+          Farafina Foot Academy
         </h1>
         <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed animate-fade-in-up [animation-delay:200ms] text-pretty">
           Où l'éducation, la discipline et la performance s'unissent pour construire les champions de demain.

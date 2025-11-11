@@ -30,7 +30,7 @@ export function Leadership() {
           <div className="relative bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-3xl p-8 md:p-12 overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl" />
             <div className="relative z-10">
-              <Quote className="text-[#D4AF37] mb-6" size={48} />
+              <Quote className="text-[#ffffff] mb-6" size={48} />
               <blockquote className="text-2xl md:text-3xl font-sans font-semibold text-white mb-6 leading-relaxed text-balance">
                 "À la Farafina Foot Academy, la discipline façonne le talent, et le respect crée les champions."
               </blockquote>

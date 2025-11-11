@@ -28,7 +28,7 @@ export function MapSection() {
               </div>
 
               {/* Interactive Map Overlay */}
-              <div className="absolute inset-0 bg-[url('/map-of-cayar-senegal.jpg')] bg-cover bg-center opacity-20" />
+              <div className="absolute inset-0 bg-[url('/fann_hock.jpg')] bg-cover bg-center opacity-20" />
             </div>
 
             {/* Map Info Bar */}

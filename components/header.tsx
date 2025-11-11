@@ -32,7 +32,6 @@ export function Header({ variant = "default" }: HeaderProps) {
   // Conservation des entrées de navigation originales
   const navItems = [
     ["Accueil", "/"],
-    ["À Propos", "/about"],
     ["Programmes", "/programs"],
     ["Admissions", "/admissions"],
     ["Événements", "/events"],

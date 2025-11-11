@@ -116,7 +116,7 @@ export function ContactForm() {
                     <p className="text-gray-600 leading-relaxed">
                       Farafina Foot Academy
                       <br />
-                      Cayar, Région de Thiès
+                      Fann Hock, Région de Dakar
                       <br />
                       Sénégal, Afrique de l'Ouest
                     </p>
