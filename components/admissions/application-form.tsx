@@ -232,7 +232,7 @@ export function ApplicationForm() {
 
                   <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
                     <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="font-medium mb-1">Certificat médical</p>
+                    <p className="font-medium mb-1">Certificat médical *</p>
                     <p className="text-sm text-muted-foreground mb-4">PDF ou JPG (Max 5MB)</p>
                     <Button variant="outline" size="sm">
                       Choisir un fichier

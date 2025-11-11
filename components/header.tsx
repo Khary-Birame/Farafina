@@ -41,6 +41,7 @@ export function Header({ variant = "default" }: HeaderProps) {
     ["FFA TV", "/ffa-tv"],
     ["IA Scouting", "/scouting"],
     ["Contact", "/contact"],
+    ["Devenir Partenaire", "/partners"],
   ]
 
   const mobileNavItems = navItems

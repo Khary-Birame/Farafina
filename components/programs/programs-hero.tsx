@@ -1,5 +1,6 @@
 ﻿import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 export function ProgramsHero() {
   return (
@@ -24,10 +25,13 @@ export function ProgramsHero() {
           </p>
           <Button
             size="lg"
+            asChild
             className="bg-[#D4AF37] hover:bg-[#B8941F] text-white text-base h-12 px-8 font-semibold"
           >
-            Postuler maintenant
-            <ArrowRight size={20} className="ml-2" />
+            <Link href="/apply">
+              Postuler maintenant
+              <ArrowRight size={20} className="ml-2" />
+            </Link>
           </Button>
         </div>
       </div>

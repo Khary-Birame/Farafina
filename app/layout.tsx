@@ -20,7 +20,6 @@ export const metadata = {
   title: "Farafina Foot Academy | The Future of African Football",
   description:
     "Elite sport-study institution in Cayar, Senegal. Discovering, training, and promoting young football talents across Africa.",
-    generator: 'v0.app'
 }
 
 export default function RootLayout({

@@ -61,11 +61,6 @@ export function Footer() {
             <h3 className="font-sans font-semibold text-lg mb-4">Liens Rapides</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  À Propos
-                </Link>
-              </li>
-              <li>
                 <Link href="/programs" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
                   Programmes
                 </Link>
@@ -102,7 +97,12 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/contact" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Partenaires
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="/partners" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
+                  Devenir Partenaire
                 </Link>
               </li>
             </ul>
@@ -144,7 +144,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-[#D4AF37] mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-gray-400">Cayar, Région de Thiès, Sénégal</span>
+                <span className="text-sm text-gray-400">Fann Hock, Région de Dakar, Sénégal</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-[#D4AF37] flex-shrink-0" />
