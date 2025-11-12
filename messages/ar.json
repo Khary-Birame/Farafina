@@ -1,0 +1,48 @@
+{
+  "common": {
+    "welcome": "مرحباً",
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "contact": "اتصل بنا",
+    "login": "تسجيل الدخول",
+    "signup": "التسجيل",
+    "search": "بحث",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "submit": "إرسال",
+    "logout": "تسجيل الخروج",
+    "profile": "ملفي الشخصي",
+    "apply": "تقديم",
+    "menu": "القائمة",
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح"
+  },
+  "navigation": {
+    "programs": "البرامج",
+    "admissions": "القبول",
+    "events": "الأحداث",
+    "players": "اللاعبون",
+    "international": "الدولي",
+    "boutique": "المتجر",
+    "ffaTV": "FFA TV",
+    "clubConnect": "Club Connect",
+    "scouting": "اكتشاف المواهب",
+    "partners": "كن شريكاً"
+  },
+  "header": {
+    "role": "الدور"
+  },
+  "forms": {
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "submit": "إرسال",
+    "required": "هذا الحقل مطلوب"
+  }
+}
+

@@ -1,20 +1,35 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Menu, X, User } from "lucide-react"
+import { Menu, X, User, LogOut } from "lucide-react"
 import { LanguageSelector } from "@/components/ui/language-selector"
 import { CartSheet } from "@/components/boutique/cart-sheet"
+import { useAuth } from "@/lib/auth/auth-context"
+import { signOut } from "@/lib/auth/auth-helpers"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 
 type HeaderVariant = "default" | "solid"
 type HeaderProps = { variant?: HeaderVariant }
 
 export function Header({ variant = "default" }: HeaderProps) {
+  const router = useRouter()
+  const { user, loading } = useAuth()
+  const { t } = useTranslation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [loggingOut, setLoggingOut] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10)
@@ -23,25 +38,38 @@ export function Header({ variant = "default" }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const handleLogout = async () => {
+    setLoggingOut(true)
+    try {
+      await signOut()
+      router.push("/")
+      router.refresh()
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion:", error)
+    } finally {
+      setLoggingOut(false)
+    }
+  }
+
   const isSolid = variant === "solid" || scrolled
 
   // Styles PSG.fr : Fond sombre par défaut, Blanc/Clair au scroll
   const bgColor = "bg-white shadow-lg border-b border-gray-200"
   const textColor = "text-[#1A1A1A]"
 
-  // Conservation des entrées de navigation originales
+  // Conservation des entrées de navigation originales avec traductions
   const navItems = [
-    ["Accueil", "/"],
-    ["Programmes", "/programs"],
-    ["Admissions", "/admissions"],
-    ["Événements", "/events"],
-    ["Joueurs", "/players"],
-    ["International", "/international"],
-    ["Boutique", "/boutique"],
-    ["FFA TV", "/ffa-tv"],
-    ["IA Scouting", "/scouting"],
-    ["Contact", "/contact"],
-    ["Devenir Partenaire", "/partners"],
+    [t("common.home"), "/"],
+    [t("navigation.programs"), "/programs"],
+    [t("navigation.admissions"), "/admissions"],
+    [t("navigation.events"), "/events"],
+    [t("navigation.players"), "/players"],
+    [t("navigation.international"), "/international"],
+    [t("navigation.boutique"), "/boutique"],
+    [t("navigation.ffaTV"), "/ffa-tv"],
+    [t("navigation.scouting"), "/scouting"],
+    [t("common.contact"), "/contact"],
+    [t("navigation.partners"), "/partners"],
   ]
 
   const mobileNavItems = navItems
@@ -66,7 +94,7 @@ export function Header({ variant = "default" }: HeaderProps) {
             ) : (
               <Menu size={22} className="text-[#1A1A1A]" />
             )}
-            <span className="text-[10px] mt-0.5 uppercase tracking-wide">MENU</span>
+            <span className="text-[10px] mt-0.5 uppercase tracking-wide">{t("common.menu")}</span>
           </button>
 
           {/* Logo FFA */}
@@ -92,19 +120,97 @@ export function Header({ variant = "default" }: HeaderProps) {
 
         {/* --- Actions de Droite (Style PSG) --- */}
         <div className="ml-auto flex items-center gap-2 lg:gap-4 xl:gap-6">
-          <Link
-            href="/login"
-            className="hidden lg:inline-flex items-center uppercase tracking-wider text-xs font-semibold px-3 py-2 rounded-md transition-colors text-[#1A1A1A] hover:bg-gray-100"
-          >
-            Connexion
-          </Link>
-          <Link
-            href="/login"
-            aria-label="Connexion"
-            className="lg:hidden p-2 rounded-md text-[#1A1A1A] hover:bg-gray-100"
-          >
-            <User size={22} />
-          </Link>
+          {loading ? (
+            // Pendant le chargement, afficher le bouton de connexion par défaut
+            <>
+              <Link
+                href="/login"
+                className="hidden lg:inline-flex items-center uppercase tracking-wider text-xs font-semibold px-3 py-2 rounded-md transition-colors text-[#1A1A1A] hover:bg-gray-100"
+              >
+                {t("common.login")}
+              </Link>
+              <Link
+                href="/login"
+                aria-label={t("common.login")}
+                className="lg:hidden p-2 rounded-md text-[#1A1A1A] hover:bg-gray-100"
+              >
+                <User size={22} />
+              </Link>
+            </>
+          ) : user ? (
+            <>
+              {/* Menu utilisateur connecté (Desktop) */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="hidden lg:inline-flex items-center gap-2 uppercase tracking-wider text-xs font-semibold px-3 py-2 text-[#1A1A1A] hover:bg-gray-100"
+                  >
+                    <User size={18} />
+                    <span className="max-w-[120px] truncate">
+                      {user.first_name || user.email?.split("@")[0] || "Utilisateur"}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-white border-gray-200">
+                  <div className="px-2 py-1.5">
+                    <p className="text-sm font-medium text-[#1A1A1A] truncate">
+                      {user.first_name && user.last_name
+                        ? `${user.first_name} ${user.last_name}`
+                        : user.email}
+                    </p>
+                    <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                    <p className="text-xs text-muted-foreground mt-1 capitalize">
+                      {t("header.role")}: {user.role}
+                    </p>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/profile" className="cursor-pointer">
+                      <User className="w-4 h-4 mr-2" />
+                      {t("common.profile")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    disabled={loggingOut}
+                    className="cursor-pointer text-red-600 focus:text-red-600"
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    {loggingOut ? `${t("common.logout")}...` : t("common.logout")}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Bouton utilisateur connecté (Mobile) */}
+              <Link
+                href="/profile"
+                aria-label="Profil"
+                className="lg:hidden p-2 rounded-md text-[#1A1A1A] hover:bg-gray-100"
+              >
+                <User size={22} />
+              </Link>
+            </>
+          ) : (
+            <>
+              {/* Bouton connexion (Desktop) */}
+              <Link
+                href="/login"
+                className="hidden lg:inline-flex items-center uppercase tracking-wider text-xs font-semibold px-3 py-2 rounded-md transition-colors text-[#1A1A1A] hover:bg-gray-100"
+              >
+                {t("common.login")}
+              </Link>
+              {/* Bouton connexion (Mobile) */}
+              <Link
+                href="/login"
+                aria-label={t("common.login")}
+                className="lg:hidden p-2 rounded-md text-[#1A1A1A] hover:bg-gray-100"
+              >
+                <User size={22} />
+              </Link>
+            </>
+          )}
           <LanguageSelector
             className="hidden lg:inline-flex text-xs font-semibold uppercase tracking-wider transition-colors text-[#1A1A1A] hover:text-[#D4AF37]"
           />
@@ -113,7 +219,7 @@ export function Header({ variant = "default" }: HeaderProps) {
             asChild
             className="hidden lg:inline-flex bg-[#D4AF37] hover:bg-[#b98d2c] text-white text-xs font-semibold uppercase tracking-widest"
           >
-            <Link href="/apply">Postuler</Link>
+            <Link href="/apply">{t("common.apply")}</Link>
           </Button>
           <CartSheet />
         </div>
@@ -134,21 +240,63 @@ export function Header({ variant = "default" }: HeaderProps) {
               </Link>
             ))}
             <div className="mt-4 flex flex-col gap-2 border-t border-gray-200 pt-4 lg:col-span-2">
-              <Button
-                variant="outline"
-                size="sm"
-                asChild
-                className="uppercase tracking-widest border-[#1A1A1A] text-[#1A1A1A] hover:border-[#D4AF37] hover:text-[#D4AF37]"
-              >
-                <Link href="/login">Connexion</Link>
-              </Button>
-              <Button
-                size="sm"
-                asChild
-                className="bg-[#D4AF37] hover:bg-[#b38f1f] text-white uppercase tracking-widest"
-              >
-                <Link href="/apply">Postuler</Link>
-              </Button>
+              <div className="mb-2">
+                <LanguageSelector className="w-full justify-start" />
+              </div>
+              {!loading && (
+                <>
+                  {user ? (
+                    <>
+                      <div className="mb-2 p-3 bg-gray-50 rounded-md">
+                        <p className="text-sm font-medium text-[#1A1A1A]">
+                          {user.first_name && user.last_name
+                            ? `${user.first_name} ${user.last_name}`
+                            : user.email}
+                        </p>
+                        <p className="text-xs text-muted-foreground">{user.email}</p>
+                        <p className="text-xs text-muted-foreground mt-1 capitalize">
+                          {t("header.role")}: {user.role}
+                        </p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        asChild
+                        className="uppercase tracking-widest border-[#1A1A1A] text-[#1A1A1A] hover:border-[#D4AF37] hover:text-[#D4AF37]"
+                      >
+                        <Link href="/profile">{t("common.profile")}</Link>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleLogout}
+                        disabled={loggingOut}
+                        className="uppercase tracking-widest border-red-300 text-red-600 hover:border-red-400 hover:text-red-700"
+                      >
+                        {loggingOut ? `${t("common.logout")}...` : t("common.logout")}
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        asChild
+                        className="uppercase tracking-widest border-[#1A1A1A] text-[#1A1A1A] hover:border-[#D4AF37] hover:text-[#D4AF37]"
+                      >
+                        <Link href="/login">{t("common.login")}</Link>
+                      </Button>
+                      <Button
+                        size="sm"
+                        asChild
+                        className="bg-[#D4AF37] hover:bg-[#b38f1f] text-white uppercase tracking-widest"
+                      >
+                        <Link href="/apply">{t("common.apply")}</Link>
+                      </Button>
+                    </>
+                  )}
+                </>
+              )}
             </div>
           </nav>
         </div>

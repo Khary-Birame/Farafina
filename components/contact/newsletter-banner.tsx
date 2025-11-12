@@ -5,20 +5,50 @@ import type React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Mail, CheckCircle } from "lucide-react"
+import { Mail, CheckCircle, Loader2 } from "lucide-react"
+import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
+import { useAuth } from "@/lib/auth/auth-context"
+import { toast } from "sonner"
 
 export function NewsletterBanner() {
+  const { user } = useAuth()
   const [email, setEmail] = useState("")
   const [subscribed, setSubscribed] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Newsletter subscription:", email)
-    setSubscribed(true)
-    setTimeout(() => {
-      setSubscribed(false)
+    setIsSubmitting(true)
+
+    try {
+      const { data, error } = await createFormSubmission({
+        form_type: "newsletter",
+        form_data: { email },
+        user_id: user?.id || null,
+        status: "pending",
+      })
+
+      if (error) {
+        throw error
+      }
+
+      toast.success("Inscription réussie !", {
+        description: "Vous recevrez nos dernières actualités par email.",
+      })
+
+      setSubscribed(true)
       setEmail("")
-    }, 3000)
+      setTimeout(() => {
+        setSubscribed(false)
+      }, 3000)
+    } catch (error: any) {
+      console.error("Erreur lors de l'inscription:", error)
+      toast.error("Erreur lors de l'inscription", {
+        description: error.message || "Veuillez réessayer plus tard.",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -58,9 +88,14 @@ export function NewsletterBanner() {
                   />
                   <Button
                     type="submit"
-                    className="bg-[#D4AF37] hover:bg-[#B8941F] text-[#ffffff] font-semibold px-6 h-12"
+                    disabled={isSubmitting}
+                    className="bg-[#D4AF37] hover:bg-[#B8941F] text-[#ffffff] font-semibold px-6 h-12 disabled:opacity-50"
                   >
-                    S'abonner
+                    {isSubmitting ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      "S'abonner"
+                    )}
                   </Button>
                 </form>
               )}

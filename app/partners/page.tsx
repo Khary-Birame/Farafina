@@ -5,8 +5,13 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { InputField, TextareaField, SelectField } from "@/components/ui/form-field"
+import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
+import { useAuth } from "@/lib/auth/auth-context"
+import { toast } from "sonner"
+import { Loader2, CheckCircle2 } from "lucide-react"
 
 export default function BecomePartnerPage() {
+  const { user } = useAuth()
   const [formData, setFormData] = useState({
     organizationName: "",
     contactName: "",
@@ -23,22 +28,43 @@ export default function BecomePartnerPage() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const { data, error } = await createFormSubmission({
+        form_type: "partner",
+        form_data: formData,
+        user_id: user?.id || null,
+        status: "pending",
+      })
 
-    console.log("Form submitted:", formData)
-    setIsSubmitted(true)
-    setIsSubmitting(false)
-    
-    // Reset form
-    setFormData({
-      organizationName: "",
-      contactName: "",
-      email: "",
-      phone: "",
-      partnershipType: "",
-      message: "",
-    })
+      if (error) {
+        throw error
+      }
+
+      toast.success("Demande de partenariat envoyée !", {
+        description: "Nous vous contacterons sous peu.",
+      })
+
+      setIsSubmitted(true)
+      setFormData({
+        organizationName: "",
+        contactName: "",
+        email: "",
+        phone: "",
+        partnershipType: "",
+        message: "",
+      })
+
+      setTimeout(() => {
+        setIsSubmitted(false)
+      }, 3000)
+    } catch (error: any) {
+      console.error("Erreur lors de l'envoi:", error)
+      toast.error("Erreur lors de l'envoi", {
+        description: error.message || "Veuillez réessayer plus tard.",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const partnershipTypes = [

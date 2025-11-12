@@ -2,26 +2,73 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Eye, EyeOff, Shield, Lock, CheckCircle2 } from "lucide-react"
+import { Eye, EyeOff, Shield, Lock, CheckCircle2, Loader2, AlertCircle } from "lucide-react"
+import { signIn } from "@/lib/auth/auth-helpers"
+import { useAuth } from "@/lib/auth/auth-context"
 
 export function LoginForm() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const { refreshUser } = useAuth()
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     rememberMe: false,
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Lire les paramètres d'URL pour les messages de confirmation/erreur
+  useEffect(() => {
+    const errorParam = searchParams.get("error")
+    const messageParam = searchParams.get("message")
+    const confirmedParam = searchParams.get("confirmed")
+
+    if (confirmedParam === "true") {
+      setSuccess("✅ Votre email a été confirmé avec succès ! Vous pouvez maintenant vous connecter.")
+      // Nettoyer l'URL
+      router.replace("/login")
+    } else if (errorParam && messageParam) {
+      setError(messageParam)
+      // Nettoyer l'URL
+      router.replace("/login")
+    }
+  }, [searchParams, router])
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("[v0] Login form submitted:", formData)
-    // Handle login submission
+    setError(null)
+    setLoading(true)
+
+    try {
+      const result = await signIn({
+        email: formData.email,
+        password: formData.password,
+      })
+
+      if (result.success) {
+        // Rafraîchir les données utilisateur
+        await refreshUser()
+        // Rediriger vers la page d'accueil ou le dashboard
+        router.push("/")
+        router.refresh()
+      } else {
+        setError(result.error || "Erreur lors de la connexion")
+      }
+    } catch (err: any) {
+      setError(err.message || "Une erreur inattendue s'est produite")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -94,6 +141,22 @@ export function LoginForm() {
                 </div>
               </div>
 
+              {/* Success Message */}
+              {success && (
+                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-green-800">{success}</p>
+                </div>
+              )}
+
+              {/* Error Message */}
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-red-800">{error}</p>
+                </div>
+              )}
+
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Email */}
@@ -160,9 +223,17 @@ export function LoginForm() {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8941F] text-[#ffffff] font-semibold text-base transition-all duration-200 hover:shadow-lg"
+                  disabled={loading}
+                  className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8941F] text-[#ffffff] font-semibold text-base transition-all duration-200 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Se Connecter
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Connexion en cours...
+                    </>
+                  ) : (
+                    "Se Connecter"
+                  )}
                 </Button>
               </form>
 

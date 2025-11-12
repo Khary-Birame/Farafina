@@ -5,9 +5,13 @@ import type React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { InputField, TextareaField, SelectField } from "@/components/ui/form-field"
-import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react"
+import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Linkedin, Youtube, Loader2, CheckCircle2 } from "lucide-react"
+import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
+import { useAuth } from "@/lib/auth/auth-context"
+import { toast } from "sonner"
 
 export function ContactForm() {
+  const { user } = useAuth()
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -15,11 +19,49 @@ export function ContactForm() {
     role: "",
     message: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
-    // Handle form submission
+    setIsSubmitting(true)
+
+    try {
+      const { data, error } = await createFormSubmission({
+        form_type: "contact",
+        form_data: formData,
+        user_id: user?.id || null,
+        status: "pending",
+      })
+
+      if (error) {
+        throw error
+      }
+
+      toast.success("Message envoyé avec succès !", {
+        description: "Nous vous répondrons dans les 24 heures.",
+      })
+
+      setIsSubmitted(true)
+      setFormData({
+        fullName: "",
+        email: "",
+        subject: "",
+        role: "",
+        message: "",
+      })
+
+      setTimeout(() => {
+        setIsSubmitted(false)
+      }, 3000)
+    } catch (error: any) {
+      console.error("Erreur lors de l'envoi du message:", error)
+      toast.error("Erreur lors de l'envoi", {
+        description: error.message || "Veuillez réessayer plus tard.",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -88,12 +130,27 @@ export function ContactForm() {
                 rows={5}
               />
 
-              <Button
-                type="submit"
-                className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8941F] text-white font-semibold text-base transition-all duration-200"
-              >
-                Envoyer le Message
-              </Button>
+              {isSubmitted ? (
+                <div className="w-full h-12 bg-green-50 border border-green-200 rounded-md flex items-center justify-center gap-2 text-green-700">
+                  <CheckCircle2 className="w-5 h-5" />
+                  <span className="font-semibold">Message envoyé avec succès !</span>
+                </div>
+              ) : (
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8941F] text-white font-semibold text-base transition-all duration-200 disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Envoi en cours...
+                    </>
+                  ) : (
+                    "Envoyer le Message"
+                  )}
+                </Button>
+              )}
             </form>
           </div>
 

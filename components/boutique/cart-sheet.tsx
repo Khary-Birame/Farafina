@@ -64,6 +64,7 @@ Total: ${formattedTotal}.`
           onClick={openCart}
           className="relative inline-flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-white text-[#1A1A1A] shadow-sm transition hover:border-[#D4AF37] hover:text-[#D4AF37]"
           aria-label="Ouvrir le panier"
+          suppressHydrationWarning
         >
           <ShoppingCart className="h-5 w-5" />
           {totalQuantity > 0 && (

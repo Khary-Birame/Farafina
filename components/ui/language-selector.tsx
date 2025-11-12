@@ -10,24 +10,18 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Globe, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useLanguage } from "@/lib/language-context"
+import { languages as allLanguages, LanguageCode } from "@/lib/i18n"
 
-const languages = [
-  { code: "fr", name: "Français", flag: "🇫🇷" },
-  { code: "en", name: "English", flag: "🇬🇧" },
-  { code: "ar", name: "العربية", flag: "🇸🇦" },
-  { code: "pt", name: "Português", flag: "🇵🇹" },
-]
+// Convertir l'objet languages en tableau pour l'affichage
+const languages = Object.values(allLanguages)
 
 export function LanguageSelector({ className }: { className?: string }) {
-  const [currentLang, setCurrentLang] = React.useState("fr")
+  const { language, setLanguage, currentLanguage } = useLanguage()
 
-  const handleLanguageChange = (langCode: string) => {
-    setCurrentLang(langCode)
-    // TODO: Implémenter le changement de langue avec i18n
-    // router.push(router.asPath, router.asPath, { locale: langCode })
+  const handleLanguageChange = (langCode: LanguageCode) => {
+    setLanguage(langCode)
   }
-
-  const currentLanguage = languages.find((lang) => lang.code === currentLang) || languages[0]
 
   return (
     <DropdownMenu>
@@ -39,21 +33,21 @@ export function LanguageSelector({ className }: { className?: string }) {
         >
           <Globe className="w-4 h-4" />
           <span className="hidden sm:inline">{currentLanguage.flag}</span>
-          <span className="hidden md:inline text-sm">{currentLanguage.code.toUpperCase()}</span>
+          <span className="hidden md:inline text-sm">{language.toUpperCase()}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
-        {languages.map((language) => (
+      <DropdownMenuContent align="end" className="w-48 bg-white border-gray-200">
+        {languages.map((langItem) => (
           <DropdownMenuItem
-            key={language.code}
-            onClick={() => handleLanguageChange(language.code)}
+            key={langItem.code}
+            onClick={() => handleLanguageChange(langItem.code as LanguageCode)}
             className="flex items-center justify-between cursor-pointer"
           >
             <div className="flex items-center gap-2">
-              <span>{language.flag}</span>
-              <span>{language.name}</span>
+              <span>{langItem.flag}</span>
+              <span>{langItem.name}</span>
             </div>
-            {currentLang === language.code && (
+            {language === langItem.code && (
               <Check className="w-4 h-4 text-[#D4AF37]" />
             )}
           </DropdownMenuItem>

@@ -3,30 +3,87 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Eye, EyeOff, Shield, Lock, CheckCircle2 } from "lucide-react"
+import { Eye, EyeOff, Shield, Lock, CheckCircle2, Loader2, AlertCircle, CheckCircle } from "lucide-react"
+import { signUp } from "@/lib/auth/auth-helpers"
+import { useAuth } from "@/lib/auth/auth-context"
 
 export function SignUpForm() {
+  const router = useRouter()
+  const { refreshUser } = useAuth()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    role: "",
+    role: "" as "player" | "parent" | "coach" | "club" | "admin",
     agreeToTerms: false,
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("[v0] Form submitted:", formData)
-    // Handle form submission
+    setError(null)
+    setSuccess(false)
+
+    // Validation
+    if (formData.password !== formData.confirmPassword) {
+      setError("Les mots de passe ne correspondent pas")
+      return
+    }
+
+    if (formData.password.length < 6) {
+      setError("Le mot de passe doit contenir au moins 6 caractères")
+      return
+    }
+
+    if (!formData.role) {
+      setError("Veuillez sélectionner un rôle")
+      return
+    }
+
+    if (!formData.agreeToTerms) {
+      setError("Veuillez accepter les conditions d'utilisation")
+      return
+    }
+
+    setLoading(true)
+
+    try {
+      const result = await signUp({
+        email: formData.email,
+        password: formData.password,
+        fullName: formData.fullName,
+        role: formData.role,
+      })
+
+      if (result.success) {
+        setSuccess(true)
+        // Rafraîchir les données utilisateur
+        await refreshUser()
+        // Rediriger après 2 secondes
+        setTimeout(() => {
+          router.push("/")
+          router.refresh()
+        }, 2000)
+      } else {
+        setError(result.error || "Erreur lors de l'inscription")
+      }
+    } catch (err: any) {
+      setError(err.message || "Une erreur inattendue s'est produite")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -92,6 +149,27 @@ export function SignUpForm() {
                   <span>Conforme RGPD</span>
                 </div>
               </div>
+
+              {/* Success Message */}
+              {success && (
+                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-green-800 mb-1">Compte créé avec succès !</p>
+                    <p className="text-xs text-green-700">
+                      Vérifiez votre email pour confirmer votre compte. Redirection en cours...
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Error Message */}
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-red-800">{error}</p>
+                </div>
+              )}
 
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -218,10 +296,22 @@ export function SignUpForm() {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8941F] text-[#ffffff] font-semibold text-base"
-                  disabled={!formData.agreeToTerms}
+                  className="w-full h-12 bg-[#D4AF37] hover:bg-[#B8941F] text-[#ffffff] font-semibold text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={!formData.agreeToTerms || loading || success}
                 >
-                  Créer le Compte
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Création du compte...
+                    </>
+                  ) : success ? (
+                    <>
+                      <CheckCircle className="w-4 h-4 mr-2" />
+                      Compte créé !
+                    </>
+                  ) : (
+                    "Créer le Compte"
+                  )}
                 </Button>
               </form>
 

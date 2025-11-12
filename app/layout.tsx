@@ -4,6 +4,9 @@ import "./globals.css"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { CookieConsent } from "@/components/cookie-consent"
 import { CartProvider } from "@/components/providers/cart-provider"
+import { LanguageProvider } from "@/lib/language-context"
+import { AuthProvider } from "@/lib/auth/auth-context"
+import { Toaster } from "sonner"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,12 +32,33 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={`${poppins.variable} ${inter.variable}`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const storedLang = localStorage.getItem('ffa-language');
+                  if (storedLang && ['fr', 'en', 'ar', 'pt'].includes(storedLang)) {
+                    document.documentElement.lang = storedLang;
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body>
-        <CartProvider>
-          {children}
-          <ScrollToTop />
-          <CookieConsent />
-        </CartProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <CartProvider>
+              {children}
+              <ScrollToTop />
+              <CookieConsent />
+              <Toaster position="top-right" richColors />
+            </CartProvider>
+          </AuthProvider>
+        </LanguageProvider>
       </body>
     </html>
   )

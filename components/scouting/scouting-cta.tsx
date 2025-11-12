@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Brain, ArrowRight } from "lucide-react"
+import { Brain, ArrowRight, Loader2 } from "lucide-react"
 import type React from "react"
 import { useState } from "react"
+import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
+import { toast } from "sonner"
 
 export function ScoutingCTA() {
   const [formData, setFormData] = useState({
@@ -17,20 +19,50 @@ export function ScoutingCTA() {
     message: "",
     consent: false,
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Demo request submitted:", formData)
-    // Handle form submission
-    alert("Votre demande de démo a été envoyée ! Notre équipe vous contactera sous peu.")
-    setFormData({
-      name: "",
-      email: "",
-      organization: "",
-      role: "",
-      message: "",
-      consent: false,
-    })
+    
+    if (!formData.consent) {
+      alert("Veuillez accepter les conditions pour continuer.")
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      const { data, error } = await createFormSubmission({
+        form_type: "scouting",
+        form_data: formData,
+        user_id: null, // Pas besoin d'être connecté pour cette demande
+        status: "pending",
+      })
+
+      if (error) {
+        throw error
+      }
+
+      toast.success("Demande envoyée !", {
+        description: "Notre équipe vous contactera sous peu.",
+      })
+
+      setFormData({
+        name: "",
+        email: "",
+        organization: "",
+        role: "",
+        message: "",
+        consent: false,
+      })
+    } catch (error: any) {
+      console.error("Erreur lors de l'envoi:", error)
+      toast.error("Erreur lors de l'envoi", {
+        description: error.message || "Veuillez réessayer plus tard.",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -145,9 +177,23 @@ export function ScoutingCTA() {
                 </label>
               </div>
 
-              <Button type="submit" size="lg" className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-white">
-                Demander l'Accès à la Démo
-                <ArrowRight className="w-5 h-5 ml-2" />
+              <Button 
+                type="submit" 
+                size="lg" 
+                disabled={isSubmitting}
+                className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-white disabled:opacity-50"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Envoi en cours...
+                  </>
+                ) : (
+                  <>
+                    Demander une démo
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </>
+                )}
               </Button>
             </form>
 

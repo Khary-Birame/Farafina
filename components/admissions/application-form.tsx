@@ -6,13 +6,107 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { Upload, CheckCircle2, Shield, Lock } from "lucide-react"
+import { Upload, CheckCircle2, Shield, Lock, Loader2 } from "lucide-react"
+import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
+import { useAuth } from "@/lib/auth/auth-context"
+import { toast } from "sonner"
 
 export function ApplicationForm() {
+  const { user } = useAuth()
   const [currentStep, setCurrentStep] = useState(1)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const totalSteps = 3
 
   const progress = (currentStep / totalSteps) * 100
+
+  // État pour stocker toutes les données du formulaire
+  const [formData, setFormData] = useState({
+    // Étape 1
+    firstName: "",
+    lastName: "",
+    age: "",
+    gender: "",
+    height: "",
+    weight: "",
+    country: "",
+    email: "",
+    phone: "",
+    phone2: "",
+    // Étape 2
+    program: "",
+    position: "",
+    experience: "",
+    currentClub: "",
+    motivation: "",
+    guardian: "",
+    guardianPhone: "",
+    // Étape 3 (documents - pour l'instant juste les noms de fichiers)
+    birthCertificate: null as File | null,
+    photo: null as File | null,
+    medicalCertificate: null as File | null,
+    video: null as File | null,
+  })
+
+  const handleSubmitApplication = async () => {
+    setIsSubmitting(true)
+
+    try {
+      const { data, error } = await createFormSubmission({
+        form_type: "application",
+        form_data: {
+          ...formData,
+          // Convertir les fichiers en noms seulement (pour l'instant)
+          birthCertificate: formData.birthCertificate?.name || null,
+          photo: formData.photo?.name || null,
+          medicalCertificate: formData.medicalCertificate?.name || null,
+          video: formData.video?.name || null,
+        },
+        user_id: user?.id || null,
+        status: "pending",
+      })
+
+      if (error) {
+        throw error
+      }
+
+      toast.success("Candidature soumise avec succès !", {
+        description: "Nous vous contacterons sous peu.",
+      })
+
+      // Réinitialiser le formulaire
+      setCurrentStep(1)
+      setFormData({
+        firstName: "",
+        lastName: "",
+        age: "",
+        gender: "",
+        height: "",
+        weight: "",
+        country: "",
+        email: "",
+        phone: "",
+        phone2: "",
+        program: "",
+        position: "",
+        experience: "",
+        currentClub: "",
+        motivation: "",
+        guardian: "",
+        guardianPhone: "",
+        birthCertificate: null,
+        photo: null,
+        medicalCertificate: null,
+        video: null,
+      })
+    } catch (error: any) {
+      console.error("Erreur lors de la soumission:", error)
+      toast.error("Erreur lors de la soumission", {
+        description: error.message || "Veuillez réessayer plus tard.",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <section id="application-form" className="py-20 lg:py-28 bg-background">
@@ -284,13 +378,21 @@ export function ApplicationForm() {
               ) : (
                 <Button
                   type="button"
-                  onClick={() => {
-                    alert("Votre candidature a été soumise avec succès ! Nous vous contacterons sous peu.")
-                  }}
-                  className="bg-[#D4AF37] hover:bg-[#d17e00] text-white"
+                  onClick={handleSubmitApplication}
+                  disabled={isSubmitting}
+                  className="bg-[#D4AF37] hover:bg-[#d17e00] text-white disabled:opacity-50"
                 >
-                  <CheckCircle2 className="w-4 h-4 mr-2" />
-                  Soumettre la candidature
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Soumission en cours...
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle2 className="w-4 h-4 mr-2" />
+                      Soumettre la candidature
+                    </>
+                  )}
                 </Button>
               )}
             </div>

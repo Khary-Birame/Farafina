@@ -1,0 +1,48 @@
+{
+  "common": {
+    "welcome": "Bienvenue",
+    "home": "Accueil",
+    "about": "À Propos",
+    "contact": "Contact",
+    "login": "Connexion",
+    "signup": "Inscription",
+    "search": "Rechercher",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "submit": "Soumettre",
+    "logout": "Se déconnecter",
+    "profile": "Mon Profil",
+    "apply": "Postuler",
+    "menu": "MENU",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès"
+  },
+  "navigation": {
+    "programs": "Programmes",
+    "admissions": "Admissions",
+    "events": "Événements",
+    "players": "Joueurs",
+    "international": "International",
+    "boutique": "Boutique",
+    "ffaTV": "FFA TV",
+    "clubConnect": "Club Connect",
+    "scouting": "IA Scouting",
+    "partners": "Devenir Partenaire"
+  },
+  "header": {
+    "role": "Rôle"
+  },
+  "forms": {
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "submit": "Envoyer",
+    "required": "Ce champ est requis"
+  }
+}
+
