@@ -17,7 +17,7 @@ import {
   Smile,
   Video,
   Phone,
-  MoreVertical
+  MoreHorizontal
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -155,7 +155,9 @@ export default function MessagingPage() {
                       <div className="flex items-start gap-3">
                         <div className="relative">
                           <Avatar>
-                            <AvatarImage src={conversation.avatar} />
+                            {conversation.avatar && (
+                              <AvatarImage src={conversation.avatar} />
+                            )}
                             <AvatarFallback>
                               {conversation.name.charAt(0)}
                             </AvatarFallback>
@@ -196,7 +198,9 @@ export default function MessagingPage() {
                 <div className="p-4 border-b flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Avatar>
-                      <AvatarImage src={selectedConversation.avatar} />
+                      {selectedConversation.avatar && (
+                        <AvatarImage src={selectedConversation.avatar} />
+                      )}
                       <AvatarFallback>
                         {selectedConversation.name.charAt(0)}
                       </AvatarFallback>
@@ -216,7 +220,7 @@ export default function MessagingPage() {
                       <Video className="w-4 h-4" />
                     </Button>
                     <Button variant="ghost" size="sm">
-                      <MoreVertical className="w-4 h-4" />
+                      <MoreHorizontal className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
