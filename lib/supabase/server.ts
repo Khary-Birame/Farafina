@@ -24,9 +24,11 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 // Vérifier que les variables sont définies
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    'Variables Supabase manquantes ! Vérifiez votre fichier .env.local'
-  )
+  const isProduction = process.env.NODE_ENV === 'production'
+  const errorMessage = isProduction
+    ? 'Variables Supabase manquantes ! Configurez NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY dans Vercel Dashboard → Settings → Environment Variables'
+    : 'Variables Supabase manquantes ! Vérifiez votre fichier .env.local'
+  throw new Error(errorMessage)
 }
 
 /**

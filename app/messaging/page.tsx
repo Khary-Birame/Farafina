@@ -6,12 +6,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { InputField, TextareaField } from "@/components/ui/form-field"
 import { useState } from "react"
-import { 
-  MessageSquare, 
-  Send, 
-  Search, 
-  Users, 
-  Bell, 
+import {
+  MessageSquare,
+  Send,
+  Search,
+  Users,
+  Bell,
   BellOff,
   Paperclip,
   Smile,
@@ -147,11 +147,10 @@ export default function MessagingPage() {
                     <button
                       key={conversation.id}
                       onClick={() => setSelectedConversation(conversation)}
-                      className={`w-full p-4 border-b hover:bg-muted/50 transition-colors text-left ${
-                        selectedConversation.id === conversation.id
+                      className={`w-full p-4 border-b hover:bg-muted/50 transition-colors text-left ${selectedConversation.id === conversation.id
                           ? "bg-[#D4AF37]/10 border-l-4 border-l-[#D4AF37]"
                           : ""
-                      }`}
+                        }`}
                     >
                       <div className="flex items-start gap-3">
                         <div className="relative">
@@ -217,7 +216,7 @@ export default function MessagingPage() {
                       <Video className="w-4 h-4" />
                     </Button>
                     <Button variant="ghost" size="sm">
-                      <MoreOrical className="w-4 h-4" />
+                      <MoreVertical className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
@@ -230,11 +229,10 @@ export default function MessagingPage() {
                       className={`flex ${msg.isOwn ? "justify-end" : "justify-start"}`}
                     >
                       <div
-                        className={`max-w-[70%] rounded-lg p-3 ${
-                          msg.isOwn
+                        className={`max-w-[70%] rounded-lg p-3 ${msg.isOwn
                             ? "bg-[#D4AF37] text-white"
                             : "bg-muted text-foreground"
-                        }`}
+                          }`}
                       >
                         {!msg.isOwn && (
                           <div className="text-xs font-medium mb-1 opacity-80">
@@ -243,9 +241,8 @@ export default function MessagingPage() {
                         )}
                         <div className="text-sm">{msg.content}</div>
                         <div
-                          className={`text-xs mt-1 ${
-                            msg.isOwn ? "text-white/70" : "text-muted-foreground"
-                          }`}
+                          className={`text-xs mt-1 ${msg.isOwn ? "text-white/70" : "text-muted-foreground"
+                            }`}
                         >
                           {msg.time}
                         </div>
