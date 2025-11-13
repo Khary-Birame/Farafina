@@ -78,7 +78,7 @@ export function Header({ variant = "default" }: HeaderProps) {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${bgColor}`}
     >
-      <div className={`max-w-[1400px] mx-auto flex items-center justify-between px-2 sm:px-4 lg:px-6 transition-all duration-300 h-16 lg:h-20 ${textColor}`}>
+      <div className={`max-w-[2000px] mx-auto flex items-center justify-between px-2 sm:px-4 lg:px-6 xl:px-8 2xl:px-12 transition-all duration-300 h-16 lg:h-20 ${textColor}`}>
 
         {/* --- Partie Gauche (Menu & Logo) --- */}
         <div className="flex items-center gap-4">
@@ -119,6 +119,7 @@ export function Header({ variant = "default" }: HeaderProps) {
         <div className="hidden lg:flex flex-1" />
 
         {/* --- Actions de Droite (Style PSG) --- */}
+<<<<<<< Updated upstream
         <div className="ml-auto flex items-center gap-2 lg:gap-4 xl:gap-6">
           {loading ? (
             // Pendant le chargement, afficher le bouton de connexion par défaut
@@ -211,6 +212,22 @@ export function Header({ variant = "default" }: HeaderProps) {
               </Link>
             </>
           )}
+=======
+        <div className="ml-auto flex items-center gap-2 lg:gap-4 xl:gap-6 2xl:gap-8">
+          <Link
+            href="/login"
+            className="hidden lg:inline-flex items-center uppercase tracking-wider text-xs font-semibold px-3 py-2 rounded-md transition-colors text-[#1A1A1A] hover:bg-gray-100"
+          >
+            Connexion
+          </Link>
+          <Link
+            href="/login"
+            aria-label="Connexion"
+            className="lg:hidden p-2 rounded-md text-[#1A1A1A] hover:bg-gray-100"
+          >
+            <User size={22} />
+          </Link>
+>>>>>>> Stashed changes
           <LanguageSelector
             className="hidden lg:inline-flex text-xs font-semibold uppercase tracking-wider transition-colors text-[#1A1A1A] hover:text-[#D4AF37]"
           />
