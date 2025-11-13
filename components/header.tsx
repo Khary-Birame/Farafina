@@ -120,6 +120,7 @@ export function Header({ variant = "default" }: HeaderProps) {
 
         {/* --- Actions de Droite (Style PSG) --- */}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <div className="ml-auto flex items-center gap-2 lg:gap-4 xl:gap-6">
           {loading ? (
             // Pendant le chargement, afficher le bouton de connexion par défaut
@@ -213,6 +214,8 @@ export function Header({ variant = "default" }: HeaderProps) {
             </>
           )}
 =======
+=======
+>>>>>>> Stashed changes
         <div className="ml-auto flex items-center gap-2 lg:gap-4 xl:gap-6 2xl:gap-8">
           <Link
             href="/login"
