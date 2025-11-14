@@ -1473,6 +1473,13 @@
     "emailPlaceholder": "votre.email@exemple.com",
     "role": "Je suis un(e)",
     "rolePlaceholder": "Sélectionnez votre rôle",
+    "roles": {
+      "parent": "Parent",
+      "recruiter": "Recruteur",
+      "sponsor": "Sponsor",
+      "media": "Média",
+      "other": "Autre"
+    },
     "subject": "Sujet",
     "subjectPlaceholder": "De quoi s'agit-il ?",
     "message": "Message",
