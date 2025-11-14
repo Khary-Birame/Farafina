@@ -1,70 +1,68 @@
 ﻿"use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Users, Target, Trophy } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function ProgramsByAge() {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState(0)
 
-  const programs = [
+  const programs = useMemo(() => [
     {
       ageGroup: "U12 – U15",
-      title: "Développement des Fondamentaux",
+      title: t("programs.byAge.fundamentals.title"),
       icon: <Users size={28} />,
       goals: [
-        "Maîtriser les compétences techniques fondamentales",
-        "Développer la conscience tactique et l'intelligence de jeu",
-        "Construire la littératie physique et la coordination",
-        "Établir une base académique solide",
+        t("programs.byAge.fundamentals.goals.technical"),
+        t("programs.byAge.fundamentals.goals.tactical"),
+        t("programs.byAge.fundamentals.goals.physical"),
+        t("programs.byAge.fundamentals.goals.academic"),
       ],
-      trainingIntensity: "15-18 heures/semaine",
-      competition: "Ligues et tournois régionaux jeunes",
-      description:
-        "Notre programme de base se concentre sur le développement d'athlètes complets avec de solides capacités techniques, une compréhension tactique et l'excellence académique.",
+      trainingIntensity: t("programs.byAge.fundamentals.trainingIntensity"),
+      competition: t("programs.byAge.fundamentals.competition"),
+      description: t("programs.byAge.fundamentals.description"),
     },
     {
       ageGroup: "U16 – U18",
-      title: "Parcours Performance Élite",
+      title: t("programs.byAge.elite.title"),
       icon: <Target size={28} />,
       goals: [
-        "Maîtrise technique et tactique avancée",
-        "Conditionnement physique haute intensité",
-        "Exposition aux clubs professionnels et essais",
-        "Préparation universitaire et planification de carrière",
+        t("programs.byAge.elite.goals.technical"),
+        t("programs.byAge.elite.goals.physical"),
+        t("programs.byAge.elite.goals.exposure"),
+        t("programs.byAge.elite.goals.career"),
       ],
-      trainingIntensity: "20-25 heures/semaine",
-      competition: "Ligues nationales, tournois internationaux, événements de présentation",
-      description:
-        "Le parcours élite prépare les athlètes à haut potentiel aux carrières professionnelles grâce à un entraînement intensif, une exposition compétitive et un soutien académique complet.",
+      trainingIntensity: t("programs.byAge.elite.trainingIntensity"),
+      competition: t("programs.byAge.elite.competition"),
+      description: t("programs.byAge.elite.description"),
     },
     {
-      ageGroup: "Post-Académie",
-      title: "Développement Professionnel",
+      ageGroup: t("programs.byAge.postAcademy.ageGroup"),
+      title: t("programs.byAge.postAcademy.title"),
       icon: <Trophy size={28} />,
       goals: [
-        "Placement et contrats dans les clubs professionnels",
-        "Formation continue et soutien de carrière",
-        "Réseau d'anciens élèves et mentorat",
-        "Transition vers le football professionnel",
+        t("programs.byAge.postAcademy.goals.placement"),
+        t("programs.byAge.postAcademy.goals.continuing"),
+        t("programs.byAge.postAcademy.goals.network"),
+        t("programs.byAge.postAcademy.goals.transition"),
       ],
-      trainingIntensity: "Programmes personnalisés",
-      competition: "Ligues professionnelles et transferts internationaux",
-      description:
-        "Notre programme post-académie soutient les diplômés dans leur transition vers le football professionnel tout en maintenant des parcours de développement éducatif et personnel.",
+      trainingIntensity: t("programs.byAge.postAcademy.trainingIntensity"),
+      competition: t("programs.byAge.postAcademy.competition"),
+      description: t("programs.byAge.postAcademy.description"),
     },
-  ]
+  ], [t])
 
   return (
     <section className="py-20 lg:py-32 bg-muted/50">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="font-sans font-bold text-4xl lg:text-5xl text-[#1A1A1A] mb-6 text-balance">
-            Programmes par <span className="text-[#D4AF37]">Groupe d'Âge</span>
+            {t("programs.byAge.title")} <span className="text-[#D4AF37]">{t("programs.byAge.titleHighlight")}</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Des parcours de développement sur mesure conçus pour répondre aux besoins uniques de chaque groupe d'âge et
-            niveau de compétence.
+            {t("programs.byAge.description")}
           </p>
         </div>
 
@@ -106,20 +104,20 @@ export function ProgramsByAge() {
               {/* Details Grid */}
               <div className="grid md:grid-cols-3 gap-6 mb-8">
                 <div className="bg-muted/50 rounded-xl p-6">
-                  <div className="text-sm font-semibold text-muted-foreground mb-2">Intensité d'Entraînement</div>
+                  <div className="text-sm font-semibold text-muted-foreground mb-2">{t("programs.byAge.trainingIntensityLabel")}</div>
                   <div className="font-sans font-bold text-xl text-[#1A1A1A]">
                     {programs[activeTab].trainingIntensity}
                   </div>
                 </div>
                 <div className="bg-muted/50 rounded-xl p-6 md:col-span-2">
-                  <div className="text-sm font-semibold text-muted-foreground mb-2">Focus Compétition</div>
+                  <div className="text-sm font-semibold text-muted-foreground mb-2">{t("programs.byAge.competitionLabel")}</div>
                   <div className="font-medium text-[#1A1A1A]">{programs[activeTab].competition}</div>
                 </div>
               </div>
 
               {/* Goals */}
               <div>
-                <h4 className="font-sans font-bold text-xl text-[#1A1A1A] mb-4">Objectifs du Programme</h4>
+                <h4 className="font-sans font-bold text-xl text-[#1A1A1A] mb-4">{t("programs.byAge.goalsTitle")}</h4>
                 <div className="grid md:grid-cols-2 gap-4">
                   {programs[activeTab].goals.map((goal, index) => (
                     <div key={index} className="flex items-start gap-3">

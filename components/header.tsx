@@ -11,6 +11,7 @@ import { CartSheet } from "@/components/boutique/cart-sheet"
 import { useAuth } from "@/lib/auth/auth-context"
 import { signOut } from "@/lib/auth/auth-helpers"
 import { useTranslation } from "@/lib/hooks/use-translation"
+import { useActiveSection } from "@/lib/hooks/use-active-section"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,6 +28,7 @@ export function Header({ variant = "default" }: HeaderProps) {
   const router = useRouter()
   const { user, loading } = useAuth()
   const { t } = useTranslation()
+  const activeSection = useActiveSection()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [loggingOut, setLoggingOut] = useState(false)
@@ -119,8 +121,6 @@ export function Header({ variant = "default" }: HeaderProps) {
         <div className="hidden lg:flex flex-1" />
 
         {/* --- Actions de Droite (Style PSG) --- */}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         <div className="ml-auto flex items-center gap-2 lg:gap-4 xl:gap-6">
           {loading ? (
             // Pendant le chargement, afficher le bouton de connexion par défaut
@@ -213,24 +213,6 @@ export function Header({ variant = "default" }: HeaderProps) {
               </Link>
             </>
           )}
-=======
-=======
->>>>>>> Stashed changes
-        <div className="ml-auto flex items-center gap-2 lg:gap-4 xl:gap-6 2xl:gap-8">
-          <Link
-            href="/login"
-            className="hidden lg:inline-flex items-center uppercase tracking-wider text-xs font-semibold px-3 py-2 rounded-md transition-colors text-[#1A1A1A] hover:bg-gray-100"
-          >
-            Connexion
-          </Link>
-          <Link
-            href="/login"
-            aria-label="Connexion"
-            className="lg:hidden p-2 rounded-md text-[#1A1A1A] hover:bg-gray-100"
-          >
-            <User size={22} />
-          </Link>
->>>>>>> Stashed changes
           <LanguageSelector
             className="hidden lg:inline-flex text-xs font-semibold uppercase tracking-wider transition-colors text-[#1A1A1A] hover:text-[#D4AF37]"
           />
@@ -249,16 +231,23 @@ export function Header({ variant = "default" }: HeaderProps) {
       {mobileMenuOpen && (
         <div className="border-t border-gray-200 bg-white/95 text-[#1A1A1A] animate-in slide-in-from-top duration-200">
           <nav className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 py-6 text-sm lg:grid lg:grid-cols-2 lg:gap-6">
-            {mobileNavItems.map(([label, href]) => (
-              <Link
-                key={href}
-                href={href}
-                className="font-semibold uppercase tracking-wide transition-colors text-[#1A1A1A] hover:text-[#D4AF37]"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {label}
-              </Link>
-            ))}
+            {mobileNavItems.map(([label, href]) => {
+              const isActive = activeSection === href || (href === "/" && activeSection === "/")
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`font-semibold uppercase tracking-wide transition-colors ${
+                    isActive
+                      ? "text-[#D4AF37] border-l-4 border-[#D4AF37] pl-3 font-bold"
+                      : "text-[#1A1A1A] hover:text-[#D4AF37]"
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {label}
+                </Link>
+              )
+            })}
             <div className="mt-4 flex flex-col gap-2 border-t border-gray-200 pt-4 lg:col-span-2">
               <div className="mb-2">
                 <LanguageSelector className="w-full justify-start" />

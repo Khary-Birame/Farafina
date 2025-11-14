@@ -13,10 +13,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Eye, EyeOff, Shield, Lock, CheckCircle2, Loader2, AlertCircle, CheckCircle } from "lucide-react"
 import { signUp } from "@/lib/auth/auth-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function SignUpForm() {
   const router = useRouter()
   const { refreshUser } = useAuth()
+  const { t } = useTranslation()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -38,22 +40,22 @@ export function SignUpForm() {
 
     // Validation
     if (formData.password !== formData.confirmPassword) {
-      setError("Les mots de passe ne correspondent pas")
+      setError(t("signup.passwordMismatch"))
       return
     }
 
     if (formData.password.length < 6) {
-      setError("Le mot de passe doit contenir au moins 6 caractères")
+      setError(t("signup.passwordTooShort"))
       return
     }
 
     if (!formData.role) {
-      setError("Veuillez sélectionner un rôle")
+      setError(t("signup.roleRequired"))
       return
     }
 
     if (!formData.agreeToTerms) {
-      setError("Veuillez accepter les conditions d'utilisation")
+      setError(t("signup.termsRequired"))
       return
     }
 
@@ -77,10 +79,10 @@ export function SignUpForm() {
           router.refresh()
         }, 2000)
       } else {
-        setError(result.error || "Erreur lors de l'inscription")
+        setError(result.error || t("signup.signupError"))
       }
     } catch (err: any) {
-      setError(err.message || "Une erreur inattendue s'est produite")
+      setError(err.message || t("login.unexpectedError"))
     } finally {
       setLoading(false)
     }
@@ -100,23 +102,22 @@ export function SignUpForm() {
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-12">
               <div className="text-center space-y-6">
-                <h2 className="font-sans font-bold text-4xl text-balance">Rejoignez l'Avenir du Football Africain</h2>
+                <h2 className="font-sans font-bold text-4xl text-balance">{t("signup.joinFuture")}</h2>
                 <p className="text-lg text-white/90 max-w-md mx-auto text-pretty">
-                  Créez votre compte pour accéder à votre portail de candidature, suivre votre statut d'admission et commencer votre
-                  parcours avec Farafina Foot Academy.
+                  {t("signup.createAccount")}
                 </p>
                 <div className="flex items-center justify-center gap-8 pt-8">
                   <div className="text-center">
                     <div className="text-3xl font-bold">500+</div>
-                    <div className="text-sm text-white/80">Étudiants Actifs</div>
+                    <div className="text-sm text-white/80">{t("common.activeStudents")}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold">95%</div>
-                    <div className="text-sm text-white/80">Taux de Réussite</div>
+                    <div className="text-sm text-white/80">{t("common.successRate")}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold">20+</div>
-                    <div className="text-sm text-white/80">Pays</div>
+                    <div className="text-sm text-white/80">{t("common.countries")}</div>
                   </div>
                 </div>
               </div>
@@ -128,9 +129,9 @@ export function SignUpForm() {
             <div className="bg-white rounded-2xl shadow-lg p-8 sm:p-12">
               {/* Header */}
               <div className="text-center mb-8">
-                <h1 className="font-sans font-bold text-3xl text-[#1A1A1A] mb-3">Créez Votre Compte Farafina</h1>
+                <h1 className="font-sans font-bold text-3xl text-[#1A1A1A] mb-3">{t("signup.title")}</h1>
                 <p className="text-muted-foreground text-pretty">
-                  Accédez à votre candidature, téléchargez des documents et suivez votre statut d'admission.
+                  {t("signup.subtitle")}
                 </p>
               </div>
 
@@ -138,15 +139,15 @@ export function SignUpForm() {
               <div className="flex items-center justify-center gap-6 mb-8 pb-8 border-b border-border">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Shield className="w-4 h-4 text-[#D4AF37]" />
-                  <span>Sécurisé</span>
+                  <span>{t("common.secure")}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Lock className="w-4 h-4 text-[#D4AF37]" />
-                  <span>Chiffré</span>
+                  <span>{t("common.encrypted")}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <CheckCircle2 className="w-4 h-4 text-[#D4AF37]" />
-                  <span>Conforme RGPD</span>
+                  <span>{t("common.gdprCompliant")}</span>
                 </div>
               </div>
 
@@ -155,9 +156,9 @@ export function SignUpForm() {
                 <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-green-800 mb-1">Compte créé avec succès !</p>
+                    <p className="text-sm font-medium text-green-800 mb-1">{t("signup.successTitle")}</p>
                     <p className="text-xs text-green-700">
-                      Vérifiez votre email pour confirmer votre compte. Redirection en cours...
+                      {t("signup.successDescription")}
                     </p>
                   </div>
                 </div>
@@ -176,12 +177,12 @@ export function SignUpForm() {
                 {/* Full Name */}
                 <div className="space-y-2">
                   <Label htmlFor="fullName" className="text-sm font-medium text-[#1A1A1A]">
-                    Nom Complet *
+                    {t("signup.fullNameLabel")}
                   </Label>
                   <Input
                     id="fullName"
                     type="text"
-                    placeholder="Entrez votre nom complet"
+                    placeholder={t("signup.fullNamePlaceholder")}
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     required
@@ -192,12 +193,12 @@ export function SignUpForm() {
                 {/* Email */}
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-sm font-medium text-[#1A1A1A]">
-                    Adresse Email *
+                    {t("signup.emailLabel")}
                   </Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="votre.email@exemple.com"
+                    placeholder={t("forms.emailPlaceholder")}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
@@ -208,13 +209,13 @@ export function SignUpForm() {
                 {/* Password */}
                 <div className="space-y-2">
                   <Label htmlFor="password" className="text-sm font-medium text-[#1A1A1A]">
-                    Mot de Passe *
+                    {t("forms.password")} *
                   </Label>
                   <div className="relative">
                     <Input
                       id="password"
                       type={showPassword ? "text" : "password"}
-                      placeholder="Créez un mot de passe fort"
+                      placeholder={t("forms.createPassword")}
                       value={formData.password}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                       required
@@ -228,19 +229,19 @@ export function SignUpForm() {
                       {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
                   </div>
-                  <p className="text-xs text-muted-foreground">Minimum 8 caractères</p>
+                  <p className="text-xs text-muted-foreground">{t("forms.minCharacters")}</p>
                 </div>
 
                 {/* Confirm Password */}
                 <div className="space-y-2">
                   <Label htmlFor="confirmPassword" className="text-sm font-medium text-[#1A1A1A]">
-                    Confirmer le Mot de Passe *
+                    {t("forms.confirmPassword")} *
                   </Label>
                   <div className="relative">
                     <Input
                       id="confirmPassword"
                       type={showConfirmPassword ? "text" : "password"}
-                      placeholder="Ré-entrez votre mot de passe"
+                      placeholder={t("forms.reEnterPassword")}
                       value={formData.confirmPassword}
                       onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                       required
@@ -259,16 +260,16 @@ export function SignUpForm() {
                 {/* Role Selection */}
                 <div className="space-y-2">
                   <Label htmlFor="role" className="text-sm font-medium text-[#1A1A1A]">
-                    Je suis un(e) *
+                    {t("signup.roleLabel")}
                   </Label>
                   <Select value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
                     <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Sélectionnez votre rôle" />
+                      <SelectValue placeholder={t("signup.rolePlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="parent">Parent / Tuteur</SelectItem>
-                      <SelectItem value="player">Joueur / Étudiant</SelectItem>
-                      <SelectItem value="coach">Entraîneur / Recruteur</SelectItem>
+                      <SelectItem value="parent">{t("signup.roles.parent")}</SelectItem>
+                      <SelectItem value="player">{t("signup.roles.player")}</SelectItem>
+                      <SelectItem value="coach">{t("signup.roles.coach")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -282,13 +283,13 @@ export function SignUpForm() {
                     className="mt-1"
                   />
                   <Label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed cursor-pointer">
-                    J'accepte les{" "}
+                    {t("forms.acceptTerms")}{" "}
                     <Link href="/terms" className="text-[#D4AF37] hover:underline font-medium">
-                      Conditions d'Utilisation
+                      {t("forms.termsAndConditions")}
                     </Link>{" "}
-                    et la{" "}
+                    {t("forms.and")}{" "}
                     <Link href="/privacy" className="text-[#D4AF37] hover:underline font-medium">
-                      Politique de Confidentialité
+                      {t("forms.privacyPolicy")}
                     </Link>
                   </Label>
                 </div>
@@ -302,15 +303,15 @@ export function SignUpForm() {
                   {loading ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Création du compte...
+                      {t("signup.creating")}
                     </>
                   ) : success ? (
                     <>
                       <CheckCircle className="w-4 h-4 mr-2" />
-                      Compte créé !
+                      {t("signup.created")}
                     </>
                   ) : (
-                    "Créer le Compte"
+                    t("signup.createButton")
                   )}
                 </Button>
               </form>
@@ -318,9 +319,9 @@ export function SignUpForm() {
               {/* Login Redirect */}
               <div className="mt-8 text-center">
                 <p className="text-sm text-muted-foreground">
-                  Vous avez déjà un compte ?{" "}
+                  {t("common.alreadyAccount")}{" "}
                   <Link href="/login" className="text-[#D4AF37] hover:underline font-medium">
-                    Se connecter
+                    {t("common.login")}
                   </Link>
                 </p>
               </div>

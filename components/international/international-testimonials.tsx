@@ -1,54 +1,52 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 import { Button } from "@/components/ui/button"
-
-const testimonials = [
-  {
-    id: 1,
-    name: "Amadou Diallo",
-    role: "Joueur professionnel",
-    club: "FC Nantes, France",
-    image: "/african-youth-football-training-action-shot.jpg",
-    quote:
-      "Farafina Foot Academy m'a accompagné dans mon intégration en France. Le suivi éducatif et l'accompagnement psychologique m'ont permis de m'adapter rapidement et de performer sur le terrain.",
-    country: "🇫🇷",
-  },
-  {
-    id: 2,
-    name: "Fatou Sarr",
-    role: "Joueuse professionnelle",
-    club: "FC Barcelona Femeni, Espagne",
-    image: "/african-football-academy-elite-training.jpg",
-    quote:
-      "Grâce à l'accompagnement de Farafina, j'ai pu intégrer le FC Barcelona. L'apprentissage de l'espagnol et le suivi personnalisé ont été essentiels pour mon épanouissement.",
-    country: "🇪🇸",
-  },
-  {
-    id: 3,
-    name: "Mamadou Koné",
-    role: "Joueur professionnel",
-    club: "AS Roma, Italie",
-    image: "/young-african-football-players-training.jpg",
-    quote:
-      "L'académie m'a ouvert les portes de l'Europe. Le réseau de partenaires et l'accompagnement administratif ont facilité mon intégration en Italie. Je recommande vivement !",
-    country: "🇮🇹",
-  },
-  {
-    id: 4,
-    name: "Mariama Diop",
-    role: "Parent d'un joueur",
-    club: "Manchester City Academy, Angleterre",
-    image: "/african-students-studying-in-modern-classroom.jpg",
-    quote:
-      "En tant que parent, je suis rassurée par l'accompagnement de Farafina. Mon fils est bien encadré, son éducation est suivie et il s'épanouit dans son nouveau club. Merci !",
-    country: "🇬🇧",
-  },
-]
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function InternationalTestimonials() {
+  const { t } = useTranslation()
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  const testimonials = useMemo(() => [
+    {
+      id: 1,
+      name: "Amadou Diallo",
+      role: t("international.testimonials.diallo.role"),
+      club: t("international.testimonials.diallo.club"),
+      image: "/african-youth-football-training-action-shot.jpg",
+      quote: t("international.testimonials.diallo.quote"),
+      country: "🇫🇷",
+    },
+    {
+      id: 2,
+      name: "Fatou Sarr",
+      role: t("international.testimonials.sarr.role"),
+      club: t("international.testimonials.sarr.club"),
+      image: "/african-football-academy-elite-training.jpg",
+      quote: t("international.testimonials.sarr.quote"),
+      country: "🇪🇸",
+    },
+    {
+      id: 3,
+      name: "Mamadou Koné",
+      role: t("international.testimonials.kone.role"),
+      club: t("international.testimonials.kone.club"),
+      image: "/young-african-football-players-training.jpg",
+      quote: t("international.testimonials.kone.quote"),
+      country: "🇮🇹",
+    },
+    {
+      id: 4,
+      name: "Mariama Diop",
+      role: t("international.testimonials.diop.role"),
+      club: t("international.testimonials.diop.club"),
+      image: "/african-students-studying-in-modern-classroom.jpg",
+      quote: t("international.testimonials.diop.quote"),
+      country: "🇬🇧",
+    },
+  ], [t])
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length)
@@ -67,15 +65,14 @@ export function InternationalTestimonials() {
           <div className="text-center mb-12">
             <div className="inline-block mb-4">
               <span className="text-sm font-medium text-[#D4AF37] uppercase tracking-wider">
-                Témoignages
+                {t("international.testimonials.badge")}
               </span>
             </div>
             <h2 className="font-sans font-bold text-3xl md:text-4xl lg:text-5xl text-[#1A1A1A] mb-4 text-balance">
-              Découvrez les parcours de nos jeunes qui brillent à l'étranger
+              {t("international.testimonials.title")}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Des témoignages authentiques de joueurs et de parents qui ont fait confiance à notre
-              accompagnement international.
+              {t("international.testimonials.description")}
             </p>
           </div>
 
@@ -132,7 +129,7 @@ export function InternationalTestimonials() {
                     className={`w-2 h-2 rounded-full transition-all ${
                       index === currentIndex ? "bg-[#D4AF37] w-8" : "bg-muted-foreground/30"
                     }`}
-                    aria-label={`Témoignage ${index + 1}`}
+                    aria-label={`${t("international.testimonials.testimonialLabel")} ${index + 1}`}
                   />
                 ))}
               </div>

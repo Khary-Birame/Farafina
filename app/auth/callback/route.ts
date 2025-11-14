@@ -12,6 +12,10 @@ import { NextResponse } from "next/server"
  * - token: Le token de confirmation
  * - redirect_to: L'URL de redirection après confirmation
  */
+
+// Forcer cette route à être dynamique pour éviter le pré-rendu pendant le build
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
   const token_hash = requestUrl.searchParams.get("token_hash")

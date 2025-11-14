@@ -9,9 +9,11 @@ import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Linkedin, Youtube, L
 import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
 import { toast } from "sonner"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function ContactForm() {
   const { user } = useAuth()
+  const { t } = useTranslation()
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -38,8 +40,8 @@ export function ContactForm() {
         throw error
       }
 
-      toast.success("Message envoyé avec succès !", {
-        description: "Nous vous répondrons dans les 24 heures.",
+      toast.success(t("contact.sent"), {
+        description: t("contact.sentDescription"),
       })
 
       setIsSubmitted(true)
@@ -56,8 +58,8 @@ export function ContactForm() {
       }, 3000)
     } catch (error: any) {
       console.error("Erreur lors de l'envoi du message:", error)
-      toast.error("Erreur lors de l'envoi", {
-        description: error.message || "Veuillez réessayer plus tard.",
+      toast.error(t("contact.error"), {
+        description: error.message || t("contact.errorDescription"),
       })
     } finally {
       setIsSubmitting(false)
@@ -70,60 +72,60 @@ export function ContactForm() {
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Left Column - Contact Form */}
           <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-            <h2 className="font-sans font-bold text-3xl mb-2 text-[#1A1A1A]">Envoyez-nous un Message</h2>
-            <p className="text-gray-600 mb-8">Nous vous répondrons dans les 24 heures.</p>
+            <h2 className="font-sans font-bold text-3xl mb-2 text-[#1A1A1A]">{t("contact.sendMessage")}</h2>
+            <p className="text-gray-600 mb-8">{t("contact.responseTime")}</p>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <InputField
-                label="Nom Complet"
+                label={t("contact.fullName")}
                 name="fullName"
                 type="text"
-                placeholder="Entrez votre nom complet"
+                placeholder={t("contact.fullNamePlaceholder")}
                 value={formData.fullName}
                 onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                 required
               />
 
               <InputField
-                label="Adresse Email"
+                label={t("contact.email")}
                 name="email"
                 type="email"
-                placeholder="votre.email@exemple.com"
+                placeholder={t("contact.emailPlaceholder")}
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
               />
 
               <SelectField
-                label="Je suis un(e)"
+                label={t("contact.role")}
                 name="role"
-                placeholder="Sélectionnez votre rôle"
+                placeholder={t("contact.rolePlaceholder")}
                 value={formData.role}
                 onValueChange={(value) => setFormData({ ...formData, role: value })}
                 required
                 options={[
-                  { value: "parent", label: "Parent" },
-                  { value: "recruiter", label: "Recruteur" },
-                  { value: "sponsor", label: "Sponsor" },
-                  { value: "media", label: "Média" },
-                  { value: "other", label: "Autre" },
+                  { value: "parent", label: t("contact.roles.parent") },
+                  { value: "recruiter", label: t("contact.roles.recruiter") },
+                  { value: "sponsor", label: t("contact.roles.sponsor") },
+                  { value: "media", label: t("contact.roles.media") },
+                  { value: "other", label: t("contact.roles.other") },
                 ]}
               />
 
               <InputField
-                label="Sujet"
+                label={t("contact.subject")}
                 name="subject"
                 type="text"
-                placeholder="De quoi s'agit-il ?"
+                placeholder={t("contact.subjectPlaceholder")}
                 value={formData.subject}
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                 required
               />
 
               <TextareaField
-                label="Message"
+                label={t("contact.message")}
                 name="message"
-                placeholder="Parlez-nous de votre demande..."
+                placeholder={t("contact.messagePlaceholder")}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 required
@@ -133,7 +135,7 @@ export function ContactForm() {
               {isSubmitted ? (
                 <div className="w-full h-12 bg-green-50 border border-green-200 rounded-md flex items-center justify-center gap-2 text-green-700">
                   <CheckCircle2 className="w-5 h-5" />
-                  <span className="font-semibold">Message envoyé avec succès !</span>
+                  <span className="font-semibold">{t("contact.sent")}</span>
                 </div>
               ) : (
                 <Button
@@ -144,10 +146,10 @@ export function ContactForm() {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Envoi en cours...
+                      {t("contact.sending")}
                     </>
                   ) : (
-                    "Envoyer le Message"
+                    t("contact.sendButton")
                   )}
                 </Button>
               )}
@@ -157,8 +159,8 @@ export function ContactForm() {
           {/* Right Column - Contact Details */}
           <div className="space-y-8">
             <div>
-              <h2 className="font-sans font-bold text-3xl mb-2 text-[#1A1A1A]">Contactez-nous</h2>
-              <p className="text-gray-600 mb-8">Contactez-nous directement via l'un des canaux ci-dessous.</p>
+              <h2 className="font-sans font-bold text-3xl mb-2 text-[#1A1A1A]">{t("contact.title")}</h2>
+              <p className="text-gray-600 mb-8">{t("contact.contactDirectly")}</p>
             </div>
 
             {/* Contact Information Cards */}
@@ -169,13 +171,9 @@ export function ContactForm() {
                     <MapPin className="text-white" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-[#1A1A1A] mb-1">Notre Localisation</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Farafina Foot Academy
-                      <br />
-                      Fann Hock, Région de Dakar
-                      <br />
-                      Sénégal, Afrique de l'Ouest
+                    <h3 className="font-semibold text-lg text-[#1A1A1A] mb-1">{t("contact.location")}</h3>
+                    <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+                      {t("contact.locationText")}
                     </p>
                   </div>
                 </div>
@@ -187,9 +185,9 @@ export function ContactForm() {
                     <Phone className="text-white" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-[#1A1A1A] mb-1">Téléphone</h3>
-                    <p className="text-gray-600">+221 XX XXX XX XX</p>
-                    <p className="text-sm text-gray-500 mt-1">Lun-Ven, 9h00 - 18h00 (GMT)</p>
+                    <h3 className="font-semibold text-lg text-[#1A1A1A] mb-1">{t("contact.phone")}</h3>
+                    <p className="text-gray-600">{t("footer.phone")}</p>
+                    <p className="text-sm text-gray-500 mt-1">{t("contact.phoneHours")}</p>
                   </div>
                 </div>
               </div>
@@ -200,9 +198,9 @@ export function ContactForm() {
                     <Mail className="text-white" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg text-[#1A1A1A] mb-1">Email</h3>
-                    <p className="text-gray-600">info@farafinafootacademy.com</p>
-                    <p className="text-sm text-gray-500 mt-1">Nous répondrons dans les 24 heures</p>
+                    <h3 className="font-semibold text-lg text-[#1A1A1A] mb-1">{t("contact.emailLabel")}</h3>
+                    <p className="text-gray-600">{t("footer.email")}</p>
+                    <p className="text-sm text-gray-500 mt-1">{t("contact.emailResponse")}</p>
                   </div>
                 </div>
               </div>
@@ -210,8 +208,8 @@ export function ContactForm() {
 
             {/* Social Media */}
             <div className="bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-xl p-6 text-white">
-              <h3 className="font-semibold text-lg mb-4">Suivez-nous</h3>
-              <p className="text-white/90 text-sm mb-4">Restez connectés sur les réseaux sociaux</p>
+              <h3 className="font-semibold text-lg mb-4">{t("contact.followUs")}</h3>
+              <p className="text-white/90 text-sm mb-4">{t("contact.socialDescription")}</p>
               <div className="flex items-center gap-3">
                 <a
                   href="#"

@@ -3,36 +3,37 @@
 import { Card } from "@/components/ui/card"
 import { Bell, BarChart3, Users } from "lucide-react"
 import Image from "next/image"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
 
 export function TechnologyInAction() {
-  const features = [
+  const { t } = useTranslation()
+
+  const features = useMemo(() => [
     {
       icon: Bell,
-      title: "Alertes Prédictives",
-      description:
-        "L'IA identifie les talents émergents et envoie des notifications en temps réel aux entraîneurs concernant les joueurs montrant des progrès ou un potentiel exceptionnels.",
+      title: t("scouting.technology.features.predictive.title"),
+      description: t("scouting.technology.features.predictive.description"),
     },
     {
       icon: BarChart3,
-      title: "Analyse de Match",
-      description:
-        "Analyses post-match complètes avec cartes thermiques, réseaux de passes et métriques de performance pour chaque joueur sur le terrain.",
+      title: t("scouting.technology.features.matchAnalysis.title"),
+      description: t("scouting.technology.features.matchAnalysis.description"),
     },
     {
       icon: Users,
-      title: "Évaluation Équitable",
-      description:
-        "Système d'évaluation sans biais qui évalue les joueurs uniquement sur les données de performance, garantissant des opportunités équitables pour tous les genres et origines.",
+      title: t("scouting.technology.features.fairEvaluation.title"),
+      description: t("scouting.technology.features.fairEvaluation.description"),
     },
-  ]
+  ], [t])
 
   return (
     <section id="technology-in-action" className="py-20 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">Technologie en Action</h2>
+          <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">{t("scouting.technology.title")}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Comment l'IA assiste notre processus de recrutement et permet aux entraîneurs de prendre des décisions basées sur les données
+            {t("scouting.technology.description")}
           </p>
         </div>
 
@@ -49,10 +50,10 @@ export function TechnologyInAction() {
             <div className="absolute bottom-6 left-6 right-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D4AF37] text-white text-sm font-medium mb-2">
                 <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                Analyse en Direct
+                {t("scouting.technology.liveAnalysis.badge")}
               </div>
               <p className="text-white text-lg font-medium">
-                Suivi en temps réel des performances pendant les séances d'entraînement et les matchs
+                {t("scouting.technology.liveAnalysis.description")}
               </p>
             </div>
           </div>
@@ -82,15 +83,15 @@ export function TechnologyInAction() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="p-6 text-center bg-gradient-to-br from-[#D4AF37]/5 to-transparent border-[#D4AF37]/20">
             <div className="text-4xl font-bold text-[#D4AF37] mb-2">50+</div>
-            <div className="text-sm text-muted-foreground">Points de Données par Joueur</div>
+            <div className="text-sm text-muted-foreground">{t("scouting.technology.stats.dataPoints")}</div>
           </Card>
           <Card className="p-6 text-center bg-gradient-to-br from-[#D4AF37]/5 to-transparent border-[#D4AF37]/20">
             <div className="text-4xl font-bold text-[#D4AF37] mb-2">24/7</div>
-            <div className="text-sm text-muted-foreground">Surveillance Continue</div>
+            <div className="text-sm text-muted-foreground">{t("scouting.technology.stats.continuous")}</div>
           </Card>
           <Card className="p-6 text-center bg-gradient-to-br from-[#D4AF37]/5 to-transparent border-[#D4AF37]/20">
             <div className="text-4xl font-bold text-[#D4AF37] mb-2">100%</div>
-            <div className="text-sm text-muted-foreground">Évaluation Objective</div>
+            <div className="text-sm text-muted-foreground">{t("scouting.technology.stats.objective")}</div>
           </Card>
         </div>
       </div>

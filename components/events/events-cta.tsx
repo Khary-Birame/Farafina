@@ -1,8 +1,13 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Calendar, ArrowRight, Trophy } from "lucide-react"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function EventsCTA() {
+  const { t } = useTranslation()
+
   return (
     <section className="py-20 lg:py-32 relative overflow-hidden bg-gradient-to-br from-[#D4AF37] to-[#B8941F]">
       <div className="absolute inset-0 opacity-10">
@@ -22,12 +27,11 @@ export function EventsCTA() {
           </div>
 
           <h2 className="font-sans font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-6 text-balance">
-            Ne manquez pas nos prochaines journées de détection
+            {t("events.cta.title")}
           </h2>
 
           <p className="text-lg text-white/90 mb-8 leading-relaxed max-w-2xl mx-auto">
-            Rejoignez la prochaine génération de stars du football africain. Inscrivez-vous dès maintenant et
-            donnez-vous la chance de briller sur les terrains internationaux.
+            {t("events.cta.description")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -37,7 +41,7 @@ export function EventsCTA() {
                 className="bg-white text-[#D4AF37] hover:bg-gray-100 text-base h-12 px-8 shadow-lg"
               >
                 <Calendar className="w-5 h-5 mr-2" />
-                Voir le calendrier
+                {t("events.cta.calendarButton")}
               </Button>
             </Link>
             <Link href="/apply">
@@ -46,7 +50,7 @@ export function EventsCTA() {
                 variant="outline"
                 className="border-white text-white hover:bg-white/10 text-base h-12 px-8 backdrop-blur-sm bg-white/5"
               >
-                S'inscrire maintenant
+                {t("events.cta.registerButton")}
                 <ArrowRight size={20} className="ml-2" />
               </Button>
             </Link>

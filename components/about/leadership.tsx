@@ -1,29 +1,36 @@
-﻿import { Quote } from "lucide-react"
+﻿"use client"
 
-const team = [
-  {
-    name: "Amadou Diallo",
-    role: "Entraîneur Principal",
-    bio: "Ancien joueur professionnel avec plus de 15 ans d'expérience d'entraînement dans des académies européennes.",
-    image: "/african-football-coach-portrait.jpg",
-  },
-  {
-    name: "Dr. Fatou Sow",
-    role: "Directrice Académique",
-    bio: "Doctorat en Éducation, spécialisée dans les programmes sport-études et le développement de la jeunesse.",
-    image: "/african-female-educator-portrait.jpg",
-  },
-  {
-    name: "Ibrahim Kane",
-    role: "Directeur Technique",
-    bio: "Titulaire de la Licence UEFA Pro avec une expertise en identification des talents et développement des joueurs.",
-    image: "/african-technical-director-portrait.jpg",
-  },
-]
+import { Quote } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
 
 export function Leadership() {
+  const { t } = useTranslation()
+
+  // Charger l'équipe depuis les traductions
+  const team = useMemo(() => [
+    {
+      name: "Amadou Diallo",
+      role: t("home.leadership.team.coach.role"),
+      bio: t("home.leadership.team.coach.bio"),
+      image: "/african-football-coach-portrait.jpg",
+    },
+    {
+      name: "Dr. Fatou Sow",
+      role: t("home.leadership.team.academic.role"),
+      bio: t("home.leadership.team.academic.bio"),
+      image: "/african-female-educator-portrait.jpg",
+    },
+    {
+      name: "Ibrahim Kane",
+      role: t("home.leadership.team.technical.role"),
+      bio: t("home.leadership.team.technical.bio"),
+      image: "/african-technical-director-portrait.jpg",
+    },
+  ], [t])
+
   return (
-    <section className="py-24 bg-white">
+    <section data-section="leadership" className="py-24 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
         {/* CEO Quote */}
         <div className="max-w-4xl mx-auto mb-20">
@@ -32,15 +39,15 @@ export function Leadership() {
             <div className="relative z-10">
               <Quote className="text-[#ffffff] mb-6" size={48} />
               <blockquote className="text-2xl md:text-3xl font-sans font-semibold text-white mb-6 leading-relaxed text-balance">
-                "À la Farafina Foot Academy, la discipline façonne le talent, et le respect crée les champions."
+                "{t("home.leadership.quote")}"
               </blockquote>
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-white/20 rounded-full overflow-hidden">
-                  <img src="/african-ceo-portrait.jpg" alt="PDG" className="w-full h-full object-cover" />
+                  <img src="/african-ceo-portrait.jpg" alt={t("home.leadership.ceo.alt")} className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <p className="font-sans font-semibold text-lg text-white">M. Abdoulaye Galaye C. Diallo</p>
-                  <p className="text-sm text-white/80">Président Directeur Général, Farafina Group</p>
+                  <p className="font-sans font-semibold text-lg text-white">{t("home.leadership.ceo.name")}</p>
+                  <p className="text-sm text-white/80">{t("home.leadership.ceo.title")}</p>
                 </div>
               </div>
             </div>
@@ -49,9 +56,9 @@ export function Leadership() {
 
         {/* Team Section */}
         <div className="text-center mb-12">
-          <h2 className="font-sans font-bold text-4xl md:text-5xl text-[#1A1A1A] mb-4">Notre Équipe de Direction</h2>
+          <h2 className="font-sans font-bold text-4xl md:text-5xl text-[#1A1A1A] mb-4">{t("home.leadership.title")}</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Des professionnels expérimentés dédiés au développement de la prochaine génération de talents du football africain.
+            {t("home.leadership.description")}
           </p>
         </div>
 

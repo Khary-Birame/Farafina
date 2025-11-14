@@ -92,3 +92,5 @@ COMMENT ON POLICY "Users can view their own profile" ON public.users IS
 COMMENT ON POLICY "Admins can view all users" ON public.users IS 
 'Les administrateurs peuvent voir tous les profils utilisateurs';
 
+
+

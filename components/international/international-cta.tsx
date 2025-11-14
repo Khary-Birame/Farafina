@@ -1,8 +1,13 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Star } from "lucide-react"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function InternationalCTA() {
+  const { t } = useTranslation()
+
   return (
     <section className="py-20 lg:py-32 relative overflow-hidden bg-gradient-to-br from-[#D4AF37] to-[#B8941F]">
       <div className="absolute inset-0 opacity-10">
@@ -22,13 +27,11 @@ export function InternationalCTA() {
           </div>
 
           <h2 className="font-sans font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-6 text-balance">
-            Votre talent mérite un accompagnement à la hauteur de vos ambitions
+            {t("international.cta.title")}
           </h2>
 
           <p className="text-lg text-white/90 mb-8 leading-relaxed max-w-2xl mx-auto">
-            Rejoignez Farafina Foot Academy et bénéficiez d'un accompagnement international complet pour
-            propulser votre carrière vers le sommet. Formation, suivi et protection, nous sommes à vos côtés à
-            chaque étape.
+            {t("international.cta.description")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -37,7 +40,7 @@ export function InternationalCTA() {
                 size="lg"
                 className="bg-white text-[#D4AF37] hover:bg-gray-100 text-base h-12 px-8 shadow-lg"
               >
-                Postuler à Farafina Foot Academy
+                {t("international.cta.applyButton")}
                 <ArrowRight size={20} className="ml-2" />
               </Button>
             </Link>
@@ -47,7 +50,7 @@ export function InternationalCTA() {
                 variant="outline"
                 className="border-white text-white hover:bg-white/10 text-base h-12 px-8 backdrop-blur-sm bg-white/5"
               >
-                En savoir plus sur notre réseau
+                {t("international.cta.learnMoreButton")}
               </Button>
             </Link>
           </div>
@@ -56,16 +59,16 @@ export function InternationalCTA() {
           <div className="mt-12 pt-8 border-t border-white/20">
             <div className="grid md:grid-cols-3 gap-6 text-white/90 text-sm">
               <div>
-                <p className="font-semibold mb-1">Formation d'élite</p>
-                <p className="text-white/70">Coaching international de haut niveau</p>
+                <p className="font-semibold mb-1">{t("international.cta.features.elite.title")}</p>
+                <p className="text-white/70">{t("international.cta.features.elite.description")}</p>
               </div>
               <div>
-                <p className="font-semibold mb-1">Réseau solide</p>
-                <p className="text-white/70">Partenariats avec les meilleurs clubs</p>
+                <p className="font-semibold mb-1">{t("international.cta.features.network.title")}</p>
+                <p className="text-white/70">{t("international.cta.features.network.description")}</p>
               </div>
               <div>
-                <p className="font-semibold mb-1">Suivi complet</p>
-                <p className="text-white/70">Accompagnement 360° pour chaque joueur</p>
+                <p className="font-semibold mb-1">{t("international.cta.features.support.title")}</p>
+                <p className="text-white/70">{t("international.cta.features.support.description")}</p>
               </div>
             </div>
           </div>

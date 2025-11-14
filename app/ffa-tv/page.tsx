@@ -8,6 +8,7 @@ import { SponsorsSection } from "@/components/ffa-tv/sponsors-section"
 import { UserEngagement } from "@/components/ffa-tv/user-engagement"
 import { Button } from "@/components/ui/button"
 import { Play, Radio } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId)
@@ -17,6 +18,8 @@ const scrollToSection = (sectionId: string) => {
 }
 
 export default function FFATVPage() {
+  const { t } = useTranslation()
+
   return (
     <div className="min-h-screen bg-[#1a1a1a]">
       <Header />
@@ -39,14 +42,13 @@ export default function FFATVPage() {
           <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
             <div className="inline-flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold mb-6 animate-pulse">
               <Radio size={16} />
-              <span>EN DIRECT MAINTENANT</span>
+              <span>{t("ffaTV.liveNow")}</span>
             </div>
             <h1 className="font-sans font-bold text-5xl lg:text-7xl text-white mb-6 leading-tight text-balance">
-              FFA TV — Regardez les <span className="text-[#D4AF37]">Légendes de Demain</span> en Action
+              {t("ffaTV.hero.title")} <span className="text-[#D4AF37]">{t("ffaTV.hero.titleHighlight")}</span>
             </h1>
             <p className="text-lg text-gray-300 leading-relaxed mb-8 text-pretty">
-              Découvrez les matchs en direct, les moments forts exclusifs et les séances d'entraînement en coulisses de Farafina Foot
-              Academy.
+              {t("ffaTV.hero.description")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -55,7 +57,7 @@ export default function FFATVPage() {
                 onClick={() => scrollToSection("live-stream")}
               >
                 <Play size={20} className="mr-2" />
-                Regarder en Direct
+                {t("ffaTV.hero.watchLive")}
               </Button>
               <Button
                 size="lg"
@@ -63,7 +65,7 @@ export default function FFATVPage() {
                 className="border-white text-white hover:bg-white/10 text-base h-12 px-8 bg-transparent"
                 onClick={() => scrollToSection("video-grid")}
               >
-                Parcourir les Replays
+                {t("ffaTV.hero.browseReplays")}
               </Button>
             </div>
           </div>

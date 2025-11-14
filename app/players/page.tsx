@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Search, ChevronLeft, ChevronRight } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 // Mock player data - in a real app, this would come from an API/database
 const playersData = [
@@ -136,6 +137,7 @@ const playersData = [
 ]
 
 export default function PlayersPage() {
+  const { t } = useTranslation()
   const [searchQuery, setSearchQuery] = useState("")
   const [categoryFilter, setCategoryFilter] = useState<string>("all")
   const [positionFilter, setPositionFilter] = useState<string>("all")
@@ -187,11 +189,10 @@ export default function PlayersPage() {
         <section className="pt-16 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#1A1A1A] via-[#1A1A1A] to-[#1A1A1A]/90">
           <div className="max-w-7xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Nos Joueurs
+              {t("players.hero.title")}
             </h1>
             <p className="text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-              Découvrez les talents formés à la Farafina Foot Academy. Notre académie compte plus de 200 joueurs
-              prometteurs issus de toute l'Afrique.
+              {t("players.hero.description")}
             </p>
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
@@ -199,7 +200,7 @@ export default function PlayersPage() {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
                   type="text"
-                  placeholder="Rechercher un joueur par nom ou catégorie..."
+                  placeholder={t("players.hero.searchPlaceholder")}
                   className="pl-12 h-14 text-lg bg-white border-white/20"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -215,13 +216,13 @@ export default function PlayersPage() {
             <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
               {/* Filters */}
               <div className="flex flex-col sm:flex-row gap-3 flex-wrap items-start sm:items-center">
-                <span className="text-sm font-medium text-foreground">Filtres:</span>
+                <span className="text-sm font-medium text-foreground">{t("players.filters.label")}:</span>
                 <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                   <SelectTrigger className="w-[160px]">
-                    <SelectValue placeholder="Catégorie" />
+                    <SelectValue placeholder={t("players.filters.category.placeholder")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Toutes catégories</SelectItem>
+                    <SelectItem value="all">{t("players.filters.category.all")}</SelectItem>
                     {categories
                       .filter((c) => c !== "all")
                       .map((cat) => (
@@ -233,10 +234,10 @@ export default function PlayersPage() {
                 </Select>
                 <Select value={positionFilter} onValueChange={setPositionFilter}>
                   <SelectTrigger className="w-[160px]">
-                    <SelectValue placeholder="Poste" />
+                    <SelectValue placeholder={t("players.filters.position.placeholder")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Tous postes</SelectItem>
+                    <SelectItem value="all">{t("players.filters.position.all")}</SelectItem>
                     {positions
                       .filter((p) => p !== "all")
                       .map((pos) => (
@@ -248,10 +249,10 @@ export default function PlayersPage() {
                 </Select>
                 <Select value={nationalityFilter} onValueChange={setNationalityFilter}>
                   <SelectTrigger className="w-[160px]">
-                    <SelectValue placeholder="Nationalité" />
+                    <SelectValue placeholder={t("players.filters.nationality.placeholder")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Toutes nationalités</SelectItem>
+                    <SelectItem value="all">{t("players.filters.nationality.all")}</SelectItem>
                     {nationalities
                       .filter((n) => n !== "all")
                       .map((nat) => (
@@ -264,23 +265,22 @@ export default function PlayersPage() {
               </div>
               {/* Sorting */}
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-foreground">Trier par:</span>
+                <span className="text-sm font-medium text-foreground">{t("players.sort.label")}:</span>
                 <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger className="w-[160px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="name">Nom</SelectItem>
-                    <SelectItem value="age">Âge</SelectItem>
-                    <SelectItem value="performance">Performance</SelectItem>
+                    <SelectItem value="name">{t("players.sort.name")}</SelectItem>
+                    <SelectItem value="age">{t("players.sort.age")}</SelectItem>
+                    <SelectItem value="performance">{t("players.sort.performance")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
             {/* Results count */}
             <div className="mt-4 text-sm text-muted-foreground">
-              {filteredPlayers.length} joueur{filteredPlayers.length !== 1 ? "s" : ""} trouvé
-              {filteredPlayers.length !== 1 ? "s" : ""}
+              {filteredPlayers.length} {filteredPlayers.length !== 1 ? t("players.results.playersFound") : t("players.results.playerFound")}
             </div>
           </div>
         </section>
@@ -290,7 +290,7 @@ export default function PlayersPage() {
           <div className="max-w-7xl mx-auto">
             {paginatedPlayers.length === 0 ? (
               <div className="text-center py-16">
-                <p className="text-lg text-muted-foreground">Aucun joueur trouvé avec ces critères.</p>
+                <p className="text-lg text-muted-foreground">{t("players.noResults")}</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -319,15 +319,15 @@ export default function PlayersPage() {
                     <CardContent className="p-6">
                       <div className="grid grid-cols-2 gap-4 mb-6">
                         <div>
-                          <p className="text-sm text-muted-foreground mb-1">Poste</p>
+                          <p className="text-sm text-muted-foreground mb-1">{t("players.card.position")}</p>
                           <p className="font-semibold text-foreground">{player.position}</p>
                         </div>
                         <div>
-                          <p className="text-sm text-muted-foreground mb-1">Âge</p>
-                          <p className="font-semibold text-foreground">{player.age} ans</p>
+                          <p className="text-sm text-muted-foreground mb-1">{t("players.card.age")}</p>
+                          <p className="font-semibold text-foreground">{player.age} {t("players.card.years")}</p>
                         </div>
                         <div className="col-span-2">
-                          <p className="text-sm text-muted-foreground mb-1">Performance</p>
+                          <p className="text-sm text-muted-foreground mb-1">{t("players.card.performance")}</p>
                           <div className="flex items-center gap-2">
                             <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
                               <div
@@ -343,7 +343,7 @@ export default function PlayersPage() {
                         asChild
                         className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-white font-semibold"
                       >
-                        <Link href={`/players/${player.id}`}>Voir les détails</Link>
+                        <Link href={`/players/${player.id}`}>{t("players.card.viewDetails")}</Link>
                       </Button>
                     </CardContent>
                   </Card>
@@ -360,7 +360,7 @@ export default function PlayersPage() {
                   className="border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white"
                 >
                   <ChevronLeft className="h-4 w-4 mr-2" />
-                  Page précédente
+                  {t("players.pagination.previous")}
                 </Button>
                 <div className="flex items-center gap-2">
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -384,7 +384,7 @@ export default function PlayersPage() {
                   disabled={currentPage === totalPages}
                   className="border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white"
                 >
-                  Page suivante
+                  {t("players.pagination.next")}
                   <ChevronRight className="h-4 w-4 ml-2" />
                 </Button>
               </div>

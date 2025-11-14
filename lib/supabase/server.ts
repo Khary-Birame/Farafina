@@ -17,18 +17,20 @@
 import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 
-// Récupérer les variables d'environnement
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-// Vérifier que les variables sont définies
-if (!supabaseUrl || !supabaseAnonKey) {
-  const isProduction = process.env.NODE_ENV === 'production'
-  const errorMessage = isProduction
-    ? 'Variables Supabase manquantes ! Configurez NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY dans Vercel Dashboard → Settings → Environment Variables'
-    : 'Variables Supabase manquantes ! Vérifiez votre fichier .env.local'
-  throw new Error(errorMessage)
+// Fonction pour vérifier les variables d'environnement
+function getSupabaseConfig() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  
+  if (!supabaseUrl || !supabaseAnonKey) {
+    const isProduction = process.env.NODE_ENV === 'production'
+    const errorMessage = isProduction
+      ? 'Variables Supabase manquantes ! Configurez NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY dans Vercel Dashboard → Settings → Environment Variables'
+      : 'Variables Supabase manquantes ! Vérifiez votre fichier .env.local'
+    throw new Error(errorMessage)
+  }
+  
+  return { supabaseUrl, supabaseAnonKey }
 }
 
 /**
@@ -38,6 +40,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
  * connecté. Utile pour les Server Components et Server Actions.
  */
 export async function createServerClient() {
+  const { supabaseUrl, supabaseAnonKey } = getSupabaseConfig()
   const cookieStore = await cookies()
   
   return createClient(supabaseUrl, supabaseAnonKey, {
@@ -80,6 +83,9 @@ export async function createServerClient() {
  * NE JAMAIS utiliser cette fonction côté client !
  */
 export function createAdminClient() {
+  const { supabaseUrl } = getSupabaseConfig()
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  
   if (!supabaseServiceKey) {
     throw new Error('SUPABASE_SERVICE_ROLE_KEY n\'est pas définie')
   }

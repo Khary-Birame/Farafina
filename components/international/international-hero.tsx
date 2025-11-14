@@ -3,8 +3,11 @@
 import { Button } from "@/components/ui/button"
 import { Globe, ArrowRight } from "lucide-react"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function InternationalHero() {
+  const { t } = useTranslation()
+
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
       {/* Background Image/Video */}
@@ -23,16 +26,15 @@ export function InternationalHero() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-[#D4AF37]/20 text-[#D4AF37] px-4 py-2 rounded-full text-sm font-medium mb-6 border border-[#D4AF37]/30 backdrop-blur-sm">
             <Globe className="w-4 h-4" />
-            <span>Excellence Mondiale</span>
+            <span>{t("international.hero.badge")}</span>
           </div>
 
           <h1 className="font-sans font-bold text-4xl md:text-5xl lg:text-7xl text-white mb-6 leading-tight text-balance">
-            L'Excellence au-delà des Frontières
+            {t("international.hero.title")}
           </h1>
 
           <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed text-pretty max-w-2xl mx-auto">
-            Un accompagnement international pour propulser nos talents vers le succès. Formation, suivi et
-            protection pour chaque joueur dans son parcours à l'étranger.
+            {t("international.hero.description")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -41,7 +43,7 @@ export function InternationalHero() {
                 size="lg"
                 className="bg-[#D4AF37] hover:bg-[#B8941F] text-white text-base h-12 px-8 shadow-lg"
               >
-                Découvrir le programme
+                {t("international.hero.discoverButton")}
                 <ArrowRight size={20} className="ml-2" />
               </Button>
             </Link>
@@ -51,7 +53,7 @@ export function InternationalHero() {
                 variant="outline"
                 className="border-white text-white hover:bg-white/10 text-base h-12 px-8 backdrop-blur-sm bg-white/5"
               >
-                Nous rejoindre
+                {t("international.hero.joinButton")}
               </Button>
             </Link>
           </div>

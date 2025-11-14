@@ -1,8 +1,12 @@
+"use client"
+
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Youtube, Linkedin, Mail, Phone, MapPin } from "lucide-react"
 import Image from "next/image"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function Footer() {
+  const { t } = useTranslation()
   return (
     <footer className="bg-[#1A1A1A] text-white">
       <div className="container mx-auto px-4 lg:px-8 py-16">
@@ -22,7 +26,7 @@ export function Footer() {
                 <div className="font-sans font-bold text-lg">Farafina Foot Academy</div>
               </div>
             </div>
-            <p className="text-sm text-gray-400 leading-relaxed mb-4">L'avenir du football africain commence ici.</p>
+            <p className="text-sm text-gray-400 leading-relaxed mb-4">{t("footer.tagline")}</p>
             <div className="flex items-center gap-3">
               <a
                 href="#"
@@ -58,110 +62,110 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-sans font-semibold text-lg mb-4">Liens Rapides</h3>
+            <h3 className="font-sans font-semibold text-lg mb-4">{t("footer.quickLinks")}</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/programs" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Programmes
+                  {t("navigation.programs")}
                 </Link>
               </li>
               <li>
                 <Link href="/admissions" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Admissions
+                  {t("navigation.admissions")}
                 </Link>
               </li>
               <li>
                 <Link href="/events" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Événements
+                  {t("navigation.events")}
                 </Link>
               </li>
               <li>
                 <Link href="/players" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Joueurs
+                  {t("navigation.players")}
                 </Link>
               </li>
               <li>
                 <Link href="/international" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  International
+                  {t("navigation.international")}
                 </Link>
               </li>
               <li>
                 <Link href="/boutique" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Boutique
+                  {t("navigation.boutique")}
                 </Link>
               </li>
               <li>
                 <Link href="/ffa-tv" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  FFA TV
+                  {t("navigation.ffaTV")}
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Contact
+                  {t("common.contact")}
                 </Link>
               </li>
               <li>
                 <Link href="/partners" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Devenir Partenaire
+                  {t("navigation.partners")}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-sans font-semibold text-lg mb-4">Ressources</h3>
+            <h3 className="font-sans font-semibold text-lg mb-4">{t("footer.resources")}</h3>
             <ul className="space-y-3">
               <li>
                 <Link href="/news" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Actualités
+                  {t("footer.news")}
                 </Link>
               </li>
               <li>
                 <Link href="/careers" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Carrières
+                  {t("footer.careers")}
                 </Link>
               </li>
               <li>
                 <Link href="/faq" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  FAQ
+                  {t("footer.faq")}
                 </Link>
               </li>
               <li>
                 <Link href="/privacy" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Politique de Confidentialité
+                  {t("footer.privacy")}
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
-                  Conditions d'Utilisation
+                  {t("footer.terms")}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-sans font-semibold text-lg mb-4">Nous Contacter</h3>
+            <h3 className="font-sans font-semibold text-lg mb-4">{t("footer.contactUs")}</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-[#D4AF37] mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-gray-400">Fann Hock, Région de Dakar, Sénégal</span>
+                <span className="text-sm text-gray-400">{t("footer.location")}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-[#D4AF37] flex-shrink-0" />
-                <span className="text-sm text-gray-400">+221 XX XXX XX XX</span>
+                <span className="text-sm text-gray-400">{t("footer.phone")}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-[#D4AF37] flex-shrink-0" />
-                <span className="text-sm text-gray-400">info@farafinafootacademy.com</span>
+                <span className="text-sm text-gray-400">{t("footer.email")}</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-400">© 2025 Farafina Foot Academy. Tous droits réservés.</p>
+          <p className="text-sm text-gray-400">{t("footer.copyright")}</p>
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-400">Propulsé par</span>
+            <span className="text-sm text-gray-400">{t("footer.poweredBy")}</span>
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-white/10 rounded flex items-center justify-center overflow-hidden">
                 <Image

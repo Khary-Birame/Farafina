@@ -1,16 +1,21 @@
-﻿import { Button } from "@/components/ui/button"
+﻿"use client"
+
+import { Button } from "@/components/ui/button"
 import { MapPin, Navigation } from "lucide-react"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function MapSection() {
+  const { t } = useTranslation()
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#1A1A1A]">Visitez Notre Siège</h2>
+            <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#1A1A1A]">{t("contact.map.title")}</h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Situé au cœur de Dakar, notre siège administratif de Fann Hock offre un accès rapide depuis toute la capitale.
+              {t("contact.map.description")}
             </p>
           </div>
 
@@ -39,8 +44,8 @@ export function MapSection() {
                     <Navigation className="text-[#D4AF37]" size={24} />
                   </div>
                   <div>
-                    <p className="font-semibold text-[#1A1A1A]">Situé dans le quartier Fann Hock</p>
-                    <p className="text-sm text-gray-600">Accès rapide via le Boulevard Martin Luther King</p>
+                    <p className="font-semibold text-[#1A1A1A]">{t("contact.map.location.title")}</p>
+                    <p className="text-sm text-gray-600">{t("contact.map.location.description")}</p>
                   </div>
                 </div>
                 <a
@@ -49,7 +54,7 @@ export function MapSection() {
                   rel="noopener noreferrer"
                 >
                   <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-[#ffffff] font-semibold px-6">
-                    Obtenir l'Itinéraire
+                    {t("contact.map.getDirections")}
                   </Button>
                 </a>
               </div>

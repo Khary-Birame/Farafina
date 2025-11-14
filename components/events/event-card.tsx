@@ -1,6 +1,9 @@
+"use client"
+
 import { Calendar, MapPin, Trophy, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 interface EventCardProps {
   id: string
@@ -33,6 +36,8 @@ const eventTypeIcons: Record<string, JSX.Element> = {
 }
 
 export function EventCard({ date, title, location, type, description, image }: EventCardProps) {
+  const { t } = useTranslation()
+
   return (
     <div className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-border hover:border-[#D4AF37]">
       {/* Image */}
@@ -75,7 +80,7 @@ export function EventCard({ date, title, location, type, description, image }: E
             variant="outline"
             className="w-full border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-colors group/btn"
           >
-            Voir les détails
+            {t("events.card.viewDetails")}
             <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
           </Button>
         </Link>

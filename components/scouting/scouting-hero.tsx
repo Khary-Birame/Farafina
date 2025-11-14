@@ -2,8 +2,11 @@
 
 import { Button } from "@/components/ui/button"
 import { Brain, TrendingUp } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function ScoutingHero() {
+  const { t } = useTranslation()
+
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#1A1A1A] via-[#1a1a1a] to-[#1A1A1A]">
       {/* Neural Network Background Pattern */}
@@ -34,47 +37,53 @@ export function ScoutingHero() {
       <div className="container relative z-10 mx-auto px-4 lg:px-8 py-20 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 mb-6 animate-fade-in-up">
           <Brain className="w-4 h-4 text-[#D4AF37]" />
-          <span className="text-sm font-medium text-[#D4AF37]">Alimenté par l'Intelligence Artificielle</span>
+          <span className="text-sm font-medium text-[#D4AF37]">{t("scouting.hero.badge")}</span>
         </div>
 
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-bold text-white mb-6 animate-fade-in-up text-balance">
-          IA & Détection de Talents
+          {t("scouting.hero.title")}
         </h1>
 
         <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto animate-fade-in-up text-balance">
-          Renforcer les entraîneurs et les joueurs grâce à des insights basés sur les données
+          {t("scouting.hero.subtitle")}
         </p>
 
         <p className="text-base md:text-lg text-gray-400 mb-10 max-w-2xl mx-auto animate-fade-in-up">
-          Farafina Foot Academy intègre une technologie IA de pointe pour identifier, suivre et développer les talents du football à travers l'Afrique avec précision et équité.
+          {t("scouting.hero.description")}
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up">
           <Button
             size="lg"
             className="bg-[#D4AF37] hover:bg-[#B8941F] text-white px-8"
-            onClick={() => scrollToSection("ai-dashboard")}
+            onClick={() => {
+              const element = document.getElementById("ai-dashboard")
+              if (element) element.scrollIntoView({ behavior: "smooth" })
+            }}
           >
             <TrendingUp className="w-5 h-5 mr-2" />
-            Voir le Tableau de Bord Démo
+            {t("scouting.hero.dashboardButton")}
           </Button>
           <Button
             size="lg"
             variant="outline"
             className="border-white/20 text-white hover:bg-white/10 bg-transparent"
-            onClick={() => scrollToSection("technology-in-action")}
+            onClick={() => {
+              const element = document.getElementById("technology-in-action")
+              if (element) element.scrollIntoView({ behavior: "smooth" })
+            }}
           >
-            En Savoir Plus
+            {t("scouting.hero.learnMoreButton")}
           </Button>
         </div>
 
         {/* Floating Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto">
           {[
-            { value: "10K+", label: "Joueurs Suivis" },
-            { value: "98%", label: "Taux de Précision" },
-            { value: "24/7", label: "Analyse en Temps Réel" },
-            { value: "100%", label: "Inclusif Genre" },
+            { value: "10K+", label: t("scouting.hero.stats.playersTracked") },
+            { value: "98%", label: t("scouting.hero.stats.accuracyRate") },
+            { value: "24/7", label: t("scouting.hero.stats.realTimeAnalysis") },
+            { value: "100%", label: t("scouting.hero.stats.genderInclusive") },
           ].map((stat, index) => (
             <div
               key={index}

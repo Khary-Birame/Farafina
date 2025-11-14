@@ -1,42 +1,45 @@
-﻿import { GraduationCap, DollarSign, FileCheck, HelpCircle } from "lucide-react"
+﻿"use client"
+
+import { GraduationCap, DollarSign, FileCheck, HelpCircle } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
 
 export function ImportantInformation() {
-  const infoCards = [
+  const { t } = useTranslation()
+
+  const infoCards = useMemo(() => [
     {
       icon: GraduationCap,
-      title: "Opportunités de Bourses",
-      description:
-        "Jusqu'à 40% des étudiants reçoivent une aide financière basée sur le mérite et les besoins. Nous croyons que le talent ne devrait jamais être limité par les circonstances financières.",
+      title: t("apply.important.scholarships.title"),
+      description: t("apply.important.scholarships.description"),
       link: "/admissions#scholarship",
-      linkText: "En Savoir Plus sur les Bourses",
+      linkText: t("apply.important.scholarships.linkText"),
     },
     {
       icon: DollarSign,
-      title: "Frais de Scolarité",
-      description:
-        "Tarification transparente avec plusieurs plans de paiement disponibles. Les frais de scolarité couvrent la formation, les études, l'hébergement, les repas et les soins médicaux.",
+      title: t("apply.important.tuition.title"),
+      description: t("apply.important.tuition.description"),
       link: "/admissions#tuition",
-      linkText: "Voir les Détails de Tarification",
+      linkText: t("apply.important.tuition.linkText"),
     },
     {
       icon: FileCheck,
-      title: "Consentement Parental",
-      description:
-        "Tous les candidats de moins de 18 ans nécessitent un consentement signé du parent/tuteur. Cela garantit le soutien familial et l'engagement envers le programme.",
+      title: t("apply.important.consent.title"),
+      description: t("apply.important.consent.description"),
       link: "/admissions#faq",
-      linkText: "Télécharger le Formulaire de Consentement",
+      linkText: t("apply.important.consent.linkText"),
     },
-  ]
+  ], [t])
 
   return (
     <section className="py-20 lg:py-24 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-sans font-bold text-[#1A1A1A] mb-4">Informations Importantes</h2>
+          <h2 className="text-3xl lg:text-4xl font-sans font-bold text-[#1A1A1A] mb-4">{t("apply.important.title")}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Politiques et détails clés à connaître avant de postuler
+            {t("apply.important.description")}
           </p>
         </div>
 
@@ -65,12 +68,12 @@ export function ImportantInformation() {
         {/* FAQ Link */}
         <div className="bg-muted rounded-xl p-8 text-center border border-border">
           <HelpCircle className="w-12 h-12 text-[#D4AF37] mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-[#1A1A1A] mb-2">Des Questions ?</h3>
+          <h3 className="text-xl font-bold text-[#1A1A1A] mb-2">{t("apply.important.faq.title")}</h3>
           <p className="text-muted-foreground mb-4">
-            Visitez notre section FAQ pour obtenir des réponses aux questions courantes sur le processus de candidature
+            {t("apply.important.faq.description")}
           </p>
           <Link href="/faq">
-            <Button variant="outline">Voir la FAQ</Button>
+            <Button variant="outline">{t("apply.important.faq.button")}</Button>
           </Link>
         </div>
       </div>

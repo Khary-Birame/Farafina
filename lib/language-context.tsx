@@ -49,7 +49,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, currentLanguage }}>
-      {children}
+      <div key={language}>
+        {children}
+      </div>
     </LanguageContext.Provider>
   )
 }

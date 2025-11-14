@@ -1,8 +1,13 @@
-﻿import { Button } from "@/components/ui/button"
+﻿"use client"
+
+import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function ProgramsHero() {
+  const { t } = useTranslation()
+
   return (
     <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
       {/* Background Image with Overlay */}
@@ -18,10 +23,10 @@ export function ProgramsHero() {
       <div className="container mx-auto px-4 lg:px-8 relative">
         <div className="max-w-3xl">
           <h1 className="font-sans font-bold text-5xl lg:text-7xl text-white mb-6 leading-tight text-balance">
-            Programmes Sportifs et <span className="text-[#D4AF37]">Académiques</span>
+            {t("programs.hero.title")} <span className="text-[#D4AF37]">{t("programs.hero.titleHighlight")}</span>
           </h1>
           <p className="text-xl text-white/90 leading-relaxed mb-8 text-pretty">
-            L'excellence sur le terrain et en classe.
+            {t("programs.hero.subtitle")}
           </p>
           <Button
             size="lg"
@@ -29,7 +34,7 @@ export function ProgramsHero() {
             className="bg-[#D4AF37] hover:bg-[#B8941F] text-white text-base h-12 px-8 font-semibold"
           >
             <Link href="/apply">
-              Postuler maintenant
+              {t("programs.hero.applyButton")}
               <ArrowRight size={20} className="ml-2" />
             </Link>
           </Button>

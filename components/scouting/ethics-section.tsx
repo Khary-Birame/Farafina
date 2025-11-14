@@ -2,33 +2,37 @@
 
 import { Card } from "@/components/ui/card"
 import { Shield, Lock, Heart, CheckCircle } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
 
 export function EthicsSection() {
-  const principles = [
+  const { t } = useTranslation()
+
+  const principles = useMemo(() => [
     {
       icon: Shield,
-      title: "Conforme GDPR",
-      description: "Conformité totale aux règlements européens de protection des données et aux normes internationales de confidentialité.",
+      title: t("scouting.ethics.principles.gdpr.title"),
+      description: t("scouting.ethics.principles.gdpr.description"),
     },
     {
       icon: Lock,
-      title: "Consentement Parental",
-      description: "Toute collecte de données nécessite le consentement explicite des parents ou tuteurs pour les joueurs de moins de 18 ans.",
+      title: t("scouting.ethics.principles.parental.title"),
+      description: t("scouting.ethics.principles.parental.description"),
     },
     {
       icon: Heart,
-      title: "Inclusion des Genres",
-      description: "Critères d'évaluation égaux pour les joueurs masculins et féminins, favorisant la diversité et des opportunités équitables.",
+      title: t("scouting.ethics.principles.inclusion.title"),
+      description: t("scouting.ethics.principles.inclusion.description"),
     },
-  ]
+  ], [t])
 
-  const commitments = [
-    "Les données sont cryptées et stockées de manière sécurisée",
-    "Les joueurs peuvent demander la suppression de leurs données à tout moment",
-    "Aucune donnée n'est partagée avec des tiers sans consentement",
-    "Les modèles IA sont régulièrement audités pour détecter les biais",
-    "Méthodologie de notation transparente disponible pour toutes les familles",
-  ]
+  const commitments = useMemo(() => [
+    t("scouting.ethics.commitments.encrypted"),
+    t("scouting.ethics.commitments.deletion"),
+    t("scouting.ethics.commitments.sharing"),
+    t("scouting.ethics.commitments.audit"),
+    t("scouting.ethics.commitments.transparency"),
+  ], [t])
 
   return (
     <section className="py-20 bg-muted">
@@ -36,11 +40,11 @@ export function EthicsSection() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/30 mb-4">
             <Shield className="w-4 h-4 text-[#D4AF37]" />
-            <span className="text-sm font-medium text-[#D4AF37]">Confiance et Transparence</span>
+            <span className="text-sm font-medium text-[#D4AF37]">{t("scouting.ethics.badge")}</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">Éthique et Confidentialité des Données</h2>
+          <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">{t("scouting.ethics.title")}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Votre confiance est notre fondation. Nous nous engageons aux plus hauts standards de protection des données et d'utilisation éthique de l'IA.
+            {t("scouting.ethics.description")}
           </p>
         </div>
 
@@ -62,7 +66,7 @@ export function EthicsSection() {
         {/* Commitments Card */}
         <Card className="p-8 md:p-12 bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/15 border-2 border-[#D4AF37]/30">
           <div className="max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold text-foreground mb-6 text-center">Nos Engagements de Protection des Données</h3>
+            <h3 className="text-2xl font-bold text-foreground mb-6 text-center">{t("scouting.ethics.commitmentsTitle")}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {commitments.map((commitment, index) => (
                 <div key={index} className="flex items-start gap-3">
@@ -76,15 +80,15 @@ export function EthicsSection() {
             <div className="flex flex-wrap items-center justify-center gap-6 mt-8 pt-8 border-t border-border">
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-border">
                 <Lock className="w-5 h-5 text-[#D4AF37]" />
-                <span className="text-sm font-medium text-foreground">Sécurisé SSL</span>
+                <span className="text-sm font-medium text-foreground">{t("scouting.ethics.badges.ssl")}</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-border">
                 <Shield className="w-5 h-5 text-[#D4AF37]" />
-                <span className="text-sm font-medium text-foreground">Conforme GDPR</span>
+                <span className="text-sm font-medium text-foreground">{t("scouting.ethics.badges.gdpr")}</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-border">
                 <Heart className="w-5 h-5 text-[#D4AF37]" />
-                <span className="text-sm font-medium text-foreground">Conçu Éthiquement</span>
+                <span className="text-sm font-medium text-foreground">{t("scouting.ethics.badges.ethical")}</span>
               </div>
             </div>
           </div>

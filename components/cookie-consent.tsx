@@ -5,8 +5,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Cookie, X, Settings } from "lucide-react"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function CookieConsent() {
+    const { t } = useTranslation()
     const [isOpen, setIsOpen] = useState(false)
     const [showSettings, setShowSettings] = useState(false)
 
@@ -58,12 +60,11 @@ export function CookieConsent() {
                                 <Cookie className="w-6 h-6 text-[#D4AF37]" />
                             </div>
                             <div className="flex-1">
-                                <h3 className="font-semibold text-lg mb-2">Gestion des Cookies</h3>
+                                <h3 className="font-semibold text-lg mb-2">{t("cookies.title")}</h3>
                                 <p className="text-sm text-muted-foreground mb-4">
-                                    Nous utilisons des cookies pour améliorer votre expérience, analyser le trafic et personnaliser le contenu.
-                                    En continuant, vous acceptez notre utilisation des cookies.{" "}
+                                    {t("cookies.description")}{" "}
                                     <Link href="/privacy" className="text-[#D4AF37] hover:underline">
-                                        En savoir plus
+                                        {t("cookies.learnMore")}
                                     </Link>
                                 </p>
                                 <div className="flex flex-wrap items-center gap-2">
@@ -72,14 +73,14 @@ export function CookieConsent() {
                                         className="bg-[#D4AF37] hover:bg-[#B8941F] text-white"
                                         size="sm"
                                     >
-                                        Tout Accepter
+                                        {t("cookies.acceptAll")}
                                     </Button>
                                     <Button
                                         onClick={acceptNecessary}
                                         variant="outline"
                                         size="sm"
                                     >
-                                        Accepter le Nécessaire
+                                        {t("cookies.acceptNecessary")}
                                     </Button>
                                     <Button
                                         onClick={() => setShowSettings(true)}
@@ -87,7 +88,7 @@ export function CookieConsent() {
                                         size="sm"
                                     >
                                         <Settings className="w-4 h-4 mr-2" />
-                                        Personnaliser
+                                        {t("cookies.customize")}
                                     </Button>
                                 </div>
                             </div>
@@ -102,31 +103,31 @@ export function CookieConsent() {
                         </div>
                     ) : (
                         <div>
-                            <h3 className="font-semibold text-lg mb-4">Paramètres des Cookies</h3>
+                            <h3 className="font-semibold text-lg mb-4">{t("cookies.settingsTitle")}</h3>
                             <div className="space-y-4 mb-4">
                                 <div className="flex items-center justify-between p-3 border rounded-lg">
                                     <div>
-                                        <div className="font-medium">Cookies Nécessaires</div>
+                                        <div className="font-medium">{t("cookies.necessary")}</div>
                                         <div className="text-sm text-muted-foreground">
-                                            Essentiels au fonctionnement du site
+                                            {t("cookies.necessaryDescription")}
                                         </div>
                                     </div>
                                     <input type="checkbox" defaultChecked disabled className="w-5 h-5" />
                                 </div>
                                 <div className="flex items-center justify-between p-3 border rounded-lg">
                                     <div>
-                                        <div className="font-medium">Cookies Analytiques</div>
+                                        <div className="font-medium">{t("cookies.analytics")}</div>
                                         <div className="text-sm text-muted-foreground">
-                                            Nous aident à comprendre comment vous utilisez le site
+                                            {t("cookies.analyticsDescription")}
                                         </div>
                                     </div>
                                     <input type="checkbox" defaultChecked className="w-5 h-5" id="analytics" />
                                 </div>
                                 <div className="flex items-center justify-between p-3 border rounded-lg">
                                     <div>
-                                        <div className="font-medium">Cookies Marketing</div>
+                                        <div className="font-medium">{t("cookies.marketing")}</div>
                                         <div className="text-sm text-muted-foreground">
-                                            Utilisés pour la publicité personnalisée
+                                            {t("cookies.marketingDescription")}
                                         </div>
                                     </div>
                                     <input type="checkbox" className="w-5 h-5" id="marketing" />
@@ -142,14 +143,14 @@ export function CookieConsent() {
                                     className="bg-[#D4AF37] hover:bg-[#B8941F] text-white"
                                     size="sm"
                                 >
-                                    Enregistrer les Préférences
+                                    {t("cookies.savePreferences")}
                                 </Button>
                                 <Button
                                     onClick={() => setShowSettings(false)}
                                     variant="outline"
                                     size="sm"
                                 >
-                                    Retour
+                                    {t("common.back")}
                                 </Button>
                             </div>
                         </div>

@@ -12,11 +12,13 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Eye, EyeOff, Shield, Lock, CheckCircle2, Loader2, AlertCircle } from "lucide-react"
 import { signIn } from "@/lib/auth/auth-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { refreshUser } = useAuth()
+  const { t } = useTranslation()
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -34,7 +36,7 @@ export function LoginForm() {
     const confirmedParam = searchParams.get("confirmed")
 
     if (confirmedParam === "true") {
-      setSuccess("✅ Votre email a été confirmé avec succès ! Vous pouvez maintenant vous connecter.")
+      setSuccess(t("login.emailConfirmed"))
       // Nettoyer l'URL
       router.replace("/login")
     } else if (errorParam && messageParam) {
@@ -62,10 +64,10 @@ export function LoginForm() {
         router.push("/")
         router.refresh()
       } else {
-        setError(result.error || "Erreur lors de la connexion")
+        setError(result.error || t("login.connectionError"))
       }
     } catch (err: any) {
-      setError(err.message || "Une erreur inattendue s'est produite")
+      setError(err.message || t("login.unexpectedError"))
     } finally {
       setLoading(false)
     }
@@ -89,23 +91,22 @@ export function LoginForm() {
             </div>
             <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-12">
               <div className="text-center space-y-6">
-                <h2 className="font-sans font-bold text-4xl text-balance">Bienvenue à l'Excellence</h2>
+                <h2 className="font-sans font-bold text-4xl text-balance">{t("login.welcomeExcellence")}</h2>
                 <p className="text-lg text-white/90 max-w-md mx-auto text-pretty">
-                  Continuez votre parcours avec Farafina Foot Academy. Accédez à votre tableau de bord, suivez vos progrès et restez
-                  connecté avec votre équipe.
+                  {t("login.continueJourney")}
                 </p>
                 <div className="flex items-center justify-center gap-8 pt-8">
                   <div className="text-center">
                     <div className="text-3xl font-bold">24/7</div>
-                    <div className="text-sm text-white/80">Accès</div>
+                    <div className="text-sm text-white/80">{t("common.access")}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold">100%</div>
-                    <div className="text-sm text-white/80">Sécurisé</div>
+                    <div className="text-sm text-white/80">{t("common.secure")}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold">500+</div>
-                    <div className="text-sm text-white/80">Utilisateurs Actifs</div>
+                    <div className="text-sm text-white/80">{t("common.activeUsers")}</div>
                   </div>
                 </div>
               </div>
@@ -118,10 +119,10 @@ export function LoginForm() {
               {/* Header */}
               <div className="text-center mb-8">
                 <h1 className="font-sans font-bold text-3xl text-[#1A1A1A] mb-3">
-                  Bienvenue à Farafina Foot Academy
+                  {t("login.title")}
                 </h1>
                 <p className="text-muted-foreground text-pretty">
-                  Connectez-vous pour accéder à votre compte et continuer votre parcours.
+                  {t("login.subtitle")}
                 </p>
               </div>
 
@@ -129,15 +130,15 @@ export function LoginForm() {
               <div className="flex items-center justify-center gap-6 mb-8 pb-8 border-b border-border">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Shield className="w-4 h-4 text-[#D4AF37]" />
-                  <span>Sécurisé</span>
+                  <span>{t("common.secure")}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Lock className="w-4 h-4 text-[#D4AF37]" />
-                  <span>Chiffré</span>
+                  <span>{t("common.encrypted")}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <CheckCircle2 className="w-4 h-4 text-[#D4AF37]" />
-                  <span>Protégé</span>
+                  <span>{t("common.protected")}</span>
                 </div>
               </div>
 
@@ -162,12 +163,12 @@ export function LoginForm() {
                 {/* Email */}
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-sm font-medium text-[#1A1A1A]">
-                    Adresse Email
+                    {t("login.emailLabel")}
                   </Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="votre.email@exemple.com"
+                    placeholder={t("forms.emailPlaceholder")}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
@@ -178,13 +179,13 @@ export function LoginForm() {
                 {/* Password */}
                 <div className="space-y-2">
                   <Label htmlFor="password" className="text-sm font-medium text-[#1A1A1A]">
-                    Mot de Passe
+                    {t("login.passwordLabel")}
                   </Label>
                   <div className="relative">
                     <Input
                       id="password"
                       type={showPassword ? "text" : "password"}
-                      placeholder="Entrez votre mot de passe"
+                      placeholder={t("forms.passwordPlaceholder")}
                       value={formData.password}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                       required
@@ -209,14 +210,14 @@ export function LoginForm() {
                       onCheckedChange={(checked) => setFormData({ ...formData, rememberMe: checked as boolean })}
                     />
                     <Label htmlFor="rememberMe" className="text-sm text-muted-foreground cursor-pointer">
-                      Se souvenir de moi
+                      {t("common.rememberMe")}
                     </Label>
                   </div>
                   <Link
                     href="/forgot-password"
                     className="text-sm text-[#D4AF37] hover:text-[#B8941F] hover:underline font-medium transition-colors"
                   >
-                    Mot de passe oublié ?
+                    {t("common.forgotPassword")}
                   </Link>
                 </div>
 
@@ -229,10 +230,10 @@ export function LoginForm() {
                   {loading ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Connexion en cours...
+                      {t("login.connecting")}
                     </>
                   ) : (
-                    "Se Connecter"
+                    t("login.connectButton")
                   )}
                 </Button>
               </form>
@@ -244,7 +245,7 @@ export function LoginForm() {
                     <div className="w-full border-t border-border" />
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-4 bg-white text-muted-foreground">Nouveau sur Farafina ?</span>
+                    <span className="px-4 bg-white text-muted-foreground">{t("common.newToFarafina")}</span>
                   </div>
                 </div>
                 <div className="text-center">
@@ -252,7 +253,7 @@ export function LoginForm() {
                     href="/signup"
                     className="text-sm text-[#D4AF37] hover:text-[#B8941F] hover:underline font-medium transition-colors"
                   >
-                    Vous n'avez pas de compte ? Créez-en un
+                    {t("common.noAccount")}
                   </Link>
                 </div>
               </div>

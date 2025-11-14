@@ -1,43 +1,49 @@
-﻿import { FileText, Search, MessageSquare, CheckCircle, UserCheck } from "lucide-react"
+﻿"use client"
+
+import { FileText, Search, MessageSquare, CheckCircle, UserCheck } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
 
 export function ApplicationTimeline() {
-  const steps = [
+  const { t } = useTranslation()
+
+  const steps = useMemo(() => [
     {
       icon: FileText,
-      title: "Soumettre le Formulaire",
-      description: "Complétez la candidature en ligne avec tous les documents requis",
-      duration: "15-20 minutes",
+      title: t("apply.timeline.steps.submit.title"),
+      description: t("apply.timeline.steps.submit.description"),
+      duration: t("apply.timeline.steps.submit.duration"),
       color: "from-[#D4AF37] to-[#d17e00]",
     },
     {
       icon: Search,
-      title: "Évaluation",
-      description: "Notre équipe examine votre candidature et les documents à l'appui",
-      duration: "5-7 jours",
+      title: t("apply.timeline.steps.evaluation.title"),
+      description: t("apply.timeline.steps.evaluation.description"),
+      duration: t("apply.timeline.steps.evaluation.duration"),
       color: "from-[#D4AF37] to-[#B8962E]",
     },
     {
       icon: MessageSquare,
-      title: "Entretien",
-      description: "Les candidats sélectionnés sont invités pour un entretien virtuel ou en personne",
-      duration: "1-2 semaines",
+      title: t("apply.timeline.steps.interview.title"),
+      description: t("apply.timeline.steps.interview.description"),
+      duration: t("apply.timeline.steps.interview.duration"),
       color: "from-[#D4AF37] to-[#E8C966]",
     },
     {
       icon: CheckCircle,
-      title: "Confirmation",
-      description: "Recevez la décision d'admission et les prochaines étapes par email",
-      duration: "3-5 jours",
+      title: t("apply.timeline.steps.confirmation.title"),
+      description: t("apply.timeline.steps.confirmation.description"),
+      duration: t("apply.timeline.steps.confirmation.duration"),
       color: "from-[#D4AF37] to-[#E6C966]",
     },
     {
       icon: UserCheck,
-      title: "Inscription",
-      description: "Complétez le processus d'inscription et préparez-vous pour la vie à l'académie",
-      duration: "2-4 semaines",
+      title: t("apply.timeline.steps.enrollment.title"),
+      description: t("apply.timeline.steps.enrollment.description"),
+      duration: t("apply.timeline.steps.enrollment.duration"),
       color: "from-[#D4AF37] to-[#d17e00]",
     },
-  ]
+  ], [t])
 
   return (
     <section className="py-20 lg:py-28 bg-gradient-to-br from-[#1a1a1a] via-[#1A1A1A] to-[#1a1a1a] relative overflow-hidden">
@@ -51,13 +57,13 @@ export function ApplicationTimeline() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37]/20 to-[#D4AF37]/20 px-4 py-2 rounded-full mb-4 border border-[#D4AF37]/30">
             <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
-            <span className="text-sm font-medium text-[#D4AF37]">Parcours de Candidature</span>
+            <span className="text-sm font-medium text-[#D4AF37]">{t("apply.timeline.badge")}</span>
           </div>
           <h2 className="text-3xl lg:text-5xl font-sans font-bold text-white mb-4 text-balance">
-            Calendrier de Candidature
+            {t("apply.timeline.title")}
           </h2>
           <p className="text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
-            De la soumission à l'inscription — voici ce à quoi s'attendre pendant votre parcours de candidature
+            {t("apply.timeline.description")}
           </p>
         </div>
 
@@ -78,7 +84,7 @@ export function ApplicationTimeline() {
                 </div>
                 {/* Step Number Badge */}
                 <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-3 py-1">
-                  <span className="text-xs font-bold text-white">ÉTAPE {index + 1}</span>
+                  <span className="text-xs font-bold text-white">{t("apply.timeline.stepLabel")} {index + 1}</span>
                 </div>
               </div>
 
@@ -106,9 +112,9 @@ export function ApplicationTimeline() {
         <div className="mt-16 text-center">
           <div className="inline-block bg-gradient-to-r from-[#D4AF37]/20 to-[#D4AF37]/20 backdrop-blur-sm border border-[#D4AF37]/30 rounded-2xl p-6 max-w-2xl">
             <CheckCircle className="w-12 h-12 text-[#D4AF37] mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-white mb-2">Prêt à Commencer ?</h3>
+            <h3 className="text-2xl font-bold text-white mb-2">{t("apply.timeline.cta.title")}</h3>
             <p className="text-white/80 mb-4">
-              Notre processus d'admission est conçu pour être simple, transparent et accessible à tous les talents africains.
+              {t("apply.timeline.cta.description")}
             </p>
           </div>
         </div>

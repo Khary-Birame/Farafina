@@ -9,9 +9,11 @@ import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
 import { toast } from "sonner"
 import { Loader2, CheckCircle2 } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export default function BecomePartnerPage() {
   const { user } = useAuth()
+  const { t } = useTranslation()
   const [formData, setFormData] = useState({
     organizationName: "",
     contactName: "",
@@ -40,8 +42,8 @@ export default function BecomePartnerPage() {
         throw error
       }
 
-      toast.success("Demande de partenariat envoyée !", {
-        description: "Nous vous contacterons sous peu.",
+      toast.success(t("partners.submitSuccess"), {
+        description: t("partners.submitSuccessDescription"),
       })
 
       setIsSubmitted(true)
@@ -59,8 +61,8 @@ export default function BecomePartnerPage() {
       }, 3000)
     } catch (error: any) {
       console.error("Erreur lors de l'envoi:", error)
-      toast.error("Erreur lors de l'envoi", {
-        description: error.message || "Veuillez réessayer plus tard.",
+      toast.error(t("partners.submitError"), {
+        description: error.message || t("partners.submitErrorDescription"),
       })
     } finally {
       setIsSubmitting(false)
@@ -68,12 +70,12 @@ export default function BecomePartnerPage() {
   }
 
   const partnershipTypes = [
-    { value: "club", label: "Club de football" },
-    { value: "institution", label: "Institution" },
-    { value: "brand", label: "Marque" },
-    { value: "foundation", label: "Fondation" },
-    { value: "media", label: "Média" },
-    { value: "other", label: "Autre" },
+    { value: "club", label: t("partners.partnershipTypes.club") },
+    { value: "institution", label: t("partners.partnershipTypes.institution") },
+    { value: "brand", label: t("partners.partnershipTypes.brand") },
+    { value: "foundation", label: t("partners.partnershipTypes.foundation") },
+    { value: "media", label: t("partners.partnershipTypes.media") },
+    { value: "other", label: t("partners.partnershipTypes.other") },
   ]
 
   return (
@@ -84,10 +86,10 @@ export default function BecomePartnerPage() {
         <section className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
-              Devenir Partenaire
+              {t("partners.title")}
             </h1>
             <p className="text-xl md:text-2xl text-black/80 mb-12 max-w-2xl mx-auto">
-              Rejoignez notre vision et construisons l'avenir du football africain.
+              {t("partners.subtitle")}
             </p>
           </div>
         </section>
@@ -96,7 +98,7 @@ export default function BecomePartnerPage() {
         <section className="pb-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <p className="text-lg text-black text-center leading-relaxed max-w-3xl mx-auto">
-              La Farafina Foot Academy construit des partenariats durables avec les clubs, institutions, marques et fondations engagées dans le développement du football et de la jeunesse africaine.
+              {t("partners.introduction")}
             </p>
           </div>
         </section>
@@ -124,10 +126,10 @@ export default function BecomePartnerPage() {
                     </svg>
                   </div>
                   <h2 className="text-2xl font-bold text-black mb-4">
-                    Merci pour votre intérêt
+                    {t("partners.submitSuccess")}
                   </h2>
                   <p className="text-lg text-black">
-                    Notre équipe vous contactera sous 72 heures.
+                    {t("partners.submitSuccessDescription")}
                   </p>
                 </div>
               </div>
@@ -136,10 +138,10 @@ export default function BecomePartnerPage() {
               <div className="bg-white border border-[#1A1A1A] rounded-lg p-8 md:p-10">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <InputField
-                    label="Nom de l'organisation"
+                    label={t("partners.organizationName")}
                     name="organizationName"
                     type="text"
-                    placeholder="Nom de votre organisation"
+                    placeholder={t("partners.organizationNamePlaceholder")}
                     value={formData.organizationName}
                     onChange={(e) =>
                       setFormData({ ...formData, organizationName: e.target.value })
@@ -148,10 +150,10 @@ export default function BecomePartnerPage() {
                   />
 
                   <InputField
-                    label="Nom et prénom du contact"
+                    label={t("partners.contactName")}
                     name="contactName"
                     type="text"
-                    placeholder="Nom et prénom"
+                    placeholder={t("partners.contactNamePlaceholder")}
                     value={formData.contactName}
                     onChange={(e) =>
                       setFormData({ ...formData, contactName: e.target.value })
@@ -160,10 +162,10 @@ export default function BecomePartnerPage() {
                   />
 
                   <InputField
-                    label="Email professionnel"
+                    label={t("partners.email")}
                     name="email"
                     type="email"
-                    placeholder="votre.email@organisation.com"
+                    placeholder={t("partners.emailPlaceholder")}
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
@@ -172,10 +174,10 @@ export default function BecomePartnerPage() {
                   />
 
                   <InputField
-                    label="Numéro de téléphone"
+                    label={t("partners.phone")}
                     name="phone"
                     type="tel"
-                    placeholder="+221 XX XXX XX XX"
+                    placeholder={t("partners.phonePlaceholder")}
                     value={formData.phone}
                     onChange={(e) =>
                       setFormData({ ...formData, phone: e.target.value })
@@ -184,9 +186,9 @@ export default function BecomePartnerPage() {
                   />
 
                   <SelectField
-                    label="Type de partenariat souhaité"
+                    label={t("partners.partnershipType")}
                     name="partnershipType"
-                    placeholder="Sélectionnez un type de partenariat"
+                    placeholder={t("partners.partnershipTypePlaceholder")}
                     value={formData.partnershipType}
                     onValueChange={(value) =>
                       setFormData({ ...formData, partnershipType: value })
@@ -196,9 +198,9 @@ export default function BecomePartnerPage() {
                   />
 
                   <TextareaField
-                    label="Message / Présentation du projet"
+                    label={t("partners.message")}
                     name="message"
-                    placeholder="Présentez votre projet et vos objectifs de partenariat..."
+                    placeholder={t("partners.messagePlaceholder")}
                     value={formData.message}
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
@@ -214,7 +216,7 @@ export default function BecomePartnerPage() {
                       disabled={isSubmitting}
                       className="w-full h-12 bg-black hover:bg-[#1A1A1A] text-white border border-[#D4AF37] font-semibold text-base transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}
+                      {isSubmitting ? t("partners.submitting") : t("partners.submitButton")}
                     </Button>
                   </div>
                 </form>

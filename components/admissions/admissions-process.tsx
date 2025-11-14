@@ -1,35 +1,40 @@
-﻿import { CheckCircle2, FileText, Users, CreditCard, Trophy } from "lucide-react"
+﻿"use client"
 
-const steps = [
-  {
-    icon: FileText,
-    title: "Candidature en ligne",
-    description:
-      "Remplissez le formulaire en ligne avec vos informations personnelles et téléchargez les documents requis.",
-  },
-  {
-    icon: Users,
-    title: "Vérification du dossier",
-    description: "Notre équipe d'admission examine votre candidature sous 5 à 7 jours ouvrables.",
-  },
-  {
-    icon: Trophy,
-    title: "Évaluation des compétences",
-    description: "Participez à un essai virtuel ou en personne pour démontrer vos capacités footballistiques.",
-  },
-  {
-    icon: CheckCircle2,
-    title: "Décision d'admission",
-    description: "Recevez votre décision d'admission et notification d'éligibilité aux bourses.",
-  },
-  {
-    icon: CreditCard,
-    title: "Paiement et inscription",
-    description: "Effectuez le paiement et finalisez votre inscription pour sécuriser votre place.",
-  },
-]
+import { CheckCircle2, FileText, Users, CreditCard, Trophy } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
 
 export function AdmissionsProcess() {
+  const { t } = useTranslation()
+
+  const steps = useMemo(() => [
+    {
+      icon: FileText,
+      title: t("admissions.process.steps.online.title"),
+      description: t("admissions.process.steps.online.description"),
+    },
+    {
+      icon: Users,
+      title: t("admissions.process.steps.review.title"),
+      description: t("admissions.process.steps.review.description"),
+    },
+    {
+      icon: Trophy,
+      title: t("admissions.process.steps.evaluation.title"),
+      description: t("admissions.process.steps.evaluation.description"),
+    },
+    {
+      icon: CheckCircle2,
+      title: t("admissions.process.steps.decision.title"),
+      description: t("admissions.process.steps.decision.description"),
+    },
+    {
+      icon: CreditCard,
+      title: t("admissions.process.steps.payment.title"),
+      description: t("admissions.process.steps.payment.description"),
+    },
+  ], [t])
+
   return (
     <section className="py-20 lg:py-28 bg-gray-50 dark:bg-gray-900">
   <div className="container mx-auto px-4 lg:px-8">
@@ -37,10 +42,10 @@ export function AdmissionsProcess() {
     {/* En-tête de la Section */}
     <div className="max-w-4xl mx-auto text-center mb-16 lg:mb-20">
       <h2 className="font-serif font-extrabold text-4xl md:text-5xl lg:text-6xl mb-4 text-gray-900 dark:text-white leading-tight">
-        Le Chemin vers l'Excellence
+        {t("admissions.process.title")}
       </h2>
       <p className="text-xl text-gray-600 dark:text-gray-400 font-light max-w-2xl mx-auto">
-        Découvrez notre processus d'admission transparent et simplifié, conçu pour révéler et accompagner votre talent unique.
+        {t("admissions.process.description")}
       </p>
     </div>
 
@@ -90,7 +95,7 @@ export function AdmissionsProcess() {
                   </div>
 
                   {/* Numéro de l'Étape */}
-                  <div className="text-sm font-bold text-gray-500 dark:text-gray-400 mb-2 tracking-wider uppercase">ÉTAPE {index + 1}</div>
+                  <div className="text-sm font-bold text-gray-500 dark:text-gray-400 mb-2 tracking-wider uppercase">{t("admissions.process.stepLabel")} {index + 1}</div>
 
                   {/* Titre */}
                   <h3 className="font-serif font-bold text-xl mb-3 text-balance text-gray-900 dark:text-white group-hover:text-amber-600 transition-colors duration-300">

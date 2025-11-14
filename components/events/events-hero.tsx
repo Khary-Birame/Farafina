@@ -3,8 +3,11 @@
 import { Button } from "@/components/ui/button"
 import { Calendar, ArrowRight } from "lucide-react"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function EventsHero() {
+  const { t } = useTranslation()
+
   return (
     <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Background Image/Video */}
@@ -23,16 +26,15 @@ export function EventsHero() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-[#D4AF37]/20 text-[#D4AF37] px-4 py-2 rounded-full text-sm font-medium mb-6 border border-[#D4AF37]/30 backdrop-blur-sm">
             <Calendar className="w-4 h-4" />
-            <span>Événements Officiels</span>
+            <span>{t("events.hero.badge")}</span>
           </div>
 
           <h1 className="font-sans font-bold text-4xl md:text-5xl lg:text-7xl text-white mb-6 leading-tight text-balance">
-            Nos Événements
+            {t("events.hero.title")}
           </h1>
 
           <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed text-pretty max-w-2xl mx-auto">
-            Découvrez les moments qui font vibrer notre académie. Rassemblez-vous autour du football, de
-            l'excellence et de la passion.
+            {t("events.hero.description")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -41,7 +43,7 @@ export function EventsHero() {
                 size="lg"
                 className="bg-[#D4AF37] hover:bg-[#B8941F] text-white text-base h-12 px-8 shadow-lg"
               >
-                Voir le calendrier complet
+                {t("events.hero.calendarButton")}
                 <ArrowRight size={20} className="ml-2" />
               </Button>
             </Link>
@@ -51,7 +53,7 @@ export function EventsHero() {
                 variant="outline"
                 className="border-white text-white hover:bg-white/10 text-base h-12 px-8 backdrop-blur-sm bg-white/5"
               >
-                Participer à une détection
+                {t("events.hero.tryoutButton")}
               </Button>
             </Link>
           </div>

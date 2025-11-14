@@ -10,9 +10,11 @@ import { Upload, CheckCircle2, Shield, Lock, Loader2 } from "lucide-react"
 import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
 import { toast } from "sonner"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function ApplicationForm() {
   const { user } = useAuth()
+  const { t } = useTranslation()
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const totalSteps = 3
@@ -69,8 +71,8 @@ export function ApplicationForm() {
         throw error
       }
 
-      toast.success("Candidature soumise avec succès !", {
-        description: "Nous vous contacterons sous peu.",
+      toast.success(t("admissions.submitSuccess"), {
+        description: t("admissions.submitSuccessDescription"),
       })
 
       // Réinitialiser le formulaire
@@ -100,8 +102,8 @@ export function ApplicationForm() {
       })
     } catch (error: any) {
       console.error("Erreur lors de la soumission:", error)
-      toast.error("Erreur lors de la soumission", {
-        description: error.message || "Veuillez réessayer plus tard.",
+      toast.error(t("admissions.submitError"), {
+        description: error.message || t("admissions.submitErrorDescription"),
       })
     } finally {
       setIsSubmitting(false)
@@ -115,11 +117,10 @@ export function ApplicationForm() {
           {/* Header */}
           <div className="text-center mb-12">
             <h2 className="font-sans font-bold text-3xl md:text-4xl lg:text-5xl mb-4 text-balance">
-              Formulaire de candidature
+              {t("admissions.title")}
             </h2>
             <p className="text-lg text-muted-foreground text-pretty leading-relaxed">
-              Complétez toutes les sections pour soumettre votre candidature. Vos informations sont sécurisées et
-              confidentielles.
+              {t("admissions.description")}
             </p>
           </div>
 
@@ -127,9 +128,9 @@ export function ApplicationForm() {
           <div className="mb-8">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-foreground">
-                Étape {currentStep} sur {totalSteps}
+                {t("admissions.step")} {currentStep} {t("admissions.of")} {totalSteps}
               </span>
-              <span className="text-sm text-muted-foreground">{Math.round(progress)}% Complété</span>
+              <span className="text-sm text-muted-foreground">{Math.round(progress)}% {t("admissions.completed")}</span>
             </div>
             <div className="h-2 bg-muted rounded-full overflow-hidden">
               <div
@@ -144,36 +145,36 @@ export function ApplicationForm() {
             {/* Step 1: Personal Information */}
             {currentStep === 1 && (
               <div className="space-y-6">
-                <h3 className="font-sans font-semibold text-xl mb-6">Informations personnelles</h3>
+                <h3 className="font-sans font-semibold text-xl mb-6">{t("admissions.step1Title")}</h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName">Prénom *</Label>
-                    <Input id="firstName" placeholder="Entrez votre prénom" required />
+                    <Label htmlFor="firstName">{t("admissions.firstName")}</Label>
+                    <Input id="firstName" placeholder={t("admissions.firstNamePlaceholder")} required />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="lastName">Nom *</Label>
-                    <Input id="lastName" placeholder="Entrez votre nom" required />
+                    <Label htmlFor="lastName">{t("admissions.lastName")}</Label>
+                    <Input id="lastName" placeholder={t("admissions.lastNamePlaceholder")} required />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="age">Âge *</Label>
-                    <Input id="age" type="number" placeholder="Entrez votre âge" required />
+                    <Label htmlFor="age">{t("admissions.age")}</Label>
+                    <Input id="age" type="number" placeholder={t("admissions.agePlaceholder")} required />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="gender">Genre *</Label>
+                    <Label htmlFor="gender">{t("admissions.gender")}</Label>
                     <Select>
                       <SelectTrigger id="gender">
-                        <SelectValue placeholder="Sélectionnez le genre" />
+                        <SelectValue placeholder={t("admissions.genderPlaceholder")} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="male">Masculin</SelectItem>
-                        <SelectItem value="female">Féminin</SelectItem>
-                        <SelectItem value="other">Autre</SelectItem>
+                        <SelectItem value="male">{t("admissions.genders.male")}</SelectItem>
+                        <SelectItem value="female">{t("admissions.genders.female")}</SelectItem>
+                        <SelectItem value="other">{t("admissions.genders.other")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -181,48 +182,48 @@ export function ApplicationForm() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="height">Taille (cm) *</Label>
-                    <Input id="height" type="number" placeholder="Ex: 175" required />
+                    <Label htmlFor="height">{t("admissions.height")}</Label>
+                    <Input id="height" type="number" placeholder={t("admissions.heightPlaceholder")} required />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="weight">Poids (kg) *</Label>
-                    <Input id="weight" type="number" placeholder="Ex: 70" required />
+                    <Label htmlFor="weight">{t("admissions.weight")}</Label>
+                    <Input id="weight" type="number" placeholder={t("admissions.weightPlaceholder")} required />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="country">Pays *</Label>
+                  <Label htmlFor="country">{t("admissions.country")}</Label>
                   <Select>
                     <SelectTrigger id="country">
-                      <SelectValue placeholder="Sélectionnez le pays" />
+                      <SelectValue placeholder={t("admissions.countryPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="senegal">Sénégal</SelectItem>
-                      <SelectItem value="mali">Mali</SelectItem>
-                      <SelectItem value="ivory-coast">Côte d'Ivoire</SelectItem>
-                      <SelectItem value="ghana">Ghana</SelectItem>
-                      <SelectItem value="nigeria">Nigeria</SelectItem>
-                      <SelectItem value="cameroon">Cameroun</SelectItem>
-                      <SelectItem value="other">Autre</SelectItem>
+                      <SelectItem value="senegal">{t("admissions.countries.senegal")}</SelectItem>
+                      <SelectItem value="mali">{t("admissions.countries.mali")}</SelectItem>
+                      <SelectItem value="ivory-coast">{t("admissions.countries.ivory-coast")}</SelectItem>
+                      <SelectItem value="ghana">{t("admissions.countries.ghana")}</SelectItem>
+                      <SelectItem value="nigeria">{t("admissions.countries.nigeria")}</SelectItem>
+                      <SelectItem value="cameroon">{t("admissions.countries.cameroon")}</SelectItem>
+                      <SelectItem value="other">{t("admissions.countries.other")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">Adresse e-mail *</Label>
-                  <Input id="email" type="email" placeholder="votre@email.com" required />
+                  <Label htmlFor="email">{t("admissions.email")}</Label>
+                  <Input id="email" type="email" placeholder={t("admissions.emailPlaceholder")} required />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Numéro de téléphone *</Label>
-                    <Input id="phone" type="tel" placeholder="+221 XX XXX XX XX" required />
+                    <Label htmlFor="phone">{t("admissions.phone")}</Label>
+                    <Input id="phone" type="tel" placeholder={t("admissions.phonePlaceholder")} required />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="phone2">Deuxième numéro de téléphone</Label>
-                    <Input id="phone2" type="tel" placeholder="+221 XX XXX XX XX (Optionnel)" />
+                    <Label htmlFor="phone2">{t("admissions.phone2")}</Label>
+                    <Input id="phone2" type="tel" placeholder={t("admissions.phone2Placeholder")} />
                   </div>
                 </div>
               </div>
@@ -231,71 +232,71 @@ export function ApplicationForm() {
             {/* Step 2: Program Selection & Background */}
             {currentStep === 2 && (
               <div className="space-y-6">
-                <h3 className="font-sans font-semibold text-xl mb-6">Sélection du programme et parcours</h3>
+                <h3 className="font-sans font-semibold text-xl mb-6">{t("admissions.step2Title")}</h3>
 
                 <div className="space-y-2">
-                  <Label htmlFor="program">Programme préféré *</Label>
+                  <Label htmlFor="program">{t("admissions.program")}</Label>
                   <Select>
                     <SelectTrigger id="program">
-                      <SelectValue placeholder="Sélectionnez le programme" />
+                      <SelectValue placeholder={t("admissions.programPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="resident">Programme Résident (Temps plein)</SelectItem>
-                      <SelectItem value="external">Programme Externe (Temps partiel)</SelectItem>
-                      <SelectItem value="girls">Programme Féminin</SelectItem>
-                      <SelectItem value="elite">Programme Élite</SelectItem>
+                      <SelectItem value="resident">{t("admissions.programs.resident")}</SelectItem>
+                      <SelectItem value="external">{t("admissions.programs.external")}</SelectItem>
+                      <SelectItem value="girls">{t("admissions.programs.girls")}</SelectItem>
+                      <SelectItem value="elite">{t("admissions.programs.elite")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="position">Poste de jeu *</Label>
+                  <Label htmlFor="position">{t("admissions.position")}</Label>
                   <Select>
                     <SelectTrigger id="position">
-                      <SelectValue placeholder="Sélectionnez le poste" />
+                      <SelectValue placeholder={t("admissions.positionPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="goalkeeper">Gardien de but</SelectItem>
-                      <SelectItem value="defender-center">Défenseur central</SelectItem>
-                      <SelectItem value="defender-lateral">Défenseur latéral</SelectItem>
-                      <SelectItem value="midfielder-defensive">Milieu défensif</SelectItem>
-                      <SelectItem value="midfielder-central">Milieu central</SelectItem>
-                      <SelectItem value="midfielder-offensive">Milieu offensif</SelectItem>
-                      <SelectItem value="winger">Ailier</SelectItem>
-                      <SelectItem value="forward">Attaquant</SelectItem>
-                      <SelectItem value="striker">Avant-centre</SelectItem>
+                      <SelectItem value="goalkeeper">{t("admissions.positions.goalkeeper")}</SelectItem>
+                      <SelectItem value="defender-center">{t("admissions.positions.defender-center")}</SelectItem>
+                      <SelectItem value="defender-lateral">{t("admissions.positions.defender-lateral")}</SelectItem>
+                      <SelectItem value="midfielder-defensive">{t("admissions.positions.midfielder-defensive")}</SelectItem>
+                      <SelectItem value="midfielder-central">{t("admissions.positions.midfielder-central")}</SelectItem>
+                      <SelectItem value="midfielder-offensive">{t("admissions.positions.midfielder-offensive")}</SelectItem>
+                      <SelectItem value="winger">{t("admissions.positions.winger")}</SelectItem>
+                      <SelectItem value="forward">{t("admissions.positions.forward")}</SelectItem>
+                      <SelectItem value="striker">{t("admissions.positions.striker")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="experience">Expérience footballistique (années) *</Label>
-                  <Input id="experience" type="number" placeholder="Années d'expérience" required />
+                  <Label htmlFor="experience">{t("admissions.experience")}</Label>
+                  <Input id="experience" type="number" placeholder={t("admissions.experiencePlaceholder")} required />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="currentClub">Club actuel/précédent</Label>
-                  <Input id="currentClub" placeholder="Entrez le nom du club (si applicable)" />
+                  <Label htmlFor="currentClub">{t("admissions.currentClub")}</Label>
+                  <Input id="currentClub" placeholder={t("admissions.currentClubPlaceholder")} />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="motivation">Pourquoi voulez-vous rejoindre FFA ? *</Label>
+                  <Label htmlFor="motivation">{t("admissions.motivation")}</Label>
                   <Textarea
                     id="motivation"
-                    placeholder="Parlez-nous de vos objectifs et motivations..."
+                    placeholder={t("admissions.motivationPlaceholder")}
                     rows={4}
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="guardian">Nom du parent/tuteur *</Label>
-                  <Input id="guardian" placeholder="Entrez le nom du parent/tuteur" required />
+                  <Label htmlFor="guardian">{t("admissions.guardian")}</Label>
+                  <Input id="guardian" placeholder={t("admissions.guardianPlaceholder")} required />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="guardianPhone">Téléphone du parent/tuteur *</Label>
-                  <Input id="guardianPhone" type="tel" placeholder="+221 XX XXX XX XX" required />
+                  <Label htmlFor="guardianPhone">{t("admissions.guardianPhone")}</Label>
+                  <Input id="guardianPhone" type="tel" placeholder={t("admissions.guardianPhonePlaceholder")} required />
                 </div>
               </div>
             )}
@@ -303,42 +304,42 @@ export function ApplicationForm() {
             {/* Step 3: Document Upload */}
             {currentStep === 3 && (
               <div className="space-y-6">
-                <h3 className="font-sans font-semibold text-xl mb-6">Télécharger les documents</h3>
+                <h3 className="font-sans font-semibold text-xl mb-6">{t("admissions.step3Title")}</h3>
 
                 <div className="space-y-4">
                   <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
                     <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="font-medium mb-1">Acte de naissance *</p>
-                    <p className="text-sm text-muted-foreground mb-4">PDF, JPG ou PNG (Max 5MB)</p>
+                    <p className="font-medium mb-1">{t("admissions.birthCertificate")}</p>
+                    <p className="text-sm text-muted-foreground mb-4">{t("admissions.fileFormats.pdfJpgPng")}</p>
                     <Button variant="outline" size="sm">
-                      Choisir un fichier
+                      {t("admissions.chooseFile")}
                     </Button>
                   </div>
 
                   <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
                     <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="font-medium mb-1">Photo récente *</p>
-                    <p className="text-sm text-muted-foreground mb-4">JPG ou PNG (Max 2MB)</p>
+                    <p className="font-medium mb-1">{t("admissions.photo")}</p>
+                    <p className="text-sm text-muted-foreground mb-4">{t("admissions.fileFormats.jpgPng")}</p>
                     <Button variant="outline" size="sm">
-                      Choisir un fichier
+                      {t("admissions.chooseFile")}
                     </Button>
                   </div>
 
                   <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
                     <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="font-medium mb-1">Certificat médical *</p>
-                    <p className="text-sm text-muted-foreground mb-4">PDF ou JPG (Max 5MB)</p>
+                    <p className="font-medium mb-1">{t("admissions.medicalCertificate")}</p>
+                    <p className="text-sm text-muted-foreground mb-4">{t("admissions.fileFormats.pdfJpg")}</p>
                     <Button variant="outline" size="sm">
-                      Choisir un fichier
+                      {t("admissions.chooseFile")}
                     </Button>
                   </div>
 
                   <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
                     <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="font-medium mb-1">Vidéo de compétences (Optionnel)</p>
-                    <p className="text-sm text-muted-foreground mb-4">MP4 ou lien YouTube (Max 50MB)</p>
+                    <p className="font-medium mb-1">{t("admissions.video")}</p>
+                    <p className="text-sm text-muted-foreground mb-4">{t("admissions.fileFormats.mp4Youtube")}</p>
                     <Button variant="outline" size="sm">
-                      Choisir un fichier ou coller le lien
+                      {t("admissions.chooseFileOrLink")}
                     </Button>
                   </div>
                 </div>
@@ -347,12 +348,7 @@ export function ApplicationForm() {
                 <div className="bg-muted/50 border border-border rounded-lg p-4 flex items-start gap-3">
                   <Lock className="w-5 h-5 text-[#D4AF37] flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium mb-1">Vos données sont protégées</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      Tous les documents sont cryptés et stockés en toute sécurité. Nous respectons les normes
-                      internationales de protection des données et ne partagerons jamais vos informations sans
-                      consentement.
-                    </p>
+                    <p className="text-sm font-medium mb-1">{t("admissions.privacyNotice")}</p>
                   </div>
                 </div>
               </div>
@@ -365,7 +361,7 @@ export function ApplicationForm() {
                 onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
                 disabled={currentStep === 1}
               >
-                Précédent
+                {t("common.previous")}
               </Button>
 
               {currentStep < totalSteps ? (
@@ -373,7 +369,7 @@ export function ApplicationForm() {
                   onClick={() => setCurrentStep(Math.min(totalSteps, currentStep + 1))}
                   className="bg-[#D4AF37] hover:bg-[#d17e00] text-white"
                 >
-                  Étape suivante
+                  {t("common.next")}
                 </Button>
               ) : (
                 <Button
@@ -385,23 +381,17 @@ export function ApplicationForm() {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Soumission en cours...
+                      {t("admissions.submitting")}
                     </>
                   ) : (
                     <>
                       <CheckCircle2 className="w-4 h-4 mr-2" />
-                      Soumettre la candidature
+                      {t("admissions.submitButton")}
                     </>
                   )}
                 </Button>
               )}
             </div>
-          </div>
-
-          {/* Security Badge */}
-          <div className="flex items-center justify-center gap-2 mt-6 text-sm text-muted-foreground">
-            <Shield className="w-4 h-4 text-[#D4AF37]" />
-            <span>Sécurisé par cryptage SSL</span>
           </div>
         </div>
       </div>

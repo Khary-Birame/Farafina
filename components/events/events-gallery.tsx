@@ -1,50 +1,52 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { ChevronLeft, ChevronRight, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
-
-const galleryItems = [
-  {
-    id: 1,
-    type: "image" as const,
-    src: "/african-youth-football-training-action-shot.jpg",
-    title: "Journée de Détection 2024",
-  },
-  {
-    id: 2,
-    type: "image" as const,
-    src: "/african-football-academy-elite-training.jpg",
-    title: "Camp d'Entraînement Intensif",
-  },
-  {
-    id: 3,
-    type: "image" as const,
-    src: "/young-african-football-players-training.jpg",
-    title: "Tournoi Régional U-17",
-  },
-  {
-    id: 4,
-    type: "image" as const,
-    src: "/african-students-studying-in-modern-classroom.jpg",
-    title: "Conférence Excellence",
-  },
-  {
-    id: 5,
-    type: "video" as const,
-    src: "/african-youth-football-training-action-shot.jpg",
-    title: "Highlights Tournoi National",
-  },
-  {
-    id: 6,
-    type: "image" as const,
-    src: "/african-football-academy-elite-training.jpg",
-    title: "Visite Club Partenaire",
-  },
-]
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function EventsGallery() {
+  const { t } = useTranslation()
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  const galleryItems = useMemo(() => [
+    {
+      id: 1,
+      type: "image" as const,
+      src: "/african-youth-football-training-action-shot.jpg",
+      title: t("events.gallery.items.detection"),
+    },
+    {
+      id: 2,
+      type: "image" as const,
+      src: "/african-football-academy-elite-training.jpg",
+      title: t("events.gallery.items.camp"),
+    },
+    {
+      id: 3,
+      type: "image" as const,
+      src: "/young-african-football-players-training.jpg",
+      title: t("events.gallery.items.tournament"),
+    },
+    {
+      id: 4,
+      type: "image" as const,
+      src: "/african-students-studying-in-modern-classroom.jpg",
+      title: t("events.gallery.items.conference"),
+    },
+    {
+      id: 5,
+      type: "video" as const,
+      src: "/african-youth-football-training-action-shot.jpg",
+      title: t("events.gallery.items.highlights"),
+    },
+    {
+      id: 6,
+      type: "image" as const,
+      src: "/african-football-academy-elite-training.jpg",
+      title: t("events.gallery.items.visit"),
+    },
+  ], [t])
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % galleryItems.length)
@@ -59,11 +61,10 @@ export function EventsGallery() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-sans font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-4 text-balance">
-            Moments Forts
+            {t("events.gallery.title")}
           </h2>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
-            Revivez les moments marquants de nos événements passés. Des instants de passion, d'excellence et de
-            camaraderie.
+            {t("events.gallery.description")}
           </p>
         </div>
 
@@ -106,14 +107,14 @@ export function EventsGallery() {
               <button
                 onClick={prevSlide}
                 className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center backdrop-blur-sm transition-all z-20"
-                aria-label="Image précédente"
+                aria-label={t("events.gallery.previousImage")}
               >
                 <ChevronLeft className="w-6 h-6 text-white" />
               </button>
               <button
                 onClick={nextSlide}
                 className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center backdrop-blur-sm transition-all z-20"
-                aria-label="Image suivante"
+                aria-label={t("events.gallery.nextImage")}
               >
                 <ChevronRight className="w-6 h-6 text-white" />
               </button>

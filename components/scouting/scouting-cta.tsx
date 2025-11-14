@@ -9,8 +9,10 @@ import type React from "react"
 import { useState } from "react"
 import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
 import { toast } from "sonner"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function ScoutingCTA() {
+  const { t } = useTranslation()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,7 +27,7 @@ export function ScoutingCTA() {
     e.preventDefault()
     
     if (!formData.consent) {
-      alert("Veuillez accepter les conditions pour continuer.")
+      alert(t("scouting.consentRequired"))
       return
     }
 
@@ -43,8 +45,8 @@ export function ScoutingCTA() {
         throw error
       }
 
-      toast.success("Demande envoyée !", {
-        description: "Notre équipe vous contactera sous peu.",
+      toast.success(t("scouting.submitSuccess"), {
+        description: t("scouting.submitSuccessDescription"),
       })
 
       setFormData({
@@ -57,8 +59,8 @@ export function ScoutingCTA() {
       })
     } catch (error: any) {
       console.error("Erreur lors de l'envoi:", error)
-      toast.error("Erreur lors de l'envoi", {
-        description: error.message || "Veuillez réessayer plus tard.",
+      toast.error(t("scouting.submitError"), {
+        description: error.message || t("scouting.submitErrorDescription"),
       })
     } finally {
       setIsSubmitting(false)
@@ -84,13 +86,13 @@ export function ScoutingCTA() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/30 mb-6">
               <Brain className="w-4 h-4 text-[#D4AF37]" />
-              <span className="text-sm font-medium text-[#D4AF37]">Demander une Démo</span>
+              <span className="text-sm font-medium text-[#D4AF37]">{t("scouting.requestDemo")}</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-sans font-bold text-white mb-4 text-balance">
-              Découvrez l'Avenir du Recrutement avec Farafina IA
+              {t("scouting.title")}
             </h2>
             <p className="text-xl text-gray-300 text-balance">
-              Découvrez comment notre plateforme alimentée par l'IA peut transformer l'identification des talents et le développement des joueurs
+              {t("scouting.subtitle")}
             </p>
           </div>
 
@@ -99,11 +101,11 @@ export function ScoutingCTA() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                    Nom Complet *
+                    {t("scouting.fullName")}
                   </label>
                   <Input
                     id="name"
-                    placeholder="Entrez votre nom"
+                    placeholder={t("scouting.fullNamePlaceholder")}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
@@ -111,12 +113,12 @@ export function ScoutingCTA() {
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                    Adresse Email *
+                    {t("scouting.email")}
                   </label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="votre@email.com"
+                    placeholder={t("scouting.emailPlaceholder")}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
@@ -127,22 +129,22 @@ export function ScoutingCTA() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="organization" className="block text-sm font-medium text-foreground mb-2">
-                    Organisation
+                    {t("scouting.organization")}
                   </label>
                   <Input
                     id="organization"
-                    placeholder="Nom de l'académie ou du club"
+                    placeholder={t("scouting.organizationPlaceholder")}
                     value={formData.organization}
                     onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                   />
                 </div>
                 <div>
                   <label htmlFor="role" className="block text-sm font-medium text-foreground mb-2">
-                    Votre Rôle
+                    {t("scouting.role")}
                   </label>
                   <Input
                     id="role"
-                    placeholder="Entraîneur, Recruteur, Directeur..."
+                    placeholder={t("scouting.rolePlaceholder")}
                     value={formData.role}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                   />
@@ -151,11 +153,11 @@ export function ScoutingCTA() {
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                  Message
+                  {t("scouting.message")}
                 </label>
                 <Textarea
                   id="message"
-                  placeholder="Parlez-nous de votre intérêt pour notre plateforme de recrutement IA..."
+                  placeholder={t("scouting.messagePlaceholder")}
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -172,8 +174,7 @@ export function ScoutingCTA() {
                   required
                 />
                 <label htmlFor="consent" className="text-sm text-muted-foreground">
-                  J'accepte de recevoir des communications concernant Farafina IA et je comprends que mes données seront traitées
-                  conformément à la Politique de Confidentialité et aux règlements GDPR.
+                  {t("scouting.consent")}
                 </label>
               </div>
 
@@ -186,11 +187,11 @@ export function ScoutingCTA() {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Envoi en cours...
+                    {t("scouting.submitting")}
                   </>
                 ) : (
                   <>
-                    Demander une démo
+                    {t("scouting.submitButton")}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </>
                 )}
@@ -199,7 +200,7 @@ export function ScoutingCTA() {
 
             <div className="mt-8 pt-8 border-t border-border text-center">
               <p className="text-sm text-muted-foreground">
-                Des questions ? Contactez notre équipe IA à{" "}
+                {t("scouting.questions")}{" "}
                 <a href="mailto:ai@farafinafoot.com" className="text-[#D4AF37] hover:underline font-medium">
                   ai@farafinafoot.com
                 </a>

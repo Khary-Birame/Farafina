@@ -9,9 +9,11 @@ import { Mail, CheckCircle, Loader2 } from "lucide-react"
 import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
 import { toast } from "sonner"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function NewsletterBanner() {
   const { user } = useAuth()
+  const { t } = useTranslation()
   const [email, setEmail] = useState("")
   const [subscribed, setSubscribed] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -32,8 +34,8 @@ export function NewsletterBanner() {
         throw error
       }
 
-      toast.success("Inscription réussie !", {
-        description: "Vous recevrez nos dernières actualités par email.",
+      toast.success(t("newsletter.subscribeSuccess"), {
+        description: t("newsletter.subscribeSuccessDescription"),
       })
 
       setSubscribed(true)
@@ -43,8 +45,8 @@ export function NewsletterBanner() {
       }, 3000)
     } catch (error: any) {
       console.error("Erreur lors de l'inscription:", error)
-      toast.error("Erreur lors de l'inscription", {
-        description: error.message || "Veuillez réessayer plus tard.",
+      toast.error(t("newsletter.subscribeError"), {
+        description: error.message || t("newsletter.subscribeErrorDescription"),
       })
     } finally {
       setIsSubmitting(false)
@@ -62,9 +64,9 @@ export function NewsletterBanner() {
                 <Mail className="text-white" size={24} />
               </div>
               <div>
-                <h3 className="font-sans font-bold text-xl md:text-2xl text-white mb-2">Restez Informé</h3>
+                <h3 className="font-sans font-bold text-xl md:text-2xl text-white mb-2">{t("newsletter.title")}</h3>
                 <p className="text-gray-400 text-sm md:text-base">
-                  Abonnez-vous à notre newsletter pour les dernières actualités, événements et opportunités.
+                  {t("newsletter.description")}
                 </p>
               </div>
             </div>
@@ -74,13 +76,13 @@ export function NewsletterBanner() {
               {subscribed ? (
                 <div className="flex items-center gap-3 bg-[#D4AF37]/20 border border-[#D4AF37] rounded-lg px-4 py-3">
                   <CheckCircle className="text-[#D4AF37]" size={24} />
-                  <span className="text-white font-medium">Abonnement réussi !</span>
+                  <span className="text-white font-medium">{t("newsletter.subscribed")}</span>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex gap-2">
                   <Input
                     type="email"
-                    placeholder="Entrez votre email"
+                    placeholder={t("newsletter.emailPlaceholder")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -94,7 +96,7 @@ export function NewsletterBanner() {
                     {isSubmitting ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
-                      "S'abonner"
+                      t("newsletter.subscribe")
                     )}
                   </Button>
                 </form>

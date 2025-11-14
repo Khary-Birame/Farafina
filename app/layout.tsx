@@ -6,6 +6,7 @@ import { CookieConsent } from "@/components/cookie-consent"
 import { CartProvider } from "@/components/providers/cart-provider"
 import { LanguageProvider } from "@/lib/language-context"
 import { AuthProvider } from "@/lib/auth/auth-context"
+import { LanguageSync } from "@/components/language-sync"
 import { Toaster } from "sonner"
 
 const poppins = Poppins({
@@ -31,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" className={`${poppins.variable} ${inter.variable}`}>
+    <html lang="fr" className={`${poppins.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -50,6 +51,7 @@ export default function RootLayout({
       </head>
       <body>
         <LanguageProvider>
+          <LanguageSync />
           <AuthProvider>
             <CartProvider>
               {children}

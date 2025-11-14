@@ -1,6 +1,11 @@
-﻿import { BookOpen, Globe, Laptop, Users } from "lucide-react"
+﻿"use client"
+
+import { BookOpen, Globe, Laptop, Users } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function AcademicExcellence() {
+  const { t } = useTranslation()
+
   return (
     <section className="py-20 lg:py-32 bg-[#1A1A1A]">
       <div className="container mx-auto px-4 lg:px-8">
@@ -14,7 +19,7 @@ export function AcademicExcellence() {
             <div className="absolute -top-6 -right-6 bg-white rounded-2xl shadow-xl p-6">
               <div className="text-[#1A1A1A]">
                 <div className="font-sans font-bold text-3xl mb-1 text-[#D4AF37]">98%</div>
-                <div className="text-sm text-muted-foreground">Taux de Réussite Académique</div>
+                <div className="text-sm text-muted-foreground">{t("programs.academic.successRate")}</div>
               </div>
             </div>
           </div>
@@ -22,12 +27,10 @@ export function AcademicExcellence() {
           {/* Right: Text Content */}
           <div className="order-1 lg:order-2">
             <h2 className="font-sans font-bold text-4xl lg:text-5xl text-white mb-6 text-balance">
-              Excellence <span className="text-[#D4AF37]">Académique</span>
+              {t("programs.academic.title")} <span className="text-[#D4AF37]">{t("programs.academic.titleHighlight")}</span>
             </h2>
             <p className="text-lg text-white/80 leading-relaxed mb-8">
-              L'éducation est au cœur de notre mission. Nous offrons un programme complet qui prépare nos étudiants au
-              succès au-delà du football, en veillant à ce qu'ils aient les connaissances et les compétences nécessaires
-              pour réussir dans n'importe quel domaine.
+              {t("programs.academic.description")}
             </p>
 
             {/* Key Features */}
@@ -37,9 +40,9 @@ export function AcademicExcellence() {
                   <BookOpen size={24} className="text-[#D4AF37]" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-2">Salles de Classe Modernes</h4>
+                  <h4 className="font-semibold text-white mb-2">{t("programs.academic.features.classrooms.title")}</h4>
                   <p className="text-sm text-white/70 leading-relaxed">
-                    Environnements d'apprentissage de pointe équipés des dernières technologies éducatives
+                    {t("programs.academic.features.classrooms.description")}
                   </p>
                 </div>
               </div>
@@ -49,9 +52,9 @@ export function AcademicExcellence() {
                   <Globe size={24} className="text-[#D4AF37]" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-2">Éducation Bilingue (Français/Anglais)</h4>
+                  <h4 className="font-semibold text-white mb-2">{t("programs.academic.features.bilingual.title")}</h4>
                   <p className="text-sm text-white/70 leading-relaxed">
-                    La maîtrise des deux langues ouvre les portes aux opportunités internationales
+                    {t("programs.academic.features.bilingual.description")}
                   </p>
                 </div>
               </div>
@@ -61,9 +64,9 @@ export function AcademicExcellence() {
                   <Laptop size={24} className="text-[#D4AF37]" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-2">Littératie Numérique et Leadership</h4>
+                  <h4 className="font-semibold text-white mb-2">{t("programs.academic.features.digital.title")}</h4>
                   <p className="text-sm text-white/70 leading-relaxed">
-                    Compétences technologiques et développement du leadership pour le monde moderne
+                    {t("programs.academic.features.digital.description")}
                   </p>
                 </div>
               </div>
@@ -73,9 +76,9 @@ export function AcademicExcellence() {
                   <Users size={24} className="text-[#D4AF37]" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-2">Développement Personnel et Éthique</h4>
+                  <h4 className="font-semibold text-white mb-2">{t("programs.academic.features.personal.title")}</h4>
                   <p className="text-sm text-white/70 leading-relaxed">
-                    Formation du caractère et éducation aux valeurs pour développer des individus complets
+                    {t("programs.academic.features.personal.description")}
                   </p>
                 </div>
               </div>
@@ -84,9 +87,9 @@ export function AcademicExcellence() {
             {/* Quote */}
             <div className="border-l-4 border-[#D4AF37] pl-6 py-2">
               <p className="text-lg font-medium text-white italic mb-2">
-                "La discipline forme le talent, et le respect construit les champions."
+                "{t("programs.academic.quote")}"
               </p>
-              <p className="text-sm text-white/60">— Philosophie de Farafina Foot Academy</p>
+              <p className="text-sm text-white/60">— {t("programs.academic.quoteAuthor")}</p>
             </div>
           </div>
         </div>

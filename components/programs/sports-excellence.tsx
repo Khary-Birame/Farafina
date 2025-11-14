@@ -1,12 +1,18 @@
-﻿import { Dumbbell, Video, Trophy, Target } from "lucide-react"
+﻿"use client"
+
+import { Dumbbell, Video, Trophy, Target } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
 
 export function SportsExcellence() {
-  const facilities = [
-    { icon: <Target size={20} />, label: "Terrains FIFA" },
-    { icon: <Dumbbell size={20} />, label: "Salle de Sport Moderne" },
-    { icon: <Trophy size={20} />, label: "Lieux de Compétition" },
-    { icon: <Video size={20} />, label: "Laboratoire d'Analyse Vidéo" },
-  ]
+  const { t } = useTranslation()
+
+  const facilities = useMemo(() => [
+    { icon: <Target size={20} />, label: t("programs.sports.facilities.fifa") },
+    { icon: <Dumbbell size={20} />, label: t("programs.sports.facilities.gym") },
+    { icon: <Trophy size={20} />, label: t("programs.sports.facilities.competition") },
+    { icon: <Video size={20} />, label: t("programs.sports.facilities.video") },
+  ], [t])
 
   return (
     <section className="py-20 lg:py-32 bg-white">
@@ -15,12 +21,10 @@ export function SportsExcellence() {
           {/* Left: Text Content */}
           <div>
             <h2 className="font-sans font-bold text-4xl lg:text-5xl text-[#1A1A1A] mb-6 text-balance">
-              Excellence <span className="text-[#D4AF37]">Sportive</span>
+              {t("programs.sports.title")} <span className="text-[#D4AF37]">{t("programs.sports.titleHighlight")}</span>
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Notre programme d'entraînement de football de niveau professionnel est conçu pour développer des athlètes
-              complets. Nous combinons la maîtrise technique avec l'intelligence tactique, le conditionnement physique
-              et la résilience mentale.
+              {t("programs.sports.description")}
             </p>
 
             {/* Program Highlights */}
@@ -30,9 +34,9 @@ export function SportsExcellence() {
                   <div className="w-2 h-2 bg-white rounded-full" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#1A1A1A] mb-1">Sessions Techniques et Tactiques Quotidiennes</h4>
+                  <h4 className="font-semibold text-[#1A1A1A] mb-1">{t("programs.sports.highlights.technical.title")}</h4>
                   <p className="text-sm text-muted-foreground">
-                    Entraînement intensif axé sur le contrôle du ballon, le positionnement et l'intelligence de jeu
+                    {t("programs.sports.highlights.technical.description")}
                   </p>
                 </div>
               </div>
@@ -42,9 +46,9 @@ export function SportsExcellence() {
                   <div className="w-2 h-2 bg-white rounded-full" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#1A1A1A] mb-1">Préparation Physique et Mentale</h4>
+                  <h4 className="font-semibold text-[#1A1A1A] mb-1">{t("programs.sports.highlights.physical.title")}</h4>
                   <p className="text-sm text-muted-foreground">
-                    Conditionnement de force, prévention des blessures et psychologie sportive
+                    {t("programs.sports.highlights.physical.description")}
                   </p>
                 </div>
               </div>
@@ -54,9 +58,9 @@ export function SportsExcellence() {
                   <div className="w-2 h-2 bg-white rounded-full" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#1A1A1A] mb-1">Analyse Vidéo et Performance</h4>
+                  <h4 className="font-semibold text-[#1A1A1A] mb-1">{t("programs.sports.highlights.analysis.title")}</h4>
                   <p className="text-sm text-muted-foreground">
-                    Analyses avancées et évaluations de performance personnalisées
+                    {t("programs.sports.highlights.analysis.description")}
                   </p>
                 </div>
               </div>
@@ -66,9 +70,9 @@ export function SportsExcellence() {
                   <div className="w-2 h-2 bg-white rounded-full" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#1A1A1A] mb-1">Compétitions Officielles</h4>
+                  <h4 className="font-semibold text-[#1A1A1A] mb-1">{t("programs.sports.highlights.competition.title")}</h4>
                   <p className="text-sm text-muted-foreground">
-                    Participation régulière aux tournois régionaux et internationaux
+                    {t("programs.sports.highlights.competition.description")}
                   </p>
                 </div>
               </div>
@@ -103,7 +107,7 @@ export function SportsExcellence() {
             <div className="absolute -bottom-6 -left-6 bg-[#D4AF37] rounded-2xl shadow-xl p-6">
               <div className="text-white">
                 <div className="font-sans font-bold text-3xl mb-1">20+</div>
-                <div className="text-sm text-white/90">Heures d'Entraînement par Semaine</div>
+                <div className="text-sm text-white/90">{t("programs.sports.trainingHours")}</div>
               </div>
             </div>
           </div>

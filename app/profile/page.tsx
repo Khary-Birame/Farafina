@@ -29,10 +29,12 @@ import { useAuth } from "@/lib/auth/auth-context"
 import { signOut } from "@/lib/auth/auth-helpers"
 import { supabase } from "@/lib/supabase/client"
 import { toast } from "sonner"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export default function ProfilePage() {
   const router = useRouter()
   const { user, loading, refreshUser } = useAuth()
+  const { t } = useTranslation()
   const [isEditing, setIsEditing] = useState(false)
   const [saving, setSaving] = useState(false)
   const [loggingOut, setLoggingOut] = useState(false)
@@ -77,16 +79,16 @@ export default function ProfilePage() {
         .eq("id", user.id)
 
       if (error) {
-        toast.error("Erreur lors de la mise à jour", {
+        toast.error(t("profile.updateError"), {
           description: error.message,
         })
       } else {
-        toast.success("Profil mis à jour avec succès")
+        toast.success(t("profile.updateSuccess"))
         setIsEditing(false)
         await refreshUser()
       }
     } catch (error: any) {
-      toast.error("Une erreur s'est produite", {
+      toast.error(t("profile.unexpectedError"), {
         description: error.message,
       })
     } finally {
@@ -120,14 +122,7 @@ export default function ProfilePage() {
   }
 
   const getRoleLabel = (role: string) => {
-    const labels: Record<string, string> = {
-      player: "Joueur",
-      parent: "Parent",
-      coach: "Entraîneur",
-      club: "Club",
-      admin: "Administrateur",
-    }
-    return labels[role] || role
+    return t(`profile.roles.${role}`) || role
   }
 
   const getRoleColor = (role: string) => {
@@ -146,7 +141,7 @@ export default function ProfilePage() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4AF37] mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Chargement...</p>
+          <p className="text-muted-foreground">{t("common.loading")}</p>
         </div>
       </div>
     )
@@ -158,7 +153,7 @@ export default function ProfilePage() {
 
   const displayName = user.first_name && user.last_name
     ? `${user.first_name} ${user.last_name}`
-    : user.email?.split("@")[0] || "Utilisateur"
+    : user.email?.split("@")[0] || t("common.user")
 
   return (
     <div className="min-h-screen bg-background">
@@ -184,7 +179,7 @@ export default function ProfilePage() {
                         className="absolute -bottom-2 -right-2 rounded-full h-8 w-8"
                         onClick={() => {
                           // TODO: Implémenter l'upload d'image
-                          toast.info("Fonctionnalité d'upload d'image à venir")
+                          toast.info(t("profile.uploadImageComing"))
                         }}
                       >
                         <Camera className="h-4 w-4" />
@@ -208,11 +203,11 @@ export default function ProfilePage() {
                         </div>
                         {(user as any).email_verified ? (
                           <Badge variant="outline" className="text-green-600 border-green-600">
-                            Email vérifié
+                            {t("profile.emailVerified")}
                           </Badge>
                         ) : (
                           <Badge variant="outline" className="text-yellow-600 border-yellow-600">
-                            Email non vérifié
+                            {t("profile.emailNotVerified")}
                           </Badge>
                         )}
                       </div>
@@ -226,7 +221,7 @@ export default function ProfilePage() {
                               disabled={saving}
                             >
                               <X className="w-4 h-4 mr-2" />
-                              Annuler
+                              {t("profile.cancel")}
                             </Button>
                             <Button
                               size="sm"
@@ -235,7 +230,7 @@ export default function ProfilePage() {
                               className="bg-[#D4AF37] hover:bg-[#B8941F]"
                             >
                               <Save className="w-4 h-4 mr-2" />
-                              {saving ? "Enregistrement..." : "Enregistrer"}
+                              {saving ? t("profile.saving") : t("profile.save")}
                             </Button>
                           </>
                         ) : (
@@ -245,7 +240,7 @@ export default function ProfilePage() {
                             onClick={() => setIsEditing(true)}
                           >
                             <Edit className="w-4 h-4 mr-2" />
-                            Modifier
+                            {t("profile.edit")}
                           </Button>
                         )}
                       </div>
@@ -259,24 +254,24 @@ export default function ProfilePage() {
           {/* Tabs */}
           <Tabs defaultValue="informations" className="w-full">
             <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="informations">Informations</TabsTrigger>
-              <TabsTrigger value="securite">Sécurité</TabsTrigger>
-              <TabsTrigger value="parametres">Paramètres</TabsTrigger>
+              <TabsTrigger value="informations">{t("profile.informations")}</TabsTrigger>
+              <TabsTrigger value="securite">{t("profile.security")}</TabsTrigger>
+              <TabsTrigger value="parametres">{t("profile.settings")}</TabsTrigger>
             </TabsList>
 
             {/* Tab: Informations */}
             <TabsContent value="informations" className="mt-6">
               <Card className="border-border">
                 <CardHeader>
-                  <CardTitle>Informations personnelles</CardTitle>
+                  <CardTitle>{t("profile.personalInfo")}</CardTitle>
                   <CardDescription>
-                    Gérez vos informations personnelles et votre profil
+                    {t("profile.personalInfoDescription")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="first_name">Prénom</Label>
+                      <Label htmlFor="first_name">{t("profile.firstName")}</Label>
                       {isEditing ? (
                         <Input
                           id="first_name"
@@ -284,25 +279,25 @@ export default function ProfilePage() {
                           onChange={(e) =>
                             setFormData({ ...formData, first_name: e.target.value })
                           }
-                          placeholder="Votre prénom"
+                          placeholder={t("profile.firstNamePlaceholder")}
                         />
                       ) : (
                         <div>
                           <p className="text-foreground font-medium py-2">
                             {user.first_name || (
-                              <span className="text-muted-foreground italic">Non renseigné</span>
+                              <span className="text-muted-foreground italic">{t("profile.notProvided")}</span>
                             )}
                           </p>
                           {!user.first_name && (
                             <p className="text-xs text-muted-foreground mt-1">
-                              Cliquez sur "Modifier" pour ajouter votre prénom
+                              {t("profile.clickToEdit")}
                             </p>
                           )}
                         </div>
                       )}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="last_name">Nom</Label>
+                      <Label htmlFor="last_name">{t("profile.lastName")}</Label>
                       {isEditing ? (
                         <Input
                           id="last_name"
@@ -310,41 +305,41 @@ export default function ProfilePage() {
                           onChange={(e) =>
                             setFormData({ ...formData, last_name: e.target.value })
                           }
-                          placeholder="Votre nom"
+                          placeholder={t("profile.lastNamePlaceholder")}
                         />
                       ) : (
                         <div>
                           <p className="text-foreground font-medium py-2">
                             {user.last_name || (
-                              <span className="text-muted-foreground italic">Non renseigné</span>
+                              <span className="text-muted-foreground italic">{t("profile.notProvided")}</span>
                             )}
                           </p>
                           {!user.last_name && (
                             <p className="text-xs text-muted-foreground mt-1">
-                              Cliquez sur "Modifier" pour ajouter votre nom
+                              {t("profile.clickToEditName")}
                             </p>
                           )}
                         </div>
                       )}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">{t("profile.email")}</Label>
                       <p className="text-foreground font-medium py-2 flex items-center gap-2">
                         <Mail className="w-4 h-4 text-muted-foreground" />
                         {user.email}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        L'email ne peut pas être modifié
+                        {t("profile.emailCannotChange")}
                       </p>
                     </div>
                     <div className="space-y-2">
-                      <Label>Rôle</Label>
+                      <Label>{t("profile.role")}</Label>
                       <p className="text-foreground font-medium py-2 flex items-center gap-2">
                         <Shield className="w-4 h-4 text-muted-foreground" />
                         {getRoleLabel(user.role)}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        Le rôle ne peut pas être modifié
+                        {t("profile.roleCannotChange")}
                       </p>
                     </div>
                   </div>
@@ -356,28 +351,27 @@ export default function ProfilePage() {
             <TabsContent value="securite" className="mt-6">
               <Card className="border-border">
                 <CardHeader>
-                  <CardTitle>Sécurité</CardTitle>
+                  <CardTitle>{t("profile.securityTitle")}</CardTitle>
                   <CardDescription>
-                    Gérez votre mot de passe et la sécurité de votre compte
+                    {t("profile.securityDescription")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Mot de passe</Label>
+                    <Label>{t("profile.password")}</Label>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Pour des raisons de sécurité, vous devez vous déconnecter et utiliser la
-                      fonction "Mot de passe oublié" pour réinitialiser votre mot de passe.
+                      {t("profile.passwordResetInfo")}
                     </p>
                     <Button variant="outline" asChild>
-                      <a href="/forgot-password">Réinitialiser le mot de passe</a>
+                      <a href="/forgot-password">{t("profile.resetPassword")}</a>
                     </Button>
                   </div>
                   <div className="pt-4 border-t border-border">
                     <div className="flex items-center justify-between">
                       <div>
-                        <Label>Déconnexion</Label>
+                        <Label>{t("profile.logout")}</Label>
                         <p className="text-sm text-muted-foreground">
-                          Déconnectez-vous de votre compte
+                          {t("profile.logoutDescription")}
                         </p>
                       </div>
                       <Button
@@ -386,7 +380,7 @@ export default function ProfilePage() {
                         disabled={loggingOut}
                       >
                         <LogOut className="w-4 h-4 mr-2" />
-                        {loggingOut ? "Déconnexion..." : "Se déconnecter"}
+                        {loggingOut ? t("profile.loggingOut") : t("profile.logoutButton")}
                       </Button>
                     </div>
                   </div>
@@ -398,22 +392,22 @@ export default function ProfilePage() {
             <TabsContent value="parametres" className="mt-6">
               <Card className="border-border">
                 <CardHeader>
-                  <CardTitle>Paramètres</CardTitle>
+                  <CardTitle>{t("profile.settingsTitle")}</CardTitle>
                   <CardDescription>
-                    Personnalisez vos préférences et paramètres
+                    {t("profile.settingsDescription")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Notifications</Label>
+                    <Label>{t("profile.notifications")}</Label>
                     <p className="text-sm text-muted-foreground">
-                      Les paramètres de notifications seront disponibles prochainement.
+                      {t("profile.notificationsComing")}
                     </p>
                   </div>
                   <div className="space-y-2">
-                    <Label>Langue</Label>
+                    <Label>{t("profile.language")}</Label>
                     <p className="text-sm text-muted-foreground">
-                      Vous pouvez changer la langue depuis le sélecteur dans le header.
+                      {t("profile.languageInfo")}
                     </p>
                   </div>
                 </CardContent>

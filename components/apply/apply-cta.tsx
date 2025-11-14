@@ -1,8 +1,13 @@
-﻿import { Button } from "@/components/ui/button"
+﻿"use client"
+
+import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function ApplyCTA() {
+  const { t } = useTranslation()
+
   return (
     <section className="py-20 lg:py-24 bg-gradient-to-br from-[#D4AF37] via-[#D4AF37] to-[#B8941F] relative overflow-hidden">
       {/* Background Pattern */}
@@ -20,13 +25,12 @@ export function ApplyCTA() {
 
           {/* Title */}
           <h2 className="text-3xl lg:text-5xl font-sans font-bold text-white mb-6 leading-tight text-balance">
-            Prêt à Commencer ? Créez Votre Compte Candidat Maintenant
+            {t("apply.cta.title")}
           </h2>
 
           {/* Description */}
           <p className="text-lg lg:text-xl text-white/90 mb-8 leading-relaxed max-w-2xl mx-auto text-pretty">
-            Rejoignez des centaines de jeunes joueurs talentueux qui ont fait le premier pas vers leur carrière de football professionnel.
-            Votre parcours commence ici.
+            {t("apply.cta.description")}
           </p>
 
           {/* CTA Buttons */}
@@ -36,7 +40,7 @@ export function ApplyCTA() {
                 size="lg"
                 className="bg-[#D4AF37] hover:bg-[#B8962E] text-[#1A1A1A] font-semibold group w-full sm:w-auto"
               >
-                Créer un Compte
+                {t("apply.cta.createAccountButton")}
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -46,7 +50,7 @@ export function ApplyCTA() {
                 variant="outline"
                 className="bg-white/10 border-white/30 text-white hover:bg-white/20 w-full sm:w-auto"
               >
-                Contacter l'Équipe d'Admissions
+                {t("apply.cta.contactButton")}
               </Button>
             </Link>
           </div>
@@ -55,15 +59,15 @@ export function ApplyCTA() {
           <div className="grid grid-cols-3 gap-6 mt-12 pt-12 border-t border-white/20">
             <div>
               <div className="text-3xl font-bold text-white mb-1">24/7</div>
-              <div className="text-sm text-white/70">Support Candidature</div>
+              <div className="text-sm text-white/70">{t("apply.cta.stats.support")}</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-white mb-1">48h</div>
-              <div className="text-sm text-white/70">Réponse Initiale</div>
+              <div className="text-sm text-white/70">{t("apply.cta.stats.response")}</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-white mb-1">100%</div>
-              <div className="text-sm text-white/70">Processus Sécurisé</div>
+              <div className="text-sm text-white/70">{t("apply.cta.stats.secure")}</div>
             </div>
           </div>
         </div>

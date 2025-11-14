@@ -1,44 +1,47 @@
 ﻿"use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-
-const facilities = [
-  {
-    title: "Terrains de Football aux Normes FIFA",
-    description: "Terrains en gazon naturel et synthétique de niveau professionnel respectant les normes internationales.",
-    image: "/fifa-standard-football-field.jpg",
-  },
-  {
-    title: "Salles de Classe Modernes",
-    description: "Espaces d'apprentissage de pointe équipés de technologie numérique et d'outils interactifs.",
-    image: "/modern-classroom-technology.jpg",
-  },
-  {
-    title: "Centre Médical",
-    description: "Installation de soins de santé complète avec des spécialistes en médecine du sport et équipements de rééducation.",
-    image: "/sports-medical-center.jpg",
-  },
-  {
-    title: "Résidences Étudiantes",
-    description: "Hébergement confortable et sécurisé avec espaces d'étude et installations récréatives.",
-    image: "/student-residence-dormitory.jpg",
-  },
-  {
-    title: "Centre de Performance",
-    description: "Salle de sport et installations de conditionnement physique avancées avec équipements d'entraînement en force et conditionnement.",
-    image: "/sports-performance-gym.jpg",
-  },
-  {
-    title: "Espaces Recruteurs & VIP",
-    description: "Espaces de coworking professionnels et salons d'observation pour recruteurs, agents et partenaires.",
-    image: "/modern-coworking-space.jpg",
-  },
-]
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function Infrastructures() {
+  const { t } = useTranslation()
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  // Charger les installations depuis les traductions
+  const facilities = useMemo(() => [
+    {
+      title: t("home.infrastructures.facilities.fifa.title"),
+      description: t("home.infrastructures.facilities.fifa.description"),
+      image: "/fifa-standard-football-field.jpg",
+    },
+    {
+      title: t("home.infrastructures.facilities.classrooms.title"),
+      description: t("home.infrastructures.facilities.classrooms.description"),
+      image: "/modern-classroom-technology.jpg",
+    },
+    {
+      title: t("home.infrastructures.facilities.medical.title"),
+      description: t("home.infrastructures.facilities.medical.description"),
+      image: "/sports-medical-center.jpg",
+    },
+    {
+      title: t("home.infrastructures.facilities.residence.title"),
+      description: t("home.infrastructures.facilities.residence.description"),
+      image: "/student-residence-dormitory.jpg",
+    },
+    {
+      title: t("home.infrastructures.facilities.performance.title"),
+      description: t("home.infrastructures.facilities.performance.description"),
+      image: "/sports-performance-gym.jpg",
+    },
+    {
+      title: t("home.infrastructures.facilities.vip.title"),
+      description: t("home.infrastructures.facilities.vip.description"),
+      image: "/modern-coworking-space.jpg",
+    },
+  ], [t])
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % facilities.length)
@@ -49,12 +52,12 @@ export function Infrastructures() {
   }
 
   return (
-    <section className="py-24 bg-[#1A1A1A]">
+    <section data-section="infrastructures" className="py-24 bg-[#1A1A1A]">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="font-sans font-bold text-4xl md:text-5xl text-white mb-4">Infrastructures de Classe Mondiale</h2>
+          <h2 className="font-sans font-bold text-4xl md:text-5xl text-white mb-4">{t("home.infrastructures.title")}</h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Nos installations sont conçues pour fournir le meilleur environnement pour l'excellence athlétique et académique.
+            {t("home.infrastructures.description")}
           </p>
         </div>
 

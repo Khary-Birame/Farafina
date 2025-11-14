@@ -1,6 +1,11 @@
-﻿import { Handshake, Globe, Users } from "lucide-react"
+﻿"use client"
+
+import { Handshake, Globe, Users } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function ContactHero() {
+  const { t } = useTranslation()
+
   return (
     <section className="relative bg-gradient-to-br from-[#D4AF37] to-[#B8941F] text-white py-24 overflow-hidden">
       {/* Background Pattern */}
@@ -13,10 +18,10 @@ export function ContactHero() {
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="font-sans font-bold text-4xl md:text-5xl lg:text-6xl mb-6 text-balance">
-            Contact et Partenariats
+            {t("contact.hero.title")}
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed text-pretty">
-            Collaborez avec Farafina Foot Academy et aidez à façonner l'avenir du football africain.
+            {t("contact.hero.description")}
           </p>
 
           {/* Icon Features */}
@@ -25,19 +30,19 @@ export function ContactHero() {
               <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
                 <Handshake className="text-white" size={24} />
               </div>
-              <span className="text-sm font-medium">Partenariat</span>
+              <span className="text-sm font-medium">{t("contact.hero.features.partnership")}</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
                 <Globe className="text-white" size={24} />
               </div>
-              <span className="text-sm font-medium">Réseau Mondial</span>
+              <span className="text-sm font-medium">{t("contact.hero.features.network")}</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
                 <Users className="text-white" size={24} />
               </div>
-              <span className="text-sm font-medium">Communauté</span>
+              <span className="text-sm font-medium">{t("contact.hero.features.community")}</span>
             </div>
           </div>
         </div>

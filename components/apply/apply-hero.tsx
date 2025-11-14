@@ -1,8 +1,13 @@
-﻿import { Button } from "@/components/ui/button"
+﻿"use client"
+
+import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function ApplyHero() {
+  const { t } = useTranslation()
+
   return (
     <section className="relative text-white py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-[#1A1A1A] via-[#2a2a2a] to-[#1A1A1A]">
       {/* Modern Animated Background */}
@@ -35,18 +40,17 @@ export function ApplyHero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6 border border-white/20">
             <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-white">Candidatures Ouvertes</span>
+            <span className="text-sm font-medium text-white">{t("apply.hero.badge")}</span>
           </div>
 
           {/* Title */}
           <h1 className="text-4xl lg:text-6xl font-sans font-bold text-white mb-6 leading-tight text-balance">
-            Postulez à Farafina Foot Academy
+            {t("apply.hero.title")}
           </h1>
 
           {/* Subtitle */}
           <p className="text-lg lg:text-xl text-white/90 mb-8 leading-relaxed text-pretty">
-            Faites le premier pas pour devenir l'une des futures légendes du football africain. Rejoignez une académie d'élite où
-            l'entraînement de classe mondiale rencontre l'excellence académique.
+            {t("apply.hero.description")}
           </p>
 
           {/* CTA Button */}
@@ -56,13 +60,13 @@ export function ApplyHero() {
                 size="lg"
                 className="bg-white text-[#D4AF37] hover:bg-gray-100 font-semibold group w-full sm:w-auto"
               >
-                Commencer la Candidature
+                {t("apply.hero.startButton")}
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link href="/admissions">
               <Button size="lg" variant="outline" className="w-full sm:w-auto bg-transparent border-white text-white hover:bg-white/10">
-                En Savoir Plus sur les Admissions
+                {t("apply.hero.learnMoreButton")}
               </Button>
             </Link>
           </div>
@@ -71,15 +75,15 @@ export function ApplyHero() {
           <div className="grid grid-cols-3 gap-6 mt-12 pt-12 border-t border-white/20">
             <div className="text-center">
               <div className="text-3xl font-bold text-[#D4AF37] mb-1">95%</div>
-              <div className="text-sm text-white/80">Taux d'Acceptation</div>
+              <div className="text-sm text-white/80">{t("apply.hero.stats.acceptanceRate")}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-[#D4AF37] mb-1">12-18</div>
-              <div className="text-sm text-white/80">Tranche d'Âge</div>
+              <div className="text-sm text-white/80">{t("apply.hero.stats.ageRange")}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-[#D4AF37] mb-1">30+</div>
-              <div className="text-sm text-white/80">Pays</div>
+              <div className="text-sm text-white/80">{t("apply.hero.stats.countries")}</div>
             </div>
           </div>
         </div>

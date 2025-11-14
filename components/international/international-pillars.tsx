@@ -1,37 +1,39 @@
-import { Compass, GraduationCap, Home, Handshake } from "lucide-react"
+"use client"
 
-const pillars = [
-  {
-    icon: <Compass className="w-8 h-8" />,
-    title: "Suivi Personnalisé",
-    description:
-      "Évaluation continue du développement du joueur : performances sportives, progression technique et tactique, suivi médical régulier. Un coach dédié suit chaque joueur dans son parcours.",
-    color: "from-[#D4AF37]/20 to-[#D4AF37]/5",
-  },
-  {
-    icon: <GraduationCap className="w-8 h-8" />,
-    title: "Encadrement Éducatif",
-    description:
-      "Suivi scolaire personnalisé, apprentissage linguistique (français, anglais, espagnol), préparation aux diplômes internationaux. Équilibre parfait entre sport et éducation.",
-    color: "from-[#D4AF37]/20 to-[#D4AF37]/5",
-  },
-  {
-    icon: <Home className="w-8 h-8" />,
-    title: "Bien-être et Adaptation",
-    description:
-      "Accompagnement pour le logement, la nutrition adaptée, l'intégration culturelle et l'accompagnement psychologique. Nous veillons à ce que chaque joueur se sente chez lui, où qu'il soit.",
-    color: "from-[#D4AF37]/20 to-[#D4AF37]/5",
-  },
-  {
-    icon: <Handshake className="w-8 h-8" />,
-    title: "Carrière & Partenariats",
-    description:
-      "Mise en relation avec des clubs et académies prestigieuses, gestion des contrats avec des agents agréés, préparation aux essais et aux transferts. Un réseau international à votre service.",
-    color: "from-[#D4AF37]/20 to-[#D4AF37]/5",
-  },
-]
+import { Compass, GraduationCap, Home, Handshake } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
 
 export function InternationalPillars() {
+  const { t } = useTranslation()
+
+  const pillars = useMemo(() => [
+    {
+      icon: <Compass className="w-8 h-8" />,
+      title: t("international.pillars.personalized.title"),
+      description: t("international.pillars.personalized.description"),
+      color: "from-[#D4AF37]/20 to-[#D4AF37]/5",
+    },
+    {
+      icon: <GraduationCap className="w-8 h-8" />,
+      title: t("international.pillars.educational.title"),
+      description: t("international.pillars.educational.description"),
+      color: "from-[#D4AF37]/20 to-[#D4AF37]/5",
+    },
+    {
+      icon: <Home className="w-8 h-8" />,
+      title: t("international.pillars.wellbeing.title"),
+      description: t("international.pillars.wellbeing.description"),
+      color: "from-[#D4AF37]/20 to-[#D4AF37]/5",
+    },
+    {
+      icon: <Handshake className="w-8 h-8" />,
+      title: t("international.pillars.career.title"),
+      description: t("international.pillars.career.description"),
+      color: "from-[#D4AF37]/20 to-[#D4AF37]/5",
+    },
+  ], [t])
+
   return (
     <section className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
@@ -39,14 +41,14 @@ export function InternationalPillars() {
           <div className="text-center mb-12">
             <div className="inline-block mb-4">
               <span className="text-sm font-medium text-[#D4AF37] uppercase tracking-wider">
-                Nos Piliers
+                {t("international.pillars.badge")}
               </span>
             </div>
             <h2 className="font-sans font-bold text-3xl md:text-4xl lg:text-5xl text-[#1A1A1A] mb-4 text-balance">
-              Les piliers de l'accompagnement international
+              {t("international.pillars.title")}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Un accompagnement complet et personnalisé pour chaque joueur dans son parcours à l'étranger.
+              {t("international.pillars.description")}
             </p>
           </div>
 

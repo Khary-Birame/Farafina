@@ -1,56 +1,60 @@
-﻿import { CheckCircle2, FileText, ImageIcon, FileCheck, Heart } from "lucide-react"
+﻿"use client"
+
+import { CheckCircle2, FileText, ImageIcon, FileCheck, Heart } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
 
 export function EligibilityRequirements() {
-  const eligibilityCriteria = [
-    "Âge entre 12-18 ans",
-    "Passion pour le football et engagement envers l'excellence",
-    "Maîtrise académique de base (niveau scolaire approprié)",
-    "Condition physique et certificat médical",
-    "Consentement parental/tuteur pour les mineurs",
-    "OuOr à tous les genres et nationalités",
-  ]
+  const { t } = useTranslation()
 
-  const requiredDocuments = [
+  const eligibilityCriteria = useMemo(() => [
+    t("apply.eligibility.criteria.age"),
+    t("apply.eligibility.criteria.passion"),
+    t("apply.eligibility.criteria.academic"),
+    t("apply.eligibility.criteria.physical"),
+    t("apply.eligibility.criteria.consent"),
+    t("apply.eligibility.criteria.open"),
+  ], [t])
+
+  const requiredDocuments = useMemo(() => [
     {
       icon: ImageIcon,
-      title: "Photo Récente",
-      description: "Photographie format passeport (format numérique)",
+      title: t("apply.eligibility.documents.photo.title"),
+      description: t("apply.eligibility.documents.photo.description"),
     },
     {
       icon: FileText,
-      title: "Bulletin Scolaire",
-      description: "Dernier bulletin scolaire ou relevé de notes",
+      title: t("apply.eligibility.documents.transcript.title"),
+      description: t("apply.eligibility.documents.transcript.description"),
     },
     {
       icon: FileCheck,
-      title: "Consentement Parental",
-      description: "Formulaire de consentement signé par le parent/tuteur",
+      title: t("apply.eligibility.documents.consent.title"),
+      description: t("apply.eligibility.documents.consent.description"),
     },
     {
       icon: Heart,
-      title: "Formulaire Médical",
-      description: "Certificat médical d'un médecin agréé",
+      title: t("apply.eligibility.documents.medical.title"),
+      description: t("apply.eligibility.documents.medical.description"),
     },
-  ]
+  ], [t])
 
   return (
     <section className="py-20 lg:py-24 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-sans font-bold text-[#1A1A1A] mb-4">Éligibilité et Exigences</h2>
+          <h2 className="text-3xl lg:text-4xl font-sans font-bold text-[#1A1A1A] mb-4">{t("apply.eligibility.title")}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Consultez les critères et préparez vos documents avant de commencer votre candidature
+            {t("apply.eligibility.description")}
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left: Eligibility Criteria */}
           <div>
-            <h3 className="text-2xl font-sans font-bold text-[#1A1A1A] mb-6">Qui Peut Postuler</h3>
+            <h3 className="text-2xl font-sans font-bold text-[#1A1A1A] mb-6">{t("apply.eligibility.whoCanApply.title")}</h3>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Farafina Foot Academy accueille de jeunes joueurs talentueux de toute l'Afrique et au-delà. Nous croyons en
-              l'excellence inclusive et offrons des opportunités égales, quel que soit le genre, la nationalité ou le milieu
-              socio-économique.
+              {t("apply.eligibility.whoCanApply.description")}
             </p>
             <div className="space-y-3">
               {eligibilityCriteria.map((criterion, index) => (
@@ -64,10 +68,9 @@ export function EligibilityRequirements() {
 
           {/* Right: Required Documents */}
           <div>
-            <h3 className="text-2xl font-sans font-bold text-[#1A1A1A] mb-6">Documents Requis</h3>
+            <h3 className="text-2xl font-sans font-bold text-[#1A1A1A] mb-6">{t("apply.eligibility.documents.title")}</h3>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Préparez ces documents avant de commencer votre candidature. Tous les documents peuvent être téléchargés aux formats PDF, JPG ou
-              PNG.
+              {t("apply.eligibility.documents.description")}
             </p>
             <div className="space-y-4">
               {requiredDocuments.map((doc, index) => (

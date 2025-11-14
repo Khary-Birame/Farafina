@@ -1,51 +1,72 @@
-﻿import { Dumbbell, Moon, Sun, Sunset } from "lucide-react"
+﻿"use client"
+
+import { Dumbbell, Moon, Sun, Sunset } from "lucide-react"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
 
 export function IntegratedSchedule() {
-  const schedule = [
+  const { t } = useTranslation()
+
+  const schedule = useMemo(() => [
     {
       time: "07:00 - 12:00",
-      period: "Matin",
+      period: t("programs.schedule.morning.period"),
       icon: <Sun size={24} />,
-      title: "Cours Académiques",
-      activities: ["Mathématiques et Sciences", "Langues (Français/Anglais)", "Études Sociales et Histoire"],
+      title: t("programs.schedule.morning.title"),
+      activities: [
+        t("programs.schedule.morning.activities.math"),
+        t("programs.schedule.morning.activities.languages"),
+        t("programs.schedule.morning.activities.social"),
+      ],
       color: "bg-[#D4AF37]",
     },
     {
       time: "12:00 - 14:00",
-      period: "Midi",
+      period: t("programs.schedule.noon.period"),
       icon: <Sunset size={24} />,
-      title: "Déjeuner et Repos",
-      activities: ["Repas nutritifs", "Temps de récupération", "Préparation mentale"],
+      title: t("programs.schedule.noon.title"),
+      activities: [
+        t("programs.schedule.noon.activities.meals"),
+        t("programs.schedule.noon.activities.recovery"),
+        t("programs.schedule.noon.activities.mental"),
+      ],
       color: "bg-[#D4AF37]",
     },
     {
       time: "14:00 - 18:00",
-      period: "Après-midi",
+      period: t("programs.schedule.afternoon.period"),
       icon: <Dumbbell size={24} />,
-      title: "Entraînement Sportif",
-      activities: ["Exercices techniques", "Sessions tactiques", "Conditionnement physique"],
+      title: t("programs.schedule.afternoon.title"),
+      activities: [
+        t("programs.schedule.afternoon.activities.technical"),
+        t("programs.schedule.afternoon.activities.tactical"),
+        t("programs.schedule.afternoon.activities.conditioning"),
+      ],
       color: "bg-[#D4AF37]",
     },
     {
       time: "18:00 - 21:00",
-      period: "Soir",
+      period: t("programs.schedule.evening.period"),
       icon: <Moon size={24} />,
-      title: "Étude et Récupération",
-      activities: ["Devoirs et tutorat", "Analyse vidéo", "Repos et bien-être"],
+      title: t("programs.schedule.evening.title"),
+      activities: [
+        t("programs.schedule.evening.activities.homework"),
+        t("programs.schedule.evening.activities.video"),
+        t("programs.schedule.evening.activities.rest"),
+      ],
       color: "bg-[#1A1A1A]",
     },
-  ]
+  ], [t])
 
   return (
     <section className="py-20 lg:py-32 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="font-sans font-bold text-4xl lg:text-5xl text-[#1A1A1A] mb-6 text-balance">
-            Une Journée Typique à <span className="text-[#D4AF37]">FFA</span>
+            {t("programs.schedule.title")} <span className="text-[#D4AF37]">{t("programs.schedule.titleHighlight")}</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Notre planning intégré équilibre la rigueur académique avec un entraînement sportif intensif, assurant un
-            développement holistique pour chaque étudiant-athlète.
+            {t("programs.schedule.description")}
           </p>
         </div>
 

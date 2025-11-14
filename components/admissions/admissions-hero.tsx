@@ -3,8 +3,11 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Shield, Award, Users, Download } from "lucide-react"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function AdmissionsHero() {
+  const { t } = useTranslation()
+
   const scrollToForm = () => {
     document.getElementById("application-form")?.scrollIntoView({ behavior: "smooth" })
   }
@@ -41,23 +44,22 @@ export function AdmissionsHero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
             <Award className="w-4 h-4 text-white" />
-            <span className="text-sm font-medium">Candidatures Ouvertes pour 2025/2026</span>
+            <span className="text-sm font-medium">{t("admissions.hero.badge")}</span>
           </div>
 
           {/* Heading */}
           <h1 className="font-sans font-bold text-4xl md:text-5xl lg:text-6xl mb-6 text-balance leading-tight">
-            Rejoignez l'Académie{" "}
+            {t("admissions.hero.title")}{" "}
             <Link
               href="/apply"
               className="text-[#D4AF37] hover:text-[#B8941F] transition-colors duration-300 underline decoration-[#D4AF37]/40 hover:decoration-[#B8941F]/60 underline-offset-4"
             >
-              Postulez Maintenant
+              {t("admissions.hero.titleLink")}
             </Link>
           </h1>
 
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto text-pretty leading-relaxed">
-            Franchissez la première étape vers l'excellence sportive. Notre processus d'admission est conçu pour être
-            transparent, inclusif et accessible aux jeunes talents à travers l'Afrique.
+            {t("admissions.hero.description")}
           </p>
 
           {/* CTA Buttons */}
@@ -67,7 +69,7 @@ export function AdmissionsHero() {
               onClick={scrollToForm}
               className="bg-white text-[#D4AF37] hover:bg-gray-100 font-semibold group"
             >
-              Commencez votre inscription
+              {t("admissions.hero.startButton")}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <a href="/brochure.pdf" download="brochure-farafina-foot-academy.pdf">
@@ -77,7 +79,7 @@ export function AdmissionsHero() {
                 className="border-white text-white hover:bg-white/10 bg-transparent"
               >
                 <Download className="mr-2 w-4 h-4" />
-                Télécharger la brochure
+                {t("admissions.hero.downloadButton")}
               </Button>
             </a>
           </div>
@@ -87,22 +89,22 @@ export function AdmissionsHero() {
             <div className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <Shield className="w-6 h-6 text-white" />
               <div className="text-left">
-                <div className="font-semibold text-sm">Processus sécurisé</div>
-                <div className="text-xs text-white/80">Cryptage SSL</div>
+                <div className="font-semibold text-sm">{t("admissions.hero.trust.secure.title")}</div>
+                <div className="text-xs text-white/80">{t("admissions.hero.trust.secure.description")}</div>
               </div>
             </div>
             <div className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <Users className="w-6 h-6 text-white" />
               <div className="text-left">
-                <div className="font-semibold text-sm">500+ Étudiants</div>
-                <div className="text-xs text-white/80">Depuis 2020</div>
+                <div className="font-semibold text-sm">{t("admissions.hero.trust.students.title")}</div>
+                <div className="text-xs text-white/80">{t("admissions.hero.trust.students.description")}</div>
               </div>
             </div>
             <div className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <Award className="w-6 h-6 text-white" />
               <div className="text-left">
-                <div className="font-semibold text-sm">Bourses</div>
-                <div className="text-xs text-white/80">Disponibles</div>
+                <div className="font-semibold text-sm">{t("admissions.hero.trust.scholarships.title")}</div>
+                <div className="text-xs text-white/80">{t("admissions.hero.trust.scholarships.description")}</div>
               </div>
             </div>
           </div>

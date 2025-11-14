@@ -1,49 +1,51 @@
-﻿export function CoachingStaff() {
-  const staff = [
+﻿"use client"
+
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
+
+export function CoachingStaff() {
+  const { t } = useTranslation()
+
+  const staff = useMemo(() => [
     {
       name: "Mamadou Dieng",
-      role: "Entraîneur Principal de Football",
-      qualifications: "Licence UEFA Pro, Ancien Joueur Professionnel",
+      role: t("programs.coaching.staff.headCoach.role"),
+      qualifications: t("programs.coaching.staff.headCoach.qualifications"),
       image: "/coach-mamadou-dieng.jpg",
-      philosophy:
-        "Chaque joueur a un potentiel unique. Mon travail est de le libérer par la discipline, le dévouement et l'entraînement intelligent.",
+      philosophy: t("programs.coaching.staff.headCoach.philosophy"),
     },
     {
       name: "Dr. Aminata Sow",
-      role: "Directrice Académique",
-      qualifications: "Doctorat en Éducation, Plus de 15 Ans d'Expérience",
+      role: t("programs.coaching.staff.academic.role"),
+      qualifications: t("programs.coaching.staff.academic.qualifications"),
       image: "/dr-aminata-sow.jpg",
-      philosophy:
-        "L'éducation permet à nos étudiants de réussir au-delà du terrain. Nous formons des érudits qui sont aussi des athlètes exceptionnels.",
+      philosophy: t("programs.coaching.staff.academic.philosophy"),
     },
     {
       name: "Ibrahim Koné",
-      role: "Entraîneur de Performance Physique",
-      qualifications: "MSc Sciences du Sport, Entraîneur de Force Certifié",
+      role: t("programs.coaching.staff.performance.role"),
+      qualifications: t("programs.coaching.staff.performance.qualifications"),
       image: "/coach-ibrahim-kone.jpg",
-      philosophy:
-        "La performance optimale nécessite un entraînement scientifique, une récupération appropriée et une résilience mentale. Nous optimisons chaque aspect.",
+      philosophy: t("programs.coaching.staff.performance.philosophy"),
     },
     {
       name: "Fatou Diallo",
-      role: "Psychologue du Sport",
-      qualifications: "MSc Psychologie du Sport, Spécialiste de la Performance Mentale",
+      role: t("programs.coaching.staff.psychologist.role"),
+      qualifications: t("programs.coaching.staff.psychologist.qualifications"),
       image: "/dr-fatou-diallo.jpg",
-      philosophy:
-        "La force mentale est aussi importante que la capacité physique. Nous développons des champions qui excellent sous pression.",
+      philosophy: t("programs.coaching.staff.psychologist.philosophy"),
     },
-  ]
+  ], [t])
 
   return (
     <section className="py-20 lg:py-32 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="font-sans font-bold text-4xl lg:text-5xl text-[#1A1A1A] mb-6 text-balance">
-            Entraîneurs & Personnel <span className="text-[#D4AF37]">Académique</span>
+            {t("programs.coaching.title")} <span className="text-[#D4AF37]">{t("programs.coaching.titleHighlight")}</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Notre équipe de classe mondiale d'entraîneurs, d'éducateurs et de spécialistes se consacre au développement
-            d'athlètes et d'érudits complets.
+            {t("programs.coaching.description")}
           </p>
         </div>
 

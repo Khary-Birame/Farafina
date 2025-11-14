@@ -17,18 +17,20 @@
 
 import { createClient } from '@supabase/supabase-js'
 
-// Récupérer les variables d'environnement
-// NEXT_PUBLIC_ signifie que ces variables sont accessibles côté client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// Fonction pour obtenir la configuration Supabase
+function getSupabaseConfig() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-// Vérifier que les variables sont définies
-if (!supabaseUrl || !supabaseAnonKey) {
-  const isProduction = process.env.NODE_ENV === 'production'
-  const errorMessage = isProduction
-    ? 'Variables Supabase manquantes ! Configurez NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY dans Vercel Dashboard → Settings → Environment Variables'
-    : 'Variables Supabase manquantes ! Vérifiez votre fichier .env.local'
-  throw new Error(errorMessage)
+  if (!supabaseUrl || !supabaseAnonKey) {
+    const isProduction = process.env.NODE_ENV === 'production'
+    const errorMessage = isProduction
+      ? 'Variables Supabase manquantes ! Configurez NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY dans Vercel Dashboard → Settings → Environment Variables'
+      : 'Variables Supabase manquantes ! Vérifiez votre fichier .env.local'
+    throw new Error(errorMessage)
+  }
+
+  return { supabaseUrl, supabaseAnonKey }
 }
 
 /**
@@ -37,8 +39,21 @@ if (!supabaseUrl || !supabaseAnonKey) {
  * createClient() prend 2 paramètres :
  * 1. L'URL de votre projet Supabase
  * 2. La clé anonyme (publique mais sécurisée)
+ * 
+ * Note: La vérification des variables est faite au moment de l'utilisation,
+ * pas au moment de l'import, pour permettre au build de continuer.
  */
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+let supabaseInstance: ReturnType<typeof createClient> | null = null
+
+export const supabase = new Proxy({} as ReturnType<typeof createClient>, {
+  get(_target, prop) {
+    if (!supabaseInstance) {
+      const { supabaseUrl, supabaseAnonKey } = getSupabaseConfig()
+      supabaseInstance = createClient(supabaseUrl, supabaseAnonKey)
+    }
+    return (supabaseInstance as any)[prop]
+  }
+})
 
 /**
  * EXEMPLE D'UTILISATION :

@@ -1,61 +1,75 @@
 ﻿"use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Star, TrendingUp, Award } from "lucide-react"
 import Image from "next/image"
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function PlayerProfiles() {
+  const { t } = useTranslation()
   const [filter, setFilter] = useState<"all" | "male" | "female">("all")
 
-  const players = [
+  const players = useMemo(() => [
     {
       name: "Amadou Diallo",
       age: 16,
       gender: "male",
-      position: "Forward",
+      position: t("scouting.profiles.positions.forward"),
       rating: 92,
       potential: 96,
       image: "/african-youth-football-player-portrait.jpg",
-      highlights: ["Hat-trick vs Regional Academy", "Top Scorer U17"],
+      highlights: [
+        t("scouting.profiles.highlights.diallo.hattrick"),
+        t("scouting.profiles.highlights.diallo.topScorer"),
+      ],
       stats: { goals: 24, assists: 12, matches: 18 },
     },
     {
       name: "Fatou Sow",
       age: 15,
       gender: "female",
-      position: "Midfielder",
+      position: t("scouting.profiles.positions.midfielder"),
       rating: 89,
       potential: 94,
       image: "/african-female-football-player-portrait.jpg",
-      highlights: ["MVP National Tournament", "Captain U16 Team"],
+      highlights: [
+        t("scouting.profiles.highlights.sow.mvp"),
+        t("scouting.profiles.highlights.sow.captain"),
+      ],
       stats: { goals: 8, assists: 22, matches: 20 },
     },
     {
       name: "Ibrahim Ndiaye",
       age: 17,
       gender: "male",
-      position: "Defender",
+      position: t("scouting.profiles.positions.defender"),
       rating: 87,
       potential: 91,
       image: "/african-youth-defender-portrait.jpg",
-      highlights: ["Clean Sheet Record", "Best Defender Award"],
+      highlights: [
+        t("scouting.profiles.highlights.ndiaye.cleanSheet"),
+        t("scouting.profiles.highlights.ndiaye.bestDefender"),
+      ],
       stats: { goals: 3, assists: 5, matches: 22 },
     },
     {
       name: "Aissatou Ba",
       age: 16,
       gender: "female",
-      position: "Goalkeeper",
+      position: t("scouting.profiles.positions.goalkeeper"),
       rating: 90,
       potential: 95,
       image: "/african-female-goalkeeper-portrait.jpg",
-      highlights: ["Golden Glove Winner", "85% Save Rate"],
+      highlights: [
+        t("scouting.profiles.highlights.ba.goldenGlove"),
+        t("scouting.profiles.highlights.ba.saveRate"),
+      ],
       stats: { goals: 0, assists: 0, matches: 19 },
     },
-  ]
+  ], [t])
 
   const filteredPlayers = players.filter((player) => filter === "all" || player.gender === filter)
 
@@ -63,9 +77,9 @@ export function PlayerProfiles() {
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">Profils des Joueurs</h2>
+          <h2 className="text-4xl md:text-5xl font-sans font-bold text-foreground mb-4">{t("scouting.profiles.title")}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Évaluation des talents alimentée par l'IA avec analyse prédictive du potentiel
+            {t("scouting.profiles.description")}
           </p>
 
           {/* Filter Buttons */}
@@ -75,21 +89,21 @@ export function PlayerProfiles() {
               onClick={() => setFilter("all")}
               className={filter === "all" ? "bg-[#D4AF37] hover:bg-[#B8941F]" : ""}
             >
-              Tous les Joueurs
+              {t("scouting.profiles.filters.all")}
             </Button>
             <Button
               variant={filter === "male" ? "default" : "outline"}
               onClick={() => setFilter("male")}
               className={filter === "male" ? "bg-[#D4AF37] hover:bg-[#B8941F]" : ""}
             >
-              Masculin
+              {t("scouting.profiles.filters.male")}
             </Button>
             <Button
               variant={filter === "female" ? "default" : "outline"}
               onClick={() => setFilter("female")}
               className={filter === "female" ? "bg-[#D4AF37] hover:bg-[#B8941F]" : ""}
             >
-              Féminin
+              {t("scouting.profiles.filters.female")}
             </Button>
           </div>
         </div>
@@ -105,7 +119,7 @@ export function PlayerProfiles() {
                 <Image src={player.image || "/placeholder.svg"} alt={player.name} fill className="object-cover" />
                 <div className="absolute top-3 right-3 flex gap-2">
                   <Badge className="bg-[#D4AF37] text-white border-0">{player.position}</Badge>
-                  <Badge className="bg-[#D4AF37] text-[#1A1A1A] border-0">Age {player.age}</Badge>
+                  <Badge className="bg-[#D4AF37] text-[#1A1A1A] border-0">{t("scouting.profiles.age")} {player.age}</Badge>
                 </div>
               </div>
 
@@ -118,12 +132,12 @@ export function PlayerProfiles() {
                   <div className="flex items-center gap-1">
                     <Star className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
                     <span className="text-2xl font-bold text-foreground">{player.rating}</span>
-                    <span className="text-sm text-muted-foreground">Note</span>
+                    <span className="text-sm text-muted-foreground">{t("scouting.profiles.rating")}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <TrendingUp className="w-4 h-4 text-[#D4AF37]" />
                     <span className="text-2xl font-bold text-[#D4AF37]">{player.potential}</span>
-                    <span className="text-sm text-muted-foreground">Potentiel</span>
+                    <span className="text-sm text-muted-foreground">{t("scouting.profiles.potential")}</span>
                   </div>
                 </div>
 
@@ -131,15 +145,15 @@ export function PlayerProfiles() {
                 <div className="grid grid-cols-3 gap-2 mb-4 p-3 bg-muted/50 rounded-lg">
                   <div className="text-center">
                     <div className="text-lg font-bold text-foreground">{player.stats.goals}</div>
-                    <div className="text-xs text-muted-foreground">Buts</div>
+                    <div className="text-xs text-muted-foreground">{t("scouting.profiles.stats.goals")}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-lg font-bold text-foreground">{player.stats.assists}</div>
-                    <div className="text-xs text-muted-foreground">Passes D</div>
+                    <div className="text-xs text-muted-foreground">{t("scouting.profiles.stats.assists")}</div>
                   </div>
                   <div className="text-center">
                     <div className="text-lg font-bold text-foreground">{player.stats.matches}</div>
-                    <div className="text-xs text-muted-foreground">Matchs</div>
+                    <div className="text-xs text-muted-foreground">{t("scouting.profiles.stats.matches")}</div>
                   </div>
                 </div>
 

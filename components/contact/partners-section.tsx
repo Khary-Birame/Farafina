@@ -1,8 +1,14 @@
-﻿import { Button } from "@/components/ui/button"
+﻿"use client"
+
+import { Button } from "@/components/ui/button"
 import { Handshake, Award, Globe, TrendingUp } from "lucide-react"
 import Link from "next/link"
+import { useTranslation } from "@/lib/hooks/use-translation"
+import { useMemo } from "react"
 
 export function PartnersSection() {
+  const { t } = useTranslation()
+
   const partners = [
     { name: "FIFA", logo: "/fifa-logo.jpg" },
     { name: "CAF", logo: "/caf-logo.jpg" },
@@ -12,28 +18,28 @@ export function PartnersSection() {
     { name: "UEFA", logo: "/uefa-logo.jpg" },
   ]
 
-  const benefits = [
+  const benefits = useMemo(() => [
     {
       icon: Globe,
-      title: "Visibilité Mondiale",
-      description: "Atteignez des audiences à travers l'Afrique et au-delà",
+      title: t("contact.partners.benefits.global.title"),
+      description: t("contact.partners.benefits.global.description"),
     },
     {
       icon: TrendingUp,
-      title: "Croissance de la Marque",
-      description: "Alignez-vous avec l'excellence et le développement des jeunes",
+      title: t("contact.partners.benefits.brand.title"),
+      description: t("contact.partners.benefits.brand.description"),
     },
     {
       icon: Award,
-      title: "Impact Social",
-      description: "Soutenez la prochaine génération de talents africains",
+      title: t("contact.partners.benefits.social.title"),
+      description: t("contact.partners.benefits.social.description"),
     },
     {
       icon: Handshake,
-      title: "Alliance Stratégique",
-      description: "Rejoignez un réseau de partenaires visionnaires",
+      title: t("contact.partners.benefits.strategic.title"),
+      description: t("contact.partners.benefits.strategic.description"),
     },
-  ]
+  ], [t])
 
   return (
     <section className="py-20 bg-white">
@@ -41,9 +47,9 @@ export function PartnersSection() {
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#1A1A1A]">Nos Partenaires</h2>
+            <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4 text-[#1A1A1A]">{t("contact.partners.title")}</h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-              Rejoignez notre réseau de partenaires visionnaires soutenant la jeunesse et l'excellence en Afrique.
+              {t("contact.partners.description")}
             </p>
           </div>
 
@@ -67,7 +73,7 @@ export function PartnersSection() {
 
           {/* Partnership Benefits */}
           <div className="mb-12">
-            <h3 className="font-sans font-bold text-2xl text-center mb-8 text-[#1A1A1A]">Pourquoi Partenarier avec Nous ?</h3>
+            <h3 className="font-sans font-bold text-2xl text-center mb-8 text-[#1A1A1A]">{t("contact.partners.whyPartner.title")}</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {benefits.map((benefit, index) => (
                 <div key={index} className="text-center">
@@ -83,13 +89,13 @@ export function PartnersSection() {
 
           {/* CTA */}
           <div className="bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-2xl p-8 md:p-12 text-center text-white">
-            <h3 className="font-sans font-bold text-2xl md:text-3xl mb-4">Devenez Partenaire</h3>
+            <h3 className="font-sans font-bold text-2xl md:text-3xl mb-4">{t("contact.partners.cta.title")}</h3>
             <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-              Ensemble, nous pouvons créer des opportunités pour les jeunes talents africains et construire l'avenir du football.
+              {t("contact.partners.cta.description")}
             </p>
             <Link href="/partners">
               <Button className="bg-[#ffffff] hover:bg-gray-100 text-[#D4AF37] font-semibold px-8 h-12 text-base">
-                Devenir Partenaire
+                {t("contact.partners.cta.button")}
               </Button>
             </Link>
           </div>

@@ -1,8 +1,13 @@
+"use client"
+
 import { Button } from '@/components/ui/button'
 import { ShoppingBag, Sparkles, ShieldCheck, Star } from 'lucide-react'
 import Link from 'next/link'
+import { useTranslation } from "@/lib/hooks/use-translation"
 
 export function BoutiqueHero() {
+  const { t } = useTranslation()
+
   return (
     <section className="relative overflow-hidden bg-[#0f1012] text-white">
       <div className="absolute inset-0">
@@ -16,23 +21,22 @@ export function BoutiqueHero() {
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm backdrop-blur">
                 <Sparkles className="h-4 w-4 text-[#D4AF37]" />
-                <span>Collection officielle Farafina Foot Academy</span>
+                <span>{t("boutique.hero.badge")}</span>
               </div>
 
               <h1 className="mt-6 font-sans text-4xl font-bold leading-tight sm:text-5xl lg:text-[3.5rem]">
-                Portez les couleurs de l'excellence africaine
+                {t("boutique.hero.title")}
               </h1>
 
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/85">
-                Maillots d'exception, survêtements techniques et accessoires premium. Une collection pensée pour
-                célébrer le talent africain et soutenir nos jeunes joueurs vers le haut niveau.
+                {t("boutique.hero.description")}
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <Link href="#catalogue" className="w-full sm:w-auto">
                   <Button className="flex h-12 items-center justify-center gap-2 rounded-xl bg-[#D4AF37] px-8 font-semibold text-white transition-colors hover:bg-[#b98d2c]">
                     <ShoppingBag className="h-5 w-5" />
-                    Explorer la boutique
+                    {t("boutique.hero.exploreButton")}
                   </Button>
                 </Link>
                 <Link href="/apply" className="w-full sm:w-auto">
@@ -40,7 +44,7 @@ export function BoutiqueHero() {
                     variant="outline"
                     className="h-12 rounded-xl border-white px-8 font-semibold text-white transition hover:bg-white/10"
                   >
-                    Soutenir l'académie
+                    {t("boutique.hero.supportButton")}
                   </Button>
                 </Link>
               </div>
@@ -50,23 +54,23 @@ export function BoutiqueHero() {
               <div className="flex items-center gap-3 rounded-2xl bg-white/5 p-4">
                 <Star className="h-10 w-10 rounded-full bg-[#D4AF37]/20 p-2 text-[#D4AF37]" />
                 <div>
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/70">Official gear</p>
-                  <p className="text-base font-semibold text-white">Design premium, finitions dorées</p>
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/70">{t("boutique.hero.features.officialGear.label")}</p>
+                  <p className="text-base font-semibold text-white">{t("boutique.hero.features.officialGear.description")}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 rounded-2xl bg-white/5 p-4">
                 <ShieldCheck className="h-10 w-10 rounded-full bg-[#D4AF37]/20 p-2 text-[#D4AF37]" />
                 <div>
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/70">Qualité garantie</p>
-                  <p className="text-base font-semibold text-white">Matériaux résistants & respirants</p>
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/70">{t("boutique.hero.features.quality.label")}</p>
+                  <p className="text-base font-semibold text-white">{t("boutique.hero.features.quality.description")}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 rounded-2xl bg-white/5 p-4">
                 <Sparkles className="h-10 w-10 rounded-full bg-[#D4AF37]/20 p-2 text-[#D4AF37]" />
                 <div>
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/70">Impact direct</p>
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/70">{t("boutique.hero.features.impact.label")}</p>
                   <p className="text-base font-semibold text-white">
-                    Chaque achat finance les programmes de formation Farafina
+                    {t("boutique.hero.features.impact.description")}
                   </p>
                 </div>
               </div>

@@ -18,7 +18,30 @@
     "menu": "MENU",
     "loading": "Loading...",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "back": "Back",
+    "continue": "Continue",
+    "finish": "Finish",
+    "yes": "Yes",
+    "no": "No",
+    "user": "User",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account? Create one",
+    "alreadyAccount": "Already have an account?",
+    "newToFarafina": "New to Farafina?",
+    "secure": "Secure",
+    "encrypted": "Encrypted",
+    "protected": "Protected",
+    "gdprCompliant": "GDPR Compliant",
+    "access": "Access",
+    "activeUsers": "Active Users",
+    "successRate": "Success Rate",
+    "countries": "Countries",
+    "activeStudents": "Active Students"
   },
   "navigation": {
     "programs": "Programs",
@@ -42,7 +65,821 @@
     "password": "Password",
     "confirmPassword": "Confirm Password",
     "submit": "Submit",
-    "required": "This field is required"
+    "required": "This field is required",
+    "fullName": "Full Name",
+    "subject": "Subject",
+    "message": "Message",
+    "phone": "Phone",
+    "company": "Company",
+    "website": "Website",
+    "address": "Address",
+    "city": "City",
+    "country": "Country",
+    "postalCode": "Postal Code",
+    "emailPlaceholder": "your.email@example.com",
+    "passwordPlaceholder": "Enter your password",
+    "createPassword": "Create a strong password",
+    "reEnterPassword": "Re-enter your password",
+    "minCharacters": "Minimum 8 characters",
+    "selectRole": "Select your role",
+    "acceptTerms": "I accept the",
+    "termsAndConditions": "Terms of Use",
+    "and": "and the",
+    "privacyPolicy": "Privacy Policy"
+  },
+  "login": {
+    "title": "Welcome to Farafina Foot Academy",
+    "subtitle": "Sign in to access your account and continue your journey.",
+    "welcomeExcellence": "Welcome to Excellence",
+    "continueJourney": "Continue your journey with Farafina Foot Academy. Access your dashboard, track your progress, and stay connected with your team.",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "connectButton": "Sign In",
+    "connecting": "Signing in...",
+    "emailConfirmed": "✅ Your email has been successfully confirmed! You can now sign in.",
+    "connectionError": "Error signing in",
+    "unexpectedError": "An unexpected error occurred"
+  },
+  "signup": {
+    "title": "Create Your Farafina Account",
+    "subtitle": "Access your application, upload documents, and track your admission status.",
+    "joinFuture": "Join the Future of African Football",
+    "createAccount": "Create your account to access your application portal, track your admission status, and begin your journey with Farafina Foot Academy.",
+    "fullNameLabel": "Full Name *",
+    "fullNamePlaceholder": "Enter your full name",
+    "emailLabel": "Email Address *",
+    "roleLabel": "I am a",
+    "rolePlaceholder": "Select your role",
+    "roles": {
+      "parent": "Parent / Guardian",
+      "player": "Player / Student",
+      "coach": "Coach / Recruiter"
+    },
+    "createButton": "Create Account",
+    "creating": "Creating account...",
+    "created": "Account created!",
+    "successTitle": "Account created successfully!",
+    "successDescription": "Check your email to confirm your account. Redirecting...",
+    "signupError": "Error signing up",
+    "passwordMismatch": "Passwords do not match",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "roleRequired": "Please select a role",
+    "termsRequired": "Please accept the terms of use"
+  },
+  "profile": {
+    "title": "My Profile",
+    "informations": "Information",
+    "security": "Security",
+    "settings": "Settings",
+    "personalInfo": "Personal Information",
+    "personalInfoDescription": "Manage your personal information and profile",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "role": "Role",
+    "firstNamePlaceholder": "Your first name",
+    "lastNamePlaceholder": "Your last name",
+    "notProvided": "Not provided",
+    "clickToEdit": "Click \"Edit\" to add your first name",
+    "clickToEditName": "Click \"Edit\" to add your last name",
+    "emailCannotChange": "Email cannot be changed",
+    "roleCannotChange": "Role cannot be changed",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "updateError": "Error updating",
+    "updateSuccess": "Profile updated successfully",
+    "unexpectedError": "An error occurred",
+    "uploadImageComing": "Image upload feature coming soon",
+    "securityTitle": "Security",
+    "securityDescription": "Manage your password and account security",
+    "password": "Password",
+    "passwordResetInfo": "For security reasons, you must sign out and use the \"Forgot password\" function to reset your password.",
+    "resetPassword": "Reset Password",
+    "logout": "Logout",
+    "logoutDescription": "Sign out of your account",
+    "loggingOut": "Signing out...",
+    "logoutButton": "Sign Out",
+    "settingsTitle": "Settings",
+    "settingsDescription": "Customize your preferences and settings",
+    "notifications": "Notifications",
+    "notificationsComing": "Notification settings will be available soon.",
+    "language": "Language",
+    "languageInfo": "You can change the language from the selector in the header.",
+    "emailVerified": "Email verified",
+    "emailNotVerified": "Email not verified",
+    "roles": {
+      "player": "Player",
+      "parent": "Parent",
+      "coach": "Coach",
+      "club": "Club",
+      "admin": "Administrator"
+    }
+  },
+  "admissions": {
+    "title": "Application Form",
+    "description": "Complete all sections to submit your application. Your information is secure and confidential.",
+    "hero": {
+      "badge": "Applications Open for 2025/2026",
+      "title": "Join the Academy",
+      "titleLink": "Apply Now",
+      "description": "Take the first step towards sporting excellence. Our admission process is designed to be transparent, inclusive and accessible to young talents across Africa.",
+      "startButton": "Start your registration",
+      "downloadButton": "Download brochure",
+      "trust": {
+        "secure": {
+          "title": "Secure process",
+          "description": "SSL encryption"
+        },
+        "students": {
+          "title": "500+ Students",
+          "description": "Since 2020"
+        },
+        "scholarships": {
+          "title": "Scholarships",
+          "description": "Available"
+        }
+      }
+    },
+    "process": {
+      "title": "The Path to Excellence",
+      "description": "Discover our transparent and simplified admission process, designed to reveal and support your unique talent.",
+      "stepLabel": "STEP",
+      "steps": {
+        "online": {
+          "title": "Online application",
+          "description": "Fill out the online form with your personal information and upload the required documents."
+        },
+        "review": {
+          "title": "File review",
+          "description": "Our admissions team reviews your application within 5 to 7 business days."
+        },
+        "evaluation": {
+          "title": "Skills assessment",
+          "description": "Participate in a virtual or in-person tryout to demonstrate your football abilities."
+        },
+        "decision": {
+          "title": "Admission decision",
+          "description": "Receive your admission decision and scholarship eligibility notification."
+        },
+        "payment": {
+          "title": "Payment and registration",
+          "description": "Make payment and finalize your registration to secure your place."
+        }
+      }
+    },
+    "step": "Step",
+    "of": "of",
+    "completed": "Completed",
+    "step1Title": "Personal Information",
+    "step2Title": "Program Selection & Background",
+    "step3Title": "Upload Documents",
+    "firstName": "First Name *",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastName": "Last Name *",
+    "lastNamePlaceholder": "Enter your last name",
+    "age": "Age *",
+    "agePlaceholder": "Enter your age",
+    "gender": "Gender *",
+    "genderPlaceholder": "Select gender",
+    "genders": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other"
+    },
+    "height": "Height (cm) *",
+    "heightPlaceholder": "Ex: 175",
+    "weight": "Weight (kg) *",
+    "weightPlaceholder": "Ex: 70",
+    "country": "Country *",
+    "countryPlaceholder": "Select country",
+    "countries": {
+      "senegal": "Senegal",
+      "mali": "Mali",
+      "ivory-coast": "Ivory Coast",
+      "ghana": "Ghana",
+      "nigeria": "Nigeria",
+      "cameroon": "Cameroon",
+      "other": "Other"
+    },
+    "email": "Email Address *",
+    "emailPlaceholder": "your@email.com",
+    "phone": "Phone Number *",
+    "phonePlaceholder": "+221 XX XXX XX XX",
+    "phone2": "Second Phone Number",
+    "phone2Placeholder": "+221 XX XXX XX XX (Optional)",
+    "program": "Preferred Program *",
+    "programPlaceholder": "Select program",
+    "programs": {
+      "resident": "Resident Program (Full-time)",
+      "external": "External Program (Part-time)",
+      "girls": "Women's Program",
+      "elite": "Elite Program"
+    },
+    "position": "Playing Position *",
+    "positionPlaceholder": "Select position",
+    "positions": {
+      "goalkeeper": "Goalkeeper",
+      "defender-center": "Center Back",
+      "defender-lateral": "Full Back",
+      "midfielder-defensive": "Defensive Midfielder",
+      "midfielder-central": "Central Midfielder",
+      "midfielder-offensive": "Attacking Midfielder",
+      "winger": "Winger",
+      "forward": "Forward",
+      "striker": "Striker"
+    },
+    "experience": "Football Experience (years) *",
+    "experiencePlaceholder": "Years of experience",
+    "currentClub": "Current/Previous Club",
+    "currentClubPlaceholder": "Enter club name (if applicable)",
+    "motivation": "Why do you want to join FFA? *",
+    "motivationPlaceholder": "Tell us about your goals and motivations...",
+    "guardian": "Parent/Guardian Name *",
+    "guardianPlaceholder": "Enter parent/guardian name",
+    "guardianPhone": "Parent/Guardian Phone *",
+    "guardianPhonePlaceholder": "+221 XX XXX XX XX",
+    "birthCertificate": "Birth Certificate *",
+    "photo": "Recent Photo *",
+    "medicalCertificate": "Medical Certificate *",
+    "video": "Skills Video (Optional)",
+    "fileFormats": {
+      "pdfJpgPng": "PDF, JPG or PNG (Max 5MB)",
+      "jpgPng": "JPG or PNG (Max 2MB)",
+      "pdfJpg": "PDF or JPG (Max 5MB)",
+      "mp4Youtube": "MP4 or YouTube link (Max 50MB)"
+    },
+    "chooseFile": "Choose File",
+    "chooseFileOrLink": "Choose file or paste link",
+    "privacyNotice": "Your documents are secure and will only be used for the admission process.",
+    "submitButton": "Submit Application",
+    "submitting": "Submitting...",
+    "submitSuccess": "Application submitted successfully!",
+    "submitSuccessDescription": "We will contact you shortly.",
+    "submitError": "Error submitting",
+    "submitErrorDescription": "Please try again later."
+  },
+  "partners": {
+    "title": "Become a Partner",
+    "subtitle": "Join our vision and build the future of African football.",
+    "introduction": "Farafina Foot Academy builds lasting partnerships with clubs, institutions, brands, and foundations committed to developing African football and youth.",
+    "organizationName": "Organization Name",
+    "organizationNamePlaceholder": "Enter your organization name",
+    "contactName": "Contact Name",
+    "contactNamePlaceholder": "Enter your name",
+    "email": "Email Address",
+    "emailPlaceholder": "your.email@example.com",
+    "phone": "Phone",
+    "phonePlaceholder": "+221 XX XXX XX XX",
+    "partnershipType": "Partnership Type",
+    "partnershipTypePlaceholder": "Select partnership type",
+    "partnershipTypes": {
+      "club": "Football Club",
+      "institution": "Institution",
+      "brand": "Brand",
+      "foundation": "Foundation",
+      "media": "Media",
+      "other": "Other"
+    },
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your partnership proposal...",
+    "submitButton": "Send Request",
+    "submitting": "Sending...",
+    "submitSuccess": "Partnership request sent!",
+    "submitSuccessDescription": "We will contact you shortly.",
+    "submitError": "Error sending",
+    "submitErrorDescription": "Please try again later."
+  },
+  "scouting": {
+    "requestDemo": "Request a Demo",
+    "title": "Discover the Future of Recruitment with Farafina AI",
+    "subtitle": "Discover how our AI-powered platform can transform talent identification and player development",
+    "fullName": "Full Name *",
+    "fullNamePlaceholder": "Enter your name",
+    "email": "Email Address *",
+    "emailPlaceholder": "your@email.com",
+    "organization": "Organization",
+    "organizationPlaceholder": "Academy or club name",
+    "role": "Your Role",
+    "rolePlaceholder": "Coach, Recruiter, Director...",
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your interest in our AI recruitment platform...",
+    "consent": "I agree to receive communications about Farafina AI and understand that my data will be processed in accordance with the Privacy Policy and GDPR regulations.",
+    "consentRequired": "Please accept the conditions to continue.",
+    "submitButton": "Request a demo",
+    "submitting": "Sending...",
+    "submitSuccess": "Request sent!",
+    "submitSuccessDescription": "Our team will contact you shortly.",
+    "submitError": "Error sending",
+    "submitErrorDescription": "Please try again later.",
+    "questions": "Questions? Contact our AI team at"
+  },
+  "newsletter": {
+    "title": "Stay Informed",
+    "description": "Subscribe to our newsletter for the latest news, events, and opportunities.",
+    "emailPlaceholder": "Enter your email",
+    "subscribe": "Subscribe",
+    "subscribing": "Subscribing...",
+    "subscribed": "Subscription successful!",
+    "subscribeSuccess": "Subscription successful!",
+    "subscribeSuccessDescription": "You will receive our latest news by email.",
+    "subscribeError": "Error subscribing",
+    "subscribeErrorDescription": "Please try again later."
+  },
+  "home": {
+    "hero": {
+      "title": "Farafina Foot Academy",
+      "subtitle": "Where education, discipline, and performance unite to build tomorrow's champions."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "vision": "Our Vision",
+      "visionText": "To become Africa's reference in sport-study education, producing world-class athletes who excel both on the field and in the classroom.",
+      "visionDescription": "We envision a future where African talent is globally recognized, where young players have access to world-class training facilities, and where education and sport work hand in hand to create well-rounded individuals ready to compete at the highest levels.",
+      "missionText": "Discover, train, and empower young African talents through innovation, education, and integrity.",
+      "discover": "Discover:",
+      "discoverText": "Identify promising young talents across Africa using cutting-edge AI detection technology and traditional recruitment networks.",
+      "train": "Train:",
+      "trainText": "Provide world-class coaching, modern facilities, and comprehensive academic education to develop well-rounded athletes.",
+      "empower": "Empower:",
+      "empowerText": "Equip our students with life skills, values, and opportunities to succeed professionally and personally.",
+      "excellence": "Excellence",
+      "innovation": "Innovation",
+      "integrity": "Integrity"
+    },
+    "infrastructures": {
+      "title": "World-Class Infrastructures",
+      "description": "Our facilities are designed to provide the best environment for athletic and academic excellence.",
+      "facilities": {
+        "fifa": {
+          "title": "FIFA Standard Football Fields",
+          "description": "Professional-grade natural and synthetic turf fields meeting international standards."
+        },
+        "classrooms": {
+          "title": "Modern Classrooms",
+          "description": "State-of-the-art learning spaces equipped with digital technology and interactive tools."
+        },
+        "medical": {
+          "title": "Medical Center",
+          "description": "Complete healthcare facility with sports medicine specialists and rehabilitation equipment."
+        },
+        "residence": {
+          "title": "Student Residences",
+          "description": "Comfortable and secure accommodation with study spaces and recreational facilities."
+        },
+        "performance": {
+          "title": "Performance Center",
+          "description": "Gym and advanced fitness facilities with strength and conditioning training equipment."
+        },
+        "vip": {
+          "title": "Recruiter & VIP Spaces",
+          "description": "Professional coworking spaces and observation lounges for recruiters, agents, and partners."
+        }
+      }
+    },
+    "leadership": {
+      "title": "Our Leadership Team",
+      "description": "Experienced professionals dedicated to developing the next generation of African football talents.",
+      "quote": "At Farafina Foot Academy, discipline shapes talent, and respect creates champions.",
+      "ceo": {
+        "name": "Mr. Abdoulaye Galaye C. Diallo",
+        "title": "Chief Executive Officer, Farafina Group",
+        "alt": "CEO"
+      },
+      "team": {
+        "coach": {
+          "role": "Head Coach",
+          "bio": "Former professional player with over 15 years of coaching experience in European academies."
+        },
+        "academic": {
+          "role": "Academic Director",
+          "bio": "Ph.D. in Education, specialized in sports-study programs and youth development."
+        },
+        "technical": {
+          "role": "Technical Director",
+          "bio": "UEFA Pro License holder with expertise in talent identification and player development."
+        }
+      }
+    },
+    "inclusion": {
+      "title": "Social Inclusion",
+      "description": "At Farafina Foot Academy, we believe that talent knows no boundaries. Our commitment to social inclusion ensures that every young player, regardless of origin or gender, has access to world-class training and education.",
+      "scholarships": "Scholarship Programs",
+      "scholarshipsText": "Merit and need-based scholarships covering tuition, accommodation, and equipment for talented players from all backgrounds.",
+      "womenFootball": "Women's Football Program",
+      "womenFootballText": "Dedicated training programs, facilities, and support for female players, promoting gender equality in African football.",
+      "equalAccess": "Equal Access",
+      "equalAccessText": "No discrimination based on ethnicity, religion, or socioeconomic status. Each player is evaluated solely on their talent and potential.",
+      "supportButton": "Support our Social Initiatives",
+      "supportText": "Help us provide opportunities to talented young players"
+    }
+  },
+  "footer": {
+    "tagline": "The future of African football starts here.",
+    "quickLinks": "Quick Links",
+    "resources": "Resources",
+    "contactUs": "Contact Us",
+    "news": "News",
+    "careers": "Careers",
+    "faq": "FAQ",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "location": "Fann Hock, Dakar Region, Senegal",
+    "phone": "+221 XX XXX XX XX",
+    "email": "info@farafinafootacademy.com",
+    "copyright": "© 2025 Farafina Foot Academy. All rights reserved.",
+    "poweredBy": "Powered by",
+    "followUs": "Follow Us"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "sendMessage": "Send us a Message",
+    "responseTime": "We will respond within 24 hours.",
+    "contactDirectly": "Contact us directly via one of the channels below.",
+    "hero": {
+      "title": "Contact and Partnerships",
+      "description": "Collaborate with Farafina Foot Academy and help shape the future of African football.",
+      "features": {
+        "partnership": "Partnership",
+        "network": "Global Network",
+        "community": "Community"
+      }
+    },
+    "map": {
+      "title": "Visit Our Headquarters",
+      "description": "Located in the heart of Dakar, our administrative headquarters in Fann Hock offers quick access from throughout the capital.",
+      "location": {
+        "title": "Located in the Fann Hock neighborhood",
+        "description": "Quick access via Boulevard Martin Luther King"
+      },
+      "getDirections": "Get Directions"
+    },
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "email": "Email Address",
+    "emailPlaceholder": "your.email@example.com",
+    "role": "I am a",
+    "rolePlaceholder": "Select your role",
+    "subject": "Subject",
+    "subjectPlaceholder": "What is this about?",
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your request...",
+    "sendButton": "Send Message",
+    "sending": "Sending...",
+    "sent": "Message sent successfully!",
+    "sentDescription": "We will respond within 24 hours.",
+    "error": "Error sending",
+    "errorDescription": "Please try again later.",
+    "location": "Our Location",
+    "locationText": "Farafina Foot Academy\nFann Hock, Dakar Region\nSenegal, West Africa",
+    "phone": "Phone",
+    "phoneHours": "Mon-Fri, 9:00 AM - 6:00 PM (GMT)",
+    "emailLabel": "Email",
+    "emailResponse": "We will respond within 24 hours",
+    "followUs": "Follow Us",
+    "socialDescription": "Stay connected on social media",
+    "roles": {
+      "parent": "Parent",
+      "recruiter": "Recruiter",
+      "sponsor": "Sponsor",
+      "media": "Media",
+      "other": "Other"
+    }
+  },
+  "toast": {
+    "success": "Success",
+    "error": "Error",
+    "info": "Information",
+    "warning": "Warning"
+  },
+  "cookies": {
+    "title": "Cookie Management",
+    "description": "We use cookies to improve your experience, analyze traffic and personalize content. By continuing, you accept our use of cookies.",
+    "learnMore": "Learn more",
+    "acceptAll": "Accept All",
+    "acceptNecessary": "Accept Necessary",
+    "customize": "Customize",
+    "settingsTitle": "Cookie Settings",
+    "necessary": "Necessary Cookies",
+    "necessaryDescription": "Essential for the site to function",
+    "analytics": "Analytics Cookies",
+    "analyticsDescription": "Help us understand how you use the site",
+    "marketing": "Marketing Cookies",
+    "marketingDescription": "Used for personalized advertising",
+    "savePreferences": "Save Preferences"
+  },
+  "ffaTV": {
+    "liveNow": "LIVE NOW",
+    "hero": {
+      "title": "FFA TV — Watch the",
+      "titleHighlight": "Legends of Tomorrow",
+      "titleSuffix": "in Action",
+      "description": "Discover live matches, exclusive highlights and behind-the-scenes training sessions from Farafina Foot Academy.",
+      "watchLive": "Watch Live",
+      "browseReplays": "Browse Replays"
+    }
+  },
+  "programs": {
+    "hero": {
+      "title": "Sports and",
+      "titleHighlight": "Academic Programs",
+      "subtitle": "Excellence on the field and in the classroom.",
+      "applyButton": "Apply now"
+    },
+    "cta": {
+      "title": "Join a Unique Program in",
+      "titleHighlight": "Africa",
+      "description": "Take the first step towards excellence on the field and in life. Apply to Farafina Foot Academy today.",
+      "applyButton": "Apply now",
+      "scheduleButton": "Schedule a Visit"
+    },
+    "sports": {
+      "title": "Excellence",
+      "titleHighlight": "Sports",
+      "description": "Our professional-level football training program is designed to develop complete athletes. We combine technical mastery with tactical intelligence, physical conditioning and mental resilience.",
+      "trainingHours": "Training Hours per Week",
+      "facilities": {
+        "fifa": "FIFA Fields",
+        "gym": "Modern Sports Hall",
+        "competition": "Competition Venues",
+        "video": "Video Analysis Laboratory"
+      },
+      "highlights": {
+        "technical": {
+          "title": "Daily Technical and Tactical Sessions",
+          "description": "Intensive training focused on ball control, positioning and game intelligence"
+        },
+        "physical": {
+          "title": "Physical and Mental Preparation",
+          "description": "Strength conditioning, injury prevention and sports psychology"
+        },
+        "analysis": {
+          "title": "Video Analysis and Performance",
+          "description": "Advanced analysis and personalized performance evaluations"
+        },
+        "competition": {
+          "title": "Official Competitions",
+          "description": "Regular participation in regional and international tournaments"
+        }
+      }
+    },
+    "academic": {
+      "title": "Excellence",
+      "titleHighlight": "Academic",
+      "description": "Education is at the heart of our mission. We offer a comprehensive program that prepares our students for success beyond football, ensuring they have the knowledge and skills needed to succeed in any field.",
+      "successRate": "Academic Success Rate",
+      "quote": "Discipline shapes talent, and respect builds champions.",
+      "quoteAuthor": "Farafina Foot Academy Philosophy",
+      "features": {
+        "classrooms": {
+          "title": "Modern Classrooms",
+          "description": "State-of-the-art learning environments equipped with the latest educational technologies"
+        },
+        "bilingual": {
+          "title": "Bilingual Education (French/English)",
+          "description": "Mastery of both languages opens doors to international opportunities"
+        },
+        "digital": {
+          "title": "Digital Literacy and Leadership",
+          "description": "Technological skills and leadership development for the modern world"
+        },
+        "personal": {
+          "title": "Personal Development and Ethics",
+          "description": "Character building and values education to develop complete individuals"
+        }
+      }
+    },
+    "byAge": {
+      "title": "Programs by",
+      "titleHighlight": "Age Group",
+      "description": "Customized development pathways designed to meet the unique needs of each age group and skill level.",
+      "trainingIntensityLabel": "Training Intensity",
+      "competitionLabel": "Competition Focus",
+      "goalsTitle": "Program Goals",
+      "fundamentals": {
+        "title": "Fundamentals Development",
+        "description": "Our foundation program focuses on developing complete athletes with strong technical abilities, tactical understanding and academic excellence.",
+        "trainingIntensity": "15-18 hours/week",
+        "competition": "Youth regional leagues and tournaments",
+        "goals": {
+          "technical": "Master fundamental technical skills",
+          "tactical": "Develop tactical awareness and game intelligence",
+          "physical": "Build physical literacy and coordination",
+          "academic": "Establish a solid academic foundation"
+        }
+      },
+      "elite": {
+        "title": "Elite Performance Pathway",
+        "description": "The elite pathway prepares high-potential athletes for professional careers through intensive training, competitive exposure and comprehensive academic support.",
+        "trainingIntensity": "20-25 hours/week",
+        "competition": "National leagues, international tournaments, showcase events",
+        "goals": {
+          "technical": "Advanced technical and tactical mastery",
+          "physical": "High-intensity physical conditioning",
+          "exposure": "Exposure to professional clubs and trials",
+          "career": "University preparation and career planning"
+        }
+      },
+      "postAcademy": {
+        "ageGroup": "Post-Academy",
+        "title": "Professional Development",
+        "description": "Our post-academy program supports graduates in their transition to professional football while maintaining educational and personal development pathways.",
+        "trainingIntensity": "Customized programs",
+        "competition": "Professional leagues and international transfers",
+        "goals": {
+          "placement": "Placement and contracts with professional clubs",
+          "continuing": "Continuing education and career support",
+          "network": "Alumni network and mentoring",
+          "transition": "Transition to professional football"
+        }
+      }
+    },
+    "coaching": {
+      "title": "Coaches & Academic",
+      "titleHighlight": "Staff",
+      "description": "Our world-class team of coaches, educators and specialists is dedicated to developing complete athletes and scholars.",
+      "staff": {
+        "headCoach": {
+          "role": "Head Football Coach",
+          "qualifications": "UEFA Pro License, Former Professional Player",
+          "philosophy": "Every player has unique potential. My job is to unlock it through discipline, dedication and intelligent training."
+        },
+        "academic": {
+          "role": "Academic Director",
+          "qualifications": "PhD in Education, Over 15 Years of Experience",
+          "philosophy": "Education enables our students to succeed beyond the field. We train scholars who are also exceptional athletes."
+        },
+        "performance": {
+          "role": "Physical Performance Coach",
+          "qualifications": "MSc Sports Science, Certified Strength Coach",
+          "philosophy": "Optimal performance requires scientific training, proper recovery and mental resilience. We optimize every aspect."
+        },
+        "psychologist": {
+          "role": "Sports Psychologist",
+          "qualifications": "MSc Sports Psychology, Mental Performance Specialist",
+          "philosophy": "Mental strength is as important as physical ability. We develop champions who excel under pressure."
+        }
+      }
+    },
+    "schedule": {
+      "title": "A Typical Day at",
+      "titleHighlight": "FFA",
+      "description": "Our integrated schedule balances academic rigor with intensive sports training, ensuring holistic development for each student-athlete.",
+      "morning": {
+        "period": "Morning",
+        "title": "Academic Classes",
+        "activities": {
+          "math": "Mathematics and Sciences",
+          "languages": "Languages (French/English)",
+          "social": "Social Studies and History"
+        }
+      },
+      "noon": {
+        "period": "Noon",
+        "title": "Lunch and Rest",
+        "activities": {
+          "meals": "Nutritious meals",
+          "recovery": "Recovery time",
+          "mental": "Mental preparation"
+        }
+      },
+      "afternoon": {
+        "period": "Afternoon",
+        "title": "Sports Training",
+        "activities": {
+          "technical": "Technical exercises",
+          "tactical": "Tactical sessions",
+          "conditioning": "Physical conditioning"
+        }
+      },
+      "evening": {
+        "period": "Evening",
+        "title": "Study and Recovery",
+        "activities": {
+          "homework": "Homework and tutoring",
+          "video": "Video analysis",
+          "rest": "Rest and wellness"
+        }
+      }
+    }
+  },
+  "events": {
+    "hero": {
+      "badge": "Official Events",
+      "title": "Our Events",
+      "description": "Discover the moments that make our academy vibrate. Gather around football, excellence and passion.",
+      "calendarButton": "View full calendar",
+      "tryoutButton": "Participate in a tryout"
+    },
+    "cta": {
+      "title": "Don't miss our next tryout days",
+      "description": "Join the next generation of African football stars. Sign up now and give yourself the chance to shine on international fields.",
+      "calendarButton": "View calendar",
+      "registerButton": "Register now"
+    },
+    "introduction": {
+      "title": "A community united by passion",
+      "description": "Farafina Foot Academy events bring together talents, families and football enthusiasts around unique experiences. From our tryout days to regional tournaments, every moment is an opportunity to grow, learn and push yourself. Join us to experience sporting and academic excellence."
+    }
+  },
+  "boutique": {
+    "hero": {
+      "badge": "Official Farafina Foot Academy Collection",
+      "title": "Wear the colors of African excellence",
+      "description": "Exceptional jerseys, technical tracksuits and premium accessories. A collection designed to celebrate African talent and support our young players to the highest level.",
+      "exploreButton": "Explore the shop",
+      "supportButton": "Support the academy",
+      "features": {
+        "officialGear": {
+          "label": "Official gear",
+          "description": "Premium design, golden finishes"
+        },
+        "quality": {
+          "label": "Guaranteed quality",
+          "description": "Resistant & breathable materials"
+        },
+        "impact": {
+          "label": "Direct impact",
+          "description": "Every purchase funds Farafina training programs"
+        }
+      }
+    },
+    "cta": {
+      "title": "Wear the colors of African excellence",
+      "description": "Every purchase supports the training of young talents at Farafina Foot Academy. Be part of the adventure and share the passion for African football.",
+      "orderButton": "Order now",
+      "learnMoreButton": "Learn more"
+    }
+  },
+  "scouting": {
+    "hero": {
+      "badge": "Powered by Artificial Intelligence",
+      "title": "AI & Talent Scouting",
+      "subtitle": "Empower coaches and players with data-driven insights",
+      "description": "Farafina Foot Academy integrates cutting-edge AI technology to identify, track and develop football talents across Africa with precision and fairness.",
+      "dashboardButton": "View Demo Dashboard",
+      "learnMoreButton": "Learn More",
+      "stats": {
+        "playersTracked": "Players Tracked",
+        "accuracyRate": "Accuracy Rate",
+        "realTimeAnalysis": "Real-Time Analysis",
+        "genderInclusive": "Gender Inclusive"
+      }
+    }
+  },
+  "international": {
+    "hero": {
+      "badge": "Global Excellence",
+      "title": "Excellence Beyond Borders",
+      "description": "International support to propel our talents to success. Training, follow-up and protection for each player in their journey abroad.",
+      "discoverButton": "Discover the program",
+      "joinButton": "Join us"
+    },
+    "cta": {
+      "title": "Your talent deserves support worthy of your ambitions",
+      "description": "Join Farafina Foot Academy and benefit from comprehensive international support to propel your career to the top. Training, follow-up and protection, we are by your side at every step.",
+      "applyButton": "Apply to Farafina Foot Academy",
+      "learnMoreButton": "Learn more about our network",
+      "features": {
+        "elite": {
+          "title": "Elite training",
+          "description": "High-level international coaching"
+        },
+        "network": {
+          "title": "Strong network",
+          "description": "Partnerships with the best clubs"
+        },
+        "support": {
+          "title": "Complete follow-up",
+          "description": "360° support for each player"
+        }
+      }
+    }
+  },
+  "apply": {
+    "hero": {
+      "badge": "Applications Open",
+      "title": "Apply to Farafina Foot Academy",
+      "description": "Take the first step to become one of the future legends of African football. Join an elite academy where world-class training meets academic excellence.",
+      "startButton": "Start Application",
+      "learnMoreButton": "Learn More About Admissions",
+      "stats": {
+        "acceptanceRate": "Acceptance Rate",
+        "ageRange": "Age Range",
+        "countries": "Countries"
+      }
+    },
+    "cta": {
+      "title": "Ready to Start? Create Your Candidate Account Now",
+      "description": "Join hundreds of talented young players who have taken the first step towards their professional football career. Your journey starts here.",
+      "createAccountButton": "Create Account",
+      "contactButton": "Contact Admissions Team",
+      "stats": {
+        "support": "Application Support",
+        "response": "Initial Response",
+        "secure": "Secure Process"
+      }
+    }
   }
 }
-
