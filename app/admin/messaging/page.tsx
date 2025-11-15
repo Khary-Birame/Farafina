@@ -86,21 +86,21 @@ export default function MessagingNotificationsPage() {
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">Messagerie & Notifications</h1>
-        <p className="text-[#C0C0C0]">Communication interne et notifications</p>
+        <p className="text-[#737373]">Communication interne et notifications</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Messages List */}
         <div className="lg:col-span-2 space-y-6">
-          <Card>
+          <Card className="bg-white shadow-md">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="text-[#1A1A1A]">Messages</CardTitle>
-                  <CardDescription>Communication interne</CardDescription>
+                  <CardTitle className="text-[#1A1A1A] font-semibold">Messages</CardTitle>
+                  <CardDescription className="text-[#737373]">Communication interne</CardDescription>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button variant="outline" size="sm" className="border-[#C0C0C0] text-[#1A1A1A]">
+                  <Button variant="outline" size="sm" className="border-[#E5E7EB] text-[#1A1A1A] hover:bg-[#F9FAFB]">
                     <Filter className="w-4 h-4 mr-2" />
                     Filtres
                   </Button>
@@ -117,11 +117,11 @@ export default function MessagingNotificationsPage() {
             <CardContent>
               {/* Search */}
               <div className="relative mb-4">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C0C0C0]" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#737373]" />
                 <Input
                   type="search"
                   placeholder="Rechercher un message..."
-                  className="pl-10 bg-[#F5F5F5] border-[#C0C0C0]"
+                  className="pl-10 bg-white border-[#E5E7EB] shadow-sm focus:border-[#D4AF37] focus:ring-[#D4AF37]/20"
                 />
               </div>
 
@@ -131,10 +131,10 @@ export default function MessagingNotificationsPage() {
                   <div
                     key={msg.id}
                     onClick={() => setSelectedMessage(msg)}
-                    className={`p-4 border rounded-lg cursor-pointer transition-colors ${
+                    className={`p-4 border rounded-lg cursor-pointer transition-colors shadow-sm ${
                       selectedMessage?.id === msg.id
                         ? "bg-[#D4AF37]/10 border-[#D4AF37]"
-                        : "bg-white border-[#C0C0C0]/30 hover:bg-[#F5F5F5]"
+                        : "bg-white border-[#E5E7EB] hover:bg-[#F9FAFB]"
                     } ${!msg.read ? "border-l-4 border-l-[#D4AF37]" : ""}`}
                   >
                     <div className="flex items-start justify-between mb-2">
@@ -158,9 +158,9 @@ export default function MessagingNotificationsPage() {
                           </Badge>
                         </div>
                         <div className="font-medium text-[#1A1A1A] mb-1">{msg.subject}</div>
-                        <div className="text-sm text-[#C0C0C0] line-clamp-2">{msg.message}</div>
+                        <div className="text-sm text-[#737373] line-clamp-2">{msg.message}</div>
                       </div>
-                      <div className="text-xs text-[#C0C0C0] whitespace-nowrap ml-4">
+                      <div className="text-xs text-[#737373] whitespace-nowrap ml-4">
                         {msg.date}
                       </div>
                     </div>
@@ -172,9 +172,9 @@ export default function MessagingNotificationsPage() {
 
           {/* Message Detail */}
           {selectedMessage && (
-            <Card>
+            <Card className="bg-white shadow-md">
               <CardHeader>
-                <CardTitle className="text-[#1A1A1A]">{selectedMessage.subject}</CardTitle>
+                <CardTitle className="text-[#1A1A1A] font-semibold">{selectedMessage.subject}</CardTitle>
                 <CardDescription>
                   De: {selectedMessage.from} • À: {selectedMessage.to} • {selectedMessage.date}
                 </CardDescription>
@@ -186,7 +186,7 @@ export default function MessagingNotificationsPage() {
                 <div className="space-y-4">
                   <Textarea
                     placeholder="Répondre au message..."
-                    className="min-h-[100px] border-[#C0C0C0] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20"
+                    className="min-h-[100px] border-[#E5E7EB] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20 shadow-sm"
                   />
                   <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
                     <Send className="w-4 h-4 mr-2" />
@@ -200,10 +200,10 @@ export default function MessagingNotificationsPage() {
 
         {/* Notifications */}
         <div>
-          <Card>
+          <Card className="bg-white shadow-md">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-[#1A1A1A]">Notifications</CardTitle>
+                <CardTitle className="text-[#1A1A1A] font-semibold">Notifications</CardTitle>
                 <Badge className="bg-[#D4AF37] text-white">
                   {notifications.filter((n) => !n.read).length}
                 </Badge>
@@ -214,10 +214,10 @@ export default function MessagingNotificationsPage() {
                 {notifications.map((notif) => (
                   <div
                     key={notif.id}
-                    className={`p-3 border rounded-lg transition-colors ${
+                    className={`p-3 border rounded-lg transition-colors shadow-sm ${
                       !notif.read
                         ? "bg-[#D4AF37]/5 border-[#D4AF37]/30"
-                        : "bg-white border-[#C0C0C0]/30"
+                        : "bg-white border-[#E5E7EB]"
                     }`}
                   >
                     <div className="flex items-start gap-3">
@@ -244,8 +244,8 @@ export default function MessagingNotificationsPage() {
                         <div className="font-semibold text-sm text-[#1A1A1A] mb-1">
                           {notif.title}
                         </div>
-                        <div className="text-xs text-[#C0C0C0] mb-1">{notif.message}</div>
-                        <div className="text-xs text-[#C0C0C0]">{notif.date}</div>
+                        <div className="text-xs text-[#737373] mb-1">{notif.message}</div>
+                        <div className="text-xs text-[#737373]">{notif.date}</div>
                       </div>
                     </div>
                   </div>

@@ -17,11 +17,11 @@ export default function SettingsPermissionsPage() {
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">Paramètres & Permissions</h1>
-        <p className="text-[#C0C0C0]">Gérez les paramètres système et les permissions utilisateur</p>
+        <p className="text-[#737373]">Gérez les paramètres système et les permissions utilisateur</p>
       </div>
 
       <Tabs defaultValue="profile" className="space-y-6">
-        <TabsList className="bg-white border border-[#C0C0C0]/30">
+        <TabsList className="bg-white border border-[#E5E7EB] shadow-sm">
           <TabsTrigger value="profile" className="data-[state=active]:bg-[#D4AF37] data-[state=active]:text-white">
             <User className="w-4 h-4 mr-2" />
             Profil
@@ -46,10 +46,10 @@ export default function SettingsPermissionsPage() {
 
         {/* Profile Tab */}
         <TabsContent value="profile">
-          <Card>
+          <Card className="bg-white shadow-md">
             <CardHeader>
-              <CardTitle className="text-[#1A1A1A]">Profil Utilisateur</CardTitle>
-              <CardDescription>Gérez vos informations personnelles</CardDescription>
+              <CardTitle className="text-[#1A1A1A] font-semibold">Profil Utilisateur</CardTitle>
+              <CardDescription className="text-[#737373]">Gérez vos informations personnelles</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid grid-cols-2 gap-6">
@@ -60,7 +60,7 @@ export default function SettingsPermissionsPage() {
                   <Input
                     id="firstName"
                     defaultValue="Admin"
-                    className="border-[#C0C0C0] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20"
+                    className="border-[#E5E7EB] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20 shadow-sm"
                   />
                 </div>
                 <div className="space-y-2">
@@ -70,7 +70,7 @@ export default function SettingsPermissionsPage() {
                   <Input
                     id="lastName"
                     defaultValue="User"
-                    className="border-[#C0C0C0] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20"
+                    className="border-[#E5E7EB] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20 shadow-sm"
                   />
                 </div>
               </div>
@@ -90,7 +90,7 @@ export default function SettingsPermissionsPage() {
                   Rôle
                 </Label>
                 <Select defaultValue="admin">
-                  <SelectTrigger className="border-[#C0C0C0] focus:border-[#D4AF37]">
+                  <SelectTrigger className="border-[#E5E7EB] focus:border-[#D4AF37] shadow-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -110,18 +110,18 @@ export default function SettingsPermissionsPage() {
 
         {/* Permissions Tab */}
         <TabsContent value="permissions">
-          <Card>
+          <Card className="bg-white shadow-md">
             <CardHeader>
-              <CardTitle className="text-[#1A1A1A]">Gestion des Permissions</CardTitle>
-              <CardDescription>Configurez les permissions par rôle</CardDescription>
+              <CardTitle className="text-[#1A1A1A] font-semibold">Gestion des Permissions</CardTitle>
+              <CardDescription className="text-[#737373]">Configurez les permissions par rôle</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-4">
-                <div className="p-4 border border-[#C0C0C0]/30 rounded-lg">
+                <div className="p-4 border border-[#E5E7EB] rounded-lg bg-gradient-to-br from-[#F9FAFB] to-white shadow-sm">
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <div className="font-semibold text-[#1A1A1A] mb-1">Administrateur</div>
-                      <div className="text-sm text-[#C0C0C0]">Accès complet à toutes les fonctionnalités</div>
+                      <div className="text-sm text-[#737373]">Accès complet à toutes les fonctionnalités</div>
                     </div>
                     <Badge className="bg-[#D4AF37] text-white">Actif</Badge>
                   </div>
@@ -141,11 +141,11 @@ export default function SettingsPermissionsPage() {
                   </div>
                 </div>
 
-                <div className="p-4 border border-[#C0C0C0]/30 rounded-lg">
+                <div className="p-4 border border-[#E5E7EB] rounded-lg bg-gradient-to-br from-[#F9FAFB] to-white shadow-sm">
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <div className="font-semibold text-[#1A1A1A] mb-1">Coach</div>
-                      <div className="text-sm text-[#C0C0C0]">Gestion des entraînements et performances</div>
+                      <div className="text-sm text-[#737373]">Gestion des entraînements et performances</div>
                     </div>
                     <Badge className="bg-[#E8C966] text-white">Actif</Badge>
                   </div>
@@ -171,10 +171,10 @@ export default function SettingsPermissionsPage() {
 
         {/* Language Tab */}
         <TabsContent value="language">
-          <Card>
+          <Card className="bg-white shadow-md">
             <CardHeader>
-              <CardTitle className="text-[#1A1A1A]">Paramètres de Langue</CardTitle>
-              <CardDescription>Sélectionnez la langue de l'interface</CardDescription>
+              <CardTitle className="text-[#1A1A1A] font-semibold">Paramètres de Langue</CardTitle>
+              <CardDescription className="text-[#737373]">Sélectionnez la langue de l'interface</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
@@ -182,7 +182,7 @@ export default function SettingsPermissionsPage() {
                   Langue par défaut
                 </Label>
                 <Select defaultValue="fr">
-                  <SelectTrigger className="border-[#C0C0C0] focus:border-[#D4AF37]">
+                  <SelectTrigger className="border-[#E5E7EB] focus:border-[#D4AF37] shadow-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -202,31 +202,31 @@ export default function SettingsPermissionsPage() {
 
         {/* Notifications Tab */}
         <TabsContent value="notifications">
-          <Card>
+          <Card className="bg-white shadow-md">
             <CardHeader>
-              <CardTitle className="text-[#1A1A1A]">Préférences de Notifications</CardTitle>
-              <CardDescription>Configurez vos notifications</CardDescription>
+              <CardTitle className="text-[#1A1A1A] font-semibold">Préférences de Notifications</CardTitle>
+              <CardDescription className="text-[#737373]">Configurez vos notifications</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-medium text-[#1A1A1A]">Notifications Email</div>
-                    <div className="text-sm text-[#C0C0C0]">Recevoir les notifications par email</div>
+                    <div className="text-sm text-[#737373]">Recevoir les notifications par email</div>
                   </div>
                   <Switch defaultChecked className="data-[state=checked]:bg-[#D4AF37]" />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-medium text-[#1A1A1A]">Notifications Push</div>
-                    <div className="text-sm text-[#C0C0C0]">Notifications dans le navigateur</div>
+                    <div className="text-sm text-[#737373]">Notifications dans le navigateur</div>
                   </div>
                   <Switch defaultChecked className="data-[state=checked]:bg-[#D4AF37]" />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-medium text-[#1A1A1A]">Alertes Urgentes</div>
-                    <div className="text-sm text-[#C0C0C0]">Toujours recevoir les alertes urgentes</div>
+                    <div className="text-sm text-[#737373]">Toujours recevoir les alertes urgentes</div>
                   </div>
                   <Switch defaultChecked className="data-[state=checked]:bg-[#D4AF37]" />
                 </div>
@@ -241,26 +241,26 @@ export default function SettingsPermissionsPage() {
         {/* System Tab */}
         <TabsContent value="system">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card>
+            <Card className="bg-white shadow-md">
               <CardHeader>
                 <CardTitle className="text-[#1A1A1A] flex items-center gap-2">
                   <Database className="w-5 h-5 text-[#D4AF37]" />
                   Sauvegarde
                 </CardTitle>
-                <CardDescription>Configuration des sauvegardes</CardDescription>
+                <CardDescription className="text-[#737373]">Configuration des sauvegardes</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-medium text-[#1A1A1A]">Sauvegarde Automatique</div>
-                    <div className="text-sm text-[#C0C0C0]">Sauvegarde quotidienne</div>
+                    <div className="text-sm text-[#737373]">Sauvegarde quotidienne</div>
                   </div>
                   <Switch defaultChecked className="data-[state=checked]:bg-[#D4AF37]" />
                 </div>
                 <div className="space-y-2">
                   <Label className="text-[#1A1A1A]">Fréquence</Label>
                   <Select defaultValue="daily">
-                    <SelectTrigger className="border-[#C0C0C0]">
+                    <SelectTrigger className="border-[#E5E7EB] shadow-sm">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -276,26 +276,26 @@ export default function SettingsPermissionsPage() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-white shadow-md">
               <CardHeader>
                 <CardTitle className="text-[#1A1A1A] flex items-center gap-2">
                   <Shield className="w-5 h-5 text-[#D4AF37]" />
                   Sécurité
                 </CardTitle>
-                <CardDescription>Paramètres de sécurité</CardDescription>
+                <CardDescription className="text-[#737373]">Paramètres de sécurité</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-medium text-[#1A1A1A]">Authentification à Deux Facteurs</div>
-                    <div className="text-sm text-[#C0C0C0]">Sécurité renforcée</div>
+                    <div className="text-sm text-[#737373]">Sécurité renforcée</div>
                   </div>
                   <Switch className="data-[state=checked]:bg-[#D4AF37]" />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-medium text-[#1A1A1A]">Logs d'Activité</div>
-                    <div className="text-sm text-[#C0C0C0]">Enregistrer toutes les activités</div>
+                    <div className="text-sm text-[#737373]">Enregistrer toutes les activités</div>
                   </div>
                   <Switch defaultChecked className="data-[state=checked]:bg-[#D4AF37]" />
                 </div>

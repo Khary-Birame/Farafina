@@ -72,7 +72,7 @@ export default function TrainingMatchManagementPage() {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">Entraînement & Matchs</h1>
-          <p className="text-[#C0C0C0]">Gérez les sessions d'entraînement et les matchs</p>
+          <p className="text-[#737373]">Gérez les sessions d'entraînement et les matchs</p>
         </div>
         <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
           <Plus className="w-4 h-4 mr-2" />
@@ -82,62 +82,62 @@ export default function TrainingMatchManagementPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-2">
               <Calendar className="w-5 h-5 text-[#D4AF37]" />
               <span className="text-2xl font-bold text-[#1A1A1A]">15</span>
             </div>
-            <p className="text-sm text-[#C0C0C0]">Prochains 7 jours</p>
+            <p className="text-sm text-[#737373]">Prochains 7 jours</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-2">
               <Users className="w-5 h-5 text-[#D4AF37]" />
               <span className="text-2xl font-bold text-[#1A1A1A]">92%</span>
             </div>
-            <p className="text-sm text-[#C0C0C0]">Taux de Présence Moyen</p>
+            <p className="text-sm text-[#737373]">Taux de Présence Moyen</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-2">
               <Clock className="w-5 h-5 text-[#E8C966]" />
               <span className="text-2xl font-bold text-[#1A1A1A]">3</span>
             </div>
-            <p className="text-sm text-[#C0C0C0]">Matchs à Venir</p>
+            <p className="text-sm text-[#737373]">Matchs à Venir</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-2">
               <MapPin className="w-5 h-5 text-[#D4AF37]" />
               <span className="text-2xl font-bold text-[#1A1A1A]">2</span>
             </div>
-            <p className="text-sm text-[#C0C0C0]">Lieux Actifs</p>
+            <p className="text-sm text-[#737373]">Lieux Actifs</p>
           </CardContent>
         </Card>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Training Sessions */}
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardHeader>
-            <CardTitle className="text-[#1A1A1A]">Prochaines Sessions d'Entraînement</CardTitle>
-            <CardDescription>Calendrier des entraînements à venir</CardDescription>
+            <CardTitle className="text-[#1A1A1A] font-semibold">Prochaines Sessions d'Entraînement</CardTitle>
+            <CardDescription className="text-[#737373]">Calendrier des entraînements à venir</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {trainingSessions.map((session) => (
                 <div
                   key={session.id}
-                  className="p-4 border border-[#C0C0C0]/30 rounded-lg hover:bg-[#F5F5F5] transition-colors"
+                  className="p-4 border border-[#E5E7EB] rounded-lg hover:bg-[#F9FAFB] transition-colors shadow-sm"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <h3 className="font-semibold text-[#1A1A1A] mb-1">{session.type}</h3>
-                      <div className="flex items-center gap-2 text-sm text-[#C0C0C0]">
+                      <div className="flex items-center gap-2 text-sm text-[#737373]">
                         <Calendar className="w-4 h-4" />
                         <span>{format(new Date(session.date), "EEEE d MMMM", { locale: fr })}</span>
                         <Clock className="w-4 h-4 ml-2" />
@@ -146,7 +146,7 @@ export default function TrainingMatchManagementPage() {
                     </div>
                     <Badge className="bg-[#D4AF37] text-white">{session.categorie}</Badge>
                   </div>
-                  <div className="flex items-center gap-4 text-sm text-[#C0C0C0] mt-2">
+                  <div className="flex items-center gap-4 text-sm text-[#737373] mt-2">
                     <span>Coach: {session.coach}</span>
                     <span>•</span>
                     <span>{session.lieu}</span>
@@ -156,7 +156,7 @@ export default function TrainingMatchManagementPage() {
                     </span>
                   </div>
                   {session.adversaire && (
-                    <div className="mt-2 pt-2 border-t border-[#C0C0C0]/30">
+                    <div className="mt-2 pt-2 border-t border-[#E5E7EB]">
                       <span className="text-sm font-medium text-[#1A1A1A]">
                         vs {session.adversaire}
                       </span>
@@ -169,22 +169,22 @@ export default function TrainingMatchManagementPage() {
         </Card>
 
         {/* Upcoming Matches */}
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardHeader>
-            <CardTitle className="text-[#1A1A1A]">Prochains Matchs</CardTitle>
-            <CardDescription>Matchs programmés</CardDescription>
+            <CardTitle className="text-[#1A1A1A] font-semibold">Prochains Matchs</CardTitle>
+            <CardDescription className="text-[#737373]">Matchs programmés</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {upcomingMatches.map((match) => (
                 <div
                   key={match.id}
-                  className="p-4 border border-[#C0C0C0]/30 rounded-lg hover:bg-[#F5F5F5] transition-colors"
+                  className="p-4 border border-[#E5E7EB] rounded-lg hover:bg-[#F9FAFB] transition-colors shadow-sm"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <h3 className="font-semibold text-[#1A1A1A] mb-1">vs {match.adversaire}</h3>
-                      <div className="flex items-center gap-2 text-sm text-[#C0C0C0]">
+                      <div className="flex items-center gap-2 text-sm text-[#737373]">
                         <Calendar className="w-4 h-4" />
                         <span>{format(new Date(match.date), "EEEE d MMMM", { locale: fr })}</span>
                         <Clock className="w-4 h-4 ml-2" />

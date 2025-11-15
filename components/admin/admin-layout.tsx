@@ -13,7 +13,7 @@ function AdminLayoutContent({ children }: AdminLayoutContentProps) {
   const { sidebarCollapsed } = useAdmin()
 
   return (
-    <div className="min-h-screen bg-[#F5F5F5]">
+    <div className="min-h-screen bg-gradient-to-br from-[#FAFAFA] via-[#F5F5F5] to-[#F0F0F0]">
       <AdminSidebar />
       <div className={cn("transition-all duration-300", sidebarCollapsed ? "ml-20" : "ml-64")}>
         <AdminHeader />

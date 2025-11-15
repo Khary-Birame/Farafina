@@ -64,27 +64,27 @@ export function DataTable<T extends { id: number | string }>({
       {/* Toolbar */}
       <div className="flex items-center justify-between">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C0C0C0]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#737373]" />
           <Input
             type="search"
             placeholder={searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-white border-[#C0C0C0] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20"
+            className="pl-10 bg-white border-[#E5E7EB] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20 shadow-sm"
           />
         </div>
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="border-[#C0C0C0] text-[#1A1A1A]">
+              <Button variant="outline" size="sm" className="border-[#E5E7EB] text-[#1A1A1A] hover:bg-[#F9FAFB]">
                 <Filter className="w-4 h-4 mr-2" />
                 Filtres
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>Par statut</DropdownMenuItem>
-              <DropdownMenuItem>Par date</DropdownMenuItem>
-              <DropdownMenuItem>Par catégorie</DropdownMenuItem>
+            <DropdownMenuContent align="end" className="bg-white border-[#E5E7EB] shadow-lg">
+              <DropdownMenuItem className="hover:bg-[#F9FAFB]">Par statut</DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-[#F9FAFB]">Par date</DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-[#F9FAFB]">Par catégorie</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           {onExport && (
@@ -92,7 +92,7 @@ export function DataTable<T extends { id: number | string }>({
               variant="outline"
               size="sm"
               onClick={onExport}
-              className="border-[#C0C0C0] text-[#2E2E2E]"
+              className="border-[#E5E7EB] text-[#1A1A1A] hover:bg-[#F9FAFB]"
             >
               <Download className="w-4 h-4 mr-2" />
               Exporter
@@ -102,10 +102,10 @@ export function DataTable<T extends { id: number | string }>({
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-lg border border-[#C0C0C0]/30 overflow-hidden">
+      <div className="bg-white rounded-lg border border-[#E5E7EB] shadow-md overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-[#F5F5F5] hover:bg-[#F5F5F5]">
+            <TableRow className="bg-gradient-to-r from-[#F9FAFB] to-[#F3F4F6] hover:bg-[#F3F4F6]">
               {columns.map((column) => (
                 <TableHead key={column.key} className="text-[#1A1A1A] font-semibold">
                   {column.header}
@@ -116,7 +116,7 @@ export function DataTable<T extends { id: number | string }>({
           <TableBody>
             {paginatedData.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={columns.length} className="text-center py-8 text-[#C0C0C0]">
+                <TableCell colSpan={columns.length} className="text-center py-8 text-[#737373]">
                   Aucun résultat trouvé
                 </TableCell>
               </TableRow>
@@ -127,8 +127,8 @@ export function DataTable<T extends { id: number | string }>({
                   onClick={() => onRowClick?.(row)}
                   className={cn(
                     "cursor-pointer transition-colors",
-                    index % 2 === 0 ? "bg-white" : "bg-[#F5F5F5]/50",
-                    onRowClick && "hover:bg-[#D4AF37]/5"
+                    index % 2 === 0 ? "bg-white" : "bg-[#F9FAFB]",
+                    onRowClick && "hover:bg-[#D4AF37]/10"
                   )}
                 >
                   {columns.map((column) => (
@@ -146,7 +146,7 @@ export function DataTable<T extends { id: number | string }>({
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between">
-          <p className="text-sm text-[#C0C0C0]">
+          <p className="text-sm text-[#737373]">
             Affichage {(currentPage - 1) * itemsPerPage + 1} à{" "}
             {Math.min(currentPage * itemsPerPage, filteredData.length)} sur {filteredData.length}
           </p>
@@ -156,11 +156,11 @@ export function DataTable<T extends { id: number | string }>({
               size="sm"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="border-[#C0C0C0] text-[#1A1A1A]"
+              className="border-[#E5E7EB] text-[#1A1A1A] hover:bg-[#F9FAFB]"
             >
               <ChevronLeft className="w-4 h-4" />
             </Button>
-            <span className="text-sm text-[#1A1A1A]">
+            <span className="text-sm text-[#1A1A1A] font-medium">
               Page {currentPage} sur {totalPages}
             </span>
             <Button
@@ -168,7 +168,7 @@ export function DataTable<T extends { id: number | string }>({
               size="sm"
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="border-[#C0C0C0] text-[#1A1A1A]"
+              className="border-[#E5E7EB] text-[#1A1A1A] hover:bg-[#F9FAFB]"
             >
               <ChevronRight className="w-4 h-4" />
             </Button>

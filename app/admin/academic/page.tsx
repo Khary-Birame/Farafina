@@ -18,6 +18,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Cell,
 } from "recharts"
 
 // Données de démonstration
@@ -129,7 +130,7 @@ export default function AcademicManagementPage() {
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">Gestion Académique</h1>
-        <p className="text-[#C0C0C0]">Suivez les performances académiques des étudiants</p>
+        <p className="text-[#737373]">Suivez les performances académiques des étudiants</p>
       </div>
 
       {/* KPI Cards */}
@@ -161,54 +162,64 @@ export default function AcademicManagementPage() {
           title="Cours Dispensés"
           value="18"
           icon={BookOpen}
-          iconColor="text-[#C0C0C0]"
-          borderColor="border-l-[#C0C0C0]"
+          iconColor="text-[#737373]"
+          borderColor="border-l-[#737373]"
           description="Matières actives"
         />
       </div>
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardHeader>
-            <CardTitle className="text-[#1A1A1A]">Moyennes par Matière</CardTitle>
-            <CardDescription>Performance par discipline</CardDescription>
+            <CardTitle className="text-[#1A1A1A] font-semibold">Moyennes par Matière</CardTitle>
+            <CardDescription className="text-[#737373]">Performance par discipline</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={academicData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#C0C0C0" />
-                <XAxis dataKey="subject" stroke="#1A1A1A" />
-                <YAxis stroke="#1A1A1A" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                <XAxis dataKey="subject" stroke="#737373" tick={{ fill: "#737373" }} />
+                <YAxis stroke="#737373" tick={{ fill: "#737373" }} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "#FFFFFF",
-                    border: "1px solid #C0C0C0",
+                    border: "1px solid #E5E7EB",
                     borderRadius: "8px",
+                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                   }}
                 />
-                <Bar dataKey="moyenne" fill="#D4AF37" radius={[8, 8, 0, 0]} />
+                <Bar 
+                  dataKey="moyenne" 
+                  radius={[8, 8, 0, 0]}
+                >
+                  {academicData.map((entry, index) => {
+                    const colors = ["#D4AF37", "#E8C966", "#B8941F", "#F59E0B", "#10B981"];
+                    return <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />;
+                  })}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardHeader>
-            <CardTitle className="text-[#1A1A1A]">Évolution de la Moyenne</CardTitle>
-            <CardDescription>Progression sur 6 mois</CardDescription>
+            <CardTitle className="text-[#1A1A1A] font-semibold">Évolution de la Moyenne</CardTitle>
+            <CardDescription className="text-[#737373]">Progression sur 6 mois</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={progressionData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#C0C0C0" />
-                <XAxis dataKey="month" stroke="#1A1A1A" />
-                <YAxis stroke="#1A1A1A" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                <XAxis dataKey="month" stroke="#737373" tick={{ fill: "#737373" }} />
+                <YAxis stroke="#737373" tick={{ fill: "#737373" }} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "#FFFFFF",
-                    border: "1px solid #C0C0C0",
+                    border: "1px solid #E5E7EB",
                     borderRadius: "8px",
+                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                   }}
                 />
                 <Line
@@ -216,7 +227,8 @@ export default function AcademicManagementPage() {
                   dataKey="moyenne"
                   stroke="#D4AF37"
                   strokeWidth={3}
-                  dot={{ fill: "#D4AF37", r: 5 }}
+                  dot={{ fill: "#D4AF37", r: 6 }}
+                  activeDot={{ r: 8 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -225,10 +237,10 @@ export default function AcademicManagementPage() {
       </div>
 
       {/* Students Table */}
-      <Card>
+      <Card className="bg-white shadow-md">
         <CardHeader>
-          <CardTitle className="text-[#1A1A1A]">Liste des Étudiants</CardTitle>
-          <CardDescription>Performances académiques détaillées</CardDescription>
+          <CardTitle className="text-[#1A1A1A] font-semibold">Liste des Étudiants</CardTitle>
+          <CardDescription className="text-[#737373]">Performances académiques détaillées</CardDescription>
         </CardHeader>
         <CardContent>
           <DataTable

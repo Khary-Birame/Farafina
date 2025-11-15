@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge"
 
 export function AdminHeader() {
   return (
-    <header className="sticky top-0 z-30 h-16 bg-white border-b border-[#C0C0C0]/30 shadow-sm">
+    <header className="sticky top-0 z-30 h-16 bg-white border-b border-[#E5E7EB] shadow-md">
       <div className="flex items-center justify-between h-full px-6">
         {/* Search */}
         <div className="flex-1 max-w-xl">

@@ -125,7 +125,7 @@ export default function FinanceAdmissionsPage() {
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">Finance & Admissions</h1>
-        <p className="text-[#C0C0C0]">Gestion financière et admissions</p>
+        <p className="text-[#737373]">Gestion financière et admissions</p>
       </div>
 
       {/* KPI Cards */}
@@ -149,8 +149,8 @@ export default function FinanceAdmissionsPage() {
           title="Paiements En Retard"
           value="8"
           icon={AlertCircle}
-          iconColor="text-[#C0C0C0]"
-          borderColor="border-l-[#C0C0C0]"
+          iconColor="text-[#EF4444]"
+          borderColor="border-l-[#EF4444]"
           description="Action requise"
         />
         <KPICard
@@ -165,22 +165,23 @@ export default function FinanceAdmissionsPage() {
       </div>
 
       {/* Revenue Chart */}
-      <Card className="mb-6">
+      <Card className="mb-6 bg-white shadow-md">
         <CardHeader>
-            <CardTitle className="text-[#1A1A1A]">Revenus par Devise</CardTitle>
-            <CardDescription>Évolution mensuelle en XOF, EUR et USD</CardDescription>
+            <CardTitle className="text-[#1A1A1A] font-semibold">Revenus par Devise</CardTitle>
+            <CardDescription className="text-[#737373]">Évolution mensuelle en XOF, EUR et USD</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={revenueData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#C0C0C0" />
-                <XAxis dataKey="month" stroke="#1A1A1A" />
-                <YAxis stroke="#1A1A1A" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                <XAxis dataKey="month" stroke="#737373" tick={{ fill: "#737373" }} />
+                <YAxis stroke="#737373" tick={{ fill: "#737373" }} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "#FFFFFF",
-                    border: "1px solid #C0C0C0",
+                    border: "1px solid #E5E7EB",
                     borderRadius: "8px",
+                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                   }}
                 />
                 <Legend />
@@ -193,10 +194,10 @@ export default function FinanceAdmissionsPage() {
       </Card>
 
       {/* Payments Table */}
-      <Card>
+      <Card className="bg-white shadow-md">
         <CardHeader>
-          <CardTitle className="text-[#1A1A1A]">Gestion des Paiements</CardTitle>
-          <CardDescription>Suivez tous les paiements et transactions</CardDescription>
+          <CardTitle className="text-[#1A1A1A] font-semibold">Gestion des Paiements</CardTitle>
+          <CardDescription className="text-[#737373]">Suivez tous les paiements et transactions</CardDescription>
         </CardHeader>
         <CardContent>
           <DataTable

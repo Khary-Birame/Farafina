@@ -124,7 +124,7 @@ export default function PlayersManagementPage() {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">Gestion des Joueurs</h1>
-          <p className="text-[#C0C0C0]">Gérez tous les joueurs de l'académie</p>
+          <p className="text-[#737373]">Gérez tous les joueurs de l'académie</p>
         </div>
         <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
           <Plus className="w-4 h-4 mr-2" />
@@ -134,37 +134,37 @@ export default function PlayersManagementPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardContent className="p-6">
             <div className="text-2xl font-bold text-[#1A1A1A] mb-1">247</div>
-            <p className="text-sm text-[#C0C0C0]">Total Joueurs</p>
+            <p className="text-sm text-[#737373]">Total Joueurs</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardContent className="p-6">
             <div className="text-2xl font-bold text-[#D4AF37] mb-1">215</div>
-            <p className="text-sm text-[#C0C0C0]">Actifs</p>
+            <p className="text-sm text-[#737373]">Actifs</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardContent className="p-6">
             <div className="text-2xl font-bold text-[#E8C966] mb-1">8</div>
-            <p className="text-sm text-[#C0C0C0]">Blessés</p>
+            <p className="text-sm text-[#737373]">Blessés</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardContent className="p-6">
             <div className="text-2xl font-bold text-[#D4AF37] mb-1">92%</div>
-            <p className="text-sm text-[#C0C0C0]">Taux de Présence Moyen</p>
+            <p className="text-sm text-[#737373]">Taux de Présence Moyen</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Players Table */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-[#1A1A1A]">Liste des Joueurs</CardTitle>
-          <CardDescription>Recherchez, filtrez et gérez les joueurs</CardDescription>
+        <Card className="bg-white shadow-md">
+          <CardHeader>
+            <CardTitle className="text-[#1A1A1A] font-semibold">Liste des Joueurs</CardTitle>
+            <CardDescription className="text-[#737373]">Recherchez, filtrez et gérez les joueurs</CardDescription>
         </CardHeader>
         <CardContent>
           <DataTable

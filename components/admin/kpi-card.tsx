@@ -27,20 +27,20 @@ export function KPICard({
   description,
 }: KPICardProps) {
   return (
-    <Card className={cn("border-l-4", borderColor)}>
+    <Card className={cn("border-l-4 bg-white shadow-md hover:shadow-lg transition-shadow", borderColor)}>
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex-1">
-            <p className="text-sm font-medium text-[#C0C0C0] mb-1">{title}</p>
+            <p className="text-sm font-medium text-[#737373] mb-1">{title}</p>
             <div className="flex items-baseline gap-2">
               <p className="text-3xl font-bold text-[#1A1A1A]">{value}</p>
               {change && (
                 <span
                   className={cn(
                     "text-sm font-medium",
-                    change.type === "increase" && "text-green-600",
-                    change.type === "decrease" && "text-red-600",
-                    change.type === "neutral" && "text-[#C0C0C0]"
+                    change.type === "increase" && "text-[#10B981]",
+                    change.type === "decrease" && "text-[#EF4444]",
+                    change.type === "neutral" && "text-[#737373]"
                   )}
                 >
                   {change.type === "increase" && "+"}
@@ -50,10 +50,10 @@ export function KPICard({
               )}
             </div>
             {description && (
-              <p className="text-xs text-[#C0C0C0] mt-2">{description}</p>
+              <p className="text-xs text-[#737373] mt-2">{description}</p>
             )}
           </div>
-          <div className={cn("p-3 rounded-lg bg-[#D4AF37]/10", iconColor)}>
+          <div className={cn("p-3 rounded-lg bg-gradient-to-br from-[#D4AF37]/20 to-[#E8C966]/20", iconColor)}>
             <Icon className={cn("w-6 h-6", iconColor)} />
           </div>
         </div>

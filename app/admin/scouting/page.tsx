@@ -76,7 +76,7 @@ export default function AIScoutingPage() {
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">IA & Scouting de Talents</h1>
-        <p className="text-[#C0C0C0]">Analyse prédictive et identification des talents</p>
+        <p className="text-[#737373]">Analyse prédictive et identification des talents</p>
       </div>
 
       {/* KPI Cards */}
@@ -118,17 +118,17 @@ export default function AIScoutingPage() {
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         {/* Talent Radar Chart */}
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardHeader>
-            <CardTitle className="text-[#1A1A1A]">Profil de Talent (Moyenne)</CardTitle>
-            <CardDescription>Analyse multidimensionnelle</CardDescription>
+            <CardTitle className="text-[#1A1A1A] font-semibold">Profil de Talent (Moyenne)</CardTitle>
+            <CardDescription className="text-[#737373]">Analyse multidimensionnelle</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RadarChart data={talentMetrics}>
-                <PolarGrid stroke="#C0C0C0" />
-                <PolarAngleAxis dataKey="name" stroke="#1A1A1A" tick={{ fill: "#1A1A1A" }} />
-                <PolarRadiusAxis angle={90} domain={[0, 100]} stroke="#C0C0C0" />
+                <PolarGrid stroke="#E5E7EB" />
+                <PolarAngleAxis dataKey="name" stroke="#737373" tick={{ fill: "#737373" }} />
+                <PolarRadiusAxis angle={90} domain={[0, 100]} stroke="#E5E7EB" />
                 <Radar
                   name="Score"
                   dataKey="value"
@@ -139,8 +139,9 @@ export default function AIScoutingPage() {
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "#FFFFFF",
-                    border: "1px solid #C0C0C0",
+                    border: "1px solid #E5E7EB",
                     borderRadius: "8px",
+                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                   }}
                 />
               </RadarChart>
@@ -149,22 +150,23 @@ export default function AIScoutingPage() {
         </Card>
 
         {/* Potential Distribution */}
-        <Card>
+        <Card className="bg-white shadow-md">
           <CardHeader>
-            <CardTitle className="text-[#1A1A1A]">Répartition du Potentiel</CardTitle>
-            <CardDescription>Distribution des scores IA</CardDescription>
+            <CardTitle className="text-[#1A1A1A] font-semibold">Répartition du Potentiel</CardTitle>
+            <CardDescription className="text-[#737373]">Distribution des scores IA</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={potentialData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#C0C0C0" />
-                <XAxis dataKey="name" stroke="#1A1A1A" />
-                <YAxis stroke="#1A1A1A" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                <XAxis dataKey="name" stroke="#737373" tick={{ fill: "#737373" }} />
+                <YAxis stroke="#737373" tick={{ fill: "#737373" }} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "#FFFFFF",
-                    border: "1px solid #C0C0C0",
+                    border: "1px solid #E5E7EB",
                     borderRadius: "8px",
+                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                   }}
                 />
                 <Bar dataKey="value" radius={[8, 8, 0, 0]}>
@@ -179,25 +181,25 @@ export default function AIScoutingPage() {
       </div>
 
       {/* Player Rankings */}
-      <Card>
+      <Card className="bg-white shadow-md">
         <CardHeader>
-          <CardTitle className="text-[#1A1A1A]">Classement des Talents</CardTitle>
-          <CardDescription>Top joueurs selon l'IA</CardDescription>
+          <CardTitle className="text-[#1A1A1A] font-semibold">Classement des Talents</CardTitle>
+          <CardDescription className="text-[#737373]">Top joueurs selon l'IA</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {playerRankings.map((player, index) => (
               <div
                 key={player.name}
-                className="flex items-center justify-between p-4 border border-[#C0C0C0]/30 rounded-lg hover:bg-[#F5F5F5] transition-colors"
+                className="flex items-center justify-between p-4 border border-[#E5E7EB] rounded-lg hover:bg-[#F9FAFB] transition-colors shadow-sm"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-[#D4AF37] rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-full flex items-center justify-center text-white font-bold shadow-md">
                     {index + 1}
                   </div>
                   <div>
                     <div className="font-semibold text-[#1A1A1A]">{player.name}</div>
-                    <div className="text-sm text-[#C0C0C0]">
+                    <div className="text-sm text-[#737373]">
                       {player.position} • {player.age} ans
                     </div>
                   </div>
@@ -205,7 +207,7 @@ export default function AIScoutingPage() {
                 <div className="flex items-center gap-4">
                   <div className="text-right">
                     <div className="text-2xl font-bold text-[#D4AF37]">{player.score}</div>
-                    <div className="text-xs text-[#C0C0C0]">Score IA</div>
+                    <div className="text-xs text-[#737373]">Score IA</div>
                   </div>
                   <Badge className="bg-[#D4AF37] text-white">Top Talent</Badge>
                 </div>
