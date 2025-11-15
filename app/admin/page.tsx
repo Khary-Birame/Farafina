@@ -1,367 +1,274 @@
 ﻿"use client"
 
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
+import { AdminLayout } from "@/components/admin/admin-layout"
+import { KPICard } from "@/components/admin/kpi-card"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { InputField, SelectField } from "@/components/ui/form-field"
 import {
   Users,
-  FileText,
+  Activity,
+  Calendar,
+  GraduationCap,
   DollarSign,
-  Settings,
-  BarChart3,
-  Shield,
-  Download,
-  Search,
-  Filter,
-  Plus,
-  Edit,
-  Trash2,
-  Eye,
+  TrendingUp,
+  AlertCircle,
+  Clock,
 } from "lucide-react"
-import { useState } from "react"
-import { Badge } from "@/components/ui/badge"
+import {
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts"
 
 // Données de démonstration
-const applications = [
-  {
-    id: 1,
-    name: "Amadou Diallo",
-    email: "amadou@example.com",
-    program: "Programme Résident",
-    status: "pending",
-    date: "2025-01-15",
-    gender: "M",
-  },
-  {
-    id: 2,
-    name: "Fatou Sarr",
-    email: "fatou@example.com",
-    program: "Programme Féminin",
-    status: "approved",
-    date: "2025-01-14",
-    gender: "F",
-  },
-  {
-    id: 3,
-    name: "Ibrahim Koné",
-    email: "ibrahim@example.com",
-    program: "Programme Élite",
-    status: "rejected",
-    date: "2025-01-13",
-    gender: "M",
-  },
+const attendanceData = [
+  { month: "Jan", taux: 92 },
+  { month: "Fév", taux: 88 },
+  { month: "Mar", taux: 95 },
+  { month: "Avr", taux: 90 },
+  { month: "Mai", taux: 93 },
+  { month: "Juin", taux: 96 },
 ]
 
-const payments = [
-  {
-    id: 1,
-    student: "Amadou Diallo",
-    amount: 2500000,
-    currency: "XOF",
-    status: "completed",
-    date: "2025-01-10",
-    method: "card",
-  },
-  {
-    id: 2,
-    student: "Fatou Sarr",
-    amount: 1800000,
-    currency: "XOF",
-    status: "pending",
-    date: "2025-01-12",
-    method: "bank",
-  },
+const academicData = [
+  { subject: "Math", moyenne: 78 },
+  { subject: "Français", moyenne: 82 },
+  { subject: "Anglais", moyenne: 75 },
+  { subject: "Sciences", moyenne: 80 },
+  { subject: "Histoire", moyenne: 77 },
 ]
 
-export default function AdminPage() {
-  const [searchQuery, setSearchQuery] = useState("")
+const financialData = [
+  { month: "Jan", revenus: 45000, depenses: 38000 },
+  { month: "Fév", revenus: 52000, depenses: 41000 },
+  { month: "Mar", revenus: 48000, depenses: 39000 },
+  { month: "Avr", revenus: 61000, depenses: 42000 },
+  { month: "Mai", revenus: 55000, depenses: 40000 },
+  { month: "Juin", revenus: 68000, depenses: 44000 },
+]
 
+const injuryDistribution = [
+  { name: "Blessures légères", value: 65, color: "#D4AF37" },
+  { name: "Blessures modérées", value: 25, color: "#E8C966" },
+  { name: "Blessures graves", value: 10, color: "#FF6B6B" },
+]
+
+export default function AdminDashboardPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main className="pt-20 pb-24">
-        <div className="container mx-auto px-4 lg:px-8 py-8 max-w-7xl">
-          {/* Header */}
-          <div className="mb-8 flex items-center justify-between">
-            <div>
-              <h1 className="font-sans font-bold text-4xl md:text-5xl text-foreground mb-2">
-                Back-Office Administratif
-              </h1>
-              <p className="text-muted-foreground text-lg">
-                Gestion complète de la plateforme Farafina
-              </p>
-            </div>
-            <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
-              <Plus className="w-4 h-4 mr-2" />
-              Nouveau
-            </Button>
-          </div>
+    <AdminLayout>
+      {/* Header */}
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">Tableau de Bord</h1>
+        <p className="text-[#C0C0C0]">Vue d'ensemble de l'académie Farafina</p>
+      </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card className="border-l-4 border-l-[#D4AF37]">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Candidatures</CardTitle>
-                <FileText className="h-4 w-4 text-[#D4AF37]" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">156</div>
-                <p className="text-xs text-muted-foreground">
-                  <span className="text-[#D4AF37]">12</span> en attente
-                </p>
-              </CardContent>
-            </Card>
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <KPICard
+          title="Total Joueurs"
+          value="247"
+          change={{ value: "+12", type: "increase" }}
+          icon={Users}
+          description="Joueurs actifs"
+        />
+        <KPICard
+          title="Blessures Actives"
+          value="8"
+          change={{ value: "-3", type: "decrease" }}
+          icon={Activity}
+          iconColor="text-red-500"
+          borderColor="border-l-red-500"
+          description="Blessures en cours"
+        />
+        <KPICard
+          title="Matchs à Venir"
+          value="15"
+          icon={Calendar}
+          iconColor="text-blue-500"
+          borderColor="border-l-blue-500"
+          description="Prochains 30 jours"
+        />
+        <KPICard
+          title="Performance Académique"
+          value="78%"
+          change={{ value: "+5%", type: "increase" }}
+          icon={GraduationCap}
+          iconColor="text-green-500"
+          borderColor="border-l-green-500"
+          description="Moyenne générale"
+        />
+      </div>
 
-            <Card className="border-l-4 border-l-[#D4AF37]">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Utilisateurs</CardTitle>
-                <Users className="h-4 w-4 text-[#D4AF37]" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">2,450</div>
-                <p className="text-xs text-muted-foreground">
-                  <span className="text-[#D4AF37]">+45</span> ce mois
-                </p>
-              </CardContent>
-            </Card>
+      {/* Second Row KPIs */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <KPICard
+          title="Paiements En Attente"
+          value="23"
+          icon={DollarSign}
+          iconColor="text-orange-500"
+          borderColor="border-l-orange-500"
+          description="En attente de traitement"
+        />
+        <KPICard
+          title="Revenus Mensuels"
+          value="68 000 €"
+          change={{ value: "+12%", type: "increase" }}
+          icon={TrendingUp}
+          iconColor="text-green-500"
+          borderColor="border-l-green-500"
+          description="Ce mois-ci"
+        />
+        <KPICard
+          title="Alertes"
+          value="5"
+          icon={AlertCircle}
+          iconColor="text-red-500"
+          borderColor="border-l-red-500"
+          description="Nécessitent une attention"
+        />
+        <KPICard
+          title="Taux de Présence"
+          value="92%"
+          change={{ value: "+3%", type: "increase" }}
+          icon={Clock}
+          iconColor="text-blue-500"
+          borderColor="border-l-blue-500"
+          description="Entraînements ce mois"
+        />
+      </div>
 
-            <Card className="border-l-4 border-l-[#E8C966]">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Paiements</CardTitle>
-                <DollarSign className="h-4 w-4 text-[#E8C966]" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">€125K</div>
-                <p className="text-xs text-muted-foreground">
-                  <span className="text-[#E8C966]">+8.2%</span> ce mois
-                </p>
-              </CardContent>
-            </Card>
+      {/* Charts Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        {/* Attendance Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-[#1A1A1A]">Taux de Présence aux Entraînements</CardTitle>
+            <CardDescription>Évolution mensuelle</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={attendanceData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#C0C0C0" />
+                <XAxis dataKey="month" stroke="#1A1A1A" />
+                <YAxis stroke="#1A1A1A" />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid #C0C0C0",
+                    borderRadius: "8px",
+                  }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="taux"
+                  stroke="#D4AF37"
+                  strokeWidth={3}
+                  dot={{ fill: "#D4AF37", r: 5 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
 
-            <Card className="border-l-4 border-l-[#E8C966]">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Clubs</CardTitle>
-                <Shield className="h-4 w-4 text-[#E8C966]" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">24</div>
-                <p className="text-xs text-muted-foreground">
-                  <span className="text-[#E8C966]">3</span> nouveaux
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+        {/* Academic Performance Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-[#1A1A1A]">Performances Académiques</CardTitle>
+            <CardDescription>Moyennes par matière</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={academicData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#C0C0C0" />
+                <XAxis dataKey="subject" stroke="#1A1A1A" />
+                <YAxis stroke="#1A1A1A" />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid #C0C0C0",
+                    borderRadius: "8px",
+                  }}
+                />
+                <Bar dataKey="moyenne" fill="#D4AF37" radius={[8, 8, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
 
-          {/* Main Content */}
-          <Tabs defaultValue="applications" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="applications">Candidatures</TabsTrigger>
-              <TabsTrigger value="users">Utilisateurs</TabsTrigger>
-              <TabsTrigger value="payments">Paiements</TabsTrigger>
-              <TabsTrigger value="content">Contenu</TabsTrigger>
-              <TabsTrigger value="settings">Paramètres</TabsTrigger>
-            </TabsList>
+      {/* Bottom Charts Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Financial Overview */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-[#1A1A1A]">Vue Financière</CardTitle>
+            <CardDescription>Revenus vs Dépenses (€)</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={financialData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#C0C0C0" />
+                <XAxis dataKey="month" stroke="#1A1A1A" />
+                <YAxis stroke="#1A1A1A" />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid #C0C0C0",
+                    borderRadius: "8px",
+                  }}
+                />
+                <Legend />
+                <Bar dataKey="revenus" fill="#D4AF37" radius={[8, 8, 0, 0]} name="Revenus" />
+                <Bar dataKey="depenses" fill="#C0C0C0" radius={[8, 8, 0, 0]} name="Dépenses" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
 
-            {/* Applications Tab */}
-            <TabsContent value="applications" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle>Gestion des Candidatures</CardTitle>
-                      <CardDescription>
-                        Consultez et gérez toutes les candidatures
-                      </CardDescription>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                        <input
-                          type="text"
-                          placeholder="Rechercher..."
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                          className="pl-10 pr-4 py-2 rounded-lg border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37]"
-                        />
-                      </div>
-                      <Button variant="outline" size="sm">
-                        <Filter className="w-4 h-4 mr-2" />
-                        Filtres
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        <Download className="w-4 h-4 mr-2" />
-                        Exporter
-                      </Button>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {applications.map((app) => (
-                      <div
-                        key={app.id}
-                        className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-lg flex items-center justify-center">
-                            <span className="text-[#D4AF37] font-bold">
-                              {app.name.charAt(0)}
-                            </span>
-                          </div>
-                          <div>
-                            <div className="font-semibold">{app.name}</div>
-                            <div className="text-sm text-muted-foreground">{app.email}</div>
-                            <div className="text-xs text-muted-foreground mt-1">
-                              {app.program} • {app.date}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Badge
-                            className={
-                              app.status === "approved"
-                                ? "bg-[#D4AF37]"
-                                : app.status === "rejected"
-                                ? "bg-red-500"
-                                : "bg-yellow-500"
-                            }
-                          >
-                            {app.status === "approved"
-                              ? "Approuvé"
-                              : app.status === "rejected"
-                              ? "Rejeté"
-                              : "En attente"}
-                          </Badge>
-                          <Button variant="ghost" size="sm">
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                          <Button variant="ghost" size="sm">
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            {/* Users Tab */}
-            <TabsContent value="users" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Gestion des Utilisateurs</CardTitle>
-                  <CardDescription>
-                    Gérez les comptes utilisateurs, parents, joueurs et coachs
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Interface de gestion des utilisateurs à implémenter
-                  </p>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            {/* Payments Tab */}
-            <TabsContent value="payments" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Gestion des Paiements</CardTitle>
-                  <CardDescription>
-                    Suivez tous les paiements et transactions
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {payments.map((payment) => (
-                      <div
-                        key={payment.id}
-                        className="flex items-center justify-between p-4 border rounded-lg"
-                      >
-                        <div>
-                          <div className="font-semibold">{payment.student}</div>
-                          <div className="text-sm text-muted-foreground">
-                            {payment.amount.toLocaleString()} {payment.currency} • {payment.date}
-                          </div>
-                        </div>
-                        <Badge
-                          className={
-                            payment.status === "completed"
-                              ? "bg-[#D4AF37]"
-                              : "bg-yellow-500"
-                          }
-                        >
-                          {payment.status === "completed" ? "Complété" : "En attente"}
-                        </Badge>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            {/* Content Tab */}
-            <TabsContent value="content" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Gestion de Contenu (CMS)</CardTitle>
-                  <CardDescription>
-                    Gérez les actualités, pages et médias
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Interface CMS à implémenter
-                  </p>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            {/* Settings Tab */}
-            <TabsContent value="settings" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Paramètres Système</CardTitle>
-                  <CardDescription>
-                    Configuration générale de la plateforme
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <h3 className="font-semibold mb-4">Sécurité</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="font-medium">Authentification à deux facteurs</div>
-                          <div className="text-sm text-muted-foreground">
-                            Améliorez la sécurité des comptes
-                          </div>
-                        </div>
-                        <Button variant="outline">Activer</Button>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="font-medium">Sauvegarde automatique</div>
-                          <div className="text-sm text-muted-foreground">
-                            Sauvegarde quotidienne des données
-                          </div>
-                        </div>
-                        <Button variant="outline">Configurer</Button>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
-      </main>
-      <Footer />
-    </div>
+        {/* Injury Distribution */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-[#1A1A1A]">Répartition des Blessures</CardTitle>
+            <CardDescription>Types de blessures enregistrées</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={injuryDistribution}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                  outerRadius={100}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {injuryDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid #C0C0C0",
+                    borderRadius: "8px",
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+    </AdminLayout>
   )
 }
-
