@@ -11,7 +11,7 @@ export function ProgramsByAge() {
 
   const programs = useMemo(() => [
     {
-      ageGroup: "U12 – U15",
+      ageGroup: "U8 – U15",
       title: t("programs.byAge.fundamentals.title"),
       icon: <Users size={28} />,
       goals: [
@@ -74,11 +74,10 @@ export function ProgramsByAge() {
               onClick={() => setActiveTab(index)}
               variant={activeTab === index ? "default" : "outline"}
               size="lg"
-              className={`text-base h-12 px-6 ${
-                activeTab === index
+              className={`text-base h-12 px-6 ${activeTab === index
                   ? "bg-[#D4AF37] hover:bg-[#B8941F] text-white"
                   : "bg-white hover:bg-muted text-[#1A1A1A]"
-              }`}
+                }`}
             >
               {program.ageGroup}
             </Button>

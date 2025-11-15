@@ -14,7 +14,7 @@ export function ApplyHero() {
       <div className="absolute inset-0">
         {/* Animated gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/20 via-transparent to-[#D4AF37]/20 animate-pulse-glow" />
-        
+
         {/* Geometric shapes */}
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="absolute top-20 right-10 w-72 h-72 bg-[#D4AF37]/10 rounded-full blur-3xl animate-float" />
@@ -23,7 +23,7 @@ export function ApplyHero() {
         </div>
 
         {/* Grid pattern overlay */}
-        <div 
+        <div
           className="absolute inset-0 opacity-5"
           style={{
             backgroundImage: `
@@ -78,7 +78,7 @@ export function ApplyHero() {
               <div className="text-sm text-white/80">{t("apply.hero.stats.acceptanceRate")}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#D4AF37] mb-1">12-18</div>
+              <div className="text-3xl font-bold text-[#D4AF37] mb-1">U8+</div>
               <div className="text-sm text-white/80">{t("apply.hero.stats.ageRange")}</div>
             </div>
             <div className="text-center">

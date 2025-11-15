@@ -540,7 +540,8 @@
     "followUs": "Follow Us",
     "socialDescription": "Stay connected on social media",
     "roles": {
-      "parent": "Parent",
+      "ong": "NGO",
+      "fondation": "Foundation",
       "recruiter": "Recruiter",
       "sponsor": "Sponsor",
       "media": "Media",
@@ -879,6 +880,42 @@
         "support": "Application Support",
         "response": "Initial Response",
         "secure": "Secure Process"
+      }
+    },
+    "eligibility": {
+      "title": "Eligibility and Requirements",
+      "description": "Review the criteria and prepare your documents before starting your application",
+      "whoCanApply": {
+        "title": "Who Can Apply",
+        "description": "Farafina Foot Academy welcomes talented young players from across Africa and beyond. We believe in inclusive excellence and offer equal opportunities regardless of gender, nationality or socioeconomic background."
+      },
+      "criteria": {
+        "age": "Age from 8 years old (U8)",
+        "passion": "Passion for football and commitment to excellence",
+        "academic": "Basic academic proficiency (appropriate school level)",
+        "physical": "Physical fitness and medical certificate",
+        "consent": "Parental/guardian consent for minors",
+        "open": "Open to all genders and nationalities"
+      },
+      "documents": {
+        "title": "Required Documents",
+        "description": "Prepare these documents before starting your application. All documents can be uploaded in PDF, JPG or PNG formats.",
+        "photo": {
+          "title": "Recent Photo",
+          "description": "Passport format photograph (digital format)"
+        },
+        "transcript": {
+          "title": "School Transcript",
+          "description": "Latest school report or transcript"
+        },
+        "consent": {
+          "title": "Parental Consent",
+          "description": "Consent form signed by parent/guardian"
+        },
+        "medical": {
+          "title": "Medical Form",
+          "description": "Medical certificate from a licensed physician"
+        }
       }
     }
   }

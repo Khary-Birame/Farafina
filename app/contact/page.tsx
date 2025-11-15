@@ -8,13 +8,15 @@ import { NewsletterBanner } from "@/components/contact/newsletter-banner"
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Header />
-      <ContactHero />
-      <ContactForm />
-      <MapSection />
-      <PartnersSection />
-      <NewsletterBanner />
+      <main className="pt-20">
+        <ContactHero />
+        <ContactForm />
+        <MapSection />
+        <PartnersSection />
+        <NewsletterBanner />
+      </main>
       <Footer />
     </div>
   )

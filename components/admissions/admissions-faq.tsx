@@ -44,7 +44,7 @@ const faqs = [
   {
     question: "Qu'est-ce qui est inclus dans les frais de scolarité ?",
     answer:
-      "Les frais de scolarité couvrent la formation, le coaching, l'éducation académique, la psychologie du sport, les conseils nutritionnels, le soutien médical, l'assurance et le suivi des performances. Les programmes résidents incluent également l'hébergement, les repas et les services de blanchisserie.",
+      "Pour toute information détaillée sur les frais de scolarité et ce qui est inclus, contactez-nous au +221 763171202. Les frais couvrent généralement la formation, le coaching, l'éducation académique, la psychologie du sport, les conseils nutritionnels, le soutien médical, l'assurance et le suivi des performances. Les programmes résidents incluent également l'hébergement, les repas et les services de blanchisserie.",
   },
   {
     question: "Y a-t-il un essai ou une journée d'évaluation ?",
@@ -108,8 +108,8 @@ export function AdmissionsFAQ() {
               <Link href="/contact">
                 <Button className="bg-[#D4AF37] hover:bg-[#d17e00] text-white">Contacter l'équipe d'admission</Button>
               </Link>
-              <Link href="/contact">
-                <Button variant="outline">Planifier une visite du campus</Button>
+              <Link href="/visite-ffa">
+                <Button variant="outline">Planifier une visite de FFA</Button>
               </Link>
             </div>
           </div>

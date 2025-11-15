@@ -27,7 +27,7 @@ export function FootballSchoolFAQ() {
     {
       question: "Y a-t-il une limite d'âge pour s'inscrire ?",
       answer:
-        "L'École de Foot accueille les jeunes de 7 à 18 ans, répartis en quatre catégories d'âge. Au-delà de 18 ans, des programmes spécifiques peuvent être proposés sur demande.",
+        "L'École de Foot accueille les jeunes à partir de 8 ans (U8) jusqu'à 18 ans, répartis en quatre catégories d'âge. Au-delà de 18 ans, des programmes spécifiques peuvent être proposés sur demande.",
     },
     {
       question: "Organisez-vous des essais avant l'inscription ?",

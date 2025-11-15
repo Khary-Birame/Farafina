@@ -135,8 +135,7 @@ export default function TermsPage() {
                   <h2 className="font-sans font-bold text-2xl text-[#1A1A1A] mb-4">Paiements</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     Tous les paiements doivent être effectués conformément aux conditions convenues. Les retards de
-                    paiement peuvent entraîner la suspension ou l'annulation de l'inscription. Les frais de scolarité et
-                    autres frais sont détaillés dans le contrat d'inscription.
+                    paiement peuvent entraîner la suspension ou l'annulation de l'inscription. Pour toute information sur les frais, contactez-nous au +221 763171202. Les détails sont également disponibles dans le contrat d'inscription.
                   </p>
                 </div>
 

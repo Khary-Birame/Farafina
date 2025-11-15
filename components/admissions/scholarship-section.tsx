@@ -25,7 +25,7 @@ const scholarshipTypes = [
     icon: TrendingUp,
     title: "Autonomisation des filles",
     description: "Financement spécial pour les athlètes féminines",
-    coverage: "Jusqu'à 60%",
+    coverage: "Jusqu'à 75%",
   },
 ]
 

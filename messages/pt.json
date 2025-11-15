@@ -540,7 +540,8 @@
     "followUs": "Siga-nos",
     "socialDescription": "Mantenha-se conectado nas redes sociais",
     "roles": {
-      "parent": "Pai/Mãe",
+      "ong": "ONG",
+      "fondation": "Fundação",
       "recruiter": "Recrutador",
       "sponsor": "Patrocinador",
       "media": "Mídia",
@@ -879,6 +880,42 @@
         "support": "Suporte à Candidatura",
         "response": "Resposta Inicial",
         "secure": "Processo Seguro"
+      }
+    },
+    "eligibility": {
+      "title": "Elegibilidade e Requisitos",
+      "description": "Revise os critérios e prepare seus documentos antes de iniciar sua candidatura",
+      "whoCanApply": {
+        "title": "Quem Pode se Candidatar",
+        "description": "A Farafina Foot Academy recebe jovens jogadores talentosos de toda a África e além. Acreditamos na excelência inclusiva e oferecemos oportunidades iguais, independentemente de gênero, nacionalidade ou origem socioeconômica."
+      },
+      "criteria": {
+        "age": "Idade a partir de 8 anos (U8)",
+        "passion": "Paixão pelo futebol e compromisso com a excelência",
+        "academic": "Proficiência acadêmica básica (nível escolar apropriado)",
+        "physical": "Aptidão física e certificado médico",
+        "consent": "Consentimento dos pais/responsável para menores",
+        "open": "Aberto a todos os gêneros e nacionalidades"
+      },
+      "documents": {
+        "title": "Documentos Necessários",
+        "description": "Prepare estes documentos antes de iniciar sua candidatura. Todos os documentos podem ser enviados nos formatos PDF, JPG ou PNG.",
+        "photo": {
+          "title": "Foto Recente",
+          "description": "Fotografia formato passaporte (formato digital)"
+        },
+        "transcript": {
+          "title": "Histórico Escolar",
+          "description": "Último boletim escolar ou histórico"
+        },
+        "consent": {
+          "title": "Consentimento dos Pais",
+          "description": "Formulário de consentimento assinado pelos pais/responsável"
+        },
+        "medical": {
+          "title": "Formulário Médico",
+          "description": "Certificado médico de um médico licenciado"
+        }
       }
     }
   }

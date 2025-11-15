@@ -22,6 +22,7 @@ const pricingPlans = [
       "Psychologie du sport",
       "Conseils nutritionnels",
       "Suivi des performances",
+      "Assurance incluse",
     ],
     popular: false,
   },
@@ -65,6 +66,7 @@ const pricingPlans = [
       "Développement du leadership",
       "Suivi des performances",
       "Exposition internationale",
+      "Assurance incluse",
     ],
     popular: false,
   },
@@ -78,7 +80,7 @@ export function TuitionPricing() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="font-sans font-bold text-3xl md:text-4xl lg:text-5xl mb-4 text-balance">
-            Frais de scolarité et investissement
+            Nous rejoindre
           </h2>
           <p className="text-lg text-muted-foreground text-pretty leading-relaxed">
             Tarification transparente pour une formation de classe mondiale. Choisissez le programme qui correspond à
@@ -93,7 +95,7 @@ export function TuitionPricing() {
             </Button>
             {showContact && (
               <p className="text-sm font-medium text-[#1A1A1A]">
-                Appelez-nous au +221 763171202
+                Contactez-nous au <a href="tel:+221763171202" className="text-[#D4AF37] hover:underline font-semibold">+221 763171202</a>
               </p>
             )}
           </div>
@@ -133,12 +135,12 @@ export function TuitionPricing() {
 
               {/* Pricing */}
               <div className="mb-6 rounded-xl border border-dashed border-[#D4AF37]/30 bg-[#D4AF37]/5 px-4 py-3 text-center text-sm font-medium text-[#1A1A1A]">
-                Contactez-nous pour une proposition personnalisée.
+                Contactez-nous au <a href="tel:+221763171202" className="text-[#D4AF37] hover:underline font-semibold">+221 763171202</a> pour une proposition personnalisée.
               </div>
 
               {/* Features */}
               <ul className="space-y-3 mb-8">
-                {Array.from(new Set([...plan.features, "Assurance incluse", "Équipements inclus"])).map(
+                {Array.from(new Set([...plan.features])).map(
                   (feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start gap-3">
                       <Check className="w-5 h-5 text-[#D4AF37] flex-shrink-0 mt-0.5" />

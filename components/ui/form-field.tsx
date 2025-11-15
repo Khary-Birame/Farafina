@@ -59,8 +59,12 @@ export function InputField({
 }: InputFieldProps) {
   const fieldId = `field-${name}`
   
+  // Extraire className pour l'input si fourni
+  const inputClassName = className?.includes('border-') ? className : undefined
+  const containerClassName = inputClassName ? undefined : className
+  
   return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn("space-y-2", containerClassName)}>
       <Label 
         htmlFor={fieldId} 
         className="text-sm font-medium text-foreground"
@@ -85,7 +89,8 @@ export function InputField({
             "h-12 transition-all duration-200",
             "focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37]",
             error && "border-destructive focus:ring-destructive/20 focus:border-destructive",
-            disabled && "opacity-50 cursor-not-allowed"
+            disabled && "opacity-50 cursor-not-allowed",
+            inputClassName
           )}
         />
       </div>
@@ -120,8 +125,12 @@ export function TextareaField({
 }: TextareaFieldProps) {
   const fieldId = `field-${name}`
   
+  // Extraire className pour le textarea si fourni
+  const textareaClassName = className?.includes('border-') ? className : undefined
+  const containerClassName = textareaClassName ? undefined : className
+  
   return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn("space-y-2", containerClassName)}>
       <Label 
         htmlFor={fieldId} 
         className="text-sm font-medium text-foreground"
@@ -145,7 +154,8 @@ export function TextareaField({
             "min-h-[100px] resize-none transition-all duration-200",
             "focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37]",
             error && "border-destructive focus:ring-destructive/20 focus:border-destructive",
-            disabled && "opacity-50 cursor-not-allowed"
+            disabled && "opacity-50 cursor-not-allowed",
+            textareaClassName
           )}
         />
       </div>
@@ -180,8 +190,12 @@ export function SelectField({
 }: SelectFieldProps) {
   const fieldId = `field-${name}`
   
+  // Extraire className pour le trigger si fourni
+  const triggerClassName = className?.includes('border-') ? className : undefined
+  const containerClassName = triggerClassName ? undefined : className
+  
   return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn("space-y-2", containerClassName)}>
       <Label 
         htmlFor={fieldId} 
         className="text-sm font-medium text-foreground"
@@ -202,6 +216,7 @@ export function SelectField({
             aria-describedby={error ? `${fieldId}-error` : hint ? `${fieldId}-hint` : undefined}
             className={cn(
               "h-12 transition-all duration-200",
+              triggerClassName,
               "focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37]",
               error && "border-destructive focus:ring-destructive/20 focus:border-destructive",
               disabled && "opacity-50 cursor-not-allowed"
@@ -210,11 +225,19 @@ export function SelectField({
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
-            {options.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
+            {options
+              .filter((option) => {
+                // Filtrer les options avec des valeurs ou labels vides
+                return option.value && 
+                       option.value !== "" && 
+                       option.label && 
+                       option.label !== ""
+              })
+              .map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
           </SelectContent>
         </Select>
       </div>

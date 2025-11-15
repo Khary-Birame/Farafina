@@ -4,11 +4,20 @@ import { createContext, useContext, useMemo, useState, type ReactNode } from 're
 import { formatCurrency } from '@/lib/utils'
 
 export type CartItem = {
-  id: string
+  id: string // ID unique de l'item dans le panier (product_id + variant_id)
+  product_id: string
+  variant_id?: string | null
   name: string
+  variant_name?: string | null // Ex: "Rouge - L - 42"
   price: number
   image: string
   quantity: number
+  sku?: string | null
+  size?: string | null
+  shoe_size?: string | null
+  color?: string | null
+  color_hex?: string | null
+  stock_quantity?: number
 }
 
 export type CartItemInput = Omit<CartItem, 'quantity'>
@@ -40,16 +49,25 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addItem = (item: CartItemInput, options?: AddItemOptions) => {
     setItems((prev) => {
-      const existing = prev.find((cartItem) => cartItem.id === item.id)
+      // Générer un ID unique basé sur product_id et variant_id
+      const itemId = item.variant_id 
+        ? `${item.product_id}-${item.variant_id}`
+        : item.product_id
+
+      const existing = prev.find((cartItem) => cartItem.id === itemId)
       if (existing) {
+        // Vérifier le stock si disponible
+        if (item.stock_quantity !== undefined && existing.quantity >= item.stock_quantity) {
+          return prev // Ne pas augmenter si stock insuffisant
+        }
         return prev.map((cartItem) =>
-          cartItem.id === item.id
+          cartItem.id === itemId
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem,
         )
       }
 
-      return [...prev, { ...item, quantity: 1 }]
+      return [...prev, { ...item, id: itemId, quantity: 1 }]
     })
 
     if (options?.openCart) {
@@ -63,9 +81,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const incrementItem = (id: string) => {
     setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
-      ),
+      prev.map((item) => {
+        if (item.id === id) {
+          // Vérifier le stock si disponible
+          if (item.stock_quantity !== undefined && item.quantity >= item.stock_quantity) {
+            return item // Ne pas augmenter si stock insuffisant
+          }
+          return { ...item, quantity: item.quantity + 1 }
+        }
+        return item
+      }),
     )
   }
 

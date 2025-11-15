@@ -6,8 +6,8 @@ import { Calendar, Award, Target } from "lucide-react"
 export function AgeCategories() {
   const ageCategories = [
     {
-      name: "U7 - U9",
-      age: "7-9 ans",
+      name: "U8 - U9",
+      age: "8-9 ans",
       schedule: "Samedi 9h-11h",
       intensity: "Initiation ludique",
       focus: "Coordination, jeu collectif, plaisir",

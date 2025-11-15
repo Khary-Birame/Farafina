@@ -467,7 +467,7 @@
       "title": "Inclusion Sociale",
       "description": "À Farafina Foot Academy, nous croyons que le talent ne connaît pas de frontières. Notre engagement envers l'inclusion sociale garantit que chaque jeune joueur, quel que soit son origine ou son genre, a accès à une formation et une éducation de classe mondiale.",
       "scholarships": "Programmes de Bourses",
-      "scholarshipsText": "Bourses basées sur le mérite et les besoins couvrant les frais de scolarité, l'hébergement et l'équipement pour les joueurs talentueux de tous horizons.",
+      "scholarshipsText": "Bourses basées sur le mérite et les besoins. Pour plus d'informations, contactez-nous au +221 763171202. Les bourses peuvent couvrir l'hébergement et l'équipement pour les joueurs talentueux de tous horizons.",
       "womenFootball": "Programme de Football Féminin",
       "womenFootballText": "Programmes d'entraînement dédiés, installations et soutien pour les joueuses, promouvant l'égalité des genres dans le football africain.",
       "equalAccess": "Accès Égal",
@@ -857,7 +857,7 @@
       "date": "15 Mars 2025 - 9h00 à 17h00",
       "location": "Stade de Cayar, Sénégal",
       "participants": "300+ participants attendus",
-      "description": "Une journée exceptionnelle pour découvrir les talents du football africain. Évaluation complète des compétences techniques, tactiques et physiques par nos coaches internationaux. Ouvert aux joueurs de 12 à 19 ans. Une opportunité unique de rejoindre la Farafina Foot Academy.",
+      "description": "Une journée exceptionnelle pour découvrir les talents du football africain. Évaluation complète des compétences techniques, tactiques et physiques par nos coaches internationaux. Ouvert aux joueurs à partir de 8 ans (U8). Une opportunité unique de rejoindre la Farafina Foot Academy.",
       "participateButton": "Participer maintenant",
       "viewAllButton": "Voir tous les événements"
     },
@@ -1281,7 +1281,7 @@
         "description": "Farafina Foot Academy accueille de jeunes joueurs talentueux de toute l'Afrique et au-delà. Nous croyons en l'excellence inclusive et offrons des opportunités égales, quel que soit le genre, la nationalité ou le milieu socio-économique."
       },
       "criteria": {
-        "age": "Âge entre 12-18 ans",
+        "age": "Âge à partir de 8 ans (U8)",
         "passion": "Passion pour le football et engagement envers l'excellence",
         "academic": "Maîtrise académique de base (niveau scolaire approprié)",
         "physical": "Condition physique et certificat médical",
@@ -1355,8 +1355,8 @@
         "linkText": "En Savoir Plus sur les Bourses"
       },
       "tuition": {
-        "title": "Frais de Scolarité",
-        "description": "Tarification transparente avec plusieurs plans de paiement disponibles. Les frais de scolarité couvrent la formation, les études, l'hébergement, les repas et les soins médicaux.",
+        "title": "+221 763171202",
+        "description": "Pour toute information sur les tarifs et les plans de paiement, contactez-nous au +221 763171202. Nous proposons des plans de paiement flexibles adaptés à votre situation.",
         "linkText": "Voir les Détails de Tarification"
       },
       "consent": {
@@ -1475,7 +1475,8 @@
     "role": "Je suis un(e)",
     "rolePlaceholder": "Sélectionnez votre rôle",
     "roles": {
-      "parent": "Parent",
+      "ong": "ONG",
+      "fondation": "Fondation",
       "recruiter": "Recruteur",
       "sponsor": "Sponsor",
       "media": "Média",

@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { useTranslation } from "@/lib/hooks/use-translation"
 
@@ -15,31 +16,37 @@ export function Infrastructures() {
       title: t("home.infrastructures.facilities.fifa.title"),
       description: t("home.infrastructures.facilities.fifa.description"),
       image: "/fifa-standard-football-field.jpg",
+      link: null, // Pas de page dédiée pour l'instant
     },
     {
       title: t("home.infrastructures.facilities.classrooms.title"),
       description: t("home.infrastructures.facilities.classrooms.description"),
       image: "/modern-classroom-technology.jpg",
+      link: null, // Pas de page dédiée pour l'instant
     },
     {
       title: t("home.infrastructures.facilities.medical.title"),
       description: t("home.infrastructures.facilities.medical.description"),
       image: "/sports-medical-center.jpg",
+      link: null, // Pas de page dédiée pour l'instant
     },
     {
       title: t("home.infrastructures.facilities.residence.title"),
       description: t("home.infrastructures.facilities.residence.description"),
       image: "/student-residence-dormitory.jpg",
+      link: "/internat", // Lien vers la page espace de l'internat
     },
     {
       title: t("home.infrastructures.facilities.performance.title"),
       description: t("home.infrastructures.facilities.performance.description"),
       image: "/sports-performance-gym.jpg",
+      link: null, // Pas de page dédiée pour l'instant
     },
     {
       title: t("home.infrastructures.facilities.vip.title"),
       description: t("home.infrastructures.facilities.vip.description"),
       image: "/modern-coworking-space.jpg",
+      link: null, // Pas de page dédiée pour l'instant
     },
   ], [t])
 
@@ -63,41 +70,68 @@ export function Infrastructures() {
 
         {/* Desktop Grid */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {facilities.map((facility, index) => (
-            <div
-              key={index}
-              className="group relative overflow-hidden rounded-2xl bg-white/5 hover:bg-white/10 transition-all duration-300"
-            >
-              <div className="aspect-[4/3] overflow-hidden">
-                <img
-                  src={facility.image || "/placeholder.svg"}
-                  alt={facility.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
+          {facilities.map((facility, index) => {
+            const CardContent = (
+              <div className="group relative overflow-hidden rounded-2xl bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={facility.image || "/placeholder.svg"}
+                    alt={facility.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-sans font-semibold text-xl text-white mb-2">{facility.title}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed">{facility.description}</p>
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="font-sans font-semibold text-xl text-white mb-2">{facility.title}</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{facility.description}</p>
+            )
+
+            return facility.link ? (
+              <Link key={index} href={facility.link}>
+                {CardContent}
+              </Link>
+            ) : (
+              <div key={index}>
+                {CardContent}
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Mobile Carousel */}
         <div className="md:hidden relative">
-          <div className="overflow-hidden rounded-2xl bg-white/5">
-            <div className="aspect-[4/3] overflow-hidden">
-              <img
-                src={facilities[currentIndex].image || "/placeholder.svg"}
-                alt={facilities[currentIndex].title}
-                className="w-full h-full object-cover"
-              />
+          {facilities[currentIndex].link ? (
+            <Link href={facilities[currentIndex].link}>
+              <div className="overflow-hidden rounded-2xl bg-white/5 cursor-pointer">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={facilities[currentIndex].image || "/placeholder.svg"}
+                    alt={facilities[currentIndex].title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-sans font-semibold text-xl text-white mb-2">{facilities[currentIndex].title}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed">{facilities[currentIndex].description}</p>
+                </div>
+              </div>
+            </Link>
+          ) : (
+            <div className="overflow-hidden rounded-2xl bg-white/5">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img
+                  src={facilities[currentIndex].image || "/placeholder.svg"}
+                  alt={facilities[currentIndex].title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="font-sans font-semibold text-xl text-white mb-2">{facilities[currentIndex].title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">{facilities[currentIndex].description}</p>
+              </div>
             </div>
-            <div className="p-6">
-              <h3 className="font-sans font-semibold text-xl text-white mb-2">{facilities[currentIndex].title}</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">{facilities[currentIndex].description}</p>
-            </div>
-          </div>
+          )}
 
           {/* Navigation */}
           <div className="flex items-center justify-center gap-4 mt-6">
