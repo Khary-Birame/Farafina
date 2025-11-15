@@ -40,35 +40,37 @@ export function AdminHeader() {
                 </Badge>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80">
-              <div className="p-2 font-semibold text-sm border-b">Notifications</div>
-              <div className="max-h-96 overflow-y-auto">
-                <DropdownMenuItem className="flex-col items-start p-3 cursor-pointer">
+            <DropdownMenuContent align="end" className="w-80 bg-white border border-[#C0C0C0]/30 shadow-lg">
+              <div className="p-3 font-semibold text-sm text-[#1A1A1A] border-b border-[#C0C0C0]/30 bg-[#F5F5F5]">
+                Notifications
+              </div>
+              <div className="max-h-96 overflow-y-auto bg-white">
+                <DropdownMenuItem className="flex-col items-start p-3 cursor-pointer hover:bg-[#F5F5F5] focus:bg-[#F5F5F5]">
                   <div className="flex items-center justify-between w-full mb-1">
-                    <span className="font-medium text-sm">Nouvelle candidature</span>
+                    <span className="font-medium text-sm text-[#1A1A1A]">Nouvelle candidature</span>
                     <span className="text-xs text-[#C0C0C0]">Il y a 5 min</span>
                   </div>
-                  <span className="text-xs text-[#C0C0C0]">Amadou Diallo a soumis sa candidature</span>
+                  <span className="text-xs text-[#1A1A1A]/70">Amadou Diallo a soumis sa candidature</span>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex-col items-start p-3 cursor-pointer">
+                <DropdownMenuSeparator className="bg-[#C0C0C0]/30" />
+                <DropdownMenuItem className="flex-col items-start p-3 cursor-pointer hover:bg-[#F5F5F5] focus:bg-[#F5F5F5]">
                   <div className="flex items-center justify-between w-full mb-1">
-                    <span className="font-medium text-sm">Paiement reçu</span>
+                    <span className="font-medium text-sm text-[#1A1A1A]">Paiement reçu</span>
                     <span className="text-xs text-[#C0C0C0]">Il y a 1h</span>
                   </div>
-                  <span className="text-xs text-[#C0C0C0]">Fatou Sarr - 1 800 000 XOF</span>
+                  <span className="text-xs text-[#1A1A1A]/70">Fatou Sarr - 1 800 000 XOF</span>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex-col items-start p-3 cursor-pointer">
+                <DropdownMenuSeparator className="bg-[#C0C0C0]/30" />
+                <DropdownMenuItem className="flex-col items-start p-3 cursor-pointer hover:bg-[#F5F5F5] focus:bg-[#F5F5F5]">
                   <div className="flex items-center justify-between w-full mb-1">
-                    <span className="font-medium text-sm">Match à venir</span>
+                    <span className="font-medium text-sm text-[#1A1A1A]">Match à venir</span>
                     <span className="text-xs text-[#C0C0C0]">Il y a 2h</span>
                   </div>
-                  <span className="text-xs text-[#C0C0C0]">U16 vs ASC Diaraf - Demain 15h</span>
+                  <span className="text-xs text-[#1A1A1A]/70">U16 vs ASC Diaraf - Demain 15h</span>
                 </DropdownMenuItem>
               </div>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="justify-center text-[#D4AF37] font-medium cursor-pointer">
+              <DropdownMenuSeparator className="bg-[#C0C0C0]/30" />
+              <DropdownMenuItem className="justify-center text-[#D4AF37] font-medium cursor-pointer hover:bg-[#D4AF37]/10 focus:bg-[#D4AF37]/10">
                 Voir toutes les notifications
               </DropdownMenuItem>
             </DropdownMenuContent>
