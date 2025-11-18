@@ -24,50 +24,7 @@ import { useAdminDashboard } from "@/lib/admin/hooks/use-admin-dashboard"
 import { getFinancialData } from "@/lib/admin/services/dashboard-stats"
 import { useEffect, useState } from "react"
 
-// Données de démonstration (fallback)
-const defaultPayments = [
-  {
-    id: "1",
-    etudiant: "Amadou Diallo",
-    montant: 2500000,
-    devise: "XOF",
-    statut: "Complété",
-    date: "2025-01-15",
-    methode: "Carte bancaire",
-    order_number: "ORD-001",
-  },
-  {
-    id: "2",
-    etudiant: "Fatou Sarr",
-    montant: 1800000,
-    devise: "XOF",
-    statut: "En attente",
-    date: "2025-01-14",
-    methode: "Virement bancaire",
-    order_number: "ORD-002",
-  },
-  {
-    id: "3",
-    etudiant: "Ibrahim Koné",
-    montant: 150,
-    devise: "EUR",
-    statut: "Complété",
-    date: "2025-01-13",
-    methode: "Mobile Money",
-    order_number: "ORD-003",
-  },
-  {
-    id: "4",
-    etudiant: "Aissatou Ba",
-    montant: 2000,
-    devise: "USD",
-    statut: "En attente",
-    date: "2025-01-10",
-    methode: "Virement bancaire",
-    order_number: "ORD-004",
-  },
-]
-
+// Données par défaut pour les graphiques (uniquement en cas d'erreur)
 const defaultRevenueData = [
   { month: "Jan", XOF: 45000, EUR: 3500, USD: 4200 },
   { month: "Fév", XOF: 52000, EUR: 4000, USD: 4800 },
@@ -102,8 +59,9 @@ export default function FinanceAdmissionsPage() {
     loadRevenueData()
   }, [])
 
-  // Utiliser les données Supabase si disponibles, sinon fallback
-  const displayPayments = orders.length > 0 ? orders : defaultPayments
+  // Utiliser TOUJOURS les données Supabase, même si elles sont vides
+  // Ne jamais utiliser de mockups - les données Supabase sont la source de vérité
+  const displayPayments = orders
 
   // Calculer les statistiques
   const pendingPayments = displayPayments.filter(p => p.statut === 'En attente').length
@@ -258,6 +216,10 @@ export default function FinanceAdmissionsPage() {
           {ordersLoading ? (
             <div className="py-12 text-center">
               <p className="text-[#737373]">Chargement des paiements...</p>
+            </div>
+          ) : displayPayments.length === 0 ? (
+            <div className="py-12 text-center">
+              <p className="text-[#737373] mb-4">Aucun paiement trouvé dans la base de données</p>
             </div>
           ) : (
             <DataTable

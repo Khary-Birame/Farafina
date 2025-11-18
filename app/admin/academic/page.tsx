@@ -20,51 +20,9 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts"
+import { useAdminAcademic } from "@/lib/admin/hooks/use-admin-academic"
 
-// Données de démonstration
-const students = [
-  {
-    id: 1,
-    nom: "Amadou Diallo",
-    categorie: "U16",
-    moyenne: 78,
-    statut: "Satisfaisant",
-    progression: "+5%",
-  },
-  {
-    id: 2,
-    nom: "Fatou Sarr",
-    categorie: "U15",
-    moyenne: 85,
-    statut: "Excellent",
-    progression: "+8%",
-  },
-  {
-    id: 3,
-    nom: "Ibrahim Koné",
-    categorie: "U18",
-    moyenne: 65,
-    statut: "À améliorer",
-    progression: "-3%",
-  },
-  {
-    id: 4,
-    nom: "Aissatou Ba",
-    categorie: "U16",
-    moyenne: 92,
-    statut: "Excellent",
-    progression: "+12%",
-  },
-]
-
-const academicData = [
-  { subject: "Math", moyenne: 78 },
-  { subject: "Français", moyenne: 82 },
-  { subject: "Anglais", moyenne: 75 },
-  { subject: "Sciences", moyenne: 80 },
-  { subject: "Histoire", moyenne: 77 },
-]
-
+// Données par défaut pour la progression (uniquement en cas d'erreur)
 const progressionData = [
   { month: "Jan", moyenne: 72 },
   { month: "Fév", moyenne: 75 },
@@ -75,6 +33,14 @@ const progressionData = [
 ]
 
 export default function AcademicManagementPage() {
+  const { students, academicData, loading, error } = useAdminAcademic()
+  
+  // Calculer les statistiques depuis les données Supabase
+  const averageGrade = students.length > 0
+    ? Math.round(students.reduce((sum, s) => sum + s.moyenne, 0) / students.length)
+    : 0
+  const needsImprovement = students.filter(s => s.statut === 'À améliorer').length
+  const excellentResults = students.filter(s => s.statut === 'Excellent').length
   const columns = [
     {
       key: "nom",
@@ -108,21 +74,6 @@ export default function AcademicManagementPage() {
         </Badge>
       ),
     },
-    {
-      key: "progression",
-      header: "Progression",
-      render: (row: typeof students[0]) => (
-        <span
-          className={
-            row.progression.startsWith("+")
-              ? "text-green-600 font-medium"
-              : "text-red-600 font-medium"
-          }
-        >
-          {row.progression}
-        </span>
-      ),
-    },
   ]
 
   return (
@@ -137,14 +88,14 @@ export default function AcademicManagementPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <KPICard
           title="Moyenne Générale"
-          value="78%"
-          change={{ value: "+5%", type: "increase" }}
+          value={loading ? "..." : `${averageGrade}%`}
+          change={averageGrade > 0 ? { value: "+5%", type: "increase" } : undefined}
           icon={GraduationCap}
           description="Performance académique"
         />
         <KPICard
           title="À Améliorer"
-          value="12"
+          value={loading ? "..." : needsImprovement.toString()}
           icon={AlertTriangle}
           iconColor="text-[#E8C966]"
           borderColor="border-l-[#E8C966]"
@@ -152,7 +103,7 @@ export default function AcademicManagementPage() {
         />
         <KPICard
           title="Excellents Résultats"
-          value="45"
+          value={loading ? "..." : excellentResults.toString()}
           icon={TrendingUp}
           iconColor="text-[#D4AF37]"
           borderColor="border-l-[#D4AF37]"
@@ -160,7 +111,7 @@ export default function AcademicManagementPage() {
         />
         <KPICard
           title="Cours Dispensés"
-          value="18"
+          value={loading ? "..." : academicData.length.toString()}
           icon={BookOpen}
           iconColor="text-[#737373]"
           borderColor="border-l-[#737373]"
@@ -176,8 +127,17 @@ export default function AcademicManagementPage() {
             <CardDescription className="text-[#737373]">Performance par discipline</CardDescription>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={academicData}>
+            {loading ? (
+              <div className="h-[300px] flex items-center justify-center">
+                <p className="text-[#737373]">Chargement...</p>
+              </div>
+            ) : academicData.length === 0 ? (
+              <div className="h-[300px] flex items-center justify-center">
+                <p className="text-[#737373]">Aucune donnée académique disponible</p>
+              </div>
+            ) : (
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={academicData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
                 <XAxis dataKey="subject" stroke="#737373" tick={{ fill: "#737373" }} />
                 <YAxis stroke="#737373" tick={{ fill: "#737373" }} />
@@ -200,6 +160,7 @@ export default function AcademicManagementPage() {
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
+            )}
           </CardContent>
         </Card>
 
@@ -243,12 +204,26 @@ export default function AcademicManagementPage() {
           <CardDescription className="text-[#737373]">Performances académiques détaillées</CardDescription>
         </CardHeader>
         <CardContent>
-          <DataTable
-            data={students}
-            columns={columns}
-            searchPlaceholder="Rechercher un étudiant..."
-            onExport={() => console.log("Export academic")}
-          />
+          {loading ? (
+            <div className="py-12 text-center">
+              <p className="text-[#737373]">Chargement des étudiants...</p>
+            </div>
+          ) : error ? (
+            <div className="py-12 text-center">
+              <p className="text-red-600 mb-2">Erreur: {error}</p>
+            </div>
+          ) : students.length === 0 ? (
+            <div className="py-12 text-center">
+              <p className="text-[#737373] mb-4">Aucun étudiant avec données académiques trouvé</p>
+            </div>
+          ) : (
+            <DataTable
+              data={students}
+              columns={columns}
+              searchPlaceholder="Rechercher un étudiant..."
+              onExport={() => console.log("Export academic")}
+            />
+          )}
         </CardContent>
       </Card>
     </AdminLayout>
