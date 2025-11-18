@@ -8,77 +8,10 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { MessageSquare, Send, Search, Filter, Bell, AlertCircle, Info } from "lucide-react"
 import { useState } from "react"
-
-// Données de démonstration
-const messages = [
-  {
-    id: 1,
-    from: "Moussa Ndiaye",
-    to: "Admin",
-    subject: "Absence joueur U16",
-    message: "Amadou Diallo sera absent à l'entraînement de demain.",
-    date: "2025-01-19 10:30",
-    type: "urgent",
-    read: false,
-  },
-  {
-    id: 2,
-    from: "Parent - Fatou Sarr",
-    to: "Coach",
-    subject: "Question sur la progression",
-    message: "Bonjour, je souhaiterais avoir un rendez-vous pour discuter de la progression de ma fille.",
-    date: "2025-01-19 09:15",
-    type: "info",
-    read: true,
-  },
-  {
-    id: 3,
-    from: "Système",
-    to: "Tous",
-    subject: "Mise à jour système",
-    message: "Une nouvelle mise à jour du système est disponible.",
-    date: "2025-01-18 16:45",
-    type: "system",
-    read: true,
-  },
-]
-
-const notifications = [
-  {
-    id: 1,
-    title: "Nouvelle candidature",
-    message: "Amadou Diallo a soumis sa candidature",
-    date: "Il y a 5 min",
-    type: "info",
-    read: false,
-  },
-  {
-    id: 2,
-    title: "Paiement reçu",
-    message: "Fatou Sarr - 1 800 000 XOF",
-    date: "Il y a 1h",
-    type: "success",
-    read: false,
-  },
-  {
-    id: 3,
-    title: "Match à venir",
-    message: "U16 vs ASC Diaraf - Demain 15h",
-    date: "Il y a 2h",
-    type: "warning",
-    read: true,
-  },
-  {
-    id: 4,
-    title: "Blessure signalée",
-    message: "Ibrahim Koné - Blessure à la cheville",
-    date: "Il y a 3h",
-    type: "urgent",
-    read: false,
-  },
-]
+import { useAdminMessaging } from "@/lib/admin/hooks/use-admin-messaging"
 
 export default function MessagingNotificationsPage() {
+  const { messages, notifications, loading, error } = useAdminMessaging()
   const [selectedMessage, setSelectedMessage] = useState<typeof messages[0] | null>(null)
 
   return (
@@ -126,8 +59,21 @@ export default function MessagingNotificationsPage() {
               </div>
 
               {/* Messages */}
-              <div className="space-y-2 max-h-[600px] overflow-y-auto">
-                {messages.map((msg) => (
+              {loading ? (
+                <div className="py-12 text-center">
+                  <p className="text-[#737373]">Chargement des messages...</p>
+                </div>
+              ) : error ? (
+                <div className="py-12 text-center">
+                  <p className="text-red-600 mb-2">Erreur: {error}</p>
+                </div>
+              ) : messages.length === 0 ? (
+                <div className="py-12 text-center">
+                  <p className="text-[#737373] mb-4">Aucun message trouvé</p>
+                </div>
+              ) : (
+                <div className="space-y-2 max-h-[600px] overflow-y-auto">
+                  {messages.map((msg) => (
                   <div
                     key={msg.id}
                     onClick={() => setSelectedMessage(msg)}
@@ -165,8 +111,9 @@ export default function MessagingNotificationsPage() {
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
 
@@ -210,8 +157,21 @@ export default function MessagingNotificationsPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3 max-h-[700px] overflow-y-auto">
-                {notifications.map((notif) => (
+              {loading ? (
+                <div className="py-12 text-center">
+                  <p className="text-[#737373]">Chargement des notifications...</p>
+                </div>
+              ) : error ? (
+                <div className="py-12 text-center">
+                  <p className="text-red-600 mb-2">Erreur: {error}</p>
+                </div>
+              ) : notifications.length === 0 ? (
+                <div className="py-12 text-center">
+                  <p className="text-[#737373] mb-4">Aucune notification</p>
+                </div>
+              ) : (
+                <div className="space-y-3 max-h-[700px] overflow-y-auto">
+                  {notifications.map((notif) => (
                   <div
                     key={notif.id}
                     className={`p-3 border rounded-lg transition-colors shadow-sm ${
@@ -249,8 +209,9 @@ export default function MessagingNotificationsPage() {
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

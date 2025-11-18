@@ -1,0 +1,11 @@
+id,sender_id,receiver_id,content,read,read_at,attachments,conversation_id,message_type,created_at
+60000000-0000-0000-0000-000000000001,00000000-0000-0000-0000-000000000014,00000000-0000-0000-0000-000000000001,Absence joueur U16
+Amadou Diallo sera absent à l'entraînement de demain pour raisons familiales.,false,,[],,text,2024-01-19 10:30:00+00
+60000000-0000-0000-0000-000000000002,00000000-0000-0000-0000-000000000015,00000000-0000-0000-0000-000000000002,Question sur la progression
+Bonjour, je souhaiterais avoir un rendez-vous pour discuter de la progression de ma fille Aissatou Ba.,true,2024-01-19 11:00:00+00,[],,text,2024-01-19 09:15:00+00
+60000000-0000-0000-0000-000000000003,00000000-0000-0000-0000-000000000001,00000000-0000-0000-0000-000000000014,Mise à jour système
+Une nouvelle mise à jour du système de gestion est disponible. Veuillez consulter les nouveautés.,true,2024-01-18 17:00:00+00,[],,system,2024-01-18 16:45:00+00
+60000000-0000-0000-0000-000000000004,00000000-0000-0000-0000-000000000004,00000000-0000-0000-0000-000000000002,Question entraînement
+Coach, je voudrais savoir si l'entraînement de samedi est maintenu malgré la pluie.,false,,[],,text,2024-01-22 14:00:00+00
+60000000-0000-0000-0000-000000000005,00000000-0000-0000-0000-000000000002,00000000-0000-0000-0000-000000000004,Réponse entraînement
+Oui Amadou, l'entraînement est maintenu. Nous utiliserons le terrain couvert.,true,2024-01-22 14:30:00+00,[],,text,2024-01-22 14:15:00+00

@@ -30,9 +30,11 @@ export default function PlayersManagementPage() {
   const avgPresence = displayPlayers.length > 0
     ? Math.round(
         displayPlayers.reduce((sum, p) => {
-          const presence = parseInt(p.presence.replace('%', '')) || 0
+          // Gérer les valeurs "N/A" et extraire le pourcentage
+          if (p.presence === 'N/A') return sum
+          const presence = parseInt(p.presence.replace('%', '').replace('N/A', '')) || 0
           return sum + presence
-        }, 0) / displayPlayers.length
+        }, 0) / displayPlayers.filter(p => p.presence !== 'N/A').length || 1
       )
     : 0
 

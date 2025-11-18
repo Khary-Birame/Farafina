@@ -67,32 +67,47 @@ const injuryDistribution = [
 
 export default function AdminDashboardPage() {
   const { kpis, loading: kpisLoading } = useAdminDashboard()
-  const [attendanceData, setAttendanceData] = useState(defaultAttendanceData)
-  const [academicData, setAcademicData] = useState(defaultAcademicData)
-  const [financialData, setFinancialData] = useState(defaultFinancialData)
+  const [attendanceData, setAttendanceData] = useState<typeof defaultAttendanceData>([])
+  const [academicData, setAcademicData] = useState<typeof defaultAcademicData>([])
+  const [financialData, setFinancialData] = useState<any[]>([])
   const [loadingCharts, setLoadingCharts] = useState(true)
 
   useEffect(() => {
     async function loadChartData() {
       try {
+        setLoadingCharts(true)
         const [attendance, academic, financial] = await Promise.all([
           getAttendanceStats(),
           getAcademicPerformance(),
           getFinancialData(),
         ])
 
+        // Utiliser TOUJOURS les données Supabase, même si elles sont vides
+        // Ne jamais utiliser de mockups - les données Supabase sont la source de vérité
         if (attendance && attendance.length > 0) {
           setAttendanceData(attendance)
+        } else {
+          setAttendanceData([])
         }
+        
         if (academic && academic.length > 0) {
           setAcademicData(academic)
+        } else {
+          setAcademicData([])
         }
+        
+        // getFinancialData retourne maintenant XOF/EUR/USD au lieu de revenus/depenses
         if (financial && financial.length > 0) {
           setFinancialData(financial)
+        } else {
+          setFinancialData([])
         }
       } catch (error) {
         console.error('Erreur chargement données graphiques:', error)
-        // Garder les données par défaut en cas d'erreur
+        // En cas d'erreur, initialiser avec des tableaux vides plutôt que des mockups
+        setAttendanceData([])
+        setAcademicData([])
+        setFinancialData([])
       } finally {
         setLoadingCharts(false)
       }
@@ -101,10 +116,10 @@ export default function AdminDashboardPage() {
     loadChartData()
   }, [])
 
-  // Calculer la moyenne académique depuis les données
+  // Calculer la moyenne académique depuis les données Supabase uniquement
   const academicAverage = academicData.length > 0
     ? Math.round(academicData.reduce((sum, item) => sum + item.moyenne, 0) / academicData.length)
-    : 78
+    : 0
 
   // Formater les revenus mensuels
   const formatRevenue = (amount: number) => {
@@ -188,8 +203,8 @@ export default function AdminDashboardPage() {
         />
         <KPICard
           title="Taux de Présence"
-          value={attendanceData.length > 0 ? `${attendanceData[attendanceData.length - 1].taux}%` : "92%"}
-          change={{ value: "+3%", type: "increase" }}
+          value={loadingCharts ? "..." : attendanceData.length > 0 ? `${attendanceData[attendanceData.length - 1].taux}%` : "N/A"}
+          change={attendanceData.length > 0 && attendanceData[attendanceData.length - 1].taux > 0 ? { value: "+3%", type: "increase" } : undefined}
           icon={Clock}
           iconColor="text-[#3B82F6]"
           borderColor="border-l-[#3B82F6]"
@@ -209,6 +224,10 @@ export default function AdminDashboardPage() {
             {loadingCharts ? (
               <div className="h-[300px] flex items-center justify-center">
                 <p className="text-[#737373]">Chargement...</p>
+              </div>
+            ) : attendanceData.length === 0 ? (
+              <div className="h-[300px] flex items-center justify-center">
+                <p className="text-[#737373]">Aucune donnée de présence disponible</p>
               </div>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
@@ -249,6 +268,10 @@ export default function AdminDashboardPage() {
               <div className="h-[300px] flex items-center justify-center">
                 <p className="text-[#737373]">Chargement...</p>
               </div>
+            ) : academicData.length === 0 ? (
+              <div className="h-[300px] flex items-center justify-center">
+                <p className="text-[#737373]">Aucune donnée académique disponible</p>
+              </div>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={academicData}>
@@ -285,12 +308,16 @@ export default function AdminDashboardPage() {
         <Card className="bg-white shadow-md">
           <CardHeader>
             <CardTitle className="text-[#1A1A1A] font-semibold">Vue Financière</CardTitle>
-            <CardDescription className="text-[#737373]">Revenus vs Dépenses</CardDescription>
+            <CardDescription className="text-[#737373]">Évolution mensuelle en XOF, EUR et USD</CardDescription>
           </CardHeader>
           <CardContent>
             {loadingCharts ? (
               <div className="h-[300px] flex items-center justify-center">
                 <p className="text-[#737373]">Chargement...</p>
+              </div>
+            ) : financialData.length === 0 ? (
+              <div className="h-[300px] flex items-center justify-center">
+                <p className="text-[#737373]">Aucune donnée financière disponible</p>
               </div>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
@@ -307,8 +334,10 @@ export default function AdminDashboardPage() {
                     }}
                   />
                   <Legend />
-                  <Bar dataKey="revenus" fill="#D4AF37" radius={[8, 8, 0, 0]} name="Revenus" />
-                  <Bar dataKey="depenses" fill="#EF4444" radius={[8, 8, 0, 0]} name="Dépenses" />
+                  {/* getFinancialData retourne maintenant XOF/EUR/USD au lieu de revenus/depenses */}
+                  <Bar dataKey="XOF" fill="#D4AF37" radius={[8, 8, 0, 0]} name="XOF" />
+                  <Bar dataKey="EUR" fill="#1A1A1A" radius={[8, 8, 0, 0]} name="EUR" />
+                  <Bar dataKey="USD" fill="#E8C966" radius={[8, 8, 0, 0]} name="USD" />
                 </BarChart>
               </ResponsiveContainer>
             )}

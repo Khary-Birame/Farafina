@@ -1,0 +1,4 @@
+id,name,slug,description,image_url,parent_id,sort_order,is_active,created_at,updated_at
+d0000000-0000-0000-0000-000000000001,Maillots,maillots,"Maillots de football pour toutes catégories",,0,true,2024-01-01 10:00:00+00,2024-01-01 10:00:00+00
+d0000000-0000-0000-0000-000000000002,Chaussures,chaussures,"Chaussures de football professionnelles",,0,true,2024-01-01 10:00:00+00,2024-01-01 10:00:00+00
+d0000000-0000-0000-0000-000000000003,Équipements,equipements,"Équipements de protection et accessoires",,0,true,2024-01-01 10:00:00+00,2024-01-01 10:00:00+00

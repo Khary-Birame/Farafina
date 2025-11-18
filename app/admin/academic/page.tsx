@@ -33,7 +33,7 @@ const progressionData = [
 ]
 
 export default function AcademicManagementPage() {
-  const { students, academicData, loading, error } = useAdminAcademic()
+  const { students, academicData, academicHistory, loading, error } = useAdminAcademic()
   
   // Calculer les statistiques depuis les données Supabase
   const averageGrade = students.length > 0
@@ -170,29 +170,39 @@ export default function AcademicManagementPage() {
             <CardDescription className="text-[#737373]">Progression sur 6 mois</CardDescription>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={progressionData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                <XAxis dataKey="month" stroke="#737373" tick={{ fill: "#737373" }} />
-                <YAxis stroke="#737373" tick={{ fill: "#737373" }} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#FFFFFF",
-                    border: "1px solid #E5E7EB",
-                    borderRadius: "8px",
-                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                  }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="moyenne"
-                  stroke="#D4AF37"
-                  strokeWidth={3}
-                  dot={{ fill: "#D4AF37", r: 6 }}
-                  activeDot={{ r: 8 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            {loading ? (
+              <div className="h-[300px] flex items-center justify-center">
+                <p className="text-[#737373]">Chargement...</p>
+              </div>
+            ) : academicHistory && academicHistory.length > 0 ? (
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={academicHistory}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                  <XAxis dataKey="month" stroke="#737373" tick={{ fill: "#737373" }} />
+                  <YAxis stroke="#737373" tick={{ fill: "#737373" }} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "#FFFFFF",
+                      border: "1px solid #E5E7EB",
+                      borderRadius: "8px",
+                      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                    }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="moyenne"
+                    stroke="#D4AF37"
+                    strokeWidth={3}
+                    dot={{ fill: "#D4AF37", r: 6 }}
+                    activeDot={{ r: 8 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="h-[300px] flex items-center justify-center">
+                <p className="text-[#737373]">Aucune donnée d'historique disponible</p>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

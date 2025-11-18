@@ -81,21 +81,50 @@ export function useAdminPlayers(filters?: {
           throw queryError
         }
 
+        // Récupérer les présences pour tous les joueurs en une seule requête
+        const { data: attendanceData } = await supabase
+          .from('training_attendance')
+          .select('player_id, attended')
+
+        // Calculer le taux de présence par joueur
+        const attendanceByPlayer: Record<string, { attended: number; total: number }> = {}
+        
+        if (attendanceData) {
+          attendanceData.forEach((attendance: any) => {
+            if (!attendanceByPlayer[attendance.player_id]) {
+              attendanceByPlayer[attendance.player_id] = { attended: 0, total: 0 }
+            }
+            attendanceByPlayer[attendance.player_id].total++
+            if (attendance.attended) {
+              attendanceByPlayer[attendance.player_id].attended++
+            }
+          })
+        }
+
         // Formater les données selon le schéma de la base
-        const formattedPlayers: PlayerRow[] = (data || []).map((player: any) => ({
-          id: player.id,
-          nom: `${player.first_name || ''} ${player.last_name || ''}`.trim() || 'Sans nom',
-          age: player.age,
-          position: player.position || 'Non défini',
-          categorie: player.category || 'Non défini',
-          pays: player.nationality || player.country || 'Non défini',
-          statut: player.status === 'active' ? 'Actif' : 
-                 player.status === 'inactive' ? 'Inactif' :
-                 player.status === 'graduated' ? 'Diplômé' :
-                 player.status === 'transferred' ? 'Transféré' : 'Actif',
-          presence: '95%', // TODO: Calculer depuis training_attendance
-          performance: player.performance ? Math.round(Number(player.performance)) : null,
-        }))
+        const formattedPlayers: PlayerRow[] = (data || []).map((player: any) => {
+          // Calculer le taux de présence
+          const playerAttendance = attendanceByPlayer[player.id]
+          let presenceRate = 0
+          if (playerAttendance && playerAttendance.total > 0) {
+            presenceRate = Math.round((playerAttendance.attended / playerAttendance.total) * 100)
+          }
+
+          return {
+            id: player.id,
+            nom: `${player.first_name || ''} ${player.last_name || ''}`.trim() || 'Sans nom',
+            age: player.age,
+            position: player.position || 'Non défini',
+            categorie: player.category || 'Non défini',
+            pays: player.nationality || player.country || 'Non défini',
+            statut: player.status === 'active' ? 'Actif' : 
+                   player.status === 'inactive' ? 'Inactif' :
+                   player.status === 'graduated' ? 'Diplômé' :
+                   player.status === 'transferred' ? 'Transféré' : 'Actif',
+            presence: playerAttendance && playerAttendance.total > 0 ? `${presenceRate}%` : 'N/A',
+            performance: player.performance ? Math.round(Number(player.performance)) : null,
+          }
+        })
 
         // Toujours mettre à jour les joueurs et marquer comme chargé, même si le tableau est vide
         // Cela garantit qu'on utilise les données Supabase et non des mockups

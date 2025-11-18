@@ -1,0 +1,4 @@
+id,code,description,discount_type,discount_value,minimum_purchase,maximum_discount,usage_limit,used_count,is_active,valid_from,valid_until,created_at,updated_at
+bb000000-0000-0000-0000-000000000001,PROMO2024,"Promotion Nouvel An 2024",percentage,10,50000,10000,100,5,true,2024-01-01 00:00:00+00,2024-12-31 23:59:59+00,2024-01-01 10:00:00+00,2024-01-01 10:00:00+00
+bb000000-0000-0000-0000-000000000002,BIENVENUE50,"Code de bienvenue",fixed,5000,,,50,2,true,2024-01-01 00:00:00+00,2024-12-31 23:59:59+00,2024-01-01 10:00:00+00,2024-01-01 10:00:00+00
+bb000000-0000-0000-0000-000000000003,ETUDIANT20,"Réduction pour étudiants",percentage,20,100000,20000,200,10,true,2024-01-01 00:00:00+00,2024-12-31 23:59:59+00,2024-01-01 10:00:00+00,2024-01-01 10:00:00+00

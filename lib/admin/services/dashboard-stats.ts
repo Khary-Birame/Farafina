@@ -4,10 +4,16 @@ import { supabase } from '@/lib/supabase/client'
 export async function getAttendanceStats() {
   try {
     // Essayer de récupérer depuis training_attendance si la table existe
-    const { data, error } = await supabase
+    // On récupère les sessions liées pour avoir les dates
+    const { data: attendanceData, error } = await supabase
       .from('training_attendance')
-      .select('date, attended')
-      .order('date', { ascending: true })
+      .select(`
+        attended,
+        training_sessions!inner (
+          date
+        )
+      `)
+      .order('created_at', { ascending: true })
 
     if (error) {
       // Si la table n'existe pas, ce n'est pas grave
@@ -40,19 +46,24 @@ export async function getAttendanceStats() {
     // Grouper par mois et calculer le taux
     const monthlyStats: Record<string, { attended: number; total: number }> = {}
     
-    data.forEach(record => {
-      const date = new Date(record.date)
-      const month = date.toLocaleDateString('fr-FR', { month: 'short' })
-      
-      if (!monthlyStats[month]) {
-        monthlyStats[month] = { attended: 0, total: 0 }
-      }
-      
-      monthlyStats[month].total++
-      if (record.attended) {
-        monthlyStats[month].attended++
-      }
-    })
+    if (attendanceData) {
+      attendanceData.forEach((record: any) => {
+        const session = record.training_sessions
+        if (!session || !session.date) return
+        
+        const date = new Date(session.date)
+        const month = date.toLocaleDateString('fr-FR', { month: 'short' })
+        
+        if (!monthlyStats[month]) {
+          monthlyStats[month] = { attended: 0, total: 0 }
+        }
+        
+        monthlyStats[month].total++
+        if (record.attended) {
+          monthlyStats[month].attended++
+        }
+      })
+    }
 
     const result = Object.entries(monthlyStats).map(([month, stats]) => ({
       month,
@@ -174,12 +185,13 @@ export async function getAcademicPerformance() {
   }
 }
 
-// Données financières depuis orders
+// Données financières depuis orders - séparées par devise
 export async function getFinancialData() {
   try {
     const { data, error } = await supabase
       .from('orders')
       .select('total, created_at, payment_status, currency')
+      .eq('payment_status', 'paid')
       .order('created_at', { ascending: true })
 
     if (error) {
@@ -190,52 +202,61 @@ export async function getFinancialData() {
         hint: error.hint,
       })
       return [
-        { month: "Jan", revenus: 45000, depenses: 38000 },
-        { month: "Fév", revenus: 52000, depenses: 41000 },
-        { month: "Mar", revenus: 48000, depenses: 39000 },
-        { month: "Avr", revenus: 61000, depenses: 42000 },
-        { month: "Mai", revenus: 55000, depenses: 40000 },
-        { month: "Juin", revenus: 68000, depenses: 44000 },
+        { month: "Jan", XOF: 45000, EUR: 3500, USD: 4200 },
+        { month: "Fév", XOF: 52000, EUR: 4000, USD: 4800 },
+        { month: "Mar", XOF: 48000, EUR: 3700, USD: 4500 },
+        { month: "Avr", XOF: 61000, EUR: 4700, USD: 5600 },
+        { month: "Mai", XOF: 55000, EUR: 4200, USD: 5100 },
+        { month: "Juin", XOF: 68000, EUR: 5200, USD: 6200 },
       ]
     }
 
     if (!data || data.length === 0) {
       return [
-        { month: "Jan", revenus: 45000, depenses: 38000 },
-        { month: "Fév", revenus: 52000, depenses: 41000 },
-        { month: "Mar", revenus: 48000, depenses: 39000 },
-        { month: "Avr", revenus: 61000, depenses: 42000 },
-        { month: "Mai", revenus: 55000, depenses: 40000 },
-        { month: "Juin", revenus: 68000, depenses: 44000 },
+        { month: "Jan", XOF: 45000, EUR: 3500, USD: 4200 },
+        { month: "Fév", XOF: 52000, EUR: 4000, USD: 4800 },
+        { month: "Mar", XOF: 48000, EUR: 3700, USD: 4500 },
+        { month: "Avr", XOF: 61000, EUR: 4700, USD: 5600 },
+        { month: "Mai", XOF: 55000, EUR: 4200, USD: 5100 },
+        { month: "Juin", XOF: 68000, EUR: 5200, USD: 6200 },
       ]
     }
 
-    // Grouper par mois
-    const monthlyData: Record<string, { revenus: number; depenses: number }> = {}
+    // Grouper par mois et par devise
+    const monthlyData: Record<string, { XOF: number; EUR: number; USD: number }> = {}
     
     data.forEach(order => {
-      if (order.payment_status === 'paid' && order.total) {
+      if (order.total) {
         const date = new Date(order.created_at)
         const month = date.toLocaleDateString('fr-FR', { month: 'short' })
         
         if (!monthlyData[month]) {
-          monthlyData[month] = { revenus: 0, depenses: 0 }
+          monthlyData[month] = { XOF: 0, EUR: 0, USD: 0 }
         }
         
-        // Convertir selon la devise si nécessaire
-        let amount = Number(order.total) || 0
-        // Vous pouvez ajouter une conversion de devise ici si nécessaire
+        const amount = Number(order.total) || 0
+        const currency = (order.currency || 'XOF').toUpperCase()
         
-        monthlyData[month].revenus += amount
-        // Les dépenses devraient venir d'une autre table si vous en avez une
+        // Ajouter au montant de la devise correspondante
+        if (currency === 'XOF' || currency === 'FCFA') {
+          monthlyData[month].XOF += amount
+        } else if (currency === 'EUR') {
+          monthlyData[month].EUR += amount
+        } else if (currency === 'USD') {
+          monthlyData[month].USD += amount
+        } else {
+          // Par défaut, ajouter à XOF
+          monthlyData[month].XOF += amount
+        }
       }
     })
 
     const result = Object.entries(monthlyData)
       .map(([month, amounts]) => ({
         month,
-        revenus: Math.round(amounts.revenus),
-        depenses: Math.round(amounts.depenses), // À adapter selon votre logique
+        XOF: Math.round(amounts.XOF),
+        EUR: Math.round(amounts.EUR),
+        USD: Math.round(amounts.USD),
       }))
       .sort((a, b) => {
         const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc']
@@ -245,12 +266,12 @@ export async function getFinancialData() {
     // Si pas de données, retourner des données par défaut
     if (result.length === 0) {
       return [
-        { month: "Jan", revenus: 45000, depenses: 38000 },
-        { month: "Fév", revenus: 52000, depenses: 41000 },
-        { month: "Mar", revenus: 48000, depenses: 39000 },
-        { month: "Avr", revenus: 61000, depenses: 42000 },
-        { month: "Mai", revenus: 55000, depenses: 40000 },
-        { month: "Juin", revenus: 68000, depenses: 44000 },
+        { month: "Jan", XOF: 45000, EUR: 3500, USD: 4200 },
+        { month: "Fév", XOF: 52000, EUR: 4000, USD: 4800 },
+        { month: "Mar", XOF: 48000, EUR: 3700, USD: 4500 },
+        { month: "Avr", XOF: 61000, EUR: 4700, USD: 5600 },
+        { month: "Mai", XOF: 55000, EUR: 4200, USD: 5100 },
+        { month: "Juin", XOF: 68000, EUR: 5200, USD: 6200 },
       ]
     }
 
@@ -261,12 +282,12 @@ export async function getFinancialData() {
       stack: error?.stack,
     })
     return [
-      { month: "Jan", revenus: 45000, depenses: 38000 },
-      { month: "Fév", revenus: 52000, depenses: 41000 },
-      { month: "Mar", revenus: 48000, depenses: 39000 },
-      { month: "Avr", revenus: 61000, depenses: 42000 },
-      { month: "Mai", revenus: 55000, depenses: 40000 },
-      { month: "Juin", revenus: 68000, depenses: 44000 },
+      { month: "Jan", XOF: 45000, EUR: 3500, USD: 4200 },
+      { month: "Fév", XOF: 52000, EUR: 4000, USD: 4800 },
+      { month: "Mar", XOF: 48000, EUR: 3700, USD: 4500 },
+      { month: "Avr", XOF: 61000, EUR: 4700, USD: 5600 },
+      { month: "Mai", XOF: 55000, EUR: 4200, USD: 5100 },
+      { month: "Juin", XOF: 68000, EUR: 5200, USD: 6200 },
     ]
   }
 }

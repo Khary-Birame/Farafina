@@ -16,12 +16,75 @@ export interface AcademicData {
   moyenne: number
 }
 
+export interface AcademicHistory {
+  month: string
+  moyenne: number
+}
+
 export function useAdminAcademic() {
   const [students, setStudents] = useState<AcademicStudentRow[]>([])
   const [academicData, setAcademicData] = useState<AcademicData[]>([])
+  const [academicHistory, setAcademicHistory] = useState<AcademicHistory[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [hasLoaded, setHasLoaded] = useState(false)
+  const [historyLoading, setHistoryLoading] = useState(true)
+
+  // Récupérer l'historique académique pour le graphique d'évolution
+  useEffect(() => {
+    async function fetchAcademicHistory() {
+      try {
+        // Récupérer les 6 derniers mois d'historique
+        const sixMonthsAgo = new Date()
+        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
+        
+        const { data: historyData, error: historyError } = await supabase
+          .from('academic_history')
+          .select('month, average_score')
+          .gte('month', sixMonthsAgo.toISOString().split('T')[0])
+          .order('month', { ascending: true })
+
+        if (historyError) {
+          console.error('Erreur récupération historique académique:', historyError)
+          setHistoryLoading(false)
+          return
+        }
+
+        if (historyData && historyData.length > 0) {
+          // Grouper par mois et calculer la moyenne mensuelle
+          const monthlyAverages: Record<string, number[]> = {}
+          
+          historyData.forEach((record: any) => {
+            const date = new Date(record.month)
+            const monthKey = date.toLocaleDateString('fr-FR', { month: 'short' })
+            
+            if (!monthlyAverages[monthKey]) {
+              monthlyAverages[monthKey] = []
+            }
+            monthlyAverages[monthKey].push(Number(record.average_score) || 0)
+          })
+
+          const formattedHistory = Object.entries(monthlyAverages)
+            .map(([month, scores]) => ({
+              month,
+              moyenne: Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length),
+            }))
+            .sort((a, b) => {
+              const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc']
+              return months.indexOf(a.month) - months.indexOf(b.month)
+            })
+
+          setAcademicHistory(formattedHistory)
+        }
+      } catch (err: any) {
+        console.error('Erreur récupération historique académique:', err)
+      } finally {
+        setHistoryLoading(false)
+      }
+    }
+
+    fetchAcademicHistory()
+  }, [])
 
   useEffect(() => {
     async function fetchAcademicData() {
@@ -125,6 +188,6 @@ export function useAdminAcademic() {
     fetchAcademicData()
   }, [])
 
-  return { students, academicData, loading, error, hasLoaded }
+  return { students, academicData, academicHistory, loading: loading || historyLoading, error, hasLoaded }
 }
 

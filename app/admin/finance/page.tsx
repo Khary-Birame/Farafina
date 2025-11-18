@@ -37,20 +37,27 @@ const defaultRevenueData = [
 export default function FinanceAdmissionsPage() {
   const { kpis, loading: kpisLoading } = useAdminDashboard()
   const { orders, loading: ordersLoading } = useAdminOrders()
-  const [revenueData, setRevenueData] = useState(defaultRevenueData)
+  const [revenueData, setRevenueData] = useState<typeof defaultRevenueData>([])
   const [loadingCharts, setLoadingCharts] = useState(true)
 
   useEffect(() => {
     async function loadRevenueData() {
       try {
+        setLoadingCharts(true)
         const financialData = await getFinancialData()
+        // Utiliser TOUJOURS les données Supabase, même si elles sont vides
+        // Ne jamais utiliser de mockups - les données Supabase sont la source de vérité
         if (financialData && financialData.length > 0) {
-          // Convertir les données financières en format pour le graphique multi-devises
-          // Pour l'instant, on garde le format par défaut car getFinancialData ne sépare pas par devise
-          // Vous pouvez adapter cette logique selon vos besoins
+          // getFinancialData retourne maintenant les données séparées par devise (XOF, EUR, USD)
+          setRevenueData(financialData as typeof defaultRevenueData)
+        } else {
+          // Si pas de données, initialiser avec un tableau vide plutôt que des mockups
+          setRevenueData([])
         }
       } catch (error) {
         console.error('Erreur chargement données revenus:', error)
+        // En cas d'erreur, garder un tableau vide plutôt que des mockups
+        setRevenueData([])
       } finally {
         setLoadingCharts(false)
       }
@@ -181,6 +188,10 @@ export default function FinanceAdmissionsPage() {
           {loadingCharts ? (
             <div className="h-[300px] flex items-center justify-center">
               <p className="text-[#737373]">Chargement...</p>
+            </div>
+          ) : revenueData.length === 0 ? (
+            <div className="h-[300px] flex items-center justify-center">
+              <p className="text-[#737373]">Aucune donnée financière disponible</p>
             </div>
           ) : (
             <ResponsiveContainer width="100%" height={300}>

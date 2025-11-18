@@ -1,0 +1,4 @@
+id,product_id,image_url,alt_text,sort_order,is_primary,created_at
+ee000000-0000-0000-0000-000000000001,e0000000-0000-0000-0000-000000000001,https://example.com/images/maillot-domicile.jpg,Maillot Domicile Farafina,0,true,2024-01-01 10:00:00+00
+ee000000-0000-0000-0000-000000000002,e0000000-0000-0000-0000-000000000002,https://example.com/images/maillot-exterieur.jpg,Maillot Extérieur Farafina,0,true,2024-01-01 10:00:00+00
+ee000000-0000-0000-0000-000000000003,e0000000-0000-0000-0000-000000000003,https://example.com/images/chaussures-mercurial.jpg,Chaussures Nike Mercurial,0,true,2024-01-01 10:00:00+00
