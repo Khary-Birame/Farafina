@@ -24,6 +24,7 @@ export function useAdminPlayers(filters?: {
   const [players, setPlayers] = useState<PlayerRow[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [hasLoaded, setHasLoaded] = useState(false) // Indique si les données ont été chargées depuis Supabase
 
   useEffect(() => {
     async function fetchPlayers() {
@@ -52,7 +53,15 @@ export function useAdminPlayers(filters?: {
           query = query.eq('position', filters.position)
         }
         if (filters?.status) {
-          query = query.eq('status', filters.status)
+          // Convertir le statut français en statut de la base
+          const statusMap: Record<string, string> = {
+            'Actif': 'active',
+            'Inactif': 'inactive',
+            'Diplômé': 'graduated',
+            'Transféré': 'transferred',
+          }
+          const dbStatus = statusMap[filters.status] || filters.status
+          query = query.eq('status', dbStatus)
         }
         if (filters?.search) {
           query = query.or(
@@ -62,12 +71,20 @@ export function useAdminPlayers(filters?: {
 
         const { data, error: queryError } = await query
 
-        if (queryError) throw queryError
+        if (queryError) {
+          console.error('Erreur récupération joueurs:', {
+            message: queryError.message,
+            code: queryError.code,
+            details: queryError.details,
+            hint: queryError.hint,
+          })
+          throw queryError
+        }
 
-        // Formater les données
+        // Formater les données selon le schéma de la base
         const formattedPlayers: PlayerRow[] = (data || []).map((player: any) => ({
           id: player.id,
-          nom: `${player.first_name || ''} ${player.last_name || ''}`.trim(),
+          nom: `${player.first_name || ''} ${player.last_name || ''}`.trim() || 'Sans nom',
           age: player.age,
           position: player.position || 'Non défini',
           categorie: player.category || 'Non défini',
@@ -76,14 +93,27 @@ export function useAdminPlayers(filters?: {
                  player.status === 'inactive' ? 'Inactif' :
                  player.status === 'graduated' ? 'Diplômé' :
                  player.status === 'transferred' ? 'Transféré' : 'Actif',
-          presence: '95%', // À calculer depuis les stats ou créer une table training_attendance
-          performance: player.performance ? Math.round(player.performance) : null,
+          presence: '95%', // TODO: Calculer depuis training_attendance
+          performance: player.performance ? Math.round(Number(player.performance)) : null,
         }))
 
+        // Toujours mettre à jour les joueurs et marquer comme chargé, même si le tableau est vide
+        // Cela garantit qu'on utilise les données Supabase et non des mockups
         setPlayers(formattedPlayers)
+        setHasLoaded(true) // Marquer comme chargé avec succès (même si vide)
+        setError(null)
       } catch (err: any) {
-        setError(err.message)
-        console.error('Erreur récupération joueurs:', err)
+        const errorMessage = err?.message || 'Erreur inconnue lors de la récupération des joueurs'
+        setError(errorMessage)
+        setHasLoaded(false) // En cas d'erreur, on n'a pas chargé avec succès
+        console.error('Erreur récupération joueurs:', {
+          message: err?.message,
+          code: err?.code,
+          details: err?.details,
+          hint: err?.hint,
+          stack: err?.stack,
+        })
+        // Ne pas vider les joueurs en cas d'erreur, garder l'état précédent
       } finally {
         setLoading(false)
       }
@@ -92,6 +122,5 @@ export function useAdminPlayers(filters?: {
     fetchPlayers()
   }, [filters])
 
-  return { players, loading, error }
+  return { players, loading, error, hasLoaded }
 }
-

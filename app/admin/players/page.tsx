@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { AdminLayout } from "@/components/admin/admin-layout"
 import { DataTable } from "@/components/admin/data-table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -7,55 +8,6 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Eye, Edit, Plus } from "lucide-react"
 import { useAdminPlayers } from "@/lib/admin/hooks/use-admin-players"
-import { useState, useEffect } from "react"
-
-// Données de démonstration (fallback)
-const defaultPlayers = [
-  {
-    id: "1",
-    nom: "Amadou Diallo",
-    age: 16,
-    position: "Attaquant",
-    categorie: "U16",
-    pays: "Sénégal",
-    statut: "Actif",
-    presence: "95%",
-    performance: 85,
-  },
-  {
-    id: "2",
-    nom: "Fatou Sarr",
-    age: 15,
-    position: "Milieu",
-    categorie: "U15",
-    pays: "Mali",
-    statut: "Actif",
-    presence: "88%",
-    performance: 78,
-  },
-  {
-    id: "3",
-    nom: "Ibrahim Koné",
-    age: 17,
-    position: "Défenseur",
-    categorie: "U18",
-    pays: "Côte d'Ivoire",
-    statut: "Inactif",
-    presence: "72%",
-    performance: 82,
-  },
-  {
-    id: "4",
-    nom: "Aissatou Ba",
-    age: 16,
-    position: "Gardien",
-    categorie: "U16",
-    pays: "Sénégal",
-    statut: "Actif",
-    presence: "92%",
-    performance: 88,
-  },
-]
 
 export default function PlayersManagementPage() {
   const [filters, setFilters] = useState<{
@@ -65,12 +17,13 @@ export default function PlayersManagementPage() {
     search?: string
   }>({})
   
-  const { players, loading } = useAdminPlayers(filters)
+  const { players, loading, error, hasLoaded } = useAdminPlayers(filters)
   
-  // Utiliser les données Supabase si disponibles, sinon fallback
-  const displayPlayers = players.length > 0 ? players : defaultPlayers
+  // Utiliser TOUJOURS les données Supabase, même si elles sont vides
+  // Ne jamais utiliser de mockups - les données Supabase sont la source de vérité
+  const displayPlayers = players
   
-  // Calculer les statistiques
+  // Calculer les statistiques depuis les données Supabase uniquement
   const totalPlayers = displayPlayers.length
   const activePlayers = displayPlayers.filter(p => p.statut === 'Actif').length
   const inactivePlayers = displayPlayers.filter(p => p.statut !== 'Actif').length
@@ -81,7 +34,7 @@ export default function PlayersManagementPage() {
           return sum + presence
         }, 0) / displayPlayers.length
       )
-    : 92
+    : 0
 
   const columns = [
     {
@@ -208,6 +161,19 @@ export default function PlayersManagementPage() {
           {loading ? (
             <div className="py-12 text-center">
               <p className="text-[#737373]">Chargement des joueurs...</p>
+            </div>
+          ) : error ? (
+            <div className="py-12 text-center">
+              <p className="text-red-600 mb-2">Erreur: {error}</p>
+              <p className="text-sm text-[#737373]">Vérifiez la console pour plus de détails</p>
+            </div>
+          ) : displayPlayers.length === 0 ? (
+            <div className="py-12 text-center">
+              <p className="text-[#737373] mb-4">Aucun joueur trouvé dans la base de données</p>
+              <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
+                <Plus className="w-4 h-4 mr-2" />
+                Ajouter le premier joueur
+              </Button>
             </div>
           ) : (
             <DataTable

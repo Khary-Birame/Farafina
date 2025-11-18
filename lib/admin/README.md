@@ -125,3 +125,4 @@ Pour les opérations admin, utilisez `checkAdminAccess()` avant d'afficher les p
 - Les chargements sont indiqués avec des "..." ou des messages de chargement
 - Les données sont formatées pour correspondre au format attendu par le frontend
 
+
