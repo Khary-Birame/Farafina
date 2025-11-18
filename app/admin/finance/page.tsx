@@ -19,48 +19,56 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts"
+import { useAdminOrders } from "@/lib/admin/hooks/use-admin-orders"
+import { useAdminDashboard } from "@/lib/admin/hooks/use-admin-dashboard"
+import { getFinancialData } from "@/lib/admin/services/dashboard-stats"
+import { useEffect, useState } from "react"
 
-// Données de démonstration
-const payments = [
+// Données de démonstration (fallback)
+const defaultPayments = [
   {
-    id: 1,
+    id: "1",
     etudiant: "Amadou Diallo",
     montant: 2500000,
     devise: "XOF",
     statut: "Complété",
     date: "2025-01-15",
     methode: "Carte bancaire",
+    order_number: "ORD-001",
   },
   {
-    id: 2,
+    id: "2",
     etudiant: "Fatou Sarr",
     montant: 1800000,
     devise: "XOF",
     statut: "En attente",
     date: "2025-01-14",
     methode: "Virement bancaire",
+    order_number: "ORD-002",
   },
   {
-    id: 3,
+    id: "3",
     etudiant: "Ibrahim Koné",
     montant: 150,
     devise: "EUR",
     statut: "Complété",
     date: "2025-01-13",
     methode: "Mobile Money",
+    order_number: "ORD-003",
   },
   {
-    id: 4,
+    id: "4",
     etudiant: "Aissatou Ba",
     montant: 2000,
     devise: "USD",
-    statut: "En retard",
+    statut: "En attente",
     date: "2025-01-10",
     methode: "Virement bancaire",
+    order_number: "ORD-004",
   },
 ]
 
-const revenueData = [
+const defaultRevenueData = [
   { month: "Jan", XOF: 45000, EUR: 3500, USD: 4200 },
   { month: "Fév", XOF: 52000, EUR: 4000, USD: 4800 },
   { month: "Mar", XOF: 48000, EUR: 3700, USD: 4500 },
@@ -70,6 +78,47 @@ const revenueData = [
 ]
 
 export default function FinanceAdmissionsPage() {
+  const { kpis, loading: kpisLoading } = useAdminDashboard()
+  const { orders, loading: ordersLoading } = useAdminOrders()
+  const [revenueData, setRevenueData] = useState(defaultRevenueData)
+  const [loadingCharts, setLoadingCharts] = useState(true)
+
+  useEffect(() => {
+    async function loadRevenueData() {
+      try {
+        const financialData = await getFinancialData()
+        if (financialData && financialData.length > 0) {
+          // Convertir les données financières en format pour le graphique multi-devises
+          // Pour l'instant, on garde le format par défaut car getFinancialData ne sépare pas par devise
+          // Vous pouvez adapter cette logique selon vos besoins
+        }
+      } catch (error) {
+        console.error('Erreur chargement données revenus:', error)
+      } finally {
+        setLoadingCharts(false)
+      }
+    }
+
+    loadRevenueData()
+  }, [])
+
+  // Utiliser les données Supabase si disponibles, sinon fallback
+  const displayPayments = orders.length > 0 ? orders : defaultPayments
+
+  // Calculer les statistiques
+  const pendingPayments = displayPayments.filter(p => p.statut === 'En attente').length
+  const completedPayments = displayPayments.filter(p => p.statut === 'Complété').length
+  const totalRevenue = displayPayments
+    .filter(p => p.statut === 'Complété')
+    .reduce((sum, p) => sum + p.montant, 0)
+
+  const formatRevenue = (amount: number) => {
+    if (amount >= 1000000) {
+      return `${(amount / 1000000).toFixed(1)}M XOF`
+    }
+    return `${amount.toLocaleString()} XOF`
+  }
+
   const columns = [
     {
       key: "etudiant",
@@ -78,7 +127,7 @@ export default function FinanceAdmissionsPage() {
     {
       key: "montant",
       header: "Montant",
-      render: (row: typeof payments[0]) => (
+      render: (row: typeof displayPayments[0]) => (
         <span className="font-semibold">
           {row.montant.toLocaleString()} {row.devise}
         </span>
@@ -95,7 +144,7 @@ export default function FinanceAdmissionsPage() {
     {
       key: "statut",
       header: "Statut",
-      render: (row: typeof payments[0]) => (
+      render: (row: typeof displayPayments[0]) => (
         <Badge
           className={
             row.statut === "Complété"
@@ -132,26 +181,26 @@ export default function FinanceAdmissionsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <KPICard
           title="Revenus Totaux"
-          value="68 000 €"
-          change={{ value: "+12%", type: "increase" }}
+          value={kpisLoading ? "..." : formatRevenue(kpis.monthlyRevenue)}
+          change={kpis.monthlyRevenue > 0 ? { value: "+12%", type: "increase" } : undefined}
           icon={DollarSign}
           description="Ce mois-ci"
         />
         <KPICard
           title="Paiements En Attente"
-          value="23"
+          value={kpisLoading ? "..." : kpis.pendingPayments.toString()}
           icon={AlertCircle}
           iconColor="text-[#E8C966]"
           borderColor="border-l-[#E8C966]"
           description="Nécessitent une attention"
         />
         <KPICard
-          title="Paiements En Retard"
-          value="8"
-          icon={AlertCircle}
-          iconColor="text-[#EF4444]"
-          borderColor="border-l-[#EF4444]"
-          description="Action requise"
+          title="Paiements Complétés"
+          value={ordersLoading ? "..." : completedPayments.toString()}
+          icon={TrendingUp}
+          iconColor="text-[#10B981]"
+          borderColor="border-l-[#10B981]"
+          description="Ce mois-ci"
         />
         <KPICard
           title="Croissance"
@@ -167,10 +216,15 @@ export default function FinanceAdmissionsPage() {
       {/* Revenue Chart */}
       <Card className="mb-6 bg-white shadow-md">
         <CardHeader>
-            <CardTitle className="text-[#1A1A1A] font-semibold">Revenus par Devise</CardTitle>
-            <CardDescription className="text-[#737373]">Évolution mensuelle en XOF, EUR et USD</CardDescription>
-          </CardHeader>
-          <CardContent>
+          <CardTitle className="text-[#1A1A1A] font-semibold">Revenus par Devise</CardTitle>
+          <CardDescription className="text-[#737373]">Évolution mensuelle en XOF, EUR et USD</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {loadingCharts ? (
+            <div className="h-[300px] flex items-center justify-center">
+              <p className="text-[#737373]">Chargement...</p>
+            </div>
+          ) : (
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={revenueData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -188,8 +242,9 @@ export default function FinanceAdmissionsPage() {
                 <Bar dataKey="XOF" fill="#D4AF37" radius={[8, 8, 0, 0]} name="XOF (milliers)" />
                 <Bar dataKey="EUR" fill="#1A1A1A" radius={[8, 8, 0, 0]} name="EUR" />
                 <Bar dataKey="USD" fill="#E8C966" radius={[8, 8, 0, 0]} name="USD" />
-            </BarChart>
-          </ResponsiveContainer>
+              </BarChart>
+            </ResponsiveContainer>
+          )}
         </CardContent>
       </Card>
 
@@ -200,15 +255,20 @@ export default function FinanceAdmissionsPage() {
           <CardDescription className="text-[#737373]">Suivez tous les paiements et transactions</CardDescription>
         </CardHeader>
         <CardContent>
-          <DataTable
-            data={payments}
-            columns={columns}
-            searchPlaceholder="Rechercher un paiement..."
-            onExport={() => console.log("Export payments")}
-          />
+          {ordersLoading ? (
+            <div className="py-12 text-center">
+              <p className="text-[#737373]">Chargement des paiements...</p>
+            </div>
+          ) : (
+            <DataTable
+              data={displayPayments}
+              columns={columns}
+              searchPlaceholder="Rechercher un paiement..."
+              onExport={() => console.log("Export payments")}
+            />
+          )}
         </CardContent>
       </Card>
     </AdminLayout>
   )
 }
-
