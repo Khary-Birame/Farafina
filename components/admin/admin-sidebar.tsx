@@ -15,6 +15,7 @@ import {
   ChevronRight,
   LogOut,
   User,
+  FileText,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -50,6 +51,11 @@ const menuItems = [
     title: "Finance & Admissions",
     href: "/admin/finance",
     icon: DollarSign,
+  },
+  {
+    title: "Candidatures",
+    href: "/admin/candidatures",
+    icon: FileText,
   },
   {
     title: "Messagerie",

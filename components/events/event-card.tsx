@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { Calendar, MapPin, Trophy, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -22,17 +23,17 @@ const eventTypeColors: Record<string, string> = {
   conférence: "bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30",
   cérémonie: "bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30",
   "portes-ouvertes": "bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30",
-  camp: "bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30",
+  "camp": "bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30",
 }
 
-const eventTypeIcons: Record<string, JSX.Element> = {
+const eventTypeIcons: Record<string, React.ReactElement> = {
   détection: <Trophy className="w-4 h-4" />,
   tournoi: <Trophy className="w-4 h-4" />,
   visite: <MapPin className="w-4 h-4" />,
   conférence: <Calendar className="w-4 h-4" />,
   cérémonie: <Calendar className="w-4 h-4" />,
   "portes-ouvertes": <MapPin className="w-4 h-4" />,
-  camp: <Trophy className="w-4 h-4" />,
+  "camp": <Trophy className="w-4 h-4" />,
 }
 
 export function EventCard({ date, title, location, type, description, image }: EventCardProps) {
@@ -53,7 +54,7 @@ export function EventCard({ date, title, location, type, description, image }: E
               className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border backdrop-blur-sm ${eventTypeColors[type] || eventTypeColors.détection}`}
             >
               {eventTypeIcons[type]}
-              {type}
+              {t(`events.grid.filters.${type === "portes-ouvertes" ? "openHouse" : type === "cérémonie" ? "ceremony" : type}`)}
             </span>
           </div>
         </div>

@@ -856,6 +856,137 @@
           "description": "360° support for each player"
         }
       }
+    },
+    "map": {
+      "title": "Our International Network",
+      "description": "Strong partnerships with prestigious clubs and academies across Europe, Africa and the world.",
+      "stats": {
+        "countries": "Partner Countries",
+        "clubs": "Partner Clubs",
+        "players": "Players Supported",
+        "successRate": "Success Rate"
+      },
+      "countries": {
+        "france": {
+          "name": "France",
+          "cities": {
+            "paris": "Paris",
+            "lyon": "Lyon",
+            "marseille": "Marseille"
+          }
+        },
+        "spain": {
+          "name": "Spain",
+          "cities": {
+            "barcelona": "Barcelona",
+            "madrid": "Madrid",
+            "valencia": "Valencia"
+          }
+        },
+        "italy": {
+          "name": "Italy",
+          "cities": {
+            "milan": "Milan",
+            "rome": "Rome",
+            "turin": "Turin"
+          }
+        },
+        "england": {
+          "name": "England",
+          "cities": {
+            "london": "London",
+            "manchester": "Manchester",
+            "liverpool": "Liverpool"
+          }
+        },
+        "germany": {
+          "name": "Germany",
+          "cities": {
+            "munich": "Munich",
+            "berlin": "Berlin",
+            "dortmund": "Dortmund"
+          }
+        },
+        "portugal": {
+          "name": "Portugal",
+          "cities": {
+            "lisbon": "Lisbon",
+            "porto": "Porto"
+          }
+        },
+        "netherlands": {
+          "name": "Netherlands",
+          "cities": {
+            "amsterdam": "Amsterdam",
+            "rotterdam": "Rotterdam"
+          }
+        },
+        "belgium": {
+          "name": "Belgium",
+          "cities": {
+            "brussels": "Brussels",
+            "antwerp": "Antwerp"
+          }
+        },
+        "uae": {
+          "name": "United Arab Emirates",
+          "cities": {
+            "dubai": "Dubai",
+            "abudhabi": "Abu Dhabi",
+            "sharjah": "Sharjah"
+          }
+        },
+        "morocco": {
+          "name": "Morocco",
+          "cities": {
+            "casablanca": "Casablanca",
+            "rabat": "Rabat",
+            "marrakech": "Marrakech"
+          }
+        },
+        "senegal": {
+          "name": "Senegal",
+          "cities": {
+            "dakar": "Dakar",
+            "thies": "Thiès"
+          }
+        },
+        "ivoryCoast": {
+          "name": "Ivory Coast",
+          "cities": {
+            "abidjan": "Abidjan",
+            "yamoussoukro": "Yamoussoukro"
+          }
+        },
+        "ghana": {
+          "name": "Ghana",
+          "cities": {
+            "accra": "Accra",
+            "kumasi": "Kumasi"
+          }
+        },
+        "nigeria": {
+          "name": "Nigeria",
+          "cities": {
+            "lagos": "Lagos",
+            "abuja": "Abuja"
+          }
+        },
+        "southAfrica": {
+          "name": "South Africa",
+          "cities": {
+            "johannesburg": "Johannesburg",
+            "capetown": "Cape Town"
+          }
+        },
+        "egypt": {
+          "name": "Egypt",
+          "cities": {
+            "cairo": "Cairo",
+            "alexandria": "Alexandria"
+          }
+        }
+      }
     }
   },
   "apply": {

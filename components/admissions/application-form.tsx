@@ -6,8 +6,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { Upload, CheckCircle2, Shield, Lock, Loader2 } from "lucide-react"
-import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
+import { Upload, CheckCircle2, Lock, Loader2, X, FileCheck } from "lucide-react"
+import { submitApplication, validateApplicationData } from "@/lib/supabase/application-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
 import { toast } from "sonner"
 import { useTranslation } from "@/lib/hooks/use-translation"
@@ -17,6 +17,7 @@ export function ApplicationForm() {
   const { t } = useTranslation()
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const totalSteps = 3
 
   const progress = (currentStep / totalSteps) * 100
@@ -42,37 +43,191 @@ export function ApplicationForm() {
     motivation: "",
     guardian: "",
     guardianPhone: "",
-    // Étape 3 (documents - pour l'instant juste les noms de fichiers)
+    // Étape 3 (documents)
     birthCertificate: null as File | null,
     photo: null as File | null,
     medicalCertificate: null as File | null,
     video: null as File | null,
   })
 
+  // Fonction pour mettre à jour un champ
+  const updateField = (field: string, value: any) => {
+    setFormData((prev) => ({ ...prev, [field]: value }))
+    // Effacer l'erreur pour ce champ
+    if (errors[field]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev }
+        delete newErrors[field]
+        return newErrors
+      })
+    }
+  }
+
+  // Gestion des fichiers
+  const handleFileChange = (field: "birthCertificate" | "photo" | "medicalCertificate" | "video", file: File | null) => {
+    updateField(field, file)
+  }
+
+  // Validation avant de passer à l'étape suivante
+  const validateStep = (step: number): boolean => {
+    const stepErrors: Record<string, string> = {}
+
+    if (step === 1) {
+      if (!formData.firstName.trim()) stepErrors.firstName = t("admissions.errors.firstName", "Le prénom est requis")
+      if (!formData.lastName.trim()) stepErrors.lastName = t("admissions.errors.lastName", "Le nom est requis")
+      if (!formData.age || parseInt(formData.age) < 8) {
+        stepErrors.age = t("admissions.errors.age", "L'âge doit être de 8 ans ou plus")
+      }
+      if (!formData.gender) stepErrors.gender = t("admissions.errors.gender", "Le genre est requis")
+      if (!formData.height || parseFloat(formData.height) <= 0) {
+        stepErrors.height = t("admissions.errors.height", "La taille est requise")
+      }
+      if (!formData.weight || parseFloat(formData.weight) <= 0) {
+        stepErrors.weight = t("admissions.errors.weight", "Le poids est requis")
+      }
+      if (!formData.country) stepErrors.country = t("admissions.errors.country", "Le pays est requis")
+      if (!formData.email?.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        stepErrors.email = t("admissions.errors.email", "Un email valide est requis")
+      }
+      if (!formData.phone?.trim()) stepErrors.phone = t("admissions.errors.phone", "Le téléphone est requis")
+    }
+
+    if (step === 2) {
+      if (!formData.program) stepErrors.program = t("admissions.errors.program", "Le programme est requis")
+      if (!formData.position) stepErrors.position = t("admissions.errors.position", "La position est requise")
+      if (!formData.experience || parseInt(formData.experience) < 0) {
+        stepErrors.experience = t("admissions.errors.experience", "L'expérience est requise")
+      }
+      if (!formData.motivation?.trim() || formData.motivation.length < 50) {
+        stepErrors.motivation = t("admissions.errors.motivation", "La motivation doit contenir au moins 50 caractères")
+      }
+      if (!formData.guardian?.trim()) {
+        stepErrors.guardian = t("admissions.errors.guardian", "Le nom du tuteur est requis")
+      }
+      if (!formData.guardianPhone?.trim()) {
+        stepErrors.guardianPhone = t("admissions.errors.guardianPhone", "Le téléphone du tuteur est requis")
+      }
+    }
+
+    setErrors(stepErrors)
+    return Object.keys(stepErrors).length === 0
+  }
+
+  const handleNext = () => {
+    if (validateStep(currentStep)) {
+      setCurrentStep(Math.min(totalSteps, currentStep + 1))
+    } else {
+      toast.error(t("admissions.validationError", "Veuillez corriger les erreurs avant de continuer"))
+    }
+  }
+
   const handleSubmitApplication = async () => {
     setIsSubmitting(true)
+    setErrors({})
 
     try {
-      const { data, error } = await createFormSubmission({
-        form_type: "application",
-        form_data: {
-          ...formData,
-          // Convertir les fichiers en noms seulement (pour l'instant)
-          birthCertificate: formData.birthCertificate?.name || null,
-          photo: formData.photo?.name || null,
-          medicalCertificate: formData.medicalCertificate?.name || null,
-          video: formData.video?.name || null,
+      // Validation finale des champs texte
+      const validation = validateApplicationData(formData)
+      const allErrors: Record<string, string> = { ...validation.errors }
+      
+      // Validation des fichiers obligatoires
+      if (!formData.birthCertificate) {
+        allErrors.birthCertificate = t("admissions.errors.birthCertificate", "L'acte de naissance est requis")
+      }
+      
+      if (!formData.photo) {
+        allErrors.photo = t("admissions.errors.photo", "La photo est requise")
+      }
+      
+      if (!formData.medicalCertificate) {
+        allErrors.medicalCertificate = t("admissions.errors.medicalCertificate", "Le certificat médical est requis")
+      }
+      
+      // Si des erreurs existent
+      if (Object.keys(allErrors).length > 0) {
+        setErrors(allErrors)
+        
+        // Déterminer l'étape contenant la première erreur
+        const errorFields = Object.keys(allErrors)
+        let errorStep = 1
+        
+        if (errorFields.some(field => ['program', 'position', 'experience', 'motivation', 'guardian', 'guardianPhone'].includes(field))) {
+          errorStep = 2
+        } else if (errorFields.some(field => ['birthCertificate', 'photo', 'medicalCertificate'].includes(field))) {
+          errorStep = 3
+        }
+        
+        // Aller à l'étape contenant l'erreur
+        setCurrentStep(errorStep)
+        
+        // Créer un message d'erreur détaillé
+        const errorCount = errorFields.length
+        const firstError = allErrors[errorFields[0]]
+        const errorMessage = errorCount === 1 
+          ? `1 erreur détectée : ${firstError}`
+          : `${errorCount} erreurs détectées. Veuillez vérifier les champs marqués en rouge ci-dessous.`
+        
+        toast.error(t("admissions.validationError", "Erreurs de validation"), {
+          description: errorMessage,
+          duration: 6000,
+        })
+        
+        // Faire défiler vers le premier champ en erreur après un court délai
+        setTimeout(() => {
+          const firstErrorField = errorFields[0]
+          const errorElement = document.getElementById(firstErrorField)
+          if (errorElement) {
+            errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            errorElement.focus()
+          } else {
+            // Si c'est un fichier, faire défiler vers le label
+            const labelElement = document.querySelector(`label[for="${firstErrorField}"]`)
+            if (labelElement) {
+              labelElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }
+          }
+        }, 100)
+        
+        setIsSubmitting(false)
+        return
+      }
+
+      // Soumettre la candidature avec upload des fichiers
+      const { data, error } = await submitApplication(
+        {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          age: formData.age,
+          gender: formData.gender,
+          height: formData.height,
+          weight: formData.weight,
+          country: formData.country,
+          email: formData.email,
+          phone: formData.phone,
+          phone2: formData.phone2 || undefined,
+          program: formData.program,
+          position: formData.position,
+          experience: formData.experience,
+          currentClub: formData.currentClub || undefined,
+          motivation: formData.motivation,
+          guardian: formData.guardian,
+          guardianPhone: formData.guardianPhone,
         },
-        user_id: user?.id || null,
-        status: "pending",
-      })
+        {
+          birthCertificate: formData.birthCertificate,
+          photo: formData.photo,
+          medicalCertificate: formData.medicalCertificate,
+          video: formData.video,
+        },
+        user?.id || null
+      )
 
       if (error) {
         throw error
       }
 
-      toast.success(t("admissions.submitSuccess"), {
-        description: t("admissions.submitSuccessDescription"),
+      toast.success(t("admissions.submitSuccess", "Candidature soumise avec succès"), {
+        description: t("admissions.submitSuccessDescription", "Nous vous contacterons bientôt."),
       })
 
       // Réinitialiser le formulaire
@@ -102,8 +257,8 @@ export function ApplicationForm() {
       })
     } catch (error: any) {
       console.error("Erreur lors de la soumission:", error)
-      toast.error(t("admissions.submitError"), {
-        description: error.message || t("admissions.submitErrorDescription"),
+      toast.error(t("admissions.submitError", "Erreur lors de la soumission"), {
+        description: error.message || error.details || t("admissions.submitErrorDescription", "Veuillez réessayer plus tard."),
       })
     } finally {
       setIsSubmitting(false)
@@ -150,25 +305,53 @@ export function ApplicationForm() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="firstName">{t("admissions.firstName")}</Label>
-                    <Input id="firstName" placeholder={t("admissions.firstNamePlaceholder")} required />
+                    <Input
+                      id="firstName"
+                      value={formData.firstName}
+                      onChange={(e) => updateField("firstName", e.target.value)}
+                      placeholder={t("admissions.firstNamePlaceholder")}
+                      required
+                      className={errors.firstName ? "border-red-500" : ""}
+                    />
+                    {errors.firstName && <p className="text-sm text-red-500">{errors.firstName}</p>}
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="lastName">{t("admissions.lastName")}</Label>
-                    <Input id="lastName" placeholder={t("admissions.lastNamePlaceholder")} required />
+                    <Input
+                      id="lastName"
+                      value={formData.lastName}
+                      onChange={(e) => updateField("lastName", e.target.value)}
+                      placeholder={t("admissions.lastNamePlaceholder")}
+                      required
+                      className={errors.lastName ? "border-red-500" : ""}
+                    />
+                    {errors.lastName && <p className="text-sm text-red-500">{errors.lastName}</p>}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="age">{t("admissions.age")}</Label>
-                    <Input id="age" type="number" placeholder={t("admissions.agePlaceholder")} required />
+                    <Input
+                      id="age"
+                      type="number"
+                      value={formData.age}
+                      onChange={(e) => updateField("age", e.target.value)}
+                      onInput={(e) => updateField("age", (e.target as HTMLInputElement).value)}
+                      placeholder={t("admissions.agePlaceholder")}
+                      required
+                      min={8}
+                      inputMode="numeric"
+                      className={errors.age ? "border-red-500" : ""}
+                    />
+                    {errors.age && <p className="text-sm text-red-500">{errors.age}</p>}
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="gender">{t("admissions.gender")}</Label>
-                    <Select>
-                      <SelectTrigger id="gender">
+                    <Select value={formData.gender} onValueChange={(value) => updateField("gender", value)}>
+                      <SelectTrigger id="gender" className={errors.gender ? "border-red-500" : ""}>
                         <SelectValue placeholder={t("admissions.genderPlaceholder")} />
                       </SelectTrigger>
                       <SelectContent>
@@ -177,25 +360,49 @@ export function ApplicationForm() {
                         <SelectItem value="other">{t("admissions.genders.other")}</SelectItem>
                       </SelectContent>
                     </Select>
+                    {errors.gender && <p className="text-sm text-red-500">{errors.gender}</p>}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="height">{t("admissions.height")}</Label>
-                    <Input id="height" type="number" placeholder={t("admissions.heightPlaceholder")} required />
+                    <Input
+                      id="height"
+                      type="number"
+                      value={formData.height}
+                      onChange={(e) => updateField("height", e.target.value)}
+                      onInput={(e) => updateField("height", (e.target as HTMLInputElement).value)}
+                      placeholder={t("admissions.heightPlaceholder")}
+                      required
+                      step="0.01"
+                      min="0"
+                      inputMode="decimal"
+                      className={errors.height ? "border-red-500" : ""}
+                    />
+                    {errors.height && <p className="text-sm text-red-500">{errors.height}</p>}
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="weight">{t("admissions.weight")}</Label>
-                    <Input id="weight" type="number" placeholder={t("admissions.weightPlaceholder")} required />
+                    <Input
+                      id="weight"
+                      type="number"
+                      value={formData.weight}
+                      onChange={(e) => updateField("weight", e.target.value)}
+                      placeholder={t("admissions.weightPlaceholder")}
+                      required
+                      step="0.01"
+                      className={errors.weight ? "border-red-500" : ""}
+                    />
+                    {errors.weight && <p className="text-sm text-red-500">{errors.weight}</p>}
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="country">{t("admissions.country")}</Label>
-                  <Select>
-                    <SelectTrigger id="country">
+                  <Select value={formData.country} onValueChange={(value) => updateField("country", value)}>
+                    <SelectTrigger id="country" className={errors.country ? "border-red-500" : ""}>
                       <SelectValue placeholder={t("admissions.countryPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
@@ -208,22 +415,47 @@ export function ApplicationForm() {
                       <SelectItem value="other">{t("admissions.countries.other")}</SelectItem>
                     </SelectContent>
                   </Select>
+                  {errors.country && <p className="text-sm text-red-500">{errors.country}</p>}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="email">{t("admissions.email")}</Label>
-                  <Input id="email" type="email" placeholder={t("admissions.emailPlaceholder")} required />
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => updateField("email", e.target.value)}
+                    placeholder={t("admissions.emailPlaceholder")}
+                    required
+                    className={errors.email ? "border-red-500" : ""}
+                  />
+                  {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="phone">{t("admissions.phone")}</Label>
-                    <Input id="phone" type="tel" placeholder={t("admissions.phonePlaceholder")} required />
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => updateField("phone", e.target.value)}
+                      placeholder={t("admissions.phonePlaceholder")}
+                      required
+                      className={errors.phone ? "border-red-500" : ""}
+                    />
+                    {errors.phone && <p className="text-sm text-red-500">{errors.phone}</p>}
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="phone2">{t("admissions.phone2")}</Label>
-                    <Input id="phone2" type="tel" placeholder={t("admissions.phone2Placeholder")} />
+                    <Input
+                      id="phone2"
+                      type="tel"
+                      value={formData.phone2}
+                      onChange={(e) => updateField("phone2", e.target.value)}
+                      placeholder={t("admissions.phone2Placeholder")}
+                    />
                   </div>
                 </div>
               </div>
@@ -236,8 +468,8 @@ export function ApplicationForm() {
 
                 <div className="space-y-2">
                   <Label htmlFor="program">{t("admissions.program")}</Label>
-                  <Select>
-                    <SelectTrigger id="program">
+                  <Select value={formData.program} onValueChange={(value) => updateField("program", value)}>
+                    <SelectTrigger id="program" className={errors.program ? "border-red-500" : ""}>
                       <SelectValue placeholder={t("admissions.programPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
@@ -247,12 +479,13 @@ export function ApplicationForm() {
                       <SelectItem value="elite">{t("admissions.programs.elite")}</SelectItem>
                     </SelectContent>
                   </Select>
+                  {errors.program && <p className="text-sm text-red-500">{errors.program}</p>}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="position">{t("admissions.position")}</Label>
-                  <Select>
-                    <SelectTrigger id="position">
+                  <Select value={formData.position} onValueChange={(value) => updateField("position", value)}>
+                    <SelectTrigger id="position" className={errors.position ? "border-red-500" : ""}>
                       <SelectValue placeholder={t("admissions.positionPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
@@ -267,36 +500,78 @@ export function ApplicationForm() {
                       <SelectItem value="striker">{t("admissions.positions.striker")}</SelectItem>
                     </SelectContent>
                   </Select>
+                  {errors.position && <p className="text-sm text-red-500">{errors.position}</p>}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="experience">{t("admissions.experience")}</Label>
-                  <Input id="experience" type="number" placeholder={t("admissions.experiencePlaceholder")} required />
+                  <Input
+                    id="experience"
+                    type="number"
+                    value={formData.experience}
+                    onChange={(e) => updateField("experience", e.target.value)}
+                    placeholder={t("admissions.experiencePlaceholder")}
+                    required
+                    min={0}
+                    className={errors.experience ? "border-red-500" : ""}
+                  />
+                  {errors.experience && <p className="text-sm text-red-500">{errors.experience}</p>}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="currentClub">{t("admissions.currentClub")}</Label>
-                  <Input id="currentClub" placeholder={t("admissions.currentClubPlaceholder")} />
+                  <Input
+                    id="currentClub"
+                    value={formData.currentClub}
+                    onChange={(e) => updateField("currentClub", e.target.value)}
+                    placeholder={t("admissions.currentClubPlaceholder")}
+                  />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="motivation">{t("admissions.motivation")}</Label>
                   <Textarea
                     id="motivation"
+                    value={formData.motivation}
+                    onChange={(e) => updateField("motivation", e.target.value)}
                     placeholder={t("admissions.motivationPlaceholder")}
                     rows={4}
                     required
+                    className={errors.motivation ? "border-red-500" : ""}
                   />
+                  {errors.motivation && <p className="text-sm text-red-500">{errors.motivation}</p>}
+                  {formData.motivation && (
+                    <p className="text-xs text-muted-foreground">
+                      {formData.motivation.length}/50 caractères minimum
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="guardian">{t("admissions.guardian")}</Label>
-                  <Input id="guardian" placeholder={t("admissions.guardianPlaceholder")} required />
+                  <Input
+                    id="guardian"
+                    value={formData.guardian}
+                    onChange={(e) => updateField("guardian", e.target.value)}
+                    placeholder={t("admissions.guardianPlaceholder")}
+                    required
+                    className={errors.guardian ? "border-red-500" : ""}
+                  />
+                  {errors.guardian && <p className="text-sm text-red-500">{errors.guardian}</p>}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="guardianPhone">{t("admissions.guardianPhone")}</Label>
-                  <Input id="guardianPhone" type="tel" placeholder={t("admissions.guardianPhonePlaceholder")} required />
+                  <Input
+                    id="guardianPhone"
+                    type="tel"
+                    value={formData.guardianPhone}
+                    onChange={(e) => updateField("guardianPhone", e.target.value)}
+                    placeholder={t("admissions.guardianPhonePlaceholder")}
+                    required
+                    className={errors.guardianPhone ? "border-red-500" : ""}
+                  />
+                  {errors.guardianPhone && <p className="text-sm text-red-500">{errors.guardianPhone}</p>}
                 </div>
               </div>
             )}
@@ -307,40 +582,193 @@ export function ApplicationForm() {
                 <h3 className="font-sans font-semibold text-xl mb-6">{t("admissions.step3Title")}</h3>
 
                 <div className="space-y-4">
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
-                    <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="font-medium mb-1">{t("admissions.birthCertificate")}</p>
-                    <p className="text-sm text-muted-foreground mb-4">{t("admissions.fileFormats.pdfJpgPng")}</p>
-                    <Button variant="outline" size="sm">
-                      {t("admissions.chooseFile")}
-                    </Button>
+                  {/* Birth Certificate */}
+                  <div className="space-y-2">
+                    <Label htmlFor="birthCertificate">{t("admissions.birthCertificate")}</Label>
+                    <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${
+                      errors.birthCertificate 
+                        ? "border-red-500 bg-red-50/50" 
+                        : "border-border hover:border-[#D4AF37]"
+                    }`}>
+                      <input
+                        type="file"
+                        id="birthCertificate"
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        onChange={(e) => handleFileChange("birthCertificate", e.target.files?.[0] || null)}
+                        className="hidden"
+                      />
+                      <label htmlFor="birthCertificate" className="cursor-pointer">
+                        <div className="text-center">
+                          {formData.birthCertificate ? (
+                            <div className="flex items-center justify-center gap-2 text-[#D4AF37]">
+                              <FileCheck className="w-5 h-5" />
+                              <span className="text-sm font-medium">{formData.birthCertificate.name}</span>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  handleFileChange("birthCertificate", null)
+                                }}
+                                className="ml-2 text-red-500 hover:text-red-700"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                          ) : (
+                            <>
+                              <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                              <p className="text-sm text-muted-foreground mb-2">{t("admissions.fileFormats.pdfJpgPng")}</p>
+                              <Button variant="outline" size="sm" type="button">
+                                {t("admissions.chooseFile")}
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                      </label>
+                    </div>
+                    {errors.birthCertificate && (
+                      <p className="text-sm text-red-500 mt-2">{errors.birthCertificate}</p>
+                    )}
                   </div>
 
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
-                    <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="font-medium mb-1">{t("admissions.photo")}</p>
-                    <p className="text-sm text-muted-foreground mb-4">{t("admissions.fileFormats.jpgPng")}</p>
-                    <Button variant="outline" size="sm">
-                      {t("admissions.chooseFile")}
-                    </Button>
+                  {/* Photo */}
+                  <div className="space-y-2">
+                    <Label htmlFor="photo">{t("admissions.photo")}</Label>
+                    <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${
+                      errors.photo 
+                        ? "border-red-500 bg-red-50/50" 
+                        : "border-border hover:border-[#D4AF37]"
+                    }`}>
+                      <input
+                        type="file"
+                        id="photo"
+                        accept=".jpg,.jpeg,.png"
+                        onChange={(e) => handleFileChange("photo", e.target.files?.[0] || null)}
+                        className="hidden"
+                      />
+                      <label htmlFor="photo" className="cursor-pointer">
+                        <div className="text-center">
+                          {formData.photo ? (
+                            <div className="flex items-center justify-center gap-2 text-[#D4AF37]">
+                              <FileCheck className="w-5 h-5" />
+                              <span className="text-sm font-medium">{formData.photo.name}</span>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  handleFileChange("photo", null)
+                                }}
+                                className="ml-2 text-red-500 hover:text-red-700"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                          ) : (
+                            <>
+                              <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                              <p className="text-sm text-muted-foreground mb-2">{t("admissions.fileFormats.jpgPng")}</p>
+                              <Button variant="outline" size="sm" type="button">
+                                {t("admissions.chooseFile")}
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                      </label>
+                    </div>
+                    {errors.photo && (
+                      <p className="text-sm text-red-500 mt-2">{errors.photo}</p>
+                    )}
                   </div>
 
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
-                    <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="font-medium mb-1">{t("admissions.medicalCertificate")}</p>
-                    <p className="text-sm text-muted-foreground mb-4">{t("admissions.fileFormats.pdfJpg")}</p>
-                    <Button variant="outline" size="sm">
-                      {t("admissions.chooseFile")}
-                    </Button>
+                  {/* Medical Certificate */}
+                  <div className="space-y-2">
+                    <Label htmlFor="medicalCertificate">{t("admissions.medicalCertificate")}</Label>
+                    <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${
+                      errors.medicalCertificate 
+                        ? "border-red-500 bg-red-50/50" 
+                        : "border-border hover:border-[#D4AF37]"
+                    }`}>
+                      <input
+                        type="file"
+                        id="medicalCertificate"
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        onChange={(e) => handleFileChange("medicalCertificate", e.target.files?.[0] || null)}
+                        className="hidden"
+                      />
+                      <label htmlFor="medicalCertificate" className="cursor-pointer">
+                        <div className="text-center">
+                          {formData.medicalCertificate ? (
+                            <div className="flex items-center justify-center gap-2 text-[#D4AF37]">
+                              <FileCheck className="w-5 h-5" />
+                              <span className="text-sm font-medium">{formData.medicalCertificate.name}</span>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  handleFileChange("medicalCertificate", null)
+                                }}
+                                className="ml-2 text-red-500 hover:text-red-700"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                          ) : (
+                            <>
+                              <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                              <p className="text-sm text-muted-foreground mb-2">{t("admissions.fileFormats.pdfJpg")}</p>
+                              <Button variant="outline" size="sm" type="button">
+                                {t("admissions.chooseFile")}
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                      </label>
+                    </div>
+                    {errors.medicalCertificate && (
+                      <p className="text-sm text-red-500 mt-2">{errors.medicalCertificate}</p>
+                    )}
                   </div>
 
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-[#D4AF37] transition-colors cursor-pointer">
-                    <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="font-medium mb-1">{t("admissions.video")}</p>
-                    <p className="text-sm text-muted-foreground mb-4">{t("admissions.fileFormats.mp4Youtube")}</p>
-                    <Button variant="outline" size="sm">
-                      {t("admissions.chooseFileOrLink")}
-                    </Button>
+                  {/* Video */}
+                  <div className="space-y-2">
+                    <Label>{t("admissions.video")}</Label>
+                    <div className="border-2 border-dashed border-border rounded-lg p-6 hover:border-[#D4AF37] transition-colors">
+                      <input
+                        type="file"
+                        id="video"
+                        accept=".mp4,.mov"
+                        onChange={(e) => handleFileChange("video", e.target.files?.[0] || null)}
+                        className="hidden"
+                      />
+                      <label htmlFor="video" className="cursor-pointer">
+                        <div className="text-center">
+                          {formData.video ? (
+                            <div className="flex items-center justify-center gap-2 text-[#D4AF37]">
+                              <FileCheck className="w-5 h-5" />
+                              <span className="text-sm font-medium">{formData.video.name}</span>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  handleFileChange("video", null)
+                                }}
+                                className="ml-2 text-red-500 hover:text-red-700"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                          ) : (
+                            <>
+                              <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                              <p className="text-sm text-muted-foreground mb-2">{t("admissions.fileFormats.mp4Youtube")}</p>
+                              <Button variant="outline" size="sm" type="button">
+                                {t("admissions.chooseFileOrLink")}
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                      </label>
+                    </div>
                   </div>
                 </div>
 
@@ -365,10 +793,7 @@ export function ApplicationForm() {
               </Button>
 
               {currentStep < totalSteps ? (
-                <Button
-                  onClick={() => setCurrentStep(Math.min(totalSteps, currentStep + 1))}
-                  className="bg-[#D4AF37] hover:bg-[#d17e00] text-white"
-                >
+                <Button onClick={handleNext} className="bg-[#D4AF37] hover:bg-[#d17e00] text-white">
                   {t("common.next")}
                 </Button>
               ) : (

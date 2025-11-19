@@ -807,6 +807,137 @@
           "description": "دعم 360° لكل لاعب"
         }
       }
+    },
+    "map": {
+      "title": "شبكتنا الدولية",
+      "description": "شراكات قوية مع أندية وأكاديميات مرموقة عبر أوروبا وإفريقيا والعالم.",
+      "stats": {
+        "countries": "الدول الشريكة",
+        "clubs": "الأندية الشريكة",
+        "players": "اللاعبون المدعومون",
+        "successRate": "معدل النجاح"
+      },
+      "countries": {
+        "france": {
+          "name": "فرنسا",
+          "cities": {
+            "paris": "باريس",
+            "lyon": "ليون",
+            "marseille": "مرسيليا"
+          }
+        },
+        "spain": {
+          "name": "إسبانيا",
+          "cities": {
+            "barcelona": "برشلونة",
+            "madrid": "مدريد",
+            "valencia": "بلنسية"
+          }
+        },
+        "italy": {
+          "name": "إيطاليا",
+          "cities": {
+            "milan": "ميلانو",
+            "rome": "روما",
+            "turin": "تورينو"
+          }
+        },
+        "england": {
+          "name": "إنجلترا",
+          "cities": {
+            "london": "لندن",
+            "manchester": "مانشستر",
+            "liverpool": "ليفربول"
+          }
+        },
+        "germany": {
+          "name": "ألمانيا",
+          "cities": {
+            "munich": "ميونخ",
+            "berlin": "برلين",
+            "dortmund": "دورتموند"
+          }
+        },
+        "portugal": {
+          "name": "البرتغال",
+          "cities": {
+            "lisbon": "لشبونة",
+            "porto": "بورتو"
+          }
+        },
+        "netherlands": {
+          "name": "هولندا",
+          "cities": {
+            "amsterdam": "أمستردام",
+            "rotterdam": "روتردام"
+          }
+        },
+        "belgium": {
+          "name": "بلجيكا",
+          "cities": {
+            "brussels": "بروكسل",
+            "antwerp": "أنتويرب"
+          }
+        },
+        "uae": {
+          "name": "الإمارات العربية المتحدة",
+          "cities": {
+            "dubai": "دبي",
+            "abudhabi": "أبو ظبي",
+            "sharjah": "الشارقة"
+          }
+        },
+        "morocco": {
+          "name": "المغرب",
+          "cities": {
+            "casablanca": "الدار البيضاء",
+            "rabat": "الرباط",
+            "marrakech": "مراكش"
+          }
+        },
+        "senegal": {
+          "name": "السنغال",
+          "cities": {
+            "dakar": "داكار",
+            "thies": "تييس"
+          }
+        },
+        "ivoryCoast": {
+          "name": "ساحل العاج",
+          "cities": {
+            "abidjan": "أبيدجان",
+            "yamoussoukro": "ياموسوكرو"
+          }
+        },
+        "ghana": {
+          "name": "غانا",
+          "cities": {
+            "accra": "أكرا",
+            "kumasi": "كوماسي"
+          }
+        },
+        "nigeria": {
+          "name": "نيجيريا",
+          "cities": {
+            "lagos": "لاغوس",
+            "abuja": "أبوجا"
+          }
+        },
+        "southAfrica": {
+          "name": "جنوب إفريقيا",
+          "cities": {
+            "johannesburg": "جوهانسبرغ",
+            "capetown": "كيب تاون"
+          }
+        },
+        "egypt": {
+          "name": "مصر",
+          "cities": {
+            "cairo": "القاهرة",
+            "alexandria": "الإسكندرية"
+          }
+        }
+      }
     }
   },
   "apply": {

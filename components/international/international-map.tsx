@@ -29,36 +29,6 @@ export function InternationalMap() {
       color: "bg-red-500",
     },
     {
-      name: t("international.map.countries.italy.name"),
-      flag: "🇮🇹",
-      cities: [
-        t("international.map.countries.italy.cities.milan"),
-        t("international.map.countries.italy.cities.rome"),
-        t("international.map.countries.italy.cities.turin"),
-      ],
-      color: "bg-green-500",
-    },
-    {
-      name: t("international.map.countries.england.name"),
-      flag: "🇬🇧",
-      cities: [
-        t("international.map.countries.england.cities.london"),
-        t("international.map.countries.england.cities.manchester"),
-        t("international.map.countries.england.cities.liverpool"),
-      ],
-      color: "bg-blue-600",
-    },
-    {
-      name: t("international.map.countries.germany.name"),
-      flag: "🇩🇪",
-      cities: [
-        t("international.map.countries.germany.cities.munich"),
-        t("international.map.countries.germany.cities.berlin"),
-        t("international.map.countries.germany.cities.dortmund"),
-      ],
-      color: "bg-yellow-500",
-    },
-    {
       name: t("international.map.countries.portugal.name"),
       flag: "🇵🇹",
       cities: [
@@ -68,22 +38,51 @@ export function InternationalMap() {
       color: "bg-green-600",
     },
     {
-      name: t("international.map.countries.netherlands.name"),
-      flag: "🇳🇱",
+      name: t("international.map.countries.uae.name"),
+      flag: "🇦🇪",
       cities: [
-        t("international.map.countries.netherlands.cities.amsterdam"),
-        t("international.map.countries.netherlands.cities.rotterdam"),
+        t("international.map.countries.uae.cities.dubai"),
+        t("international.map.countries.uae.cities.abudhabi"),
+        t("international.map.countries.uae.cities.sharjah"),
       ],
-      color: "bg-orange-500",
+      color: "bg-green-700",
     },
     {
-      name: t("international.map.countries.belgium.name"),
-      flag: "🇧🇪",
+      name: t("international.map.countries.morocco.name"),
+      flag: "🇲🇦",
       cities: [
-        t("international.map.countries.belgium.cities.brussels"),
-        t("international.map.countries.belgium.cities.antwerp"),
+        t("international.map.countries.morocco.cities.casablanca"),
+        t("international.map.countries.morocco.cities.rabat"),
+        t("international.map.countries.morocco.cities.marrakech"),
       ],
-      color: "bg-red-600",
+      color: "bg-red-700",
+    },
+    {
+      name: t("international.map.countries.senegal.name"),
+      flag: "🇸🇳",
+      cities: [
+        t("international.map.countries.senegal.cities.dakar"),
+        t("international.map.countries.senegal.cities.thies"),
+      ],
+      color: "bg-green-800",
+    },
+    {
+      name: t("international.map.countries.nigeria.name"),
+      flag: "🇳🇬",
+      cities: [
+        t("international.map.countries.nigeria.cities.lagos"),
+        t("international.map.countries.nigeria.cities.abuja"),
+      ],
+      color: "bg-green-600",
+    },
+    {
+      name: t("international.map.countries.southAfrica.name"),
+      flag: "🇿🇦",
+      cities: [
+        t("international.map.countries.southAfrica.cities.johannesburg"),
+        t("international.map.countries.southAfrica.cities.capetown"),
+      ],
+      color: "bg-blue-700",
     },
   ], [t])
 
@@ -129,7 +128,7 @@ export function InternationalMap() {
           {/* Stats */}
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-[#D4AF37] mb-2">8+</div>
+              <div className="text-3xl md:text-4xl font-bold text-[#D4AF37] mb-2">9+</div>
               <div className="text-sm text-muted-foreground">{t("international.map.stats.countries")}</div>
             </div>
             <div className="text-center">

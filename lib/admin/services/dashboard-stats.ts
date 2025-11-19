@@ -32,7 +32,7 @@ export async function getAttendanceStats() {
       ]
     }
 
-    if (!data || data.length === 0) {
+    if (!attendanceData || attendanceData.length === 0) {
       return [
         { month: "Jan", taux: 92 },
         { month: "Fév", taux: 88 },

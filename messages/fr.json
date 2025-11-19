@@ -795,7 +795,7 @@
         "conference": "Conférence",
         "ceremony": "Cérémonie",
         "openHouse": "Portes Ouvertes",
-        "camp": "Camp"
+        "camp": "Camp d'été"
       },
       "events": {
         "detection": {
@@ -806,7 +806,7 @@
         },
         "camp": {
           "date": "22-24 Mars 2025",
-          "title": "Camp d'Entraînement Intensif",
+          "title": "Camp d'été",
           "location": "Complexe FFA, Cayar",
           "description": "Trois jours d'entraînement intensif avec nos coaches internationaux. Perfectionnement technique et préparation physique de haut niveau."
         },
@@ -868,7 +868,7 @@
       "nextImage": "Image suivante",
       "items": {
         "detection": "Journée de Détection 2024",
-        "camp": "Camp d'Entraînement Intensif",
+        "camp": "Camp d'été",
         "tournament": "Tournoi Régional U-17",
         "conference": "Conférence Excellence",
         "highlights": "Highlights Tournoi National",
@@ -1177,7 +1177,7 @@
     },
     "map": {
       "title": "Notre réseau international",
-      "description": "Des partenariats solides avec des clubs et académies prestigieuses à travers l'Europe et le monde.",
+      "description": "Des partenariats solides avec des clubs et académies prestigieuses à travers l'Europe, l'Afrique et le monde.",
       "stats": {
         "countries": "Pays partenaires",
         "clubs": "Clubs partenaires",
@@ -1244,6 +1244,64 @@
           "cities": {
             "brussels": "Bruxelles",
             "antwerp": "Anvers"
+          }
+        },
+        "uae": {
+          "name": "Émirats Arabes Unis",
+          "cities": {
+            "dubai": "Dubaï",
+            "abudhabi": "Abu Dhabi",
+            "sharjah": "Sharjah"
+          }
+        },
+        "morocco": {
+          "name": "Maroc",
+          "cities": {
+            "casablanca": "Casablanca",
+            "rabat": "Rabat",
+            "marrakech": "Marrakech"
+          }
+        },
+        "senegal": {
+          "name": "Sénégal",
+          "cities": {
+            "dakar": "Dakar",
+            "thies": "Thiès"
+          }
+        },
+        "ivoryCoast": {
+          "name": "Côte d'Ivoire",
+          "cities": {
+            "abidjan": "Abidjan",
+            "yamoussoukro": "Yamoussoukro"
+          }
+        },
+        "ghana": {
+          "name": "Ghana",
+          "cities": {
+            "accra": "Accra",
+            "kumasi": "Kumasi"
+          }
+        },
+        "nigeria": {
+          "name": "Nigeria",
+          "cities": {
+            "lagos": "Lagos",
+            "abuja": "Abuja"
+          }
+        },
+        "southAfrica": {
+          "name": "Afrique du Sud",
+          "cities": {
+            "johannesburg": "Johannesburg",
+            "capetown": "Le Cap"
+          }
+        },
+        "egypt": {
+          "name": "Égypte",
+          "cities": {
+            "cairo": "Le Caire",
+            "alexandria": "Alexandrie"
           }
         }
       }
