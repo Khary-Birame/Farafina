@@ -3,7 +3,7 @@
  * Gestion des produits, variantes, commandes, etc.
  */
 
-import { createClient } from '@/lib/supabase/client'
+import { supabase } from '@/lib/supabase/client'
 
 export type Product = {
   id: string
@@ -185,7 +185,6 @@ export async function getProducts(options?: {
   offset?: number
   sortBy?: 'price_asc' | 'price_desc' | 'newest' | 'popularity'
 }) {
-  const supabase = createClient()
   let query = supabase
     .from('products')
     .select(`
@@ -249,7 +248,6 @@ export async function getProducts(options?: {
  * Récupère un produit par son ID ou slug
  */
 export async function getProductById(idOrSlug: string) {
-  const supabase = createClient()
   
   // Essayer d'abord par ID (UUID)
   let query = supabase
@@ -305,7 +303,6 @@ export async function getProductById(idOrSlug: string) {
  * Récupère toutes les catégories
  */
 export async function getCategories() {
-  const supabase = createClient()
   const { data, error } = await supabase
     .from('categories')
     .select('*')
@@ -325,7 +322,6 @@ export async function getCategories() {
  * Vérifie le stock d'une variante
  */
 export async function checkVariantStock(variantId: string, quantity: number) {
-  const supabase = createClient()
   const { data, error } = await supabase
     .from('product_variants')
     .select('stock_quantity, is_active')
@@ -381,7 +377,6 @@ export async function createOrder(orderData: {
     total_price: number
   }>
 }) {
-  const supabase = createClient()
 
   // Créer la commande
   const { data: order, error: orderError } = await supabase
@@ -454,7 +449,6 @@ export async function createOrder(orderData: {
  * Récupère les commandes d'un utilisateur
  */
 export async function getUserOrders(userId: string) {
-  const supabase = createClient()
   const { data, error } = await supabase
     .from('orders')
     .select(`
@@ -476,7 +470,6 @@ export async function getUserOrders(userId: string) {
  * Récupère une commande par son numéro
  */
 export async function getOrderByNumber(orderNumber: string) {
-  const supabase = createClient()
   const { data, error } = await supabase
     .from('orders')
     .select(`
@@ -502,7 +495,6 @@ export async function getOrderByNumber(orderNumber: string) {
  * Vérifie et applique un code promo
  */
 export async function validateCoupon(code: string, subtotal: number) {
-  const supabase = createClient()
   const { data, error } = await supabase
     .from('coupons')
     .select('*')

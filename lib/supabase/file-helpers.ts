@@ -103,3 +103,64 @@ export async function fileExists(filePath: string): Promise<boolean> {
   }
 }
 
+/**
+ * Lister tous les fichiers dans un dossier du bucket
+ */
+export async function listFilesInFolder(folderPath: string): Promise<{ files: any[]; error: any }> {
+  try {
+    const { data, error } = await supabase.storage
+      .from(APPLICATION_BUCKET)
+      .list(folderPath)
+
+    if (error) {
+      console.error(`[listFilesInFolder] Erreur lors de la liste des fichiers dans ${folderPath}:`, error)
+      return { files: [], error }
+    }
+
+    return { files: data || [], error: null }
+  } catch (error: any) {
+    console.error(`[listFilesInFolder] Erreur inattendue:`, error)
+    return { files: [], error }
+  }
+}
+
+/**
+ * Obtenir toutes les informations sur un fichier (existence, URL publique, URL signée)
+ */
+export async function getFileInfo(filePath: string): Promise<{
+  exists: boolean
+  publicUrl: string | null
+  signedUrl: string | null
+  error: any
+}> {
+  try {
+    // Obtenir l'URL publique
+    const { data: publicData } = supabase.storage.from(APPLICATION_BUCKET).getPublicUrl(filePath)
+    const publicUrl = publicData.publicUrl
+
+    // Essayer de créer une URL signée
+    const { url: signedUrl, error: signedError } = await getSignedFileUrl(filePath, 3600)
+
+    // Vérifier si le fichier existe en listant le dossier parent
+    const folderPath = filePath.split("/").slice(0, -1).join("/")
+    const fileName = filePath.split("/").pop()
+    const { files } = await listFilesInFolder(folderPath)
+    const exists = files.some((f) => f.name === fileName)
+
+    return {
+      exists,
+      publicUrl,
+      signedUrl: signedUrl || null,
+      error: signedError || null,
+    }
+  } catch (error: any) {
+    console.error(`[getFileInfo] Erreur:`, error)
+    return {
+      exists: false,
+      publicUrl: null,
+      signedUrl: null,
+      error,
+    }
+  }
+}
+

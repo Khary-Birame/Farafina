@@ -33,7 +33,7 @@ import {
   ApplicationStatus,
   ApplicationDecision,
 } from "@/lib/supabase/application-helpers"
-import { getSignedFileUrl } from "@/lib/supabase/file-helpers"
+import { getSignedFileUrl, getFileInfo, listFilesInFolder } from "@/lib/supabase/file-helpers"
 import { supabase } from "@/lib/supabase/client"
 import { ApplicationStatusBadge } from "@/components/admin/applications/application-status-badge"
 import { format } from "date-fns"
@@ -187,6 +187,16 @@ export default function ApplicationDetailPage() {
         video: formData?.video,
       }
       
+      // Lister tous les fichiers dans le dossier de l'application pour diagnostic
+      const applicationId = app.id
+      console.log(`[loadFileUrls] Diagnostic: Liste des fichiers dans le dossier ${applicationId}`)
+      const { files: filesInBucket, error: listError } = await listFilesInFolder(applicationId)
+      if (!listError && filesInBucket.length > 0) {
+        console.log(`[loadFileUrls] Fichiers trouvés dans le bucket:`, filesInBucket.map(f => f.name))
+      } else {
+        console.warn(`[loadFileUrls] Aucun fichier trouvé dans le dossier ${applicationId} ou erreur:`, listError)
+      }
+      
       for (const [key, urlOrPath] of Object.entries(files)) {
         if (!urlOrPath) continue
         
@@ -195,13 +205,25 @@ export default function ApplicationDetailPage() {
           // Les nouveaux fichiers sont stockés avec leur chemin directement
           if (!urlOrPath.startsWith("http") && urlOrPath.includes("/")) {
             console.log(`[loadFileUrls] Chemin direct détecté pour ${key}:`, urlOrPath)
-            const { url: signedUrl, error } = await getSignedFileUrl(urlOrPath, 3600)
-            if (!error && signedUrl) {
+            
+            // Obtenir toutes les infos sur le fichier
+            const fileInfo = await getFileInfo(urlOrPath)
+            console.log(`[loadFileUrls] Infos du fichier ${key}:`, {
+              exists: fileInfo.exists,
+              hasPublicUrl: !!fileInfo.publicUrl,
+              hasSignedUrl: !!fileInfo.signedUrl,
+              error: fileInfo.error,
+            })
+            
+            if (fileInfo.signedUrl) {
               console.log(`[loadFileUrls] URL signée créée avec succès pour ${key}`)
-              urls[key] = signedUrl
+              urls[key] = fileInfo.signedUrl
+            } else if (fileInfo.publicUrl) {
+              console.log(`[loadFileUrls] Utilisation de l'URL publique pour ${key}`)
+              urls[key] = fileInfo.publicUrl
             } else {
-              console.error(`[loadFileUrls] Erreur lors de la création de l'URL signée pour ${key}:`, error)
-              // Fallback: essayer l'URL publique si le chemin ne fonctionne pas
+              console.error(`[loadFileUrls] Aucune URL disponible pour ${key}, erreur:`, fileInfo.error)
+              // Essayer quand même l'URL publique
               const { data } = supabase.storage.from("applications").getPublicUrl(urlOrPath)
               urls[key] = data.publicUrl
             }
@@ -210,55 +232,36 @@ export default function ApplicationDetailPage() {
           else if (urlOrPath.startsWith("http")) {
             console.log(`[loadFileUrls] URL complète détectée pour ${key}:`, urlOrPath)
             
-            // Pour les URLs publiques Supabase, tester d'abord si l'URL fonctionne directement
+            // Pour les URLs publiques Supabase, extraire le chemin et vérifier
             if (urlOrPath.includes("/storage/v1/object/public/")) {
-              // Tester si l'URL publique fonctionne
-              try {
-                const testResponse = await fetch(urlOrPath, { method: "HEAD", mode: "no-cors" })
-                // En mode no-cors, on ne peut pas vérifier le statut, mais on peut quand même essayer
-                // Si l'URL fonctionne, on l'utilise directement
-                console.log(`[loadFileUrls] Test de l'URL publique pour ${key}`)
-                urls[key] = urlOrPath
+              const pathMatch = urlOrPath.match(/\/storage\/v1\/object\/public\/applications\/(.+?)(\?|$)/)
+              if (pathMatch && pathMatch[1]) {
+                const extractedPath = decodeURIComponent(pathMatch[1])
+                console.log(`[loadFileUrls] Chemin extrait depuis l'URL publique pour ${key}:`, extractedPath)
                 
-                // En parallèle, essayer aussi d'extraire le chemin et créer une URL signée
-                const pathMatch = urlOrPath.match(/\/storage\/v1\/object\/public\/applications\/(.+?)(\?|$)/)
-                if (pathMatch && pathMatch[1]) {
-                  const extractedPath = decodeURIComponent(pathMatch[1])
-                  console.log(`[loadFileUrls] Tentative de création d'URL signée pour ${key} avec le chemin:`, extractedPath)
-                  
-                  // Essayer de créer une URL signée en arrière-plan
-                  getSignedFileUrl(extractedPath, 3600).then(({ url: signedUrl, error }) => {
-                    if (!error && signedUrl) {
-                      console.log(`[loadFileUrls] URL signée créée avec succès pour ${key}, mise à jour`)
-                      setFileUrls((prev) => ({ ...prev, [key]: signedUrl }))
-                    }
-                  }).catch(() => {
-                    // Ignorer les erreurs silencieusement, on garde l'URL publique
-                  })
-                }
-              } catch (err) {
-                // Si l'URL publique ne fonctionne pas, essayer d'extraire le chemin
-                console.warn(`[loadFileUrls] L'URL publique ne fonctionne pas pour ${key}, tentative d'extraction du chemin`)
-                const pathMatch = urlOrPath.match(/\/storage\/v1\/object\/public\/applications\/(.+?)(\?|$)/)
-                if (pathMatch && pathMatch[1]) {
-                  const extractedPath = decodeURIComponent(pathMatch[1])
-                  console.log(`[loadFileUrls] Chemin extrait depuis l'URL publique pour ${key}:`, extractedPath)
-                  
-                  // Essayer de créer une URL signée
-                  const { url: signedUrl, error } = await getSignedFileUrl(extractedPath, 3600)
-                  if (!error && signedUrl) {
-                    console.log(`[loadFileUrls] URL signée créée avec succès pour ${key}`)
-                    urls[key] = signedUrl
-                  } else {
-                    console.warn(`[loadFileUrls] Impossible de créer une URL signée pour ${key}, utilisation de l'URL publique originale`)
-                    // Fallback: utiliser l'URL publique originale même si elle ne fonctionne peut-être pas
-                    urls[key] = urlOrPath
-                  }
+                // Obtenir toutes les infos sur le fichier
+                const fileInfo = await getFileInfo(extractedPath)
+                console.log(`[loadFileUrls] Infos du fichier ${key}:`, {
+                  exists: fileInfo.exists,
+                  hasPublicUrl: !!fileInfo.publicUrl,
+                  hasSignedUrl: !!fileInfo.signedUrl,
+                  error: fileInfo.error,
+                })
+                
+                // Prioriser l'URL signée, sinon l'URL publique, sinon l'URL originale
+                if (fileInfo.signedUrl) {
+                  console.log(`[loadFileUrls] URL signée créée avec succès pour ${key}`)
+                  urls[key] = fileInfo.signedUrl
+                } else if (fileInfo.publicUrl) {
+                  console.log(`[loadFileUrls] Utilisation de l'URL publique pour ${key}`)
+                  urls[key] = fileInfo.publicUrl
                 } else {
-                  // Si on ne peut pas extraire le chemin, utiliser l'URL originale
-                  console.warn(`[loadFileUrls] Impossible d'extraire le chemin depuis l'URL pour ${key}, utilisation de l'URL originale`)
+                  console.warn(`[loadFileUrls] Aucune URL disponible pour ${key}, utilisation de l'URL originale`)
                   urls[key] = urlOrPath
                 }
+              } else {
+                console.warn(`[loadFileUrls] Impossible d'extraire le chemin depuis l'URL pour ${key}, utilisation de l'URL originale`)
+                urls[key] = urlOrPath
               }
             } else if (urlOrPath.includes("/storage/v1/object/sign/")) {
               // C'est déjà une URL signée, l'utiliser directement
