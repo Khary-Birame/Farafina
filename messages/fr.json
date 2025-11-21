@@ -54,7 +54,8 @@
     "clubConnect": "Club Connect",
     "scouting": "IA Scouting",
     "footballSchool": "École de Foot",
-    "partners": "Devenir Partenaire"
+    "partners": "Devenir Partenaire",
+    "news": "Actualités"
   },
   "header": {
     "role": "Rôle"
@@ -876,6 +877,364 @@
       }
     }
   },
+  "news": {
+    "hero": {
+      "badge": "Actualités Officielles",
+      "title": "Actualités & Nouvelles",
+      "description": "Restez informé des dernières actualités, événements et développements à Farafina Foot Academy."
+    },
+    "search": {
+      "placeholder": "Rechercher un article..."
+    },
+    "filters": {
+      "label": "Filtrer"
+    },
+    "featured": {
+      "title": "À la Une"
+    },
+    "all": {
+      "title": "Toutes les Actualités"
+    },
+    "empty": {
+      "title": "Aucun article trouvé"
+    },
+    "cta": {
+      "title": "Restez Informé",
+      "description": "Abonnez-vous à notre newsletter pour recevoir les dernières actualités et événements directement dans votre boîte de réception.",
+      "subscribeButton": "S'abonner à la Newsletter",
+      "eventsButton": "Voir les Événements"
+    }
+  },
+  "internat": {
+    "hero": {
+      "badge": "Espace Internat Premium",
+      "title": "Espace Internat",
+      "slogan": "Où l'excellence rencontre le confort",
+      "description": "Un environnement sécurisé, moderne et propice à l'épanouissement. Découvrez un cadre de vie exceptionnel pour nos jeunes talents.",
+      "visitButton": "Demander une Visite",
+      "applyButton": "Inscrire un Joueur"
+    },
+    "intro": {
+      "badge": "Notre Vision",
+      "title": "Un Cadre d'Excellence",
+      "description": "L'internat de Farafina Foot Academy offre bien plus qu'un simple hébergement. C'est un environnement structuré où chaque jeune talent peut s'épanouir, progresser et se préparer à une carrière professionnelle.",
+      "subtitle": "Plus qu'un hébergement, un mode de vie",
+      "text1": "Notre internat est conçu pour offrir un équilibre parfait entre discipline, confort et développement personnel. Chaque aspect de la vie quotidienne est pensé pour favoriser la réussite académique et sportive.",
+      "text2": "Dans un cadre sécurisé et moderne, nos étudiants bénéficient d'un encadrement professionnel 24/7, d'un suivi personnalisé et d'installations de qualité supérieure.",
+      "values": {
+        "excellence": "Excellence",
+        "discipline": "Discipline",
+        "wellbeing": "Bien-être",
+        "team": "Esprit d'équipe"
+      }
+    },
+    "facilities": {
+      "badge": "Installations Premium",
+      "title": "Installations & Infrastructures",
+      "description": "Découvrez nos installations modernes conçues pour offrir le meilleur cadre de vie à nos étudiants.",
+      "rooms": {
+        "title": "Chambres Confortables",
+        "description": "Chambres spacieuses et modernes, équipées de lits confortables, bureaux d'étude et rangements personnels. Chaque chambre est conçue pour offrir un espace de repos optimal.",
+        "feature1": "Chambres individuelles ou partagées (2-3 personnes)",
+        "feature2": "Mobilier moderne et ergonomique",
+        "feature3": "Climatisation et ventilation",
+        "feature4": "Connexion Wi-Fi haut débit"
+      },
+      "study": {
+        "title": "Salles d'Étude",
+        "description": "Espaces dédiés au travail scolaire avec un environnement calme et propice à la concentration. Équipées de tables individuelles et de ressources pédagogiques.",
+        "feature1": "Salles silencieuses et climatisées",
+        "feature2": "Supervision par des éducateurs",
+        "feature3": "Horaires d'étude structurés",
+        "feature4": "Accès à la bibliothèque"
+      },
+      "sport": {
+        "title": "Centre Sportif",
+        "description": "Accès direct aux terrains d'entraînement et à la salle de musculation. Installations de pointe pour le développement physique et technique.",
+        "feature1": "Terrains de football professionnels",
+        "feature2": "Salle de musculation équipée",
+        "feature3": "Piste d'athlétisme",
+        "feature4": "Équipements de récupération"
+      },
+      "dining": {
+        "title": "Réfectoire",
+        "description": "Restaurant moderne proposant une alimentation équilibrée et adaptée aux besoins des sportifs. Menus variés et nutritionnellement optimisés.",
+        "feature1": "Cuisine équilibrée et variée",
+        "feature2": "Menus adaptés aux sportifs",
+        "feature3": "3 repas par jour + collations",
+        "feature4": "Respect des régimes alimentaires"
+      },
+      "relaxation": {
+        "title": "Espaces Détente",
+        "description": "Zones de repos et de loisirs pour favoriser l'équilibre entre travail et détente. Espaces conviviaux pour les moments de partage.",
+        "feature1": "Salle de détente avec TV",
+        "feature2": "Espaces de jeux",
+        "feature3": "Terrasse extérieure",
+        "feature4": "Bibliothèque et médiathèque"
+      },
+      "security": {
+        "title": "Sécurité & Gestion",
+        "description": "Surveillance 24/7, contrôle d'accès et personnel de sécurité qualifié. Un environnement totalement sécurisé pour la tranquillité des familles.",
+        "feature1": "Surveillance vidéo 24/7",
+        "feature2": "Contrôle d'accès sécurisé",
+        "feature3": "Personnel de sécurité formé",
+        "feature4": "Infirmerie avec personnel médical"
+      }
+    },
+    "support": {
+      "badge": "Accompagnement Complet",
+      "title": "Encadrement & Suivi du Joueur",
+      "description": "Un accompagnement personnalisé et professionnel à chaque étape du parcours de nos étudiants.",
+      "staff": {
+        "title": "Personnel Éducatif",
+        "description": "Équipe d'éducateurs qualifiés et dévoués, disponibles 24/7 pour accompagner chaque étudiant dans son développement personnel et académique.",
+        "feature1": "Éducateurs diplômés et expérimentés",
+        "feature2": "Disponibilité 24/7",
+        "feature3": "Ratio encadrant/étudiant optimal",
+        "feature4": "Formation continue du personnel"
+      },
+      "academic": {
+        "title": "Suivi Scolaire",
+        "description": "Accompagnement personnalisé dans les études avec des séances de tutorat, aide aux devoirs et préparation aux examens.",
+        "feature1": "Séances de tutorat individuelles",
+        "feature2": "Aide aux devoirs quotidienne",
+        "feature3": "Suivi des résultats scolaires",
+        "feature4": "Préparation aux examens"
+      },
+      "psychological": {
+        "title": "Suivi Psychologique",
+        "description": "Accompagnement psychologique pour gérer le stress, la motivation et le développement personnel de chaque jeune.",
+        "feature1": "Psychologues spécialisés",
+        "feature2": "Entretiens individuels réguliers",
+        "feature3": "Gestion du stress et de la pression",
+        "feature4": "Développement de la confiance en soi"
+      },
+      "nutrition": {
+        "title": "Nutrition Sportive",
+        "description": "Programme nutritionnel adapté aux besoins des sportifs avec des repas équilibrés et des conseils personnalisés.",
+        "feature1": "Nutritionniste sportif",
+        "feature2": "Menus adaptés aux entraînements",
+        "feature3": "Suivi des besoins nutritionnels",
+        "feature4": "Éducation alimentaire"
+      },
+      "schedule": {
+        "title": "Emploi du Temps Structuré",
+        "description": "Planning équilibré entre études, entraînements, repos et activités, optimisé pour la performance et le bien-être.",
+        "feature1": "Planning hebdomadaire personnalisé",
+        "feature2": "Équilibre études/sport/repos",
+        "feature3": "Horaires fixes et réguliers",
+        "feature4": "Adaptation selon les besoins"
+      },
+      "values": {
+        "title": "Valeurs & Accompagnement",
+        "description": "Transmission de valeurs essentielles : respect, discipline, travail d'équipe, et développement du caractère.",
+        "feature1": "Programme de développement personnel",
+        "feature2": "Activités de team building",
+        "feature3": "Cérémonies et rituels positifs",
+        "feature4": "Mentorat par les anciens"
+      }
+    },
+    "benefits": {
+      "badge": "Avantages Clés",
+      "title": "Avantages de l'Internat",
+      "description": "Découvrez pourquoi choisir l'internat pour le développement optimal de votre enfant.",
+      "discipline": {
+        "title": "Discipline & Structure",
+        "description": "Un cadre structuré qui favorise l'autodiscipline et la responsabilisation, essentiels pour la réussite sportive et académique."
+      },
+      "progress": {
+        "title": "Progression Accélérée",
+        "description": "L'environnement d'internat permet une progression plus rapide grâce à un encadrement constant et des conditions optimales."
+      },
+      "team": {
+        "title": "Esprit d'Équipe",
+        "description": "Vivre ensemble renforce les liens, développe l'esprit d'équipe et crée des amitiés durables entre les joueurs."
+      },
+      "time": {
+        "title": "Gain de Temps",
+        "description": "Plus de temps pour l'entraînement et les études, sans perte de temps dans les transports quotidiens."
+      },
+      "excellence": {
+        "title": "Excellence Académique",
+        "description": "Suivi scolaire renforcé et environnement propice aux études garantissent de meilleurs résultats académiques."
+      },
+      "wellbeing": {
+        "title": "Bien-être Garanti",
+        "description": "Cadre sécurisé, nutrition adaptée et suivi médical pour garantir le bien-être physique et mental de chaque étudiant."
+      }
+    },
+    "schedule": {
+      "badge": "Routine Quotidienne",
+      "title": "Une Journée Type à l'Internat",
+      "description": "Un planning équilibré entre études, sport, repos et développement personnel.",
+      "wakeup": {
+        "title": "Réveil",
+        "description": "Réveil matinal avec routine d'étirement et préparation pour la journée"
+      },
+      "breakfast": {
+        "title": "Petit-déjeuner",
+        "description": "Petit-déjeuner équilibré et énergisant pour bien commencer la journée"
+      },
+      "school": {
+        "title": "École",
+        "description": "Cours académiques selon le programme scolaire officiel"
+      },
+      "lunch": {
+        "title": "Déjeuner",
+        "description": "Repas complet et nutritif adapté aux besoins des sportifs"
+      },
+      "training": {
+        "title": "Entraînement",
+        "description": "Séances d'entraînement technique, tactique et physique"
+      },
+      "study": {
+        "title": "Études Surveillées",
+        "description": "Séances d'étude encadrées avec aide aux devoirs et tutorat"
+      },
+      "dinner": {
+        "title": "Dîner",
+        "description": "Dîner équilibré suivi d'un moment de détente"
+      },
+      "rest": {
+        "title": "Repos",
+        "description": "Temps libre, détente et préparation au coucher pour une récupération optimale"
+      }
+    },
+    "pricing": {
+      "badge": "Tarifs & Modalités",
+      "title": "Tarifs & Modalités d'Inscription",
+      "description": "Des tarifs transparents et compétitifs pour un service premium.",
+      "period": "Par mois",
+      "perMonth": "/mois",
+      "note": "Tarif pour l'année académique complète",
+      "included": {
+        "title": "Inclus dans le tarif",
+        "item1": "Hébergement en chambre confortable",
+        "item2": "3 repas par jour + collations",
+        "item3": "Encadrement éducatif 24/7",
+        "item4": "Suivi scolaire personnalisé",
+        "item5": "Accès aux installations sportives",
+        "item6": "Suivi médical et nutritionnel",
+        "item7": "Wi-Fi et équipements de base",
+        "item8": "Activités et sorties organisées"
+      },
+      "notIncluded": {
+        "title": "Non inclus",
+        "item1": "Frais de scolarité",
+        "item2": "Frais d'inscription",
+        "item3": "Transport personnel",
+        "item4": "Dépenses personnelles"
+      },
+      "requirements": {
+        "title": "Conditions d'Admission",
+        "subtitle": "Documents nécessaires",
+        "item1": "Formulaire d'inscription complété",
+        "item2": "Dossier académique complet",
+        "item3": "Certificat médical",
+        "item4": "Autorisation parentale",
+        "item5": "Photocopie de la carte d'identité",
+        "item6": "Photos d'identité"
+      },
+      "conditions": {
+        "title": "Conditions",
+        "item1": "Âge : 12 à 18 ans",
+        "item2": "Niveau scolaire : minimum requis",
+        "item3": "Engagement sportif et académique"
+      },
+      "applyButton": "Demander une Inscription"
+    },
+    "faq": {
+      "badge": "Questions Fréquentes",
+      "title": "Questions Fréquentes",
+      "description": "Trouvez les réponses aux questions que se posent le plus souvent les parents et les étudiants.",
+      "q1": {
+        "question": "Quel est l'âge minimum pour intégrer l'internat ?",
+        "answer": "L'internat accueille les jeunes de 12 à 18 ans. Pour les plus jeunes, nous proposons un accompagnement spécialisé adapté à leur âge."
+      },
+      "q2": {
+        "question": "Comment se déroule la vie quotidienne à l'internat ?",
+        "answer": "La journée est structurée entre cours académiques, entraînements, études surveillées et temps de repos. Un emploi du temps équilibré est établi pour chaque étudiant."
+      },
+      "q3": {
+        "question": "Les parents peuvent-ils visiter leurs enfants ?",
+        "answer": "Oui, les visites sont autorisées les weekends et jours fériés. Des créneaux de visites sont prévus pour maintenir le lien familial tout en préservant la structure de l'internat."
+      },
+      "q4": {
+        "question": "Quel est le ratio encadrant/étudiant ?",
+        "answer": "Nous maintenons un ratio optimal de 1 encadrant pour 8 étudiants, garantissant un suivi personnalisé et une attention particulière à chaque jeune."
+      },
+      "q5": {
+        "question": "Les repas sont-ils adaptés aux sportifs ?",
+        "answer": "Absolument. Nos menus sont conçus par un nutritionniste sportif et adaptés aux besoins énergétiques et nutritionnels des jeunes athlètes en développement."
+      },
+      "q6": {
+        "question": "Y a-t-il un suivi médical ?",
+        "answer": "Oui, une infirmerie est disponible 24/7 avec du personnel médical qualifié. Des bilans de santé réguliers sont effectués pour tous les étudiants."
+      },
+      "q7": {
+        "question": "Comment se passe l'intégration des nouveaux étudiants ?",
+        "answer": "Un programme d'intégration personnalisé est mis en place avec un tuteur dédié. Les nouveaux arrivants sont accompagnés par des étudiants plus anciens pour faciliter leur adaptation."
+      },
+      "q8": {
+        "question": "Les étudiants peuvent-ils sortir de l'internat ?",
+        "answer": "Les sorties sont autorisées selon un planning établi et avec autorisation parentale. La sécurité et le bien-être des étudiants sont notre priorité absolue."
+      }
+    },
+    "testimonials": {
+      "badge": "Témoignages",
+      "title": "Ce qu'ils Disent de Nous",
+      "description": "Découvrez les témoignages de nos étudiants, parents et éducateurs.",
+      "player1": {
+        "role": "Joueur U17",
+        "text": "L'internat m'a permis de progresser énormément. L'encadrement est excellent et l'ambiance est vraiment familiale. Je me sens comme chez moi !"
+      },
+      "parent1": {
+        "role": "Mère d'un joueur",
+        "text": "En tant que parent, je suis rassurée. Mon fils est bien encadré, il progresse scolairement et sportivement. L'équipe est vraiment professionnelle."
+      },
+      "educator1": {
+        "role": "Éducateur",
+        "text": "Travailler ici est un plaisir. Les jeunes sont motivés, les installations sont excellentes et l'ambiance de travail est vraiment positive."
+      },
+      "player2": {
+        "role": "Joueur U19",
+        "text": "La discipline et la structure de l'internat m'ont aidé à devenir plus mature et responsable. C'est un vrai plus pour ma carrière."
+      },
+      "parent2": {
+        "role": "Mère d'une joueuse",
+        "text": "Ma fille a gagné en autonomie et en confiance. Le suivi scolaire est remarquable et les résultats sont là. Je recommande vivement !"
+      }
+    },
+    "gallery": {
+      "badge": "Galerie",
+      "title": "Galerie Photos & Vidéos",
+      "description": "Découvrez en images la vie quotidienne à l'internat de Farafina Foot Academy.",
+      "item1": "Chambres Modernes",
+      "item2": "Salles d'Étude",
+      "item3": "Installations Sportives",
+      "item4": "Vie à l'Internat",
+      "item5": "Espaces Communs",
+      "item6": "Vidéo de Présentation"
+    },
+    "cta": {
+      "title": "Prêt à Rejoindre l'Internat ?",
+      "description": "Contactez-nous pour une visite, une inscription ou pour toute question. Notre équipe est à votre disposition.",
+      "visit": {
+        "title": "Visite",
+        "description": "Demander une visite"
+      },
+      "apply": {
+        "title": "Inscription",
+        "description": "Inscrire un joueur"
+      },
+      "contact": {
+        "title": "Contact",
+        "description": "Nous contacter"
+      },
+      "primaryButton": "Demander une Visite",
+      "secondaryButton": "Prendre Contact"
+    }
+  },
   "boutique": {
     "hero": {
       "badge": "Collection officielle Farafina Foot Academy",
@@ -1087,31 +1446,219 @@
   },
   "international": {
     "hero": {
-      "badge": "Excellence Mondiale",
-      "title": "L'Excellence au-delà des Frontières",
-      "description": "Un accompagnement international pour propulser nos talents vers le succès. Formation, suivi et protection pour chaque joueur dans son parcours à l'étranger.",
-      "discoverButton": "Découvrir le programme",
-      "joinButton": "Nous rejoindre"
+      "badge": "Programme International",
+      "title": "Rejoignez l'Excellence Internationale",
+      "tagline": "Où les talents du monde entier se rencontrent",
+      "description": "Accueillons des joueurs internationaux avec un encadrement complet : sécurité, hébergement, développement sportif et académique, intégration culturelle. Votre avenir professionnel commence ici.",
+      "ctaPrimary": "Demander un Dossier",
+      "ctaSecondary": "Réserver un Appel",
+      "scroll": "Découvrir",
+      "stats": {
+        "countries": "Pays",
+        "players": "Joueurs",
+        "support": "Support",
+        "success": "Réussite"
+      }
+    },
+    "mission": {
+      "badge": "Notre Mission",
+      "title": "Notre Mission Internationale",
+      "description": "Accueillir, accompagner et développer les talents internationaux dans un environnement d'excellence, de sécurité et d'intégration culturelle.",
+      "text1": "Farafina Foot Academy s'engage à offrir aux joueurs internationaux un environnement exceptionnel où l'excellence sportive rencontre l'épanouissement personnel et académique.",
+      "text2": "Notre mission est de créer un pont entre les cultures, de développer les talents du monde entier et de préparer chaque joueur à une carrière professionnelle réussie.",
+      "text3": "Avec un encadrement 24/7, un suivi personnalisé et des infrastructures de niveau professionnel, nous garantissons à chaque joueur international une expérience transformatrice.",
+      "values": {
+        "global": "Vision Globale",
+        "care": "Bienveillance",
+        "excellence": "Excellence",
+        "success": "Réussite"
+      }
+    },
+    "why": {
+      "badge": "International Players Welcome",
+      "title": "Pourquoi Choisir Notre Académie ?",
+      "description": "Un accompagnement complet et personnalisé pour chaque joueur international, de l'arrivée à la réussite professionnelle.",
+      "security": {
+        "title": "Sécurité Totale",
+        "description": "Environnement sécurisé 24/7 avec surveillance continue, personnel de sécurité qualifié et mesures de protection optimales pour la tranquillité des familles."
+      },
+      "housing": {
+        "title": "Hébergement Premium",
+        "description": "Chambres modernes et confortables, espaces de vie communs, internat sécurisé avec toutes les commodités pour un séjour agréable et rassurant."
+      },
+      "training": {
+        "title": "Encadrement Sportif Pro",
+        "description": "Entraîneurs certifiés, programme d'entraînement personnalisé, installations de pointe et suivi technique pour maximiser le potentiel de chaque joueur."
+      },
+      "academic": {
+        "title": "Suivi Académique",
+        "description": "Programme scolaire structuré, tutorat individuel, aide aux devoirs et préparation aux examens pour garantir la réussite académique."
+      },
+      "health": {
+        "title": "Santé & Médecine Sportive",
+        "description": "Infirmerie 24/7, bilans de santé réguliers, nutritionniste sportif, kinésithérapie et suivi médical complet pour le bien-être optimal."
+      },
+      "integration": {
+        "title": "Intégration Culturelle",
+        "description": "Programme d'intégration personnalisé, cours de langue, activités culturelles et accompagnement pour faciliter l'adaptation et créer des liens durables."
+      }
+    },
+    "support": {
+      "badge": "Accompagnement Complet",
+      "title": "Programme d'Accompagnement Complet",
+      "description": "De votre arrivée à votre réussite, nous vous accompagnons à chaque étape avec un support professionnel et personnalisé.",
+      "transport": {
+        "title": "Transport & Prise en Charge",
+        "description": "Accueil à l'aéroport, transfert vers l'académie et assistance complète pour tous les déplacements.",
+        "feature1": "Accueil à l'aéroport",
+        "feature2": "Transfert vers l'académie",
+        "feature3": "Assistance aux déplacements",
+        "feature4": "Support logistique 24/7"
+      },
+      "visa": {
+        "title": "Visa & Administratif",
+        "description": "Assistance complète pour les démarches de visa, documents administratifs et formalités légales.",
+        "feature1": "Assistance visa",
+        "feature2": "Documents administratifs",
+        "feature3": "Formalités légales",
+        "feature4": "Suivi personnalisé"
+      },
+      "schedule": {
+        "title": "Planning d'Entraînements",
+        "description": "Programme d'entraînement structuré et personnalisé adapté aux objectifs et au niveau de chaque joueur.",
+        "feature1": "Planning personnalisé",
+        "feature2": "Entraînements quotidiens",
+        "feature3": "Suivi technique",
+        "feature4": "Analyses vidéo"
+      },
+      "nutrition": {
+        "title": "Nutrition Sportive",
+        "description": "Programme nutritionnel adapté aux besoins des sportifs avec menus équilibrés et conseils personnalisés.",
+        "feature1": "Nutritionniste sportif",
+        "feature2": "Menus adaptés",
+        "feature3": "Suivi nutritionnel",
+        "feature4": "Éducation alimentaire"
+      },
+      "school": {
+        "title": "School & Study Follow-up",
+        "description": "Suivi scolaire renforcé avec tutorat, aide aux devoirs et préparation aux examens pour garantir la réussite académique.",
+        "feature1": "Tutorat individuel",
+        "feature2": "Aide aux devoirs",
+        "feature3": "Suivi des résultats",
+        "feature4": "Préparation examens"
+      },
+      "cta": {
+        "title": "Un Accompagnement Sur Mesure",
+        "description": "Chaque joueur international bénéficie d'un programme personnalisé adapté à ses besoins spécifiques."
+      }
+    },
+    "housing": {
+      "badge": "Hébergement Premium",
+      "title": "Hébergement & Vie Quotidienne",
+      "description": "Un cadre de vie exceptionnel pour les joueurs internationaux, alliant confort, sécurité et bien-être.",
+      "rooms": {
+        "title": "Chambres Confortables",
+        "description": "Chambres modernes et spacieuses, individuelles ou partagées (2-3 personnes), équipées de tout le confort nécessaire pour un séjour agréable."
+      },
+      "nutrition": {
+        "title": "Nutrition Adaptée",
+        "description": "Réfectoire moderne proposant une alimentation équilibrée et variée, adaptée aux besoins nutritionnels des sportifs internationaux."
+      },
+      "staff": {
+        "title": "Staff Dédié",
+        "description": "Équipe d'éducateurs et de personnel disponible 24/7 pour assurer le bien-être, la sécurité et l'accompagnement de chaque résident."
+      },
+      "environment": {
+        "title": "Environnement de Vie",
+        "description": "Espaces communs modernes, zones de détente, bibliothèque et environnement sécurisé favorisant l'intégration et le bien-être."
+      }
+    },
+    "training": {
+      "badge": "Centre d'Excellence",
+      "title": "Centre d'Entraînement Professionnel",
+      "description": "Des installations de niveau professionnel pour développer le potentiel de chaque joueur international.",
+      "technical": {
+        "title": "Installations Techniques",
+        "description": "Terrains de football professionnels aux normes FIFA, surfaces synthétiques et naturelles, éclairage professionnel pour entraînements nocturnes."
+      },
+      "performance": {
+        "title": "Haute Performance",
+        "description": "Centre de performance avec équipements de pointe pour le développement physique, la récupération et l'optimisation des performances."
+      },
+      "analysis": {
+        "title": "Salles Vidéo / Analyses",
+        "description": "Salles d'analyse vidéo équipées de technologies avancées pour l'étude tactique, l'amélioration technique et le développement du jeu."
+      },
+      "gym": {
+        "title": "Gym & Musculation",
+        "description": "Salle de musculation moderne avec équipements professionnels, suivi par des préparateurs physiques certifiés."
+      },
+      "field": {
+        "title": "Terrain Pro",
+        "description": "Terrain principal aux dimensions professionnelles, système d'irrigation automatique et tribunes pour les matchs."
+      },
+      "hero": {
+        "title": "Installations de Niveau Professionnel",
+        "description": "Un environnement d'entraînement exceptionnel pour atteindre l'excellence."
+      }
+    },
+    "testimonials": {
+      "badge": "Témoignages",
+      "title": "Témoignages Internationaux",
+      "description": "Découvrez les témoignages de nos joueurs internationaux et de leurs familles.",
+      "player1": {
+        "role": "Joueur U19",
+        "text": "Venir à Farafina a été la meilleure décision de ma vie. L'encadrement est exceptionnel, les installations sont de niveau professionnel et l'ambiance est vraiment internationale. Je me sens comme chez moi !"
+      },
+      "parent1": {
+        "role": "Mère d'un joueur",
+        "text": "En tant que parent, je suis rassurée. Mon fils est bien encadré, il progresse énormément et l'équipe est vraiment professionnelle. L'intégration culturelle est parfaite."
+      },
+      "player2": {
+        "role": "Joueur U17",
+        "text": "L'accompagnement est complet : transport, visa, hébergement, entraînement, études... Tout est pris en charge. Je me concentre uniquement sur mon développement."
+      },
+      "player3": {
+        "role": "Joueuse U19",
+        "text": "Les installations sont incroyables et l'encadrement médical est au top. Je me sens en sécurité et bien entourée pour progresser vers le niveau professionnel."
+      },
+      "parent2": {
+        "role": "Père d'un joueur",
+        "text": "Le suivi académique est remarquable. Mon fils progresse scolairement et sportivement. L'équipe communique régulièrement avec nous. Je recommande vivement !"
+      },
+      "player4": {
+        "role": "Joueur U17",
+        "text": "L'intégration culturelle est excellente. J'ai rencontré des joueurs du monde entier, appris de nouvelles cultures tout en développant mon football. Une expérience unique !"
+      }
+    },
+    "gallery": {
+      "badge": "Galerie",
+      "title": "Photos & Vidéos Immersives",
+      "description": "Découvrez en images la vie quotidienne des joueurs internationaux à Farafina Foot Academy.",
+      "item1": "Entraînement Élite",
+      "item2": "Hébergement Premium",
+      "item3": "Salles d'Étude",
+      "item4": "Vie à l'Académie",
+      "item5": "Espaces Communs",
+      "item6": "Vidéo de Présentation"
     },
     "cta": {
-      "title": "Votre talent mérite un accompagnement à la hauteur de vos ambitions",
-      "description": "Rejoignez Farafina Foot Academy et bénéficiez d'un accompagnement international complet pour propulser votre carrière vers le sommet. Formation, suivi et protection, nous sommes à vos côtés à chaque étape.",
-      "applyButton": "Postuler à Farafina Foot Academy",
-      "learnMoreButton": "En savoir plus sur notre réseau",
-      "features": {
-        "elite": {
-          "title": "Formation d'élite",
-          "description": "Coaching international de haut niveau"
-        },
-        "network": {
-          "title": "Réseau solide",
-          "description": "Partenariats avec les meilleurs clubs"
-        },
-        "support": {
-          "title": "Suivi complet",
-          "description": "Accompagnement 360° pour chaque joueur"
-        }
-      }
+      "title": "Prêt à Rejoindre l'Excellence Internationale ?",
+      "description": "Rejoignez des joueurs du monde entier dans un environnement d'excellence. Démarrez votre parcours vers le football professionnel dès aujourd'hui.",
+      "dossier": {
+        "title": "Demander un Dossier",
+        "description": "Commencer la candidature"
+      },
+      "call": {
+        "title": "Réserver un Appel",
+        "description": "Discuter avec notre équipe"
+      },
+      "apply": {
+        "title": "Candidature",
+        "description": "Postuler maintenant"
+      },
+      "primaryButton": "Commencer la Candidature",
+      "secondaryButton": "Nous Contacter"
     },
     "vision": {
       "badge": "Notre Engagement",
@@ -1176,6 +1723,7 @@
       }
     },
     "map": {
+      "badge": "Réseau International",
       "title": "Notre réseau international",
       "description": "Des partenariats solides avec des clubs et académies prestigieuses à travers l'Europe, l'Afrique et le monde.",
       "stats": {
@@ -1549,5 +2097,191 @@
     "sent": "Message envoyé avec succès !",
     "sentDescription": "Nous vous répondrons dans les 24 heures.",
     "error": "Erreur lors de l'envoi"
+  },
+  "visite": {
+    "hero": {
+      "badge": "Demander une Visite",
+      "title": "Demander une Visite",
+      "subtitle": "Découvrez nos infrastructures et rencontrez notre équipe. Une expérience immersive pour comprendre notre vision et nos valeurs.",
+      "cta": "Remplir le Formulaire"
+    },
+    "intro": {
+      "badge": "Pourquoi Visiter ?",
+      "title": "Une Visite Immersive",
+      "description": "Une visite de Farafina Foot Academy, c'est bien plus qu'une simple découverte. C'est l'opportunité de comprendre notre vision, de rencontrer notre équipe et de découvrir un environnement où l'excellence académique et sportive se rencontrent.",
+      "reason1": {
+        "title": "Excellence Académique & Sportive",
+        "description": "Découvrez notre programme éducatif complet alliant réussite scolaire et développement sportif de haut niveau."
+      },
+      "reason2": {
+        "title": "Infrastructures Modernes",
+        "description": "Visitez nos installations de pointe : terrains, salles d'étude, internat et équipements sportifs professionnels."
+      },
+      "reason3": {
+        "title": "Encadrement Professionnel",
+        "description": "Rencontrez notre équipe d'éducateurs, entraîneurs et personnel médical dédiés à l'épanouissement de chaque jeune."
+      },
+      "reason4": {
+        "title": "Valeurs & Vision",
+        "description": "Comprenez notre philosophie : discipline, respect, excellence et développement du caractère."
+      }
+    },
+    "facilities": {
+      "badge": "Découverte",
+      "title": "Ce que Vous Verrez lors de la Visite",
+      "description": "Découvrez en avant-première les installations et espaces que vous visiterez lors de votre venue.",
+      "sport": {
+        "title": "Infrastructures Sportives",
+        "description": "Terrains de football professionnels, salle de musculation, piste d'athlétisme et équipements de récupération."
+      },
+      "internat": {
+        "title": "Internat",
+        "description": "Chambres modernes, espaces de vie communs et environnement sécurisé pour nos résidents."
+      },
+      "study": {
+        "title": "Salles d'Étude",
+        "description": "Espaces dédiés au travail scolaire avec un environnement calme et propice à la concentration."
+      },
+      "gym": {
+        "title": "Terrains & Gymnases",
+        "description": "Installations sportives couvertes et extérieures pour tous types d'entraînements."
+      },
+      "life": {
+        "title": "Espaces de Vie",
+        "description": "Zones de détente, réfectoire moderne et espaces conviviaux pour les moments de partage."
+      },
+      "support": {
+        "title": "Encadrement",
+        "description": "Rencontrez notre équipe d'éducateurs, entraîneurs et personnel médical."
+      }
+    },
+    "why": {
+      "badge": "Pourquoi Nous Choisir",
+      "title": "Pourquoi Visiter Notre Académie ?",
+      "description": "Découvrez les avantages qui font de Farafina Foot Academy un choix d'excellence pour le développement de votre enfant.",
+      "security": {
+        "title": "Sécurité & Qualité de Vie",
+        "description": "Un environnement sécurisé 24/7 avec surveillance continue et mesures de sécurité optimales pour la tranquillité des familles."
+      },
+      "personalized": {
+        "title": "Suivi Personnalisé",
+        "description": "Chaque étudiant bénéficie d'un accompagnement sur mesure avec tutorat individuel et suivi académique renforcé."
+      },
+      "training": {
+        "title": "Entraînement Professionnel",
+        "description": "Programme d'entraînement de niveau professionnel avec encadrement par des coaches certifiés et expérimentés."
+      },
+      "academic": {
+        "title": "Programme Scolaire Structuré",
+        "description": "Équilibre parfait entre études et sport avec un programme académique complet et reconnu."
+      },
+      "certified": {
+        "title": "Encadrement Certifié",
+        "description": "Équipe d'éducateurs diplômés, psychologues et nutritionnistes spécialisés dans l'accompagnement des jeunes sportifs."
+      },
+      "values": {
+        "title": "Valeurs & Excellence",
+        "description": "Transmission de valeurs essentielles : discipline, respect, travail d'équipe et développement du caractère."
+      }
+    },
+    "practical": {
+      "badge": "Informations Pratiques",
+      "title": "Informations Pratiques",
+      "description": "Toutes les informations nécessaires pour préparer votre visite dans les meilleures conditions.",
+      "hours": {
+        "title": "Horaires de Visites",
+        "weekdays": "Lundi - Vendredi",
+        "weekdaysTime": "9h00 - 17h00",
+        "weekend": "Samedi",
+        "weekendTime": "9h00 - 13h00",
+        "note": "Sur rendez-vous uniquement"
+      },
+      "meeting": {
+        "title": "Point de Rendez-vous",
+        "description": "Accueil à l'entrée principale de l'académie. Un membre de notre équipe vous attendra pour vous guider.",
+        "address": "Farafina Foot Academy, [Adresse complète]"
+      },
+      "duration": {
+        "title": "Durée de la Visite",
+        "description": "Une visite complète dure environ 2 à 3 heures, incluant la découverte des installations, la rencontre avec l'équipe et un échange personnalisé."
+      },
+      "documents": {
+        "title": "Documents",
+        "description": "Aucun document spécifique n'est requis pour la visite. Une pièce d'identité peut être demandée à l'entrée."
+      },
+      "contact": {
+        "title": "Contact Direct",
+        "phoneLabel": "Téléphone",
+        "emailLabel": "Email"
+      }
+    },
+    "form": {
+      "badge": "Formulaire de Visite",
+      "title": "Demander une Visite",
+      "description": "Remplissez ce formulaire et notre équipe vous contactera pour confirmer votre visite.",
+      "section1": {
+        "title": "Informations du Parent",
+        "parentName": "Nom et Prénom",
+        "parentNamePlaceholder": "Votre nom complet",
+        "email": "Email",
+        "emailPlaceholder": "votre.email@exemple.com",
+        "phone": "Téléphone",
+        "phonePlaceholder": "+221 XX XXX XX XX"
+      },
+      "section2": {
+        "title": "Informations du Joueur",
+        "playerName": "Nom du Joueur",
+        "playerNamePlaceholder": "Nom complet du joueur",
+        "playerAge": "Âge",
+        "playerAgePlaceholder": "Âge du joueur"
+      },
+      "section3": {
+        "title": "Détails de la Visite",
+        "program": "Programme Concerné",
+        "programPlaceholder": "Sélectionnez un programme",
+        "programInternat": "Internat",
+        "programExterne": "Externe",
+        "programResident": "Résident",
+        "programAll": "Tous les programmes",
+        "visitDate": "Date Souhaitée",
+        "visitTime": "Créneau Horaire Préféré",
+        "visitTimePlaceholder": "Sélectionnez un créneau",
+        "time1": "09:00 - 10:00",
+        "time2": "10:00 - 11:00",
+        "time3": "11:00 - 12:00",
+        "time4": "14:00 - 15:00",
+        "time5": "15:00 - 16:00",
+        "time6": "16:00 - 17:00",
+        "message": "Message / Précisions",
+        "messageOptional": "optionnel",
+        "messagePlaceholder": "Ajoutez des précisions sur votre visite (optionnel)"
+      },
+      "rgpd": {
+        "text": "J'accepte que mes données personnelles soient utilisées pour traiter ma demande de visite et me recontacter. "
+      },
+      "submit": "Envoyer la Demande",
+      "submitting": "Envoi en cours...",
+      "success": {
+        "title": "Demande envoyée avec succès !",
+        "description": "Vous recevrez une confirmation par email dans les prochaines heures.",
+        "note": "Notre équipe vous contactera pour confirmer votre visite."
+      },
+      "errors": {
+        "general": "Veuillez corriger les erreurs dans le formulaire",
+        "parentName": "Le nom du parent est obligatoire",
+        "playerName": "Le nom du joueur est obligatoire",
+        "playerAge": "L'âge est obligatoire",
+        "playerAgeMin": "L'âge minimum est de 8 ans",
+        "phone": "Le téléphone est obligatoire",
+        "email": "L'email est obligatoire",
+        "emailInvalid": "L'email n'est pas valide",
+        "program": "Le programme est obligatoire",
+        "visitDate": "La date de visite est obligatoire",
+        "visitTime": "Le créneau horaire est obligatoire",
+        "rgpd": "Vous devez accepter les conditions",
+        "submit": "Erreur lors de l'envoi",
+        "retry": "Veuillez réessayer plus tard."
+      }
+    }
   }
 }

@@ -66,6 +66,7 @@ export function Header({ variant = "default" }: HeaderProps) {
     [t("navigation.admissions"), "/admissions"],
     [t("navigation.footballSchool"), "/football-school"],
     [t("navigation.events"), "/events"],
+    [t("navigation.news", "Actualités"), "/news"],
     [t("navigation.players"), "/players"],
     [t("navigation.international"), "/international"],
     [t("navigation.boutique"), "/boutique"],

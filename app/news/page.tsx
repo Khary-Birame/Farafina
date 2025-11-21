@@ -1,8 +1,9 @@
 ﻿import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { Card } from "@/components/ui/card"
-import { Calendar, User, ArrowRight, Newspaper } from "lucide-react"
-import Link from "next/link"
+import { NewsHero } from "@/components/news/news-hero"
+import { NewsGrid } from "@/components/news/news-grid"
+import { NewsCTA } from "@/components/news/news-cta"
+import type { Metadata } from "next"
 
 const newsArticles = [
   {
@@ -13,8 +14,10 @@ const newsArticles = [
     date: "15 Janvier 2025",
     author: "Équipe FFA",
     category: "Programmes",
-    image: "/news/talent-development.jpg",
+    image: "/african-youth-football-training-action-shot.jpg",
     featured: true,
+    readTime: 5,
+    views: 1250,
   },
   {
     id: 2,
@@ -24,8 +27,10 @@ const newsArticles = [
     date: "10 Janvier 2025",
     author: "Équipe FFA",
     category: "Partenariats",
-    image: "/news/european-partnership.jpg",
+    image: "/african-football-academy-elite-training.jpg",
     featured: true,
+    readTime: 4,
+    views: 980,
   },
   {
     id: 3,
@@ -35,19 +40,23 @@ const newsArticles = [
     date: "5 Janvier 2025",
     author: "Équipe FFA",
     category: "Événements",
-    image: "/news/graduation-2024.jpg",
+    image: "/young-african-football-players-training.jpg",
     featured: false,
+    readTime: 6,
+    views: 750,
   },
   {
     id: 4,
-    title: "Programme de bourses d'études 2025/2026 maintenant ouOr",
+    title: "Programme de bourses d'études 2025/2026 maintenant ouvert",
     excerpt:
-      "Les candidatures pour notre programme de bourses d'études pour l'année académique 2025/2026 sont maintenant ouOres. Jusqu'à 60% de nos étudiants bénéficient d'une aide financière.",
+      "Les candidatures pour notre programme de bourses d'études pour l'année académique 2025/2026 sont maintenant ouvertes. Jusqu'à 60% de nos étudiants bénéficient d'une aide financière.",
     date: "1 Janvier 2025",
     author: "Équipe FFA",
     category: "Bourses",
-    image: "/news/scholarships-2025.jpg",
+    image: "/african-students-studying-in-modern-classroom.jpg",
     featured: false,
+    readTime: 3,
+    views: 1200,
   },
   {
     id: 5,
@@ -57,8 +66,10 @@ const newsArticles = [
     date: "28 Décembre 2024",
     author: "Équipe FFA",
     category: "Infrastructure",
-    image: "/news/new-facilities.jpg",
+    image: "/african-football-academy-elite-training.jpg",
     featured: false,
+    readTime: 5,
+    views: 890,
   },
   {
     id: 6,
@@ -68,140 +79,60 @@ const newsArticles = [
     date: "20 Décembre 2024",
     author: "Équipe FFA",
     category: "Compétitions",
-    image: "/news/regional-competitions.jpg",
+    image: "/african-youth-football-training-action-shot.jpg",
     featured: false,
+    readTime: 4,
+    views: 650,
+  },
+  {
+    id: 7,
+    title: "Interview exclusive avec notre Directeur Technique",
+    excerpt:
+      "Découvrez l'interview exclusive de notre Directeur Technique qui partage sa vision pour l'avenir du football africain et les projets de l'académie.",
+    date: "15 Décembre 2024",
+    author: "Équipe FFA",
+    category: "Interview",
+    image: "/african-technical-director-portrait.jpg",
+    featured: false,
+    readTime: 8,
+    views: 1100,
+  },
+  {
+    id: 8,
+    title: "Communiqué officiel : Nouvelle saison 2025",
+    excerpt:
+      "L'académie Farafina annonce officiellement le début de la nouvelle saison 2025 avec de nombreux projets et ambitions pour nos jeunes talents.",
+    date: "12 Décembre 2024",
+    author: "Équipe FFA",
+    category: "Officiel",
+    image: "/african-football-academy-elite-training.jpg",
+    featured: false,
+    readTime: 3,
+    views: 1450,
   },
 ]
 
-export default function NewsPage() {
-  const featuredNews = newsArticles.filter((article) => article.featured)
-  const regularNews = newsArticles.filter((article) => !article.featured)
+export const metadata: Metadata = {
+  title: "Actualités | Académie Farafina",
+  description: "Restez informé des dernières actualités, événements et développements à Farafina Foot Academy.",
+  keywords: "actualités, nouvelles, football, académie, farafina, événements",
+  openGraph: {
+    title: "Actualités | Académie Farafina",
+    description: "Découvrez toutes les actualités de l'académie Farafina",
+    type: "website",
+  },
+}
 
+export default function NewsPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-      <main className="pt-20">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-[#D4AF37] to-[#d17e00] text-white py-24 lg:py-32 overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
-          </div>
-
-          <div className="container mx-auto px-4 lg:px-8 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-                <Newspaper className="w-4 h-4 text-white" />
-                <span className="text-sm font-medium">Actualités et Nouvelles</span>
-              </div>
-
-              <h1 className="font-sans font-bold text-4xl md:text-5xl lg:text-6xl mb-6 text-balance">
-                Actualités & Nouvelles
-              </h1>
-
-              <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto text-pretty leading-relaxed">
-                Restez informé des dernières actualités, événements et développements à Farafina Foot Academy.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Featured News */}
-        {featuredNews.length > 0 && (
-          <section className="py-20 bg-white">
-            <div className="container mx-auto px-4 lg:px-8">
-              <h2 className="font-sans font-bold text-3xl md:text-4xl mb-8 text-[#1A1A1A]">Actualités en Vedette</h2>
-              <div className="grid md:grid-cols-2 gap-8">
-                {featuredNews.map((article) => (
-                  <Card key={article.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                    <div className="h-48 bg-gradient-to-br from-[#D4AF37] to-[#d17e00] flex items-center justify-center">
-                      <Newspaper className="w-16 h-16 text-white/50" />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center gap-4 mb-3 text-sm text-muted-foreground">
-                        <span className="inline-flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          {article.date}
-                        </span>
-                        <span className="inline-flex items-center gap-1">
-                          <User className="w-4 h-4" />
-                          {article.author}
-                        </span>
-                      </div>
-                      <span className="inline-block px-3 py-1 bg-[#D4AF37]/10 text-[#D4AF37] rounded-full text-xs font-semibold mb-3">
-                        {article.category}
-                      </span>
-                      <h3 className="font-sans font-bold text-xl text-[#1A1A1A] mb-3">{article.title}</h3>
-                      <p className="text-muted-foreground mb-4 leading-relaxed">{article.excerpt}</p>
-                      <Link
-                        href="#"
-                        className="inline-flex items-center gap-2 text-[#D4AF37] hover:text-[#d17e00] font-semibold text-sm"
-                      >
-                        Lire la suite
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Regular News */}
-        <section className="py-20 bg-muted/30">
-          <div className="container mx-auto px-4 lg:px-8">
-            <h2 className="font-sans font-bold text-3xl md:text-4xl mb-8 text-[#1A1A1A]">Toutes les Actualités</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {regularNews.map((article) => (
-                <Card key={article.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="h-40 bg-gradient-to-br from-[#D4AF37]/20 to-[#d17e00]/20 flex items-center justify-center">
-                    <Newspaper className="w-12 h-12 text-[#D4AF37]/30" />
-                  </div>
-                  <div className="p-5">
-                    <div className="flex items-center gap-3 mb-2 text-xs text-muted-foreground">
-                      <span>{article.date}</span>
-                      <span>•</span>
-                      <span>{article.author}</span>
-                    </div>
-                    <span className="inline-block px-2 py-1 bg-[#D4AF37]/10 text-[#D4AF37] rounded-full text-xs font-semibold mb-2">
-                      {article.category}
-                    </span>
-                    <h3 className="font-sans font-bold text-lg text-[#1A1A1A] mb-2 line-clamp-2">{article.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-3 line-clamp-3 leading-relaxed">{article.excerpt}</p>
-                    <Link
-                      href="#"
-                      className="inline-flex items-center gap-1 text-[#D4AF37] hover:text-[#d17e00] font-semibold text-sm"
-                    >
-                      Lire la suite
-                      <ArrowRight className="w-3 h-3" />
-                    </Link>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Newsletter CTA */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center bg-gradient-to-br from-[#D4AF37] to-[#d17e00] rounded-2xl p-12 text-white">
-              <h2 className="font-sans font-bold text-3xl md:text-4xl mb-4">Restez Informé</h2>
-              <p className="text-lg text-white/90 mb-8">
-                Abonnez-vous à notre newsletter pour recevoir les dernières actualités et événements directement dans votre boîte de réception.
-              </p>
-              <Link href="/contact">
-                <button className="bg-white text-[#D4AF37] hover:bg-gray-100 font-semibold px-8 py-3 rounded-lg transition-colors">
-                  S'abonner à la Newsletter
-                </button>
-              </Link>
-            </div>
-          </div>
-        </section>
+      <Header variant="solid" />
+      <main>
+        <NewsHero />
+        <NewsGrid articles={newsArticles} />
+        <NewsCTA />
       </main>
       <Footer />
     </div>
   )
 }
-
