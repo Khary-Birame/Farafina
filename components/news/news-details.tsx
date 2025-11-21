@@ -12,7 +12,7 @@ import {
   Facebook,
   Twitter,
   Linkedin,
-  Whatsapp,
+  MessageCircle,
   TrendingUp,
   ChevronLeft,
   ChevronRight,
@@ -298,7 +298,7 @@ export function NewsDetails({ article }: NewsDetailsProps) {
                   className="w-10 h-10 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center justify-center transition-colors"
                   aria-label="Partager sur WhatsApp"
                 >
-                  <Whatsapp className="w-5 h-5" />
+                  <MessageCircle className="w-5 h-5" />
                 </button>
               </div>
             </div>
