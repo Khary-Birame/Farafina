@@ -1,6 +1,6 @@
 "use client"
 
-import { use } from "react"
+import { use, useEffect, useState } from "react"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -8,7 +8,9 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowLeft, Play, Mail } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { ArrowLeft, Play, Mail, Trophy, TrendingUp, Target, Zap, Shield, Award, Star, Users, Calendar, MapPin, Flag, Ruler, Weight, Footprints, Share2, Download } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 // Mock player data - in production, this would come from an API/database
 const getPlayerById = (id: string) => {
@@ -425,217 +427,334 @@ const getPlayerById = (id: string) => {
 export default function PlayerDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const player = getPlayerById(id)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   if (!player) {
     notFound()
   }
 
+  const positionIcons: Record<string, any> = {
+    "Attaquant": Target,
+    "Milieu": Zap,
+    "Défenseur": Shield,
+    "Gardien": Shield,
+  }
+
+  const PositionIcon = positionIcons[player.position] || Trophy
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* Back Button */}
-      <div className="pt-28 pb-6 px-4 sm:px-6 lg:px-8 border-b border-border">
-        <div className="max-w-6xl mx-auto">
+      {/* Hero Section - Premium Design */}
+      <section className="relative pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1A1A1A] via-[#2D1B0E] to-[#1A1A1A]">
+          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+          <div className="absolute top-20 right-20 w-96 h-96 bg-[#D4AF37]/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 left-20 w-72 h-72 bg-[#B8941F]/10 rounded-full blur-3xl animate-pulse delay-1000" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto">
+          {/* Back Button */}
           <Link
             href="/players"
-            className="inline-flex items-center gap-2 text-sm text-foreground hover:text-[#D4AF37] transition-colors"
+            className="inline-flex items-center gap-2 text-white/80 hover:text-[#D4AF37] transition-colors mb-8 group"
           >
-            <ArrowLeft className="h-4 w-4" />
-            Retour à la liste
+            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+            <span className="font-medium">Retour à la liste</span>
           </Link>
-        </div>
-      </div>
 
-      {/* Player Header */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 border-b border-border">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row gap-8 items-start">
-            {/* Player Image */}
-            <div className="w-full md:w-80 lg:w-96">
-              <div className="relative aspect-[3/4] overflow-hidden border-2 border-[#D4AF37] rounded-lg">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Player Image - Hero */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity" />
+              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden border-4 border-white/20 shadow-2xl">
                 <Image
                   src={player.image || "/placeholder.svg"}
                   alt={player.name}
                   fill
                   className="object-cover"
+                  priority
                 />
-                <div className="absolute top-4 right-4">
-                  <div className="bg-[#D4AF37] text-white px-4 py-2 font-bold text-sm rounded">
+                {/* Category Badge */}
+                <div className="absolute top-6 right-6">
+                  <Badge className="bg-[#D4AF37] text-white font-bold text-sm px-4 py-2 shadow-lg">
                     {player.category}
+                  </Badge>
+                </div>
+                {/* Performance Badge */}
+                <div className="absolute top-6 left-6">
+                  <div className="bg-black/70 backdrop-blur-md text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+                    <Star className="w-5 h-5 fill-[#D4AF37] text-[#D4AF37]" />
+                    <span className="font-bold text-lg">{player.performance}/10</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Player Info */}
-            <div className="flex-1">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-tight">
-                {player.name}
-              </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-                {player.position} — {player.category}
-              </p>
+            <div className="text-white space-y-6">
+              {/* Position Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full">
+                <PositionIcon className="w-5 h-5 text-[#D4AF37]" />
+                <span className="font-semibold">{player.position}</span>
+              </div>
 
-              {/* Personal Information */}
-              <Card className="border-border">
-                <CardContent className="p-6">
-                  <h2 className="text-2xl font-bold text-foreground mb-6">Informations personnelles</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="flex justify-between items-center py-3 border-b border-border">
-                      <span className="text-muted-foreground">Âge</span>
-                      <span className="font-bold text-foreground">{player.age} ans</span>
-                    </div>
-                    <div className="flex justify-between items-center py-3 border-b border-border">
-                      <span className="text-muted-foreground">Taille</span>
-                      <span className="font-bold text-foreground">{player.height}</span>
-                    </div>
-                    <div className="flex justify-between items-center py-3 border-b border-border">
-                      <span className="text-muted-foreground">Poids</span>
-                      <span className="font-bold text-foreground">{player.weight}</span>
-                    </div>
-                    <div className="flex justify-between items-center py-3 border-b border-border">
-                      <span className="text-muted-foreground">Pied fort</span>
-                      <span className="font-bold text-foreground">{player.preferredFoot}</span>
-                    </div>
-                    <div className="flex justify-between items-center py-3 border-b border-border">
-                      <span className="text-muted-foreground">Nationalité</span>
-                      <span className="font-bold text-foreground">{player.nationality}</span>
-                    </div>
-                    <div className="flex justify-between items-center py-3 border-b border-border">
-                      <span className="text-muted-foreground">Section</span>
-                      <span className="font-bold text-foreground">{player.section}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              {/* Name */}
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight">
+                <span className="block">{player.name.split(" ")[0]}</span>
+                <span className="block bg-gradient-to-r from-[#D4AF37] via-[#F4D03F] to-[#D4AF37] bg-clip-text text-transparent">
+                  {player.name.split(" ").slice(1).join(" ")}
+                </span>
+              </h1>
+
+              {/* Quick Stats */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4">
+                  <div className="text-3xl font-black text-[#D4AF37] mb-1">{player.stats.goals}</div>
+                  <div className="text-xs text-white/70 font-medium uppercase tracking-wide">Buts</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4">
+                  <div className="text-3xl font-black text-[#D4AF37] mb-1">{player.stats.assists}</div>
+                  <div className="text-xs text-white/70 font-medium uppercase tracking-wide">Passes</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4">
+                  <div className="text-3xl font-black text-[#D4AF37] mb-1">{player.stats.matchesPlayed}</div>
+                  <div className="text-xs text-white/70 font-medium uppercase tracking-wide">Matchs</div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white font-bold shadow-xl hover:shadow-2xl transition-all"
+                >
+                  <Mail className="h-5 w-5 mr-2" />
+                  Contacter
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm font-bold"
+                >
+                  <Share2 className="h-5 w-5 mr-2" />
+                  Partager
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm font-bold"
+                >
+                  <Download className="h-5 w-5 mr-2" />
+                  Exporter
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Sports Statistics */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
-            Statistiques sportives
-          </h2>
+      {/* Personal Information - Premium Card */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <Card className="border-0 shadow-xl overflow-hidden">
+            <div className="bg-gradient-to-r from-[#D4AF37]/10 to-[#B8941F]/5 p-8 border-b">
+              <h2 className="text-3xl font-black text-gray-900 flex items-center gap-3">
+                <Users className="w-8 h-8 text-[#D4AF37]" />
+                Informations Personnelles
+              </h2>
+            </div>
+            <CardContent className="p-8">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-gray-600 text-sm font-medium">
+                    <Calendar className="w-4 h-4" />
+                    <span>Âge</span>
+                  </div>
+                  <div className="text-2xl font-black text-gray-900">{player.age} ans</div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-gray-600 text-sm font-medium">
+                    <Ruler className="w-4 h-4" />
+                    <span>Taille</span>
+                  </div>
+                  <div className="text-2xl font-black text-gray-900">{player.height}</div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-gray-600 text-sm font-medium">
+                    <Weight className="w-4 h-4" />
+                    <span>Poids</span>
+                  </div>
+                  <div className="text-2xl font-black text-gray-900">{player.weight}</div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-gray-600 text-sm font-medium">
+                    <Footprints className="w-4 h-4" />
+                    <span>Pied fort</span>
+                  </div>
+                  <div className="text-2xl font-black text-gray-900">{player.preferredFoot}</div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-gray-600 text-sm font-medium">
+                    <Flag className="w-4 h-4" />
+                    <span>Nationalité</span>
+                  </div>
+                  <div className="text-2xl font-black text-gray-900">{player.nationality}</div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-gray-600 text-sm font-medium">
+                    <Users className="w-4 h-4" />
+                    <span>Section</span>
+                  </div>
+                  <div className="text-2xl font-black text-gray-900">{player.section}</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-            {/* Match Stats */}
-            <Card className="border-border">
-              <CardContent className="p-6">
-                <div className="grid grid-cols-3 gap-6 text-center">
+      {/* Sports Statistics - Premium */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-3 mb-12">
+            <Trophy className="w-8 h-8 text-[#D4AF37]" />
+            <h2 className="text-4xl font-black text-gray-900">Statistiques Sportives</h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Match Stats - Premium Cards */}
+            <Card className="border-0 shadow-xl overflow-hidden bg-gradient-to-br from-white to-gray-50">
+              <div className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] p-6">
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  <Target className="w-6 h-6" />
+                  Statistiques de Match
+                </h3>
+              </div>
+              <CardContent className="p-8">
+                <div className="grid grid-cols-3 gap-8 text-center">
                   <div>
-                    <div className="text-4xl font-bold text-[#D4AF37] mb-2">
-                      {player.stats.matchesPlayed}
+                    <div className="text-5xl font-black text-[#D4AF37] mb-2">{player.stats.matchesPlayed}</div>
+                    <div className="text-sm text-gray-600 font-medium uppercase tracking-wide">Matchs</div>
+                  </div>
+                  <div>
+                    <div className="text-5xl font-black text-[#D4AF37] mb-2">{player.stats.goals}</div>
+                    <div className="text-sm text-gray-600 font-medium uppercase tracking-wide">Buts</div>
+                  </div>
+                  <div>
+                    <div className="text-5xl font-black text-[#D4AF37] mb-2">{player.stats.assists}</div>
+                    <div className="text-sm text-gray-600 font-medium uppercase tracking-wide">Passes</div>
+                  </div>
+                </div>
+                <div className="mt-8 pt-8 border-t border-gray-200 grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">
+                      {((player.stats.goals / player.stats.matchesPlayed) * 100).toFixed(1)}%
                     </div>
-                    <div className="text-sm text-muted-foreground">Matchs joués</div>
+                    <div className="text-xs text-gray-600">Taux de buts</div>
                   </div>
                   <div>
-                    <div className="text-4xl font-bold text-[#D4AF37] mb-2">{player.stats.goals}</div>
-                    <div className="text-sm text-muted-foreground">Buts</div>
+                    <div className="text-2xl font-bold text-gray-900">
+                      {((player.stats.assists / player.stats.matchesPlayed) * 100).toFixed(1)}%
+                    </div>
+                    <div className="text-xs text-gray-600">Taux de passes</div>
                   </div>
                   <div>
-                    <div className="text-4xl font-bold text-[#D4AF37] mb-2">{player.stats.assists}</div>
-                    <div className="text-sm text-muted-foreground">Passes décisives</div>
+                    <div className="text-2xl font-bold text-gray-900">
+                      {((player.stats.goals + player.stats.assists) / player.stats.matchesPlayed).toFixed(1)}
+                    </div>
+                    <div className="text-xs text-gray-600">Contributions/match</div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Performance Metrics */}
-            <Card className="border-border">
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  {/* Speed */}
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-foreground">Vitesse</span>
-                      <span className="text-sm font-bold text-foreground">{player.stats.speed}/10</span>
+            {/* Performance Metrics - Premium */}
+            <Card className="border-0 shadow-xl overflow-hidden bg-gradient-to-br from-white to-gray-50">
+              <div className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] p-6">
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  <TrendingUp className="w-6 h-6" />
+                  Métriques de Performance
+                </h3>
+              </div>
+              <CardContent className="p-8 space-y-6">
+                {[
+                  { label: "Vitesse", value: player.stats.speed, icon: Zap },
+                  { label: "Endurance", value: player.stats.endurance, icon: Target },
+                  { label: "Intensité", value: player.stats.intensity, icon: TrendingUp },
+                  { label: "Technique", value: player.stats.technique, icon: Award },
+                ].map((metric, index) => {
+                  const Icon = metric.icon
+                  return (
+                    <div key={index} className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Icon className="w-5 h-5 text-[#D4AF37]" />
+                          <span className="font-semibold text-gray-900">{metric.label}</span>
+                        </div>
+                        <span className="font-black text-gray-900">{metric.value}/10</span>
+                      </div>
+                      <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-[#D4AF37] to-[#B8941F] rounded-full transition-all duration-1000 shadow-lg"
+                          style={{ width: `${(metric.value / 10) * 100}%` }}
+                        />
+                      </div>
                     </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-[#D4AF37] rounded-full"
-                        style={{ width: `${(player.stats.speed / 10) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Endurance */}
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-foreground">Endurance</span>
-                      <span className="text-sm font-bold text-foreground">{player.stats.endurance}/10</span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-[#D4AF37] rounded-full"
-                        style={{ width: `${(player.stats.endurance / 10) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Intensity */}
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-foreground">Intensité</span>
-                      <span className="text-sm font-bold text-foreground">{player.stats.intensity}/10</span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-[#D4AF37] rounded-full"
-                        style={{ width: `${(player.stats.intensity / 10) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Technique */}
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-foreground">Technique</span>
-                      <span className="text-sm font-bold text-foreground">{player.stats.technique}/10</span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-[#D4AF37] rounded-full"
-                        style={{ width: `${(player.stats.technique / 10) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-                </div>
+                  )
+                })}
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Videos & Highlights */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-muted/30">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">Moments forts</h2>
+      {/* Videos & Highlights - Premium */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-3 mb-12">
+            <Play className="w-8 h-8 text-[#D4AF37]" />
+            <h2 className="text-4xl font-black text-gray-900">Moments Forts</h2>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {player.highlights.map((highlight, index) => (
-              <Card key={index} className="border-border overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow">
+              <Card
+                key={index}
+                className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer bg-gradient-to-br from-white to-gray-50"
+              >
                 <div className="relative aspect-video overflow-hidden">
                   <Image
                     src={highlight.thumbnail || "/placeholder.svg"}
                     alt={highlight.title}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/60 transition-colors">
-                    <div className="w-16 h-16 bg-[#D4AF37] rounded-full flex items-center justify-center">
-                      <Play className="h-8 w-8 text-white fill-white" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                  <div className="absolute inset-0 flex items-center justify-center group-hover:bg-black/60 transition-colors">
+                    <div className="w-20 h-20 bg-[#D4AF37] rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+                      <Play className="h-10 w-10 text-white fill-white ml-1" />
                     </div>
                   </div>
-                  <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 text-xs rounded">
+                  <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-bold">
                     {highlight.duration}
                   </div>
                 </div>
-                <CardContent className="p-4">
-                  <h3 className="font-bold text-foreground text-sm">{highlight.title}</h3>
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-lg text-gray-900 group-hover:text-[#D4AF37] transition-colors">
+                    {highlight.title}
+                  </h3>
                 </CardContent>
               </Card>
             ))}
@@ -643,31 +762,44 @@ export default function PlayerDetailPage({ params }: { params: Promise<{ id: str
         </div>
       </section>
 
-      {/* Coach Feedback */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
-            Commentaire de l'encadrement
-          </h2>
+      {/* Coach Feedback - Premium */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-3 mb-12">
+            <Award className="w-8 h-8 text-[#D4AF37]" />
+            <h2 className="text-4xl font-black text-gray-900">Commentaire de l'Encadrement</h2>
+          </div>
 
-          <Card className="border-border">
-            <CardContent className="p-8">
-              <div className="flex gap-4">
-                <div className="w-1 bg-[#D4AF37] flex-shrink-0 rounded" />
-                <p className="text-lg text-foreground leading-relaxed">{player.coachFeedback}</p>
+          <Card className="border-0 shadow-xl overflow-hidden bg-gradient-to-br from-white to-gray-50">
+            <CardContent className="p-12">
+              <div className="flex gap-6">
+                <div className="w-1 bg-gradient-to-b from-[#D4AF37] to-[#B8941F] rounded-full flex-shrink-0" />
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-full flex items-center justify-center">
+                      <Award className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-gray-900">Équipe d'Encadrement</div>
+                      <div className="text-sm text-gray-600">Académie Farafina</div>
+                    </div>
+                  </div>
+                  <p className="text-xl text-gray-700 leading-relaxed">{player.coachFeedback}</p>
+                </div>
               </div>
             </CardContent>
           </Card>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 border-t border-border">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+      {/* CTA Section - Premium */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#1A1A1A] via-[#2D1B0E] to-[#1A1A1A] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        <div className="relative max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
             Intéressé par ce talent ?
           </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
             Contactez l'académie pour obtenir plus d'informations sur {player.name} ou pour une recommandation
             officielle destinée aux clubs professionnels.
           </p>
@@ -675,15 +807,15 @@ export default function PlayerDetailPage({ params }: { params: Promise<{ id: str
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-[#D4AF37] hover:bg-[#B8941F] text-white font-bold text-lg h-14 px-8"
+              className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white font-bold text-lg h-16 px-10 shadow-2xl hover:shadow-[#D4AF37]/50 transition-all"
             >
-              <Mail className="h-5 w-5 mr-2" />
+              <Mail className="h-6 w-6 mr-3" />
               Contacter l'Académie
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-foreground text-foreground hover:bg-foreground hover:text-background font-bold text-lg h-14 px-8"
+              className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm font-bold text-lg h-16 px-10"
             >
               Demander une recommandation
             </Button>
@@ -695,4 +827,3 @@ export default function PlayerDetailPage({ params }: { params: Promise<{ id: str
     </div>
   )
 }
-

@@ -157,7 +157,7 @@ Total: ${formattedTotal}.`
         </div>
 
         <SheetFooter>
-          {items.length > 0 && (
+          {items.length > 0 ? (
             <>
               <div className="flex items-center justify-between rounded-xl bg-muted/60 px-4 py-3">
                 <span className="text-sm font-medium text-muted-foreground">
@@ -187,7 +187,7 @@ Total: ${formattedTotal}.`
                 </Button>
               </div>
             </>
-          )}
+          ) : null}
         </SheetFooter>
       </SheetContent>
     </Sheet>

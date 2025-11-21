@@ -1,19 +1,30 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { boutiqueProducts } from '@/data/boutique-products'
 import { ProductCard } from './product-card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { cn, formatCurrency } from '@/lib/utils'
-import { SlidersHorizontal, Sparkles, Filter, Search } from 'lucide-react'
+import { SlidersHorizontal, Sparkles, Filter, Search, Grid3x3, List, TrendingUp, Award } from 'lucide-react'
 import { useTranslation } from '@/lib/hooks/use-translation'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 export function BoutiqueProducts() {
   const { t } = useTranslation()
   const [searchTerm, setSearchTerm] = useState('')
   const [category, setCategory] = useState('all')
   const [sort, setSort] = useState('recommended')
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const categories = useMemo(() => [
     { label: t('boutique.products.categories.all'), value: 'all' },
@@ -73,99 +84,146 @@ export function BoutiqueProducts() {
 
   return (
     <section id="catalogue" className="relative overflow-hidden py-16 lg:py-24 bg-[#0f1012]">
+      {/* Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(212,175,55,0.12),_transparent_60%)]" />
       <div className="absolute inset-0 opacity-10 mix-blend-screen" style={{ backgroundImage: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0) 60%)" }} />
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="mx-auto mb-12 max-w-3xl text-center text-white">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-4 py-1.5 text-sm text-[#D4AF37]">
+      
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        {/* Header Section */}
+        <div className="mx-auto mb-12 max-w-4xl text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-4 py-1.5 text-sm text-[#D4AF37] mb-6">
             <Sparkles className="h-4 w-4" />
-            {t('boutique.products.badge')}
+            {t('boutique.products.badge') || 'Collection Exclusive'}
           </div>
-          <h2 className="mt-4 font-sans text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-            {t('boutique.products.title')}
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
+            <span className="bg-gradient-to-r from-white via-[#D4AF37] to-white bg-clip-text text-transparent">
+              {t('boutique.products.title') || 'Notre Catalogue'}
+            </span>
           </h2>
-          <p className="mt-4 text-lg text-white/70">
-            {t('boutique.products.description')}
+          <p className="text-xl text-white/80 mb-4 max-w-2xl mx-auto">
+            {t('boutique.products.description') || 'Découvrez notre sélection de produits officiels'}
           </p>
-          <p className="mt-2 text-sm text-white/60">
-            <span className="font-semibold text-[#D4AF37]">{filteredProducts.length}</span> {filteredProducts.length > 1 ? t('boutique.products.availableItemsPlural') : t('boutique.products.availableItems')} •
-            {t('boutique.products.totalValue')} {formatCurrency(totalValue)}
-          </p>
+          <div className="flex items-center justify-center gap-6 text-sm text-white/70">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-[#D4AF37] text-lg">{filteredProducts.length}</span>
+              <span>{filteredProducts.length > 1 ? t('boutique.products.availableItemsPlural') || 'articles' : t('boutique.products.availableItems') || 'article'}</span>
+            </div>
+            <span>•</span>
+            <span>{t('boutique.products.totalValue') || 'Valeur totale'} {formatCurrency(totalValue)}</span>
+          </div>
         </div>
 
-        <div className="mb-12 rounded-3xl border border-[#ffffff14] bg-white/10 p-6 shadow-[0_15px_45px_rgba(0,0,0,0.35)] backdrop-blur">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="relative w-full md:max-w-sm">
-              <Input
-                value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
-                placeholder={t('boutique.products.searchPlaceholder')}
-                className="h-12 rounded-xl border-white/20 bg-white/10 pl-11 text-white placeholder:text-white/50 focus-visible:border-[#D4AF37] focus-visible:ring-[#D4AF37]/30"
-                aria-label={t('boutique.products.searchLabel')}
-              />
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/50" />
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2 text-sm font-medium text-white/60">
-                <Filter className="h-4 w-4" />
-                {t('boutique.products.categoriesLabel')} :
+        {/* Filters Bar - Sticky Premium */}
+        <div className={cn(
+          "sticky top-0 z-40 mb-12 rounded-3xl border transition-all duration-300",
+          isScrolled 
+            ? "bg-[#1a1a1a]/95 backdrop-blur-md shadow-xl border-white/20" 
+            : "bg-[#1a1a1a]/80 backdrop-blur-sm border-white/10"
+        )}>
+          <div className="p-6">
+            <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+              {/* Search */}
+              <div className="relative w-full lg:max-w-md group">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/20 to-[#B8941F]/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all opacity-0 group-hover:opacity-100" />
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    value={searchTerm}
+                    onChange={(event) => setSearchTerm(event.target.value)}
+                    placeholder={t('boutique.products.searchPlaceholder') || 'Rechercher un produit...'}
+                    className="h-14 pl-12 pr-4 rounded-2xl border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder:text-white/50 focus-visible:border-[#D4AF37] focus-visible:ring-[#D4AF37]/20 text-lg shadow-sm"
+                    aria-label={t('boutique.products.searchLabel') || 'Rechercher'}
+                  />
+                </div>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {categories.map((cat) => (
+
+              {/* Category Filters */}
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-2 text-sm font-semibold text-white/80">
+                  <Filter className="h-4 w-4" />
+                  {t('boutique.products.categoriesLabel') || 'Catégories'}:
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((cat) => (
+                    <Button
+                      key={cat.value}
+                      type="button"
+                      onClick={() => setCategory(cat.value)}
+                      variant={category === cat.value ? 'default' : 'outline'}
+                      className={cn(
+                        'rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 shadow-sm hover:shadow-md',
+                        category === cat.value
+                          ? 'bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white border-0'
+                          : 'border-2 border-white/20 text-white/70 hover:border-[#D4AF37] hover:text-[#D4AF37] bg-white/5 backdrop-blur-sm',
+                      )}
+                    >
+                      {cat.label}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sort & View */}
+              <div className="flex items-center gap-3">
+                <Select value={sort} onValueChange={setSort}>
+                  <SelectTrigger className="w-[180px] h-12 border-2 border-white/20 rounded-xl bg-white/10 backdrop-blur-sm text-white hover:border-[#D4AF37] transition-colors">
+                    <SlidersHorizontal className="h-4 w-4 mr-2" />
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#1a1a1a] border-white/20">
+                    {sortOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value} className="text-white hover:bg-white/10">
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <div className="flex items-center gap-1 p-1 bg-white/5 backdrop-blur-sm rounded-xl border border-white/20">
                   <Button
-                    key={cat.value}
-                    type="button"
-                    onClick={() => setCategory(cat.value)}
-                    variant={category === cat.value ? 'default' : 'outline'}
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setViewMode('grid')}
                     className={cn(
-                      'rounded-full px-4 py-0 text-xs font-semibold uppercase tracking-wide transition',
-                      category === cat.value
-                        ? 'bg-[#D4AF37] hover:bg-[#b98d2c] text-white'
-                        : 'border-white/20 text-white/70 hover:border-[#D4AF37] hover:text-[#D4AF37]',
+                      "h-9 px-3 rounded-lg transition-all",
+                      viewMode === 'grid' ? "bg-white/10 shadow-sm text-[#D4AF37]" : "text-white/70 hover:text-white"
                     )}
                   >
-                    {cat.label}
+                    <Grid3x3 className="h-4 w-4" />
                   </Button>
-                ))}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setViewMode('list')}
+                    className={cn(
+                      "h-9 px-3 rounded-lg transition-all",
+                      viewMode === 'list' ? "bg-white/10 shadow-sm text-[#D4AF37]" : "text-white/70 hover:text-white"
+                    )}
+                  >
+                    <List className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <SlidersHorizontal className="hidden h-4 w-4 text-white/50 sm:block" />
-              <select
-                value={sort}
-                onChange={(event) => setSort(event.target.value)}
-                className="h-11 rounded-xl border border-white/20 bg-white/10 px-4 text-sm font-medium text-white focus:border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/30"
-                aria-label={t('boutique.products.sortLabel')}
-              >
-                {sortOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
             </div>
           </div>
         </div>
 
+        {/* Best Sellers Section */}
         {popularProducts.length > 0 && (
           <div className="mb-16">
-            <div className="mb-6 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="p-3 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-xl shadow-lg">
+                <Award className="w-6 h-6 text-white" />
+              </div>
               <div>
-                <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#D4AF37]">{t('boutique.products.bestsellers.badge')}</p>
-                <h3 className="font-sans text-2xl font-semibold text-white">
-                  {t('boutique.products.bestsellers.title')}
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#D4AF37]">
+                  {t('boutique.products.bestsellers.badge') || 'Best Sellers'}
+                </p>
+                <h3 className="font-sans text-3xl font-bold text-white">
+                  {t('boutique.products.bestsellers.title') || 'Les Plus Populaires'}
                 </h3>
               </div>
-              <Button
-                variant="ghost"
-                className="hidden sm:inline-flex gap-2 text-sm font-semibold text-white hover:text-[#D4AF37]"
-              >
-                {t('boutique.products.bestsellers.viewAll')}
-              </Button>
             </div>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {popularProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
@@ -173,27 +231,38 @@ export function BoutiqueProducts() {
           </div>
         )}
 
+        {/* All Products Section */}
         <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="font-sans text-xl font-semibold text-white">{t('boutique.products.allProducts')}</h3>
-            <span className="text-sm text-white/60">
-              {otherProducts.length} {otherProducts.length > 1 ? t('boutique.products.itemsPlural') : t('boutique.products.items')}
+            <h3 className="font-sans text-2xl font-bold text-white">
+              {t('boutique.products.allProducts') || 'Tous les Produits'}
+            </h3>
+            <span className="text-sm text-white/70 font-medium">
+              {otherProducts.length} {otherProducts.length > 1 ? t('boutique.products.itemsPlural') || 'articles' : t('boutique.products.items') || 'article'}
             </span>
           </div>
 
           {otherProducts.length > 0 ? (
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className={cn(
+              "grid gap-8",
+              viewMode === 'grid' 
+                ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" 
+                : "grid-cols-1"
+            )}>
               {otherProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl border border-dashed border-[#D4AF37]/40 bg-white/10 p-10 text-center text-white">
-              <p className="text-lg font-medium">
-                {t('boutique.products.noResults.title')}
+            <div className="rounded-3xl border-2 border-dashed border-[#D4AF37]/40 bg-white/5 backdrop-blur-sm p-16 text-center">
+              <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search className="w-10 h-10 text-white/40" />
+              </div>
+              <p className="text-xl font-semibold text-white mb-2">
+                {t('boutique.products.noResults.title') || 'Aucun produit trouvé'}
               </p>
-              <p className="mt-2 text-sm text-white/70">
-                {t('boutique.products.noResults.description')}
+              <p className="text-sm text-white/70">
+                {t('boutique.products.noResults.description') || 'Essayez de modifier vos filtres de recherche'}
               </p>
             </div>
           )}

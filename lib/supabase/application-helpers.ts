@@ -411,6 +411,15 @@ async function uploadApplicationFile(
     }
   }
 
+  console.log(`[uploadApplicationFile] Tentative d'upload de ${fileType}:`, {
+    fileName: file.name,
+    fileSize: file.size,
+    fileType: file.type,
+    filePath,
+    bucket,
+    applicationId,
+  })
+
   const { data, error } = await supabase.storage
     .from(bucket)
     .upload(filePath, file, {
@@ -420,9 +429,20 @@ async function uploadApplicationFile(
     })
 
   if (error) {
-    console.error(`Erreur lors de l'upload de ${fileType}:`, error)
+    console.error(`[uploadApplicationFile] ❌ Erreur lors de l'upload de ${fileType}:`, {
+      error,
+      filePath,
+      bucket,
+      fileName: file.name,
+      fileSize: file.size,
+    })
     return { url: null, error }
   }
+
+  console.log(`[uploadApplicationFile] ✅ Upload réussi pour ${fileType}:`, {
+    filePath,
+    data,
+  })
 
   // Pour un bucket privé, on stocke le chemin du fichier plutôt que l'URL publique
   // L'URL signée sera générée lors de l'accès au fichier via getSignedFileUrl()
@@ -492,8 +512,17 @@ export async function submitApplication(
     if (files.birthCertificate) {
       uploadPromises.push(
         uploadApplicationFile(files.birthCertificate, applicationId, "birthCertificate").then((res) => {
-          if (res.error) throw res.error
+          console.log(`[submitApplication] Upload birthCertificate:`, res)
+          if (res.error) {
+            console.error(`[submitApplication] Erreur upload birthCertificate:`, res.error)
+            throw res.error
+          }
+          if (!res.url) {
+            console.error(`[submitApplication] Pas d'URL retournée pour birthCertificate`)
+            throw new Error("Échec de l'upload de l'acte de naissance")
+          }
           uploadedFileUrls.birthCertificate = res.url
+          console.log(`[submitApplication] ✅ birthCertificate uploadé: ${res.url}`)
         })
       )
     }
@@ -501,8 +530,17 @@ export async function submitApplication(
     if (files.photo) {
       uploadPromises.push(
         uploadApplicationFile(files.photo, applicationId, "photo").then((res) => {
-          if (res.error) throw res.error
+          console.log(`[submitApplication] Upload photo:`, res)
+          if (res.error) {
+            console.error(`[submitApplication] Erreur upload photo:`, res.error)
+            throw res.error
+          }
+          if (!res.url) {
+            console.error(`[submitApplication] Pas d'URL retournée pour photo`)
+            throw new Error("Échec de l'upload de la photo")
+          }
           uploadedFileUrls.photo = res.url
+          console.log(`[submitApplication] ✅ photo uploadée: ${res.url}`)
         })
       )
     }
@@ -510,8 +548,17 @@ export async function submitApplication(
     if (files.medicalCertificate) {
       uploadPromises.push(
         uploadApplicationFile(files.medicalCertificate, applicationId, "medicalCertificate").then((res) => {
-          if (res.error) throw res.error
+          console.log(`[submitApplication] Upload medicalCertificate:`, res)
+          if (res.error) {
+            console.error(`[submitApplication] Erreur upload medicalCertificate:`, res.error)
+            throw res.error
+          }
+          if (!res.url) {
+            console.error(`[submitApplication] Pas d'URL retournée pour medicalCertificate`)
+            throw new Error("Échec de l'upload du certificat médical")
+          }
           uploadedFileUrls.medicalCertificate = res.url
+          console.log(`[submitApplication] ✅ medicalCertificate uploadé: ${res.url}`)
         })
       )
     }
@@ -519,13 +566,24 @@ export async function submitApplication(
     if (files.video) {
       uploadPromises.push(
         uploadApplicationFile(files.video, applicationId, "video").then((res) => {
-          if (res.error) throw res.error
+          console.log(`[submitApplication] Upload video:`, res)
+          if (res.error) {
+            console.error(`[submitApplication] Erreur upload video:`, res.error)
+            throw res.error
+          }
+          if (!res.url) {
+            console.error(`[submitApplication] Pas d'URL retournée pour video`)
+            throw new Error("Échec de l'upload de la vidéo")
+          }
           uploadedFileUrls.video = res.url
+          console.log(`[submitApplication] ✅ video uploadée: ${res.url}`)
         })
       )
     }
 
+    console.log(`[submitApplication] Début de l'upload de ${uploadPromises.length} fichier(s)...`)
     await Promise.all(uploadPromises)
+    console.log(`[submitApplication] ✅ Tous les fichiers ont été uploadés avec succès`)
 
     // 3. Mettre à jour la soumission de formulaire avec les URLs des fichiers
     const { data: updatedData, error: updateError } = await supabase

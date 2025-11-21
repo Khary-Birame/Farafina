@@ -37,29 +37,14 @@ WITH CHECK (
   bucket_id = 'applications'
 );
 
--- Permettre aux utilisateurs authentifiés de lire les fichiers des candidatures
--- Les admins peuvent lire tous les fichiers
-CREATE POLICY "Authenticated users can read application files"
+-- Permettre l'accès en lecture à tous (public) pour les fichiers des candidatures
+-- Note: Cette politique permet l'accès sans authentification pour la console admin
+CREATE POLICY "Public can read application files"
 ON storage.objects
 FOR SELECT
-TO authenticated
+TO public
 USING (
-  bucket_id = 'applications' AND
-  (
-    -- Les admins peuvent tout lire
-    EXISTS (
-      SELECT 1 FROM public.users
-      WHERE users.id = auth.uid() AND users.role = 'admin'
-    )
-    OR
-    -- Les utilisateurs peuvent lire les fichiers de leurs propres candidatures
-    EXISTS (
-      SELECT 1 FROM public.form_submissions
-      WHERE form_submissions.user_id = auth.uid()
-      AND form_submissions.form_type = 'application'
-      AND (storage.foldername(name))[1] = form_submissions.id::text
-    )
-  )
+  bucket_id = 'applications'
 );
 
 -- Permettre aux admins de supprimer tous les fichiers
@@ -69,10 +54,7 @@ FOR DELETE
 TO authenticated
 USING (
   bucket_id = 'applications' AND
-  EXISTS (
-    SELECT 1 FROM public.users
-    WHERE users.id = auth.uid() AND users.role = 'admin'
-  )
+  public.is_admin()
 );
 
 -- ============================================
