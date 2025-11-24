@@ -32,15 +32,45 @@ export default function BecomePartnerPage() {
     setIsSubmitting(true)
 
     try {
-      const { data, error } = await createFormSubmission({
+      // 1. Sauvegarder dans Supabase
+      const { data: submissionData, error: submissionError } = await createFormSubmission({
         form_type: "partner",
         form_data: formData,
         user_id: user?.id || null,
         status: "pending",
       })
+      if (submissionError) {
+        console.error("Erreur sauvegarde Supabase:", submissionError)
+        // On continue quand même pour essayer d'envoyer l'email
+      }
 
-      if (error) {
-        throw error
+      // 2. Envoyer l'email
+      const emailResponse = await fetch("/api/partners", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      // Vérifier que la réponse contient du contenu avant de parser le JSON
+      const contentType = emailResponse.headers.get("content-type")
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await emailResponse.text()
+        throw new Error(text || "Erreur lors de l'envoi de l'email")
+      }
+
+      let emailResult
+      try {
+        const text = await emailResponse.text()
+        emailResult = text ? JSON.parse(text) : {}
+      } catch (parseError) {
+        console.error("Erreur parsing JSON:", parseError)
+        throw new Error("Réponse invalide du serveur")
+      }
+
+      if (!emailResponse.ok) {
+        throw new Error(emailResult.error || "Erreur lors de l'envoi de l'email")
       }
 
       toast.success(t("partners.submitSuccess"), {

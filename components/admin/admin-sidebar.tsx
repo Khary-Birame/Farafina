@@ -16,6 +16,7 @@ import {
   LogOut,
   User,
   FileText,
+  MapPin,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -56,6 +57,11 @@ const menuItems = [
     title: "Candidatures",
     href: "/admin/candidatures",
     icon: FileText,
+  },
+  {
+    title: "Visites",
+    href: "/admin/visites",
+    icon: MapPin,
   },
   {
     title: "Messagerie",

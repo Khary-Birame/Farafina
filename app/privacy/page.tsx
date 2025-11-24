@@ -171,7 +171,7 @@ export default function PrivacyPage() {
                     Email : dpo@farafina.ffa.fr
                   </div>
                   <div className="text-muted-foreground">
-                    Téléphone : +221 XX XXX XX XX
+                    Téléphone : +221 763171202
                   </div>
                 </div>
               </CardContent>

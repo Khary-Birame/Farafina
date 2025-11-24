@@ -12,37 +12,37 @@ export function VisiteWhyVisit() {
       icon: Shield,
       title: t("visite.why.security.title", "Sécurité & Qualité de Vie"),
       description: t("visite.why.security.description", "Un environnement sécurisé 24/7 avec surveillance continue et mesures de sécurité optimales pour la tranquillité des familles."),
-      color: "from-blue-500 to-indigo-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       icon: UserCheck,
       title: t("visite.why.personalized.title", "Suivi Personnalisé"),
       description: t("visite.why.personalized.description", "Chaque étudiant bénéficie d'un accompagnement sur mesure avec tutorat individuel et suivi académique renforcé."),
-      color: "from-green-500 to-emerald-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       icon: Award,
       title: t("visite.why.training.title", "Entraînement Professionnel"),
       description: t("visite.why.training.description", "Programme d'entraînement de niveau professionnel avec encadrement par des coaches certifiés et expérimentés."),
-      color: "from-purple-500 to-pink-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       icon: GraduationCap,
       title: t("visite.why.academic.title", "Programme Scolaire Structuré"),
       description: t("visite.why.academic.description", "Équilibre parfait entre études et sport avec un programme académique complet et reconnu."),
-      color: "from-amber-500 to-orange-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       icon: CheckCircle2,
       title: t("visite.why.certified.title", "Encadrement Certifié"),
       description: t("visite.why.certified.description", "Équipe d'éducateurs diplômés, psychologues et nutritionnistes spécialisés dans l'accompagnement des jeunes sportifs."),
-      color: "from-red-500 to-rose-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       icon: Heart,
       title: t("visite.why.values.title", "Valeurs & Excellence"),
       description: t("visite.why.values.description", "Transmission de valeurs essentielles : discipline, respect, travail d'équipe et développement du caractère."),
-      color: "from-cyan-500 to-teal-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
   ]
 

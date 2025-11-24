@@ -104,7 +104,7 @@ export function VisitePracticalInfo() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-600 mb-1">{t("visite.practical.contact.phoneLabel", "Téléphone")}</p>
-                    <p className="font-bold text-gray-900">+221 XX XXX XX XX</p>
+                    <p className="font-bold text-gray-900">+221 763171202</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">

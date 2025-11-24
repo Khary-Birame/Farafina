@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Loader2, CheckCircle2, User, Mail, Phone, Calendar, Clock, Users, Target, UtensilsCrossed, FileText, Shield, ArrowRight } from "lucide-react"
+import { Loader2, CheckCircle2, User, Mail, Phone, Calendar, Clock, Users, Target, UtensilsCrossed, FileText, Shield, ArrowRight, Building2, Newspaper, Briefcase, UserCircle } from "lucide-react"
 import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
 import { toast } from "sonner"
@@ -20,11 +20,13 @@ export function VisiteFormPremium() {
   const { user } = useAuth()
   const { t } = useTranslation()
   const [formData, setFormData] = useState({
-    parentName: "",
+    visitorType: "",
+    fullName: "",
     playerName: "",
     playerAge: "",
     phone: "",
     email: "",
+    organization: "",
     program: "",
     visitDate: "",
     visitTime: "",
@@ -38,17 +40,33 @@ export function VisiteFormPremium() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
 
-    if (!formData.parentName.trim()) {
-      newErrors.parentName = t("visite.form.errors.parentName", "Le nom du parent est obligatoire")
+    if (!formData.visitorType) {
+      newErrors.visitorType = t("visite.form.errors.visitorType", "Le type de visiteur est obligatoire")
     }
-    if (!formData.playerName.trim()) {
-      newErrors.playerName = t("visite.form.errors.playerName", "Le nom du joueur est obligatoire")
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = t("visite.form.errors.fullName", "Le nom complet est obligatoire")
     }
-    if (!formData.playerAge.trim()) {
-      newErrors.playerAge = t("visite.form.errors.playerAge", "L'âge est obligatoire")
-    } else if (parseInt(formData.playerAge) < 8) {
-      newErrors.playerAge = t("visite.form.errors.playerAgeMin", "L'âge minimum est de 8 ans")
+    
+    // Validation conditionnelle pour les parents
+    if (formData.visitorType === "parent") {
+      if (!formData.playerName.trim()) {
+        newErrors.playerName = t("visite.form.errors.playerName", "Le nom du joueur est obligatoire")
+      }
+      if (!formData.playerAge.trim()) {
+        newErrors.playerAge = t("visite.form.errors.playerAge", "L'âge est obligatoire")
+      } else if (parseInt(formData.playerAge) < 8) {
+        newErrors.playerAge = t("visite.form.errors.playerAgeMin", "L'âge minimum est de 8 ans")
+      }
+      if (!formData.program) {
+        newErrors.program = t("visite.form.errors.program", "Le programme est obligatoire")
+      }
     }
+    
+    // Validation pour les collaborateurs
+    if (formData.visitorType === "collaborateur" && !formData.organization.trim()) {
+      newErrors.organization = t("visite.form.errors.organization", "L'organisation est obligatoire")
+    }
+    
     if (!formData.phone.trim()) {
       newErrors.phone = t("visite.form.errors.phone", "Le téléphone est obligatoire")
     }
@@ -56,9 +74,6 @@ export function VisiteFormPremium() {
       newErrors.email = t("visite.form.errors.email", "L'email est obligatoire")
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = t("visite.form.errors.emailInvalid", "L'email n'est pas valide")
-    }
-    if (!formData.program) {
-      newErrors.program = t("visite.form.errors.program", "Le programme est obligatoire")
     }
     if (!formData.visitDate) {
       newErrors.visitDate = t("visite.form.errors.visitDate", "La date de visite est obligatoire")
@@ -91,15 +106,18 @@ export function VisiteFormPremium() {
     setIsSubmitting(true)
 
     try {
+      // 1. Sauvegarder dans Supabase
       const submissionData = {
         form_type: "visite_ffa",
         form_data: {
-          fullName: formData.parentName,
-          playerName: formData.playerName,
-          playerAge: parseInt(formData.playerAge),
+          visitorType: formData.visitorType,
+          fullName: formData.fullName,
+          organization: formData.organization || undefined,
+          playerName: formData.visitorType === "parent" ? formData.playerName : undefined,
+          playerAge: formData.visitorType === "parent" && formData.playerAge ? parseInt(formData.playerAge) : undefined,
           phone: formData.phone,
           email: formData.email,
-          program: formData.program,
+          program: formData.visitorType === "parent" ? formData.program : undefined,
           visitDate: formData.visitDate,
           arrivalTime: formData.visitTime,
           visitDuration: "specific-time",
@@ -111,10 +129,51 @@ export function VisiteFormPremium() {
         status: "pending",
       }
 
-      const { data, error } = await createFormSubmission(submissionData)
+      const { data, error: submissionError } = await createFormSubmission(submissionData)
+      if (submissionError) {
+        console.error("Erreur sauvegarde Supabase:", submissionError)
+        // On continue quand même pour essayer d'envoyer l'email
+      }
 
-      if (error) {
-        throw error
+      // 2. Envoyer l'email
+      const emailResponse = await fetch("/api/visite", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          visitorType: formData.visitorType,
+          fullName: formData.fullName,
+          organization: formData.organization,
+          email: formData.email,
+          phone: formData.phone,
+          playerName: formData.playerName,
+          playerAge: formData.playerAge,
+          program: formData.program,
+          visitDate: formData.visitDate,
+          visitTime: formData.visitTime,
+          message: formData.message,
+        }),
+      })
+
+      // Vérifier que la réponse contient du contenu avant de parser le JSON
+      const contentType = emailResponse.headers.get("content-type")
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await emailResponse.text()
+        throw new Error(text || "Erreur lors de l'envoi de l'email")
+      }
+
+      let emailResult
+      try {
+        const text = await emailResponse.text()
+        emailResult = text ? JSON.parse(text) : {}
+      } catch (parseError) {
+        console.error("Erreur parsing JSON:", parseError)
+        throw new Error("Réponse invalide du serveur")
+      }
+
+      if (!emailResponse.ok) {
+        throw new Error(emailResult.error || "Erreur lors de l'envoi de l'email")
       }
 
       toast.success(t("visite.form.success.title", "Demande envoyée avec succès"), {
@@ -123,11 +182,13 @@ export function VisiteFormPremium() {
 
       setIsSubmitted(true)
       setFormData({
-        parentName: "",
+        visitorType: "",
+        fullName: "",
         playerName: "",
         playerAge: "",
         phone: "",
         email: "",
+        organization: "",
         program: "",
         visitDate: "",
         visitTime: "",
@@ -151,9 +212,9 @@ export function VisiteFormPremium() {
 
   if (isSubmitted) {
     return (
-      <div className="bg-white rounded-3xl p-12 border-2 border-green-200 shadow-2xl">
+      <div className="bg-white rounded-3xl p-12 border-2 border-[#D4AF37]/30 shadow-2xl">
         <div className="text-center">
-          <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
             <CheckCircle2 className="w-10 h-10 text-white" />
           </div>
           <h3 className="font-sans font-black text-3xl text-gray-900 mb-4">
@@ -189,45 +250,156 @@ export function VisiteFormPremium() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
-        {/* Section 1: Informations Parent */}
+        {/* Section 0: Type de Visiteur */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
+            <div className="w-12 h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-xl flex items-center justify-center">
+              <UserCircle className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="font-sans font-black text-2xl text-gray-900">
+              {t("visite.form.section0.title", "Type de Visiteur")}
+            </h3>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="visitorType" className="text-sm font-bold text-gray-900">
+              {t("visite.form.section0.visitorType", "Je suis")} <span className="text-[#D4AF37]">*</span>
+            </Label>
+            <Select
+              value={formData.visitorType}
+              onValueChange={(value) => {
+                setFormData({ 
+                  ...formData, 
+                  visitorType: value,
+                  // Réinitialiser les champs conditionnels si on change de type
+                  playerName: value !== "parent" ? "" : formData.playerName,
+                  playerAge: value !== "parent" ? "" : formData.playerAge,
+                  program: value !== "parent" ? "" : formData.program,
+                  organization: value !== "collaborateur" ? "" : formData.organization,
+                })
+                if (errors.visitorType) setErrors({ ...errors, visitorType: "" })
+              }}
+            >
+              <SelectTrigger
+                id="visitorType"
+                name="visitorType"
+                className={cn(
+                  "h-12 text-base",
+                  errors.visitorType && "border-gray-400 focus:border-gray-500 focus:ring-gray-500"
+                )}
+              >
+                <SelectValue placeholder={t("visite.form.section0.visitorTypePlaceholder", "Sélectionnez votre profil")} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="parent">
+                  <div className="flex items-center gap-2">
+                    <Users className="w-4 h-4" />
+                    {t("visite.form.section0.typeParent", "Parent (avec enfant/joueur)")}
+                  </div>
+                </SelectItem>
+                <SelectItem value="collaborateur">
+                  <div className="flex items-center gap-2">
+                    <Building2 className="w-4 h-4" />
+                    {t("visite.form.section0.typeCollaborateur", "Collaborateur/Partenaire")}
+                  </div>
+                </SelectItem>
+                <SelectItem value="joueur">
+                  <div className="flex items-center gap-2">
+                    <Target className="w-4 h-4" />
+                    {t("visite.form.section0.typeJoueur", "Joueur (adulte)")}
+                  </div>
+                </SelectItem>
+                <SelectItem value="media">
+                  <div className="flex items-center gap-2">
+                    <Newspaper className="w-4 h-4" />
+                    {t("visite.form.section0.typeMedia", "Média/Journaliste")}
+                  </div>
+                </SelectItem>
+                <SelectItem value="investisseur">
+                  <div className="flex items-center gap-2">
+                    <Briefcase className="w-4 h-4" />
+                    {t("visite.form.section0.typeInvestisseur", "Investisseur")}
+                  </div>
+                </SelectItem>
+                <SelectItem value="autre">
+                  <div className="flex items-center gap-2">
+                    <User className="w-4 h-4" />
+                    {t("visite.form.section0.typeAutre", "Autre")}
+                  </div>
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.visitorType && (
+              <p className="text-sm text-gray-600">{errors.visitorType}</p>
+            )}
+          </div>
+        </div>
+
+        {/* Section 1: Informations Personnelles */}
         <div className="space-y-6">
           <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
             <div className="w-12 h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-xl flex items-center justify-center">
               <User className="w-6 h-6 text-white" />
             </div>
             <h3 className="font-sans font-black text-2xl text-gray-900">
-              {t("visite.form.section1.title", "Informations du Parent")}
+              {t("visite.form.section1.title", "Informations Personnelles")}
             </h3>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="parentName" className="text-sm font-bold text-gray-900">
-                {t("visite.form.section1.parentName", "Nom et Prénom")} <span className="text-red-500">*</span>
+              <Label htmlFor="fullName" className="text-sm font-bold text-gray-900">
+                {t("visite.form.section1.fullName", "Nom et Prénom")} <span className="text-[#D4AF37]">*</span>
               </Label>
               <Input
-                id="parentName"
-                name="parentName"
+                id="fullName"
+                name="fullName"
                 type="text"
-                placeholder={t("visite.form.section1.parentNamePlaceholder", "Votre nom complet")}
-                value={formData.parentName}
+                placeholder={t("visite.form.section1.fullNamePlaceholder", "Votre nom complet")}
+                value={formData.fullName}
                 onChange={(e) => {
-                  setFormData({ ...formData, parentName: e.target.value })
-                  if (errors.parentName) setErrors({ ...errors, parentName: "" })
+                  setFormData({ ...formData, fullName: e.target.value })
+                  if (errors.fullName) setErrors({ ...errors, fullName: "" })
                 }}
                 className={cn(
                   "h-12 text-base",
-                  errors.parentName && "border-red-500 focus:border-red-500 focus:ring-red-500"
+                  errors.fullName && "border-gray-400 focus:border-gray-500 focus:ring-gray-500"
                 )}
               />
-              {errors.parentName && (
-                <p className="text-sm text-red-500">{errors.parentName}</p>
+              {errors.fullName && (
+                <p className="text-sm text-gray-600">{errors.fullName}</p>
               )}
             </div>
 
+            {formData.visitorType === "collaborateur" && (
+              <div className="space-y-2">
+                <Label htmlFor="organization" className="text-sm font-bold text-gray-900">
+                  {t("visite.form.section1.organization", "Organisation")} <span className="text-[#D4AF37]">*</span>
+                </Label>
+                <Input
+                  id="organization"
+                  name="organization"
+                  type="text"
+                  placeholder={t("visite.form.section1.organizationPlaceholder", "Nom de votre organisation")}
+                  value={formData.organization}
+                  onChange={(e) => {
+                    setFormData({ ...formData, organization: e.target.value })
+                    if (errors.organization) setErrors({ ...errors, organization: "" })
+                  }}
+                  className={cn(
+                    "h-12 text-base",
+                    errors.organization && "border-gray-400 focus:border-gray-500 focus:ring-gray-500"
+                  )}
+                />
+                {errors.organization && (
+                  <p className="text-sm text-gray-600">{errors.organization}</p>
+                )}
+              </div>
+            )}
+
             <div className="space-y-2">
               <Label htmlFor="email" className="text-sm font-bold text-gray-900">
-                {t("visite.form.section1.email", "Email")} <span className="text-red-500">*</span>
+                {t("visite.form.section1.email", "Email")} <span className="text-[#D4AF37]">*</span>
               </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -243,18 +415,18 @@ export function VisiteFormPremium() {
                   }}
                   className={cn(
                     "h-12 text-base pl-10",
-                    errors.email && "border-red-500 focus:border-red-500 focus:ring-red-500"
+                    errors.email && "border-gray-400 focus:border-gray-500 focus:ring-gray-500"
                   )}
                 />
               </div>
               {errors.email && (
-                <p className="text-sm text-red-500">{errors.email}</p>
+                <p className="text-sm text-gray-600">{errors.email}</p>
               )}
             </div>
 
             <div className="space-y-2 md:col-span-2">
               <Label htmlFor="phone" className="text-sm font-bold text-gray-900">
-                {t("visite.form.section1.phone", "Téléphone")} <span className="text-red-500">*</span>
+                {t("visite.form.section1.phone", "Téléphone")} <span className="text-[#D4AF37]">*</span>
               </Label>
               <div className="relative">
                 <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -262,7 +434,7 @@ export function VisiteFormPremium() {
                   id="phone"
                   name="phone"
                   type="tel"
-                  placeholder={t("visite.form.section1.phonePlaceholder", "+221 XX XXX XX XX")}
+                  placeholder={t("visite.form.section1.phonePlaceholder", "+221 763171202")}
                   value={formData.phone}
                   onChange={(e) => {
                     setFormData({ ...formData, phone: e.target.value })
@@ -270,79 +442,81 @@ export function VisiteFormPremium() {
                   }}
                   className={cn(
                     "h-12 text-base pl-10",
-                    errors.phone && "border-red-500 focus:border-red-500 focus:ring-red-500"
+                    errors.phone && "border-gray-400 focus:border-gray-500 focus:ring-gray-500"
                   )}
                 />
               </div>
               {errors.phone && (
-                <p className="text-sm text-red-500">{errors.phone}</p>
+                <p className="text-sm text-gray-600">{errors.phone}</p>
               )}
             </div>
           </div>
         </div>
 
-        {/* Section 2: Informations Joueur */}
-        <div className="space-y-6 pt-8 border-t border-gray-200">
-          <div className="flex items-center gap-3 pb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-xl flex items-center justify-center">
-              <Users className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="font-sans font-black text-2xl text-gray-900">
-              {t("visite.form.section2.title", "Informations du Joueur")}
-            </h3>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="playerName" className="text-sm font-bold text-gray-900">
-                {t("visite.form.section2.playerName", "Nom du Joueur")} <span className="text-red-500">*</span>
-              </Label>
-              <Input
-                id="playerName"
-                name="playerName"
-                type="text"
-                placeholder={t("visite.form.section2.playerNamePlaceholder", "Nom complet du joueur")}
-                value={formData.playerName}
-                onChange={(e) => {
-                  setFormData({ ...formData, playerName: e.target.value })
-                  if (errors.playerName) setErrors({ ...errors, playerName: "" })
-                }}
-                className={cn(
-                  "h-12 text-base",
-                  errors.playerName && "border-red-500 focus:border-red-500 focus:ring-red-500"
-                )}
-              />
-              {errors.playerName && (
-                <p className="text-sm text-red-500">{errors.playerName}</p>
-              )}
+        {/* Section 2: Informations Joueur (conditionnelle) */}
+        {formData.visitorType === "parent" && (
+          <div className="space-y-6 pt-8 border-t border-gray-200">
+            <div className="flex items-center gap-3 pb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-[#D4AF37] to-[#B8941F] rounded-xl flex items-center justify-center">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="font-sans font-black text-2xl text-gray-900">
+                {t("visite.form.section2.title", "Informations du Joueur")}
+              </h3>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="playerAge" className="text-sm font-bold text-gray-900">
-                {t("visite.form.section2.playerAge", "Âge")} <span className="text-red-500">*</span>
-              </Label>
-              <Input
-                id="playerAge"
-                name="playerAge"
-                type="number"
-                min="8"
-                placeholder={t("visite.form.section2.playerAgePlaceholder", "Âge du joueur")}
-                value={formData.playerAge}
-                onChange={(e) => {
-                  setFormData({ ...formData, playerAge: e.target.value })
-                  if (errors.playerAge) setErrors({ ...errors, playerAge: "" })
-                }}
-                className={cn(
-                  "h-12 text-base",
-                  errors.playerAge && "border-red-500 focus:border-red-500 focus:ring-red-500"
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="playerName" className="text-sm font-bold text-gray-900">
+                  {t("visite.form.section2.playerName", "Nom du Joueur")} <span className="text-[#D4AF37]">*</span>
+                </Label>
+                <Input
+                  id="playerName"
+                  name="playerName"
+                  type="text"
+                  placeholder={t("visite.form.section2.playerNamePlaceholder", "Nom complet du joueur")}
+                  value={formData.playerName}
+                  onChange={(e) => {
+                    setFormData({ ...formData, playerName: e.target.value })
+                    if (errors.playerName) setErrors({ ...errors, playerName: "" })
+                  }}
+                  className={cn(
+                    "h-12 text-base",
+                    errors.playerName && "border-gray-400 focus:border-gray-500 focus:ring-gray-500"
+                  )}
+                />
+                {errors.playerName && (
+                  <p className="text-sm text-gray-600">{errors.playerName}</p>
                 )}
-              />
-              {errors.playerAge && (
-                <p className="text-sm text-red-500">{errors.playerAge}</p>
-              )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="playerAge" className="text-sm font-bold text-gray-900">
+                  {t("visite.form.section2.playerAge", "Âge")} <span className="text-[#D4AF37]">*</span>
+                </Label>
+                <Input
+                  id="playerAge"
+                  name="playerAge"
+                  type="number"
+                  min="8"
+                  placeholder={t("visite.form.section2.playerAgePlaceholder", "Âge du joueur")}
+                  value={formData.playerAge}
+                  onChange={(e) => {
+                    setFormData({ ...formData, playerAge: e.target.value })
+                    if (errors.playerAge) setErrors({ ...errors, playerAge: "" })
+                  }}
+                  className={cn(
+                    "h-12 text-base",
+                    errors.playerAge && "border-gray-400 focus:border-gray-500 focus:ring-gray-500"
+                  )}
+                />
+                {errors.playerAge && (
+                  <p className="text-sm text-gray-600">{errors.playerAge}</p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Section 3: Détails de la Visite */}
         <div className="space-y-6 pt-8 border-t border-gray-200">
@@ -356,42 +530,44 @@ export function VisiteFormPremium() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="program" className="text-sm font-bold text-gray-900">
-                {t("visite.form.section3.program", "Programme Concerné")} <span className="text-red-500">*</span>
-              </Label>
-              <Select
-                value={formData.program}
-                onValueChange={(value) => {
-                  setFormData({ ...formData, program: value })
-                  if (errors.program) setErrors({ ...errors, program: "" })
-                }}
-              >
-                <SelectTrigger
-                  id="program"
-                  name="program"
-                  className={cn(
-                    "h-12 text-base",
-                    errors.program && "border-red-500 focus:border-red-500 focus:ring-red-500"
-                  )}
+            {formData.visitorType === "parent" && (
+              <div className="space-y-2">
+                <Label htmlFor="program" className="text-sm font-bold text-gray-900">
+                  {t("visite.form.section3.program", "Programme Concerné")} <span className="text-[#D4AF37]">*</span>
+                </Label>
+                <Select
+                  value={formData.program}
+                  onValueChange={(value) => {
+                    setFormData({ ...formData, program: value })
+                    if (errors.program) setErrors({ ...errors, program: "" })
+                  }}
                 >
-                  <SelectValue placeholder={t("visite.form.section3.programPlaceholder", "Sélectionnez un programme")} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="internat">{t("visite.form.section3.programInternat", "Internat")}</SelectItem>
-                  <SelectItem value="externe">{t("visite.form.section3.programExterne", "Externe")}</SelectItem>
-                  <SelectItem value="resident">{t("visite.form.section3.programResident", "Résident")}</SelectItem>
-                  <SelectItem value="all">{t("visite.form.section3.programAll", "Tous les programmes")}</SelectItem>
-                </SelectContent>
-              </Select>
-              {errors.program && (
-                <p className="text-sm text-red-500">{errors.program}</p>
-              )}
-            </div>
+                  <SelectTrigger
+                    id="program"
+                    name="program"
+                    className={cn(
+                      "h-12 text-base",
+                      errors.program && "border-gray-400 focus:border-gray-500 focus:ring-gray-500"
+                    )}
+                  >
+                    <SelectValue placeholder={t("visite.form.section3.programPlaceholder", "Sélectionnez un programme")} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="internat">{t("visite.form.section3.programInternat", "Internat")}</SelectItem>
+                    <SelectItem value="externe">{t("visite.form.section3.programExterne", "Externe")}</SelectItem>
+                    <SelectItem value="resident">{t("visite.form.section3.programResident", "Résident")}</SelectItem>
+                    <SelectItem value="all">{t("visite.form.section3.programAll", "Tous les programmes")}</SelectItem>
+                  </SelectContent>
+                </Select>
+                {errors.program && (
+                  <p className="text-sm text-gray-600">{errors.program}</p>
+                )}
+              </div>
+            )}
 
             <div className="space-y-2">
               <Label htmlFor="visitDate" className="text-sm font-bold text-gray-900">
-                {t("visite.form.section3.visitDate", "Date Souhaitée")} <span className="text-red-500">*</span>
+                {t("visite.form.section3.visitDate", "Date Souhaitée")} <span className="text-[#D4AF37]">*</span>
               </Label>
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -407,18 +583,18 @@ export function VisiteFormPremium() {
                   }}
                   className={cn(
                     "h-12 text-base pl-10",
-                    errors.visitDate && "border-red-500 focus:border-red-500 focus:ring-red-500"
+                    errors.visitDate && "border-gray-400 focus:border-gray-500 focus:ring-gray-500"
                   )}
                 />
               </div>
               {errors.visitDate && (
-                <p className="text-sm text-red-500">{errors.visitDate}</p>
+                <p className="text-sm text-gray-600">{errors.visitDate}</p>
               )}
             </div>
 
-            <div className="space-y-2 md:col-span-2">
+            <div className={cn("space-y-2", formData.visitorType === "parent" ? "md:col-span-1" : "md:col-span-2")}>
               <Label htmlFor="visitTime" className="text-sm font-bold text-gray-900">
-                {t("visite.form.section3.visitTime", "Créneau Horaire Préféré")} <span className="text-red-500">*</span>
+                {t("visite.form.section3.visitTime", "Créneau Horaire Préféré")} <span className="text-[#D4AF37]">*</span>
               </Label>
               <div className="relative">
                 <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -434,7 +610,7 @@ export function VisiteFormPremium() {
                     name="visitTime"
                     className={cn(
                       "h-12 text-base pl-10",
-                      errors.visitTime && "border-red-500 focus:border-red-500 focus:ring-red-500"
+                      errors.visitTime && "border-gray-400 focus:border-gray-500 focus:ring-gray-500"
                     )}
                   >
                     <SelectValue placeholder={t("visite.form.section3.visitTimePlaceholder", "Sélectionnez un créneau")} />
@@ -450,7 +626,7 @@ export function VisiteFormPremium() {
                 </Select>
               </div>
               {errors.visitTime && (
-                <p className="text-sm text-red-500">{errors.visitTime}</p>
+                <p className="text-sm text-gray-600">{errors.visitTime}</p>
               )}
             </div>
 
@@ -485,11 +661,11 @@ export function VisiteFormPremium() {
             />
             <Label htmlFor="rgpd" className="text-sm text-gray-700 leading-relaxed cursor-pointer flex-1">
               {t("visite.form.rgpd.text", "J'accepte que mes données personnelles soient utilisées pour traiter ma demande de visite et me recontacter. ")}
-              <span className="text-red-500">*</span>
+              <span className="text-[#D4AF37]">*</span>
             </Label>
           </div>
           {errors.rgpd && (
-            <p className="text-sm text-red-500 ml-6">{errors.rgpd}</p>
+            <p className="text-sm text-gray-600 ml-6">{errors.rgpd}</p>
           )}
         </div>
 

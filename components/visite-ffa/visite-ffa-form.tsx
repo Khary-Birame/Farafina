@@ -188,7 +188,7 @@ export function VisiteFFAForm() {
               label="Téléphone"
               name="phone"
               type="tel"
-              placeholder="+221 XX XXX XX XX"
+              placeholder="+221 763171202"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               required
@@ -408,13 +408,13 @@ export function VisiteFFAForm() {
 
             {/* Bouton Submit */}
             {isSubmitted ? (
-              <div className="flex items-center justify-center gap-3 p-6 bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800 rounded-xl">
-                <CheckCircle2 className="w-6 h-6 text-green-600 dark:text-green-400 flex-shrink-0" />
+              <div className="flex items-center justify-center gap-3 p-6 bg-[#D4AF37]/10 border-2 border-[#D4AF37]/30 rounded-xl">
+                <CheckCircle2 className="w-6 h-6 text-[#D4AF37] flex-shrink-0" />
                 <div className="text-center">
-                  <p className="text-base font-semibold text-green-800 dark:text-green-200 mb-1">
+                  <p className="text-base font-semibold text-gray-900 mb-1">
                     Demande envoyée avec succès !
                   </p>
-                  <p className="text-sm text-green-700 dark:text-green-300">
+                  <p className="text-sm text-gray-700">
                     Vous recevrez une confirmation par email.
                   </p>
                 </div>

@@ -29,15 +29,45 @@ export function ContactForm() {
     setIsSubmitting(true)
 
     try {
-      const { data, error } = await createFormSubmission({
+      // 1. Sauvegarder dans Supabase
+      const { data: submissionData, error: submissionError } = await createFormSubmission({
         form_type: "contact",
         form_data: formData,
         user_id: user?.id || null,
         status: "pending",
       })
+      if (submissionError) {
+        console.error("Erreur sauvegarde Supabase:", submissionError)
+        // On continue quand même pour essayer d'envoyer l'email
+      }
 
-      if (error) {
-        throw error
+      // 2. Envoyer l'email
+      const emailResponse = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      // Vérifier que la réponse contient du contenu avant de parser le JSON
+      const contentType = emailResponse.headers.get("content-type")
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await emailResponse.text()
+        throw new Error(text || "Erreur lors de l'envoi de l'email")
+      }
+
+      let emailResult
+      try {
+        const text = await emailResponse.text()
+        emailResult = text ? JSON.parse(text) : {}
+      } catch (parseError) {
+        console.error("Erreur parsing JSON:", parseError)
+        throw new Error("Réponse invalide du serveur")
+      }
+
+      if (!emailResponse.ok) {
+        throw new Error(emailResult.error || "Erreur lors de l'envoi de l'email")
       }
 
       toast.success(t("contact.sent"), {
@@ -247,7 +277,7 @@ export function ContactForm() {
                       {t("contact.phone", "Téléphone")}
                     </h3>
                     <a href="tel:+221763171202" className="text-gray-600 text-sm hover:text-[#D4AF37] font-medium transition-colors block">
-                      {t("footer.phone", "+221 XX XXX XX XX")}
+                      {t("footer.phone", "+221 763171202")}
                     </a>
                     <p className="text-sm text-gray-500 mt-1">
                       {t("contact.phoneHours", "Lun-Ven, 9h00 - 18h00 (GMT)")}
