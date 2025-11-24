@@ -2,6 +2,20 @@
 
 Ce document explique comment configurer l'envoi d'emails pour le formulaire de contact.
 
+## ⚠️ IMPORTANT : Configuration sur Vercel
+
+Si vous déployez sur Vercel, vous **DEVEZ** configurer les variables d'environnement dans les paramètres Vercel :
+
+1. Allez sur votre projet Vercel
+2. **Settings** → **Environment Variables**
+3. Ajoutez les 3 variables obligatoires :
+   - `EMAIL_USER`
+   - `EMAIL_PASS`
+   - `EMAIL_TO`
+4. **IMPORTANT** : Après avoir ajouté les variables, **redéployez** l'application !
+
+📖 **Guide complet** : Voir [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md) pour les instructions détaillées.
+
 ## Variables d'environnement requises
 
 Ajoutez ces variables dans votre fichier `.env.local` (développement) ou dans les paramètres de votre plateforme de déploiement (Vercel, etc.) :

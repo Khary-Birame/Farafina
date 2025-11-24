@@ -57,10 +57,26 @@ export async function POST(request: NextRequest) {
     const emailPass = process.env.EMAIL_PASS
     const emailTo = process.env.EMAIL_TO
 
+    // Logs détaillés pour le débogage (ne s'affichent que dans les logs serveur)
+    console.log("🔍 Vérification des variables d'environnement email:")
+    console.log("EMAIL_USER:", emailUser ? "✅ Configuré" : "❌ Manquant")
+    console.log("EMAIL_PASS:", emailPass ? "✅ Configuré" : "❌ Manquant")
+    console.log("EMAIL_TO:", emailTo ? "✅ Configuré" : "❌ Manquant")
+
     if (!emailUser || !emailPass || !emailTo) {
-      console.error("Variables d'environnement email manquantes")
+      const missingVars = []
+      if (!emailUser) missingVars.push("EMAIL_USER")
+      if (!emailPass) missingVars.push("EMAIL_PASS")
+      if (!emailTo) missingVars.push("EMAIL_TO")
+      
+      console.error("❌ Variables d'environnement email manquantes:", missingVars.join(", "))
+      console.error("💡 Solution: Configurez ces variables dans Vercel → Settings → Environment Variables")
+      
       return NextResponse.json(
-        { error: "Configuration email manquante" },
+        { 
+          error: "Configuration email manquante",
+          details: `Variables manquantes: ${missingVars.join(", ")}. Veuillez configurer ces variables dans Vercel → Settings → Environment Variables et redéployer l'application.`
+        },
         { status: 500 }
       )
     }
