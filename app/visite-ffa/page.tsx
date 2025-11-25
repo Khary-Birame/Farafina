@@ -32,8 +32,8 @@ export default function VisiteFFAPage() {
         <VisitePracticalInfo />
         
         {/* Form Section */}
-        <section className="relative py-16 lg:py-24 bg-gradient-to-b from-white via-gray-50 to-white overflow-hidden">
-          <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        <section className="relative py-12 xs:py-14 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-b from-white via-gray-50 to-white overflow-hidden">
+          <div className="container mx-auto px-3 xs:px-4 sm:px-6 md:px-8 lg:px-12 relative z-10">
             <div className="max-w-4xl mx-auto">
               <VisiteFormPremium />
             </div>

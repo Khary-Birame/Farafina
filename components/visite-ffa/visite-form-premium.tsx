@@ -232,7 +232,7 @@ export function VisiteFormPremium() {
   }
 
   return (
-    <div id="formulaire" className="bg-white rounded-3xl p-8 lg:p-12 border-2 border-gray-200 shadow-2xl">
+    <div id="formulaire" className="bg-white rounded-2xl xs:rounded-3xl p-4 xs:p-5 sm:p-6 md:p-8 lg:p-12 border-2 border-gray-200 shadow-2xl">
       {/* Header */}
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 bg-[#D4AF37]/10 rounded-full px-4 py-2 mb-6">
@@ -346,7 +346,7 @@ export function VisiteFormPremium() {
             </h3>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xs:gap-5 sm:gap-6">
             <div className="space-y-2">
               <Label htmlFor="fullName" className="text-sm font-bold text-gray-900">
                 {t("visite.form.section1.fullName", "Nom et Prénom")} <span className="text-[#D4AF37]">*</span>
@@ -465,7 +465,7 @@ export function VisiteFormPremium() {
               </h3>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xs:gap-5 sm:gap-6">
               <div className="space-y-2">
                 <Label htmlFor="playerName" className="text-sm font-bold text-gray-900">
                   {t("visite.form.section2.playerName", "Nom du Joueur")} <span className="text-[#D4AF37]">*</span>
@@ -529,7 +529,7 @@ export function VisiteFormPremium() {
             </h3>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xs:gap-5 sm:gap-6">
             {formData.visitorType === "parent" && (
               <div className="space-y-2">
                 <Label htmlFor="program" className="text-sm font-bold text-gray-900">

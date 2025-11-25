@@ -204,7 +204,7 @@ export default function PlayersPage() {
       <Header />
       
       {/* Hero Section - Premium Design */}
-      <section className="relative pt-32 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative pt-20 xs:pt-24 sm:pt-28 md:pt-32 pb-16 xs:pb-20 sm:pb-24 px-3 xs:px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden">
         {/* Animated Background Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#1A1A1A] via-[#2D1B0E] to-[#1A1A1A]">
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
@@ -221,19 +221,19 @@ export default function PlayersPage() {
           </div>
 
           {/* Main Title */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 xs:mb-5 sm:mb-6 leading-tight">
             <span className="block">Nos</span>
             <span className="block bg-gradient-to-r from-[#D4AF37] via-[#F4D03F] to-[#D4AF37] bg-clip-text text-transparent animate-gradient">
               Talents
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl leading-relaxed">
+          <p className="text-base xs:text-lg sm:text-xl md:text-2xl text-white/80 mb-8 xs:mb-10 sm:mb-12 max-w-3xl leading-relaxed px-2">
             {t("players.hero.description") || "Découvrez les étoiles montantes de l'académie Farafina. Des talents prometteurs qui façonnent l'avenir du football africain."}
           </p>
 
           {/* Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 xs:gap-4 sm:gap-6 mb-8 xs:mb-10 sm:mb-12">
             <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
               <div className="text-3xl font-black text-[#D4AF37] mb-2">{filteredPlayers.length}</div>
               <div className="text-sm text-white/70 font-medium">Joueurs</div>
@@ -406,18 +406,18 @@ export default function PlayersPage() {
       )}
 
       {/* Players Grid - Premium Cards */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="py-12 xs:py-14 sm:py-16 px-3 xs:px-4 sm:px-6 md:px-8 lg:px-12 bg-white">
         <div className="max-w-7xl mx-auto">
           {paginatedPlayers.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Users className="w-12 h-12 text-gray-400" />
+            <div className="text-center py-12 xs:py-16 sm:py-20">
+              <div className="w-20 h-20 xs:w-24 xs:h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 xs:mb-6">
+                <Users className="w-10 h-10 xs:w-12 xs:h-12 text-gray-400" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Aucun joueur trouvé</h3>
-              <p className="text-gray-600">{t("players.noResults") || "Essayez de modifier vos filtres de recherche"}</p>
+              <h3 className="text-xl xs:text-2xl font-bold text-gray-900 mb-2">Aucun joueur trouvé</h3>
+              <p className="text-sm xs:text-base text-gray-600 px-4">{t("players.noResults") || "Essayez de modifier vos filtres de recherche"}</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-6 sm:gap-8">
               {paginatedPlayers.map((player, index) => (
                 <Card
                   key={player.id}

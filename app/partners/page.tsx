@@ -163,26 +163,26 @@ export default function BecomePartnerPage() {
             />
           </div>
 
-          <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          <div className="container mx-auto px-3 xs:px-4 sm:px-6 md:px-8 lg:px-12 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/20">
-                <Handshake className="w-4 h-4 text-[#D4AF37]" />
-                <span className="text-sm font-medium">Partenariat Stratégique</span>
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 xs:px-4 py-2 rounded-full mb-4 xs:mb-5 sm:mb-6 border border-white/20">
+                <Handshake className="w-3 h-3 xs:w-4 xs:h-4 text-[#D4AF37]" />
+                <span className="text-xs xs:text-sm font-medium">Partenariat Stratégique</span>
               </div>
 
               {/* Heading */}
-              <h1 className="font-sans font-bold text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight">
+              <h1 className="font-sans font-bold text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 xs:mb-5 sm:mb-6 leading-tight px-2">
                 {t("partners.title")}
               </h1>
               
               {/* Description */}
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8">
+              <p className="text-base xs:text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto mb-6 xs:mb-7 sm:mb-8 px-3">
                 {t("partners.subtitle")}
               </p>
 
               {/* Introduction Text */}
-              <p className="text-base md:text-lg text-gray-400 leading-relaxed max-w-3xl mx-auto mb-8">
+              <p className="text-sm xs:text-base md:text-lg text-gray-400 leading-relaxed max-w-3xl mx-auto mb-6 xs:mb-7 sm:mb-8 px-3">
                 {t("partners.introduction")}
               </p>
 
@@ -197,19 +197,19 @@ export default function BecomePartnerPage() {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section className="py-12 xs:py-14 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+          <div className="container mx-auto px-3 xs:px-4 sm:px-6 md:px-8 lg:px-12">
             <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="font-sans font-bold text-3xl md:text-4xl text-foreground mb-4">
+              <div className="text-center mb-8 xs:mb-10 sm:mb-12">
+                <h2 className="font-sans font-bold text-2xl xs:text-3xl md:text-4xl text-foreground mb-3 xs:mb-4 px-2">
                   {t("contact.partners.whyPartner.title")}
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-sm xs:text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-3">
                   {t("contact.partners.description")}
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 xs:gap-5 sm:gap-6">
                 {benefits.map((benefit, index) => {
                   const Icon = benefit.icon
                   return (

@@ -75,11 +75,15 @@ export async function getApplications(options?: {
   offset?: number
 }) {
   try {
+    // Limiter par défaut à 50 candidatures pour améliorer les performances
+    const defaultLimit = options?.limit || 50
+    
     let query = supabase
       .from("form_submissions")
-      .select("*")
+      .select("id, form_type, form_data, status, created_at, updated_at, user_id, created_by")
       .eq("form_type", "application")
       .order("created_at", { ascending: false })
+      .limit(defaultLimit)
 
     if (options?.status) {
       query = query.eq("status", options.status)
@@ -90,7 +94,7 @@ export async function getApplications(options?: {
     }
 
     if (options?.offset) {
-      query = query.range(options.offset, options.offset + (options.limit || 10) - 1)
+      query = query.range(options.offset, options.offset + (options.limit || 50) - 1)
     }
 
     const { data, error } = await query
@@ -420,8 +424,15 @@ async function uploadApplicationFile(
     applicationId,
   })
 
-  // Ajouter un timeout pour chaque upload individuel (60 secondes par fichier pour les gros fichiers)
-  const FILE_UPLOAD_TIMEOUT = 60000 // 60 secondes (augmenté pour les vidéos)
+  // Timeout adaptatif selon le type de fichier et la connexion (optimisé pour mobile)
+  // Vidéos : 120 secondes (2 minutes) pour connexions mobiles lentes
+  // Images : 90 secondes
+  // Documents : 60 secondes
+  const FILE_UPLOAD_TIMEOUT = fileType === "video" 
+    ? 120000  // 2 minutes pour les vidéos
+    : fileType === "photo"
+    ? 90000   // 90 secondes pour les photos
+    : 60000   // 60 secondes pour les documents
   
   let timeoutId: NodeJS.Timeout | null = null
   const uploadPromise = supabase.storage
@@ -628,8 +639,9 @@ export async function submitApplication(
 
     console.log(`[submitApplication] Début de l'upload de ${uploadPromises.length} fichier(s)...`)
     
-    // Ajouter un timeout pour éviter que l'upload prenne trop de temps
-    const UPLOAD_TIMEOUT = 120000 // 2 minutes (120 secondes)
+    // Timeout global pour tous les uploads (augmenté pour mobile)
+    // 5 minutes pour permettre l'upload de plusieurs fichiers sur connexion mobile lente
+    const UPLOAD_TIMEOUT = 300000 // 5 minutes (300 secondes) - optimisé pour mobile
     const timeoutPromise = new Promise((_, reject) => {
       setTimeout(() => {
         reject(new Error("Le téléchargement des fichiers prend trop de temps. Veuillez vérifier votre connexion internet et réessayer."))

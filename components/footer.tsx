@@ -9,8 +9,8 @@ export function Footer() {
   const { t } = useTranslation()
   return (
     <footer className="bg-[#1A1A1A] text-white">
-      <div className="container mx-auto px-4 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="container mx-auto px-3 xs:px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-[#D4AF37] rounded-lg flex items-center justify-center flex-shrink-0 p-2">
@@ -65,7 +65,7 @@ export function Footer() {
             <h3 className="font-sans font-semibold text-lg mb-4">{t("footer.quickLinks")}</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/programs" className="text-sm text-gray-400 hover:text-[#D4AF37] transition-colors">
+                <Link href="/programs" className="text-xs xs:text-sm text-gray-400 hover:text-[#D4AF37] transition-colors block py-1 min-h-[32px] flex items-center">
                   {t("navigation.programs")}
                 </Link>
               </li>

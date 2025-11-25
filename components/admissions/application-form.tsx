@@ -11,6 +11,7 @@ import { submitApplication, validateApplicationData } from "@/lib/supabase/appli
 import { useAuth } from "@/lib/auth/auth-context"
 import { toast } from "sonner"
 import { useTranslation } from "@/lib/hooks/use-translation"
+import { compressPhoto, compressDocumentImage } from "@/lib/utils/image-compression"
 
 export function ApplicationForm() {
   const { user } = useAuth()
@@ -18,6 +19,7 @@ export function ApplicationForm() {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [uploadProgress, setUploadProgress] = useState<Record<string, number>>({})
   const totalSteps = 3
 
   const progress = (currentStep / totalSteps) * 100
@@ -198,7 +200,57 @@ export function ApplicationForm() {
         duration: 15000,
       })
 
-      // Soumettre la candidature avec upload des fichiers
+      // Compression des images avant upload (optimisation mobile)
+      setUploadProgress({ compression: 10 })
+      toast.info("🖼️ Compression des images...", {
+        description: "Optimisation des fichiers pour un upload plus rapide.",
+        duration: 5000,
+      })
+
+      let compressedFiles = {
+        birthCertificate: formData.birthCertificate,
+        photo: formData.photo,
+        medicalCertificate: formData.medicalCertificate,
+        video: formData.video,
+      }
+
+      // Compresser les images (pas les PDF ni les vidéos)
+      if (formData.photo && formData.photo.type.startsWith('image/')) {
+        try {
+          setUploadProgress({ compression: 30 })
+          compressedFiles.photo = await compressPhoto(formData.photo)
+          console.log(`[ApplicationForm] Photo compressée: ${formData.photo.size} → ${compressedFiles.photo.size} bytes`)
+        } catch (error) {
+          console.warn("Erreur compression photo, utilisation du fichier original:", error)
+        }
+      }
+
+      if (formData.birthCertificate && formData.birthCertificate.type.startsWith('image/')) {
+        try {
+          setUploadProgress({ compression: 50 })
+          compressedFiles.birthCertificate = await compressDocumentImage(formData.birthCertificate)
+          console.log(`[ApplicationForm] Acte de naissance compressé: ${formData.birthCertificate.size} → ${compressedFiles.birthCertificate.size} bytes`)
+        } catch (error) {
+          console.warn("Erreur compression acte de naissance, utilisation du fichier original:", error)
+        }
+      }
+
+      if (formData.medicalCertificate && formData.medicalCertificate.type.startsWith('image/')) {
+        try {
+          setUploadProgress({ compression: 70 })
+          compressedFiles.medicalCertificate = await compressDocumentImage(formData.medicalCertificate)
+          console.log(`[ApplicationForm] Certificat médical compressé: ${formData.medicalCertificate.size} → ${compressedFiles.medicalCertificate.size} bytes`)
+        } catch (error) {
+          console.warn("Erreur compression certificat médical, utilisation du fichier original:", error)
+        }
+      }
+
+      setUploadProgress({ compression: 100 })
+      toast.info("✅ Compression terminée, début de l'upload...", {
+        duration: 3000,
+      })
+
+      // Soumettre la candidature avec upload des fichiers compressés
       const result = await submitApplication(
         {
           firstName: formData.firstName,
@@ -220,10 +272,10 @@ export function ApplicationForm() {
           guardianPhone: formData.guardianPhone,
         },
         {
-          birthCertificate: formData.birthCertificate,
-          photo: formData.photo,
-          medicalCertificate: formData.medicalCertificate,
-          video: formData.video,
+          birthCertificate: compressedFiles.birthCertificate,
+          photo: compressedFiles.photo,
+          medicalCertificate: compressedFiles.medicalCertificate,
+          video: compressedFiles.video,
         },
         user?.id || null
       )
@@ -353,8 +405,8 @@ export function ApplicationForm() {
   }
 
   return (
-    <section id="application-form" className="py-20 lg:py-28 bg-background">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section id="application-form" className="py-12 sm:py-16 md:py-20 lg:py-28 bg-background">
+      <div className="container mx-auto px-3 xs:px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
@@ -383,13 +435,13 @@ export function ApplicationForm() {
           </div>
 
           {/* Form Card */}
-          <div className="bg-card border border-border rounded-xl p-6 md:p-8 shadow-sm">
+          <div className="bg-card border border-border rounded-xl p-4 xs:p-5 sm:p-6 md:p-8 shadow-sm">
             {/* Step 1: Personal Information */}
             {currentStep === 1 && (
               <div className="space-y-6">
                 <h3 className="font-sans font-semibold text-xl mb-6">{t("admissions.step1Title")}</h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xs:gap-5 sm:gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="firstName">{t("admissions.firstName")}</Label>
                     <Input
@@ -417,7 +469,7 @@ export function ApplicationForm() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xs:gap-5 sm:gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="age">{t("admissions.age")}</Label>
                     <Input
@@ -451,7 +503,7 @@ export function ApplicationForm() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xs:gap-5 sm:gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="height">{t("admissions.height")}</Label>
                     <Input
@@ -519,7 +571,7 @@ export function ApplicationForm() {
                   {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 xs:gap-5 sm:gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="phone">{t("admissions.phone")}</Label>
                     <Input
@@ -673,8 +725,8 @@ export function ApplicationForm() {
                   <div className="space-y-2">
                     <Label htmlFor="birthCertificate">{t("admissions.birthCertificate")}</Label>
                     <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${errors.birthCertificate
-                        ? "border-red-500 bg-red-50/50"
-                        : "border-border hover:border-[#D4AF37]"
+                      ? "border-red-500 bg-red-50/50"
+                      : "border-border hover:border-[#D4AF37]"
                       }`}>
                       <input
                         type="file"
@@ -721,8 +773,8 @@ export function ApplicationForm() {
                   <div className="space-y-2">
                     <Label htmlFor="photo">{t("admissions.photo")}</Label>
                     <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${errors.photo
-                        ? "border-red-500 bg-red-50/50"
-                        : "border-border hover:border-[#D4AF37]"
+                      ? "border-red-500 bg-red-50/50"
+                      : "border-border hover:border-[#D4AF37]"
                       }`}>
                       <input
                         type="file"
@@ -769,8 +821,8 @@ export function ApplicationForm() {
                   <div className="space-y-2">
                     <Label htmlFor="medicalCertificate">{t("admissions.medicalCertificate")}</Label>
                     <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${errors.medicalCertificate
-                        ? "border-red-500 bg-red-50/50"
-                        : "border-border hover:border-[#D4AF37]"
+                      ? "border-red-500 bg-red-50/50"
+                      : "border-border hover:border-[#D4AF37]"
                       }`}>
                       <input
                         type="file"
@@ -877,7 +929,7 @@ export function ApplicationForm() {
               </Button>
 
               {currentStep < totalSteps ? (
-                <Button onClick={handleNext} className="bg-[#D4AF37] hover:bg-[#d17e00] text-white">
+                <Button onClick={handleNext} className="bg-[#D4AF37] hover:bg-[#d17e00] text-white min-h-[44px] text-sm xs:text-base flex-1 sm:flex-initial">
                   {t("common.next")}
                 </Button>
               ) : (
@@ -885,7 +937,7 @@ export function ApplicationForm() {
                   type="button"
                   onClick={handleSubmitApplication}
                   disabled={isSubmitting}
-                  className="bg-[#D4AF37] hover:bg-[#d17e00] text-white disabled:opacity-50"
+                  className="bg-[#D4AF37] hover:bg-[#d17e00] text-white disabled:opacity-50 min-h-[44px] text-sm xs:text-base flex-1 sm:flex-initial"
                 >
                   {isSubmitting ? (
                     <>

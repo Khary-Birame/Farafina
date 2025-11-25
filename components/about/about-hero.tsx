@@ -18,11 +18,11 @@ export function AboutHero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center">
-        <h1 className="font-sans font-bold text-5xl md:text-6xl lg:text-7xl text-white mb-6 animate-fade-in-up text-balance">
+      <div className="relative z-10 container mx-auto px-3 xs:px-4 sm:px-6 md:px-8 lg:px-12 text-center">
+        <h1 className="font-sans font-bold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-4 xs:mb-5 sm:mb-6 animate-fade-in-up text-balance">
           {t("home.hero.title")}
         </h1>
-        <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed animate-fade-in-up [animation-delay:200ms] text-pretty">
+        <p className="text-base xs:text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed animate-fade-in-up [animation-delay:200ms] text-pretty px-2">
           {t("home.hero.subtitle")}
         </p>
       </div>

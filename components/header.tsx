@@ -82,7 +82,7 @@ export function Header({ variant = "default" }: HeaderProps) {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${bgColor}`}
     >
-      <div className={`max-w-[2000px] mx-auto flex items-center justify-between px-2 sm:px-4 lg:px-6 xl:px-8 2xl:px-12 transition-all duration-300 h-16 lg:h-20 ${textColor}`}>
+      <div className={`max-w-[2000px] mx-auto flex items-center justify-between px-2 xs:px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12 transition-all duration-300 h-14 sm:h-16 md:h-18 lg:h-20 ${textColor}`}>
 
         {/* --- Partie Gauche (Menu & Logo) --- */}
         <div className="flex items-center gap-4">
@@ -98,12 +98,12 @@ export function Header({ variant = "default" }: HeaderProps) {
             ) : (
               <Menu size={22} className="text-[#1A1A1A]" />
             )}
-            <span className="text-[10px] mt-0.5 uppercase tracking-wide">{t("common.menu")}</span>
+            <span className="text-[9px] xs:text-[10px] mt-0.5 uppercase tracking-wide hidden xs:block">{t("common.menu")}</span>
           </button>
 
           {/* Logo FFA */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 lg:w-12 lg:h-12 transition-all duration-300 flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2 xs:gap-3 group">
+            <div className="w-8 h-8 xs:w-10 xs:h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 transition-all duration-300 flex-shrink-0">
               <Image
                 src="/ffa.jpg"
                 alt="Farafina Foot Academy"
@@ -113,7 +113,7 @@ export function Header({ variant = "default" }: HeaderProps) {
                 priority
               />
             </div>
-            <span className={`hidden md:block font-bold text-lg lg:text-xl tracking-tight transition-colors ${textColor}`}>
+            <span className={`hidden sm:block font-bold text-sm sm:text-base md:text-lg lg:text-xl tracking-tight transition-colors ${textColor}`}>
               Farafina Foot Academy
             </span>
           </Link>
@@ -123,7 +123,7 @@ export function Header({ variant = "default" }: HeaderProps) {
         <div className="hidden lg:flex flex-1" />
 
         {/* --- Actions de Droite (Style PSG) --- */}
-        <div className="ml-auto flex items-center gap-2 lg:gap-4 xl:gap-6">
+        <div className="ml-auto flex items-center gap-1 xs:gap-2 sm:gap-3 lg:gap-4 xl:gap-6">
           {loading ? (
             // Pendant le chargement, afficher le bouton de connexion par défaut
             <>

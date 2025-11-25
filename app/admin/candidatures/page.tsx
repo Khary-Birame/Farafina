@@ -46,8 +46,11 @@ export default function ApplicationsPage() {
     try {
       setLoading(true)
       setError(null)
+      
+      // Limiter à 50 candidatures par défaut pour améliorer les performances
       const { data, error: err } = await getApplications({
         status: statusFilter !== "all" ? statusFilter : undefined,
+        limit: 50, // Limiter pour améliorer les performances sur mobile
       })
 
       if (err) {
