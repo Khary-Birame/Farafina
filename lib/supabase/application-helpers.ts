@@ -80,7 +80,7 @@ export async function getApplications(options?: {
     
     let query = supabase
       .from("form_submissions")
-      .select("id, form_type, form_data, status, created_at, updated_at, user_id, created_by")
+      .select("id, form_type, form_data, status, created_at, updated_at, user_id")
       .eq("form_type", "application")
       .order("created_at", { ascending: false })
       .limit(defaultLimit)
