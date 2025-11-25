@@ -420,7 +420,11 @@ async function uploadApplicationFile(
     applicationId,
   })
 
-  const { data, error } = await supabase.storage
+  // Ajouter un timeout pour chaque upload individuel (60 secondes par fichier pour les gros fichiers)
+  const FILE_UPLOAD_TIMEOUT = 60000 // 60 secondes (augmenté pour les vidéos)
+  
+  let timeoutId: NodeJS.Timeout | null = null
+  const uploadPromise = supabase.storage
     .from(bucket)
     .upload(filePath, file, {
       cacheControl: "3600",
@@ -428,26 +432,67 @@ async function uploadApplicationFile(
       contentType: file.type,
     })
 
-  if (error) {
-    console.error(`[uploadApplicationFile] ❌ Erreur lors de l'upload de ${fileType}:`, {
-      error,
-      filePath,
-      bucket,
-      fileName: file.name,
-      fileSize: file.size,
-    })
-    return { url: null, error }
-  }
-
-  console.log(`[uploadApplicationFile] ✅ Upload réussi pour ${fileType}:`, {
-    filePath,
-    data,
+  const timeoutPromise = new Promise<{ data: null; error: { message: string } }>((resolve) => {
+    timeoutId = setTimeout(() => {
+      resolve({
+        data: null,
+        error: { message: `Le téléchargement de ${fileType} prend trop de temps (${FILE_UPLOAD_TIMEOUT / 1000}s). Veuillez vérifier votre connexion et réessayer avec un fichier plus petit.` }
+      })
+    }, FILE_UPLOAD_TIMEOUT)
   })
 
-  // Pour un bucket privé, on stocke le chemin du fichier plutôt que l'URL publique
-  // L'URL signée sera générée lors de l'accès au fichier via getSignedFileUrl()
-  // Le chemin est au format: {applicationId}/{fileType}-{uuid}.{ext}
-  return { url: filePath, error: null }
+  try {
+    const result = await Promise.race([
+      uploadPromise,
+      timeoutPromise
+    ])
+    
+    // Annuler le timeout si l'upload réussit
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+    }
+    
+    const { data, error } = result as { data: any; error: any }
+
+    if (error) {
+      console.error(`[uploadApplicationFile] ❌ Erreur lors de l'upload de ${fileType}:`, {
+        error,
+        filePath,
+        bucket,
+        fileName: file.name,
+        fileSize: file.size,
+      })
+      return { url: null, error }
+    }
+
+    // Si l'upload réussit, annuler le timeout et retourner le chemin
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+    }
+
+    console.log(`[uploadApplicationFile] ✅ Upload réussi pour ${fileType}:`, {
+      filePath,
+      data,
+    })
+
+    // Pour un bucket privé, on stocke le chemin du fichier plutôt que l'URL publique
+    // L'URL signée sera générée lors de l'accès au fichier via getSignedFileUrl()
+    // Le chemin est au format: {applicationId}/{fileType}-{uuid}.{ext}
+    return { url: filePath, error: null }
+  } catch (raceError: any) {
+    // Si le timeout se déclenche, annuler le timeout
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+    }
+    console.error(`[uploadApplicationFile] ❌ Timeout ou erreur lors de l'upload de ${fileType}:`, raceError)
+    return { 
+      url: null, 
+      error: { 
+        message: raceError.message || `Le téléchargement de ${fileType} a échoué. Veuillez réessayer.`,
+        code: "UPLOAD_ERROR"
+      } 
+    }
+  }
 }
 
 /**
@@ -582,8 +627,36 @@ export async function submitApplication(
     }
 
     console.log(`[submitApplication] Début de l'upload de ${uploadPromises.length} fichier(s)...`)
-    await Promise.all(uploadPromises)
-    console.log(`[submitApplication] ✅ Tous les fichiers ont été uploadés avec succès`)
+    
+    // Ajouter un timeout pour éviter que l'upload prenne trop de temps
+    const UPLOAD_TIMEOUT = 120000 // 2 minutes (120 secondes)
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => {
+        reject(new Error("Le téléchargement des fichiers prend trop de temps. Veuillez vérifier votre connexion internet et réessayer."))
+      }, UPLOAD_TIMEOUT)
+    })
+    
+    try {
+      await Promise.race([
+        Promise.all(uploadPromises),
+        timeoutPromise
+      ])
+      console.log(`[submitApplication] ✅ Tous les fichiers ont été uploadés avec succès`)
+    } catch (uploadError: any) {
+      console.error(`[submitApplication] ❌ Erreur lors de l'upload des fichiers:`, uploadError)
+      // Si c'est un timeout, retourner une erreur claire
+      if (uploadError.message?.includes("trop de temps")) {
+        return {
+          data: null,
+          error: { 
+            message: "Le téléchargement des fichiers prend trop de temps. Veuillez vérifier votre connexion internet et réessayer avec des fichiers plus petits.",
+            code: "UPLOAD_TIMEOUT"
+          },
+        }
+      }
+      // Sinon, propager l'erreur
+      throw uploadError
+    }
 
     // 3. Mettre à jour la soumission de formulaire avec les URLs des fichiers
     const { data: updatedData, error: updateError } = await supabase

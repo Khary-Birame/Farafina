@@ -129,49 +129,49 @@ export function ApplicationForm() {
       // Validation finale des champs texte
       const validation = validateApplicationData(formData)
       const allErrors: Record<string, string> = { ...validation.errors }
-      
+
       // Validation des fichiers obligatoires
       if (!formData.birthCertificate) {
         allErrors.birthCertificate = t("admissions.errors.birthCertificate", "L'acte de naissance est requis")
       }
-      
+
       if (!formData.photo) {
         allErrors.photo = t("admissions.errors.photo", "La photo est requise")
       }
-      
+
       if (!formData.medicalCertificate) {
         allErrors.medicalCertificate = t("admissions.errors.medicalCertificate", "Le certificat médical est requis")
       }
-      
+
       // Si des erreurs existent
       if (Object.keys(allErrors).length > 0) {
         setErrors(allErrors)
-        
+
         // Déterminer l'étape contenant la première erreur
         const errorFields = Object.keys(allErrors)
         let errorStep = 1
-        
+
         if (errorFields.some(field => ['program', 'position', 'experience', 'motivation', 'guardian', 'guardianPhone'].includes(field))) {
           errorStep = 2
         } else if (errorFields.some(field => ['birthCertificate', 'photo', 'medicalCertificate'].includes(field))) {
           errorStep = 3
         }
-        
+
         // Aller à l'étape contenant l'erreur
         setCurrentStep(errorStep)
-        
+
         // Créer un message d'erreur détaillé
         const errorCount = errorFields.length
         const firstError = allErrors[errorFields[0]]
-        const errorMessage = errorCount === 1 
+        const errorMessage = errorCount === 1
           ? `1 erreur détectée : ${firstError}`
           : `${errorCount} erreurs détectées. Veuillez vérifier les champs marqués en rouge ci-dessous.`
-        
+
         toast.error(t("admissions.validationError", "Erreurs de validation"), {
           description: errorMessage,
           duration: 6000,
         })
-        
+
         // Faire défiler vers le premier champ en erreur après un court délai
         setTimeout(() => {
           const firstErrorField = errorFields[0]
@@ -187,13 +187,19 @@ export function ApplicationForm() {
             }
           }
         }, 100)
-        
+
         setIsSubmitting(false)
         return
       }
 
+      // Afficher un message de progression clair et rassurant
+      toast.info("📤 Soumission en cours...", {
+        description: "Veuillez patienter pendant le téléchargement de vos fichiers. ⏳ Cela peut prendre quelques instants selon la taille de vos fichiers. Ne fermez pas cette page.",
+        duration: 15000,
+      })
+
       // Soumettre la candidature avec upload des fichiers
-      const { data, error } = await submitApplication(
+      const result = await submitApplication(
         {
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -222,12 +228,73 @@ export function ApplicationForm() {
         user?.id || null
       )
 
-      if (error) {
-        throw error
+      if (result.error) {
+        throw result.error
+      }
+
+      if (!result.data) {
+        throw new Error("Erreur : la candidature n'a pas pu être créée. Veuillez réessayer.")
+      }
+
+      // Type assertion pour accéder à l'id
+      const applicationData = result.data as { id: string }
+      if (!applicationData.id) {
+        throw new Error("Erreur : la candidature n'a pas pu être créée. Veuillez réessayer.")
+      }
+
+      const applicationId = applicationData.id
+
+      // Envoyer les emails (admin + accusé de réception)
+      try {
+        const emailResponse = await fetch("/api/application", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            phone: formData.phone,
+            program: formData.program,
+            position: formData.position,
+            age: formData.age,
+            country: formData.country,
+            applicationId: applicationId,
+          }),
+        })
+
+        // Vérifier que la réponse contient du contenu avant de parser le JSON
+        const contentType = emailResponse.headers.get("content-type")
+        if (!contentType || !contentType.includes("application/json")) {
+          const text = await emailResponse.text()
+          console.warn("⚠️ Réponse email non-JSON:", text)
+          // On continue même si l'email échoue, la candidature est déjà sauvegardée
+        } else {
+          let emailResult
+          try {
+            const text = await emailResponse.text()
+            emailResult = text ? JSON.parse(text) : {}
+          } catch (parseError) {
+            console.error("Erreur parsing JSON:", parseError)
+            // On continue même si l'email échoue
+          }
+
+          if (!emailResponse.ok) {
+            console.warn("⚠️ Erreur lors de l'envoi de l'email:", emailResult.error)
+            // On continue même si l'email échoue, la candidature est déjà sauvegardée
+          } else {
+            console.log("✅ Emails envoyés avec succès")
+          }
+        }
+      } catch (emailError: any) {
+        console.error("⚠️ Erreur lors de l'envoi de l'email (non bloquant):", emailError)
+        // On continue même si l'email échoue, la candidature est déjà sauvegardée
       }
 
       toast.success(t("admissions.submitSuccess", "Candidature soumise avec succès"), {
-        description: t("admissions.submitSuccessDescription", "Nous vous contacterons bientôt."),
+        description: t("admissions.submitSuccessDescription", "Vous recevrez une confirmation par email. Nous vous contacterons bientôt."),
+        duration: 6000,
       })
 
       // Réinitialiser le formulaire
@@ -257,8 +324,28 @@ export function ApplicationForm() {
       })
     } catch (error: any) {
       console.error("Erreur lors de la soumission:", error)
-      toast.error(t("admissions.submitError", "Erreur lors de la soumission"), {
-        description: error.message || error.details || t("admissions.submitErrorDescription", "Veuillez réessayer plus tard."),
+
+      // Messages d'erreur plus clairs et intuitifs selon le type d'erreur
+      let errorMessage = error.message || error.details || t("admissions.submitErrorDescription", "Veuillez réessayer plus tard.")
+      let errorTitle = t("admissions.submitError", "Erreur lors de la soumission")
+
+      if (error.code === "UPLOAD_TIMEOUT" || error.message?.includes("trop de temps")) {
+        errorTitle = "⏱️ Téléchargement trop long"
+        errorMessage = "Le téléchargement de vos fichiers prend trop de temps. 💡 Conseils :\n• Vérifiez votre connexion internet\n• Réduisez la taille de vos fichiers (notamment la vidéo)\n• Réessayez dans quelques instants"
+      } else if (error.message?.includes("téléchargement") || error.code === "UPLOAD_ERROR") {
+        errorTitle = "📤 Erreur de téléchargement"
+        errorMessage = `${error.message}\n\n💡 Que faire ?\n• Vérifiez que vos fichiers sont valides\n• Réduisez leur taille si nécessaire\n• Réessayez`
+      } else if (error.message?.includes("Configuration email")) {
+        errorTitle = "⚙️ Configuration manquante"
+        errorMessage = "Le système d'envoi d'emails n'est pas configuré. Votre candidature a été sauvegardée, mais l'email de confirmation ne peut pas être envoyé. Contactez-nous directement."
+      } else {
+        errorTitle = "❌ Erreur lors de la soumission"
+        errorMessage = `${errorMessage}\n\n💡 Que faire ?\n• Vérifiez tous les champs du formulaire\n• Assurez-vous que vos fichiers sont valides\n• Réessayez dans quelques instants\n• Si le problème persiste, contactez-nous`
+      }
+
+      toast.error(errorTitle, {
+        description: errorMessage,
+        duration: 10000,
       })
     } finally {
       setIsSubmitting(false)
@@ -585,11 +672,10 @@ export function ApplicationForm() {
                   {/* Birth Certificate */}
                   <div className="space-y-2">
                     <Label htmlFor="birthCertificate">{t("admissions.birthCertificate")}</Label>
-                    <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${
-                      errors.birthCertificate 
-                        ? "border-red-500 bg-red-50/50" 
+                    <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${errors.birthCertificate
+                        ? "border-red-500 bg-red-50/50"
                         : "border-border hover:border-[#D4AF37]"
-                    }`}>
+                      }`}>
                       <input
                         type="file"
                         id="birthCertificate"
@@ -634,11 +720,10 @@ export function ApplicationForm() {
                   {/* Photo */}
                   <div className="space-y-2">
                     <Label htmlFor="photo">{t("admissions.photo")}</Label>
-                    <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${
-                      errors.photo 
-                        ? "border-red-500 bg-red-50/50" 
+                    <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${errors.photo
+                        ? "border-red-500 bg-red-50/50"
                         : "border-border hover:border-[#D4AF37]"
-                    }`}>
+                      }`}>
                       <input
                         type="file"
                         id="photo"
@@ -683,11 +768,10 @@ export function ApplicationForm() {
                   {/* Medical Certificate */}
                   <div className="space-y-2">
                     <Label htmlFor="medicalCertificate">{t("admissions.medicalCertificate")}</Label>
-                    <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${
-                      errors.medicalCertificate 
-                        ? "border-red-500 bg-red-50/50" 
+                    <div className={`border-2 border-dashed rounded-lg p-6 transition-colors ${errors.medicalCertificate
+                        ? "border-red-500 bg-red-50/50"
                         : "border-border hover:border-[#D4AF37]"
-                    }`}>
+                      }`}>
                       <input
                         type="file"
                         id="medicalCertificate"

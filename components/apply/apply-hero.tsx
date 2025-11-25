@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { useTranslation } from "@/lib/hooks/use-translation"
+import { AuthRedirectButton } from "@/components/auth/auth-redirect-button"
 
 export function ApplyHero() {
   const { t } = useTranslation()
@@ -55,15 +56,14 @@ export function ApplyHero() {
 
           {/* CTA Button */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/signup">
-              <Button
-                size="lg"
-                className="bg-white text-[#D4AF37] hover:bg-gray-100 font-semibold group w-full sm:w-auto"
-              >
-                {t("apply.hero.startButton")}
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
+            <AuthRedirectButton
+              href="/apply"
+              size="lg"
+              className="bg-white text-[#D4AF37] hover:bg-gray-100 font-semibold group w-full sm:w-auto"
+              redirectMessage="Connectez-vous pour accéder au formulaire de candidature. C'est rapide et sécurisé !"
+            >
+              {t("apply.hero.startButton")}
+            </AuthRedirectButton>
             <Link href="/admissions">
               <Button size="lg" variant="outline" className="w-full sm:w-auto bg-transparent border-white text-white hover:bg-white/10">
                 {t("apply.hero.learnMoreButton")}

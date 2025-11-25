@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { FileText, Phone, ArrowRight, Globe, Sparkles } from "lucide-react"
 import Link from "next/link"
 import { useTranslation } from "@/lib/hooks/use-translation"
+import { AuthRedirectButton } from "@/components/auth/auth-redirect-button"
 
 export function InternationalCTAPremium() {
   const { t } = useTranslation()
@@ -75,15 +76,14 @@ export function InternationalCTAPremium() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/apply">
-                  <Button
-                    size="lg"
-                    className="group h-16 px-12 bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300"
-                  >
-                    {t("international.cta.primaryButton", "Commencer la Candidature")}
-                    <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
+                <AuthRedirectButton
+                  href="/apply"
+                  size="lg"
+                  className="group h-16 px-12 bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300"
+                  redirectMessage="Connectez-vous pour accéder au formulaire de candidature. C'est rapide et sécurisé !"
+                >
+                  {t("international.cta.primaryButton", "Commencer la Candidature")}
+                </AuthRedirectButton>
                 <Link href="/contact">
                   <Button
                     size="lg"

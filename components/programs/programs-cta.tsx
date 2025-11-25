@@ -39,7 +39,7 @@ export function ProgramsCTA() {
                 <ArrowRight size={20} className="ml-2" />
               </Button>
             </Link>
-            <Link href="/contact">
+            <Link href="/visite-ffa">
               <Button
                 size="lg"
                 variant="outline"

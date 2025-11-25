@@ -13,6 +13,7 @@ import { Eye, EyeOff, Shield, Lock, CheckCircle2, Loader2, AlertCircle } from "l
 import { signIn } from "@/lib/auth/auth-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
 import { useTranslation } from "@/lib/hooks/use-translation"
+import { toast } from "sonner"
 
 export function LoginForm() {
   const router = useRouter()
@@ -28,21 +29,33 @@ export function LoginForm() {
     password: "",
     rememberMe: false,
   })
+  
+  // Vérifier s'il y a une redirection demandée pour afficher un message
+  const redirectParam = searchParams.get("redirect")
 
-  // Lire les paramètres d'URL pour les messages de confirmation/erreur
+  // Lire les paramètres d'URL pour les messages de confirmation/erreur et redirection
   useEffect(() => {
     const errorParam = searchParams.get("error")
     const messageParam = searchParams.get("message")
     const confirmedParam = searchParams.get("confirmed")
+    const redirectParam = searchParams.get("redirect")
 
     if (confirmedParam === "true") {
       setSuccess(t("login.emailConfirmed"))
-      // Nettoyer l'URL
-      router.replace("/login")
+      // Nettoyer l'URL mais garder redirect si présent
+      if (redirectParam) {
+        router.replace(`/login?redirect=${encodeURIComponent(redirectParam)}`)
+      } else {
+        router.replace("/login")
+      }
     } else if (errorParam && messageParam) {
       setError(messageParam)
-      // Nettoyer l'URL
-      router.replace("/login")
+      // Nettoyer l'URL mais garder redirect si présent
+      if (redirectParam) {
+        router.replace(`/login?redirect=${encodeURIComponent(redirectParam)}`)
+      } else {
+        router.replace("/login")
+      }
     }
   }, [searchParams, router])
 
@@ -60,8 +73,21 @@ export function LoginForm() {
       if (result.success) {
         // Rafraîchir les données utilisateur
         await refreshUser()
-        // Rediriger vers la page d'accueil ou le dashboard
-        router.push("/")
+        
+        // Vérifier s'il y a une redirection demandée
+        const redirectParam = searchParams.get("redirect")
+        
+        if (redirectParam) {
+          // Rediriger vers la page demandée avec un message de succès
+          toast.success("Connexion réussie", {
+            description: "Vous allez être redirigé vers le formulaire de candidature.",
+            duration: 3000,
+          })
+          router.push(redirectParam)
+        } else {
+          // Rediriger vers la page d'accueil ou le dashboard
+          router.push("/")
+        }
         router.refresh()
       } else {
         setError(result.error || t("login.connectionError"))
@@ -122,8 +148,18 @@ export function LoginForm() {
                   {t("login.title")}
                 </h1>
                 <p className="text-muted-foreground text-pretty">
-                  {t("login.subtitle")}
+                  {redirectParam 
+                    ? "Connectez-vous pour accéder au formulaire de candidature. C'est rapide et sécurisé !"
+                    : t("login.subtitle")
+                  }
                 </p>
+                {redirectParam && (
+                  <div className="mt-4 p-3 bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-lg">
+                    <p className="text-sm text-[#1A1A1A] font-medium">
+                      💡 Après votre connexion, vous serez automatiquement redirigé vers le formulaire de candidature.
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Trust Indicators */}
