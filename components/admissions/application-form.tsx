@@ -205,15 +205,40 @@ export function ApplicationForm() {
       })
       
       // Ajouter un timeout de sécurité côté client pour éviter les blocages infinis
+      // Utiliser une fonction pour s'assurer que isSubmitting est à jour
+      const submissionStartTime = Date.now()
       clientTimeout = setTimeout(() => {
-        if (isSubmitting) {
-          setIsSubmitting(false)
-          toast.error("⏱️ Timeout de sécurité", {
-            description: "La soumission prend trop de temps. Veuillez vérifier votre connexion internet et réessayer. Si le problème persiste, réduisez la taille de vos fichiers (notamment la vidéo).",
-            duration: 10000,
-          })
-        }
+        const elapsed = ((Date.now() - submissionStartTime) / 1000).toFixed(1)
+        console.error(`[ApplicationForm] ⏱️ TIMEOUT CLIENT DÉCLENCHÉ après ${elapsed}s`)
+        console.error("[ApplicationForm] ⏱️ Le formulaire est toujours en soumission, arrêt forcé")
+        
+        // Forcer l'arrêt de la soumission
+        setIsSubmitting(false)
+        
+        // Afficher un message d'erreur clair
+        toast.error("⏱️ Timeout de sécurité", {
+          description: `La soumission prend trop de temps (${elapsed}s). Veuillez vérifier votre connexion internet et réessayer. Si le problème persiste, réduisez la taille de vos fichiers (notamment la vidéo).`,
+          duration: 15000,
+        })
+        
+        // Log supplémentaire pour déboguer
+        console.error("[ApplicationForm] ⚠️ État après timeout:", {
+          isSubmitting: false, // Forcé à false
+          elapsedSeconds: elapsed,
+          timestamp: new Date().toISOString(),
+        })
       }, 150000) // 2,5 minutes côté client (légèrement plus que le timeout serveur)
+      
+      console.log("[ApplicationForm] ⏱️ Timeout client configuré pour 2,5 minutes")
+      
+      // Ajouter un heartbeat pour vérifier que le processus est toujours actif
+      heartbeatInterval = setInterval(() => {
+        const elapsed = ((Date.now() - submissionStartTime) / 1000).toFixed(1)
+        console.log(`[ApplicationForm] 💓 Heartbeat: ${elapsed}s écoulées, isSubmitting: ${isSubmitting}`)
+      }, 30000) // Toutes les 30 secondes
+      
+      // Stocker l'intervalle pour le nettoyer plus tard
+      // (sera nettoyé dans le finally)
 
       // Compression des images avant upload (optimisation mobile)
       setUploadProgress({ compression: 10 })
@@ -267,8 +292,10 @@ export function ApplicationForm() {
 
       // Soumettre la candidature avec upload des fichiers compressés
       // Wrapper dans un try-catch pour gérer les timeouts
+      console.log("[ApplicationForm] 🚀 Début de la soumission de la candidature")
       let result
       try {
+        console.log("[ApplicationForm] 📤 Appel de submitApplication...")
         result = await submitApplication(
         {
           firstName: formData.firstName,
@@ -298,12 +325,26 @@ export function ApplicationForm() {
         user?.id || null
         )
         
-        // Annuler le timeout client si la soumission réussit
-        clearTimeout(clientTimeout)
+        console.log("[ApplicationForm] ✅ submitApplication terminé avec succès:", result)
+        
+        // Annuler le timeout client et le heartbeat si la soumission réussit
+        if (clientTimeout) {
+          clearTimeout(clientTimeout)
+        }
+        if (heartbeatInterval) {
+          clearInterval(heartbeatInterval)
+        }
       } catch (uploadError: any) {
-        clearTimeout(clientTimeout)
+        console.error("[ApplicationForm] ❌ Erreur lors de submitApplication:", uploadError)
+        if (clientTimeout) {
+          clearTimeout(clientTimeout)
+        }
+        if (heartbeatInterval) {
+          clearInterval(heartbeatInterval)
+        }
         // Si c'est un timeout d'upload, lancer une erreur claire
         if (uploadError.message?.includes("trop de temps") || uploadError.message?.includes("timeout")) {
+          console.error("[ApplicationForm] ⏱️ Timeout détecté")
           throw {
             code: "UPLOAD_TIMEOUT",
             message: uploadError.message || "Le téléchargement des fichiers prend trop de temps. Veuillez vérifier votre connexion internet et réessayer avec des fichiers plus petits."
@@ -313,13 +354,28 @@ export function ApplicationForm() {
       }
 
       if (result.error) {
-        clearTimeout(clientTimeout)
+        console.error("[ApplicationForm] ❌ Erreur dans result:", result.error)
+        if (clientTimeout) {
+          clearTimeout(clientTimeout)
+        }
+        if (heartbeatInterval) {
+          clearInterval(heartbeatInterval)
+        }
         throw result.error
       }
 
       if (!result.data) {
+        console.error("[ApplicationForm] ❌ Pas de données dans result")
+        if (clientTimeout) {
+          clearTimeout(clientTimeout)
+        }
+        if (heartbeatInterval) {
+          clearInterval(heartbeatInterval)
+        }
         throw new Error("Erreur : la candidature n'a pas pu être créée. Veuillez réessayer.")
       }
+      
+      console.log("[ApplicationForm] ✅ Candidature créée avec succès, ID:", result.data.id)
 
       // Type assertion pour accéder à l'id
       const applicationData = result.data as { id: string }
@@ -388,8 +444,13 @@ export function ApplicationForm() {
         // On continue même si l'email échoue, la candidature est déjà sauvegardée
       }
 
-      // Annuler le timeout client si tout réussit
-      clearTimeout(clientTimeout)
+      // Annuler le timeout client et le heartbeat si tout réussit
+      if (clientTimeout) {
+        clearTimeout(clientTimeout)
+      }
+      if (heartbeatInterval) {
+        clearInterval(heartbeatInterval)
+      }
       
       toast.success(t("admissions.submitSuccess", "Candidature soumise avec succès"), {
         description: t("admissions.submitSuccessDescription", "Vous recevrez une confirmation par email. Nous vous contacterons bientôt."),
@@ -424,9 +485,12 @@ export function ApplicationForm() {
     } catch (error: any) {
       console.error("Erreur lors de la soumission:", error)
       
-      // S'assurer que le timeout client est annulé en cas d'erreur
+      // S'assurer que le timeout client et le heartbeat sont annulés en cas d'erreur
       if (clientTimeout) {
         clearTimeout(clientTimeout)
+      }
+      if (heartbeatInterval) {
+        clearInterval(heartbeatInterval)
       }
       
       // Messages d'erreur plus clairs et intuitifs selon le type d'erreur
@@ -455,7 +519,16 @@ export function ApplicationForm() {
         duration: 10000,
       })
     } finally {
+      // S'assurer que tout est nettoyé et que isSubmitting est réinitialisé
+      console.log("[ApplicationForm] 🧹 Nettoyage final (finally)")
+      if (clientTimeout) {
+        clearTimeout(clientTimeout)
+      }
+      if (heartbeatInterval) {
+        clearInterval(heartbeatInterval)
+      }
       setIsSubmitting(false)
+      console.log("[ApplicationForm] ✅ isSubmitting réinitialisé à false")
     }
   }
 

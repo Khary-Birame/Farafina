@@ -637,28 +637,42 @@ export async function submitApplication(
       )
     }
 
-    console.log(`[submitApplication] Début de l'upload de ${uploadPromises.length} fichier(s)...`)
+    console.log(`[submitApplication] 📤 Début de l'upload de ${uploadPromises.length} fichier(s)...`)
+    const uploadStartTime = Date.now()
     
     // Timeout global pour tous les uploads (optimisé pour mobile)
     // 2 minutes pour permettre l'upload de plusieurs fichiers sur connexion mobile lente
     // Mais pas trop long pour éviter que l'utilisateur attende indéfiniment
     const UPLOAD_TIMEOUT = 120000 // 2 minutes (120 secondes) - équilibre entre patience et feedback
+    let timeoutId: NodeJS.Timeout | null = null
     const timeoutPromise = new Promise((_, reject) => {
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
+        const elapsed = ((Date.now() - uploadStartTime) / 1000).toFixed(1)
+        console.error(`[submitApplication] ⏱️ TIMEOUT après ${elapsed}s (limite: ${UPLOAD_TIMEOUT / 1000}s)`)
         reject(new Error("Le téléchargement des fichiers prend trop de temps (timeout après 2 minutes). Veuillez vérifier votre connexion internet et réessayer avec des fichiers plus petits."))
       }, UPLOAD_TIMEOUT)
     })
     
     try {
       await Promise.race([
-        Promise.all(uploadPromises),
+        Promise.all(uploadPromises).then(() => {
+          if (timeoutId) {
+            clearTimeout(timeoutId)
+          }
+          const elapsed = ((Date.now() - uploadStartTime) / 1000).toFixed(1)
+          console.log(`[submitApplication] ✅ Tous les fichiers ont été uploadés avec succès en ${elapsed}s`)
+        }),
         timeoutPromise
       ])
-      console.log(`[submitApplication] ✅ Tous les fichiers ont été uploadés avec succès`)
     } catch (uploadError: any) {
-      console.error(`[submitApplication] ❌ Erreur lors de l'upload des fichiers:`, uploadError)
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+      const elapsed = ((Date.now() - uploadStartTime) / 1000).toFixed(1)
+      console.error(`[submitApplication] ❌ Erreur lors de l'upload des fichiers après ${elapsed}s:`, uploadError)
       // Si c'est un timeout, retourner une erreur claire
-      if (uploadError.message?.includes("trop de temps")) {
+      if (uploadError.message?.includes("trop de temps") || uploadError.message?.includes("timeout")) {
+        console.error(`[submitApplication] ⏱️ Timeout confirmé`)
         return {
           data: null,
           error: { 
