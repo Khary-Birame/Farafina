@@ -14,6 +14,7 @@ import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
 import { toast } from "sonner"
 import { useTranslation } from "@/lib/hooks/use-translation"
+import { fetchWithTimeout } from "@/lib/utils/fetch-with-timeout"
 import { cn } from "@/lib/utils"
 
 export function VisiteFormPremium() {
@@ -135,8 +136,8 @@ export function VisiteFormPremium() {
         // On continue quand même pour essayer d'envoyer l'email
       }
 
-      // 2. Envoyer l'email
-      const emailResponse = await fetch("/api/visite", {
+      // 2. Envoyer l'email avec timeout pour éviter les blocages sur mobile
+      const emailResponse = await fetchWithTimeout("/api/visite", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -154,6 +155,7 @@ export function VisiteFormPremium() {
           visitTime: formData.visitTime,
           message: formData.message,
         }),
+        timeout: 25000, // 25 secondes
       })
 
       // Vérifier que la réponse contient du contenu avant de parser le JSON
@@ -202,8 +204,22 @@ export function VisiteFormPremium() {
       }, 5000)
     } catch (error: any) {
       console.error("Erreur lors de l'envoi de la demande:", error)
-      toast.error(t("visite.form.errors.submit", "Erreur lors de l'envoi"), {
-        description: error.message || t("visite.form.errors.retry", "Veuillez réessayer plus tard."),
+      
+      // Messages d'erreur plus clairs selon le type d'erreur
+      let errorMessage = error.message || t("visite.form.errors.retry", "Veuillez réessayer plus tard.")
+      let errorTitle = t("visite.form.errors.submit", "Erreur lors de l'envoi")
+      
+      if (error.message?.includes("timeout") || error.message?.includes("trop de temps")) {
+        errorTitle = "⏱️ Connexion lente détectée"
+        errorMessage = "La requête prend trop de temps. 💡 Conseils pour mobile :\n• Vérifiez votre connexion internet (WiFi ou 4G/5G)\n• Essayez de vous rapprocher du routeur WiFi\n• Réessayez dans quelques instants"
+      } else if (error.message?.includes("AbortError") || error.message?.includes("aborted")) {
+        errorTitle = "🔌 Connexion interrompue"
+        errorMessage = "La connexion a été interrompue. 💡 Conseils :\n• Vérifiez votre connexion internet\n• Assurez-vous d'avoir un signal stable\n• Réessayez dans quelques instants"
+      }
+      
+      toast.error(errorTitle, {
+        description: errorMessage,
+        duration: 8000,
       })
     } finally {
       setIsSubmitting(false)

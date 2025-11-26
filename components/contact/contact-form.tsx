@@ -10,6 +10,7 @@ import { createFormSubmission } from "@/lib/supabase/form-submissions-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
 import { toast } from "sonner"
 import { useTranslation } from "@/lib/hooks/use-translation"
+import { fetchWithTimeout } from "@/lib/utils/fetch-with-timeout"
 
 export function ContactForm() {
   const { user } = useAuth()
@@ -41,13 +42,14 @@ export function ContactForm() {
         // On continue quand même pour essayer d'envoyer l'email
       }
 
-      // 2. Envoyer l'email
-      const emailResponse = await fetch("/api/contact", {
+      // 2. Envoyer l'email avec timeout pour éviter les blocages sur mobile
+      const emailResponse = await fetchWithTimeout("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        timeout: 25000, // 25 secondes
       })
 
       // Vérifier que la réponse contient du contenu avant de parser le JSON

@@ -12,6 +12,7 @@ import { useAuth } from "@/lib/auth/auth-context"
 import { toast } from "sonner"
 import { useTranslation } from "@/lib/hooks/use-translation"
 import { compressPhoto, compressDocumentImage } from "@/lib/utils/image-compression"
+import { fetchWithTimeout } from "@/lib/utils/fetch-with-timeout"
 
 export function ApplicationForm() {
   const { user } = useAuth()
@@ -297,8 +298,10 @@ export function ApplicationForm() {
       const applicationId = applicationData.id
 
       // Envoyer les emails (admin + accusé de réception)
+      // Utiliser fetchWithTimeout pour éviter les blocages sur mobile
+      // Timeout de 25 secondes (Vercel limite à 10s sur gratuit, mais on laisse une marge)
       try {
-        const emailResponse = await fetch("/api/application", {
+        const emailResponse = await fetchWithTimeout("/api/application", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -314,6 +317,7 @@ export function ApplicationForm() {
             country: formData.country,
             applicationId: applicationId,
           }),
+          timeout: 25000, // 25 secondes (Vercel limite à 10s, mais on essaie quand même)
         })
 
         // Vérifier que la réponse contient du contenu avant de parser le JSON
@@ -341,6 +345,14 @@ export function ApplicationForm() {
         }
       } catch (emailError: any) {
         console.error("⚠️ Erreur lors de l'envoi de l'email (non bloquant):", emailError)
+        
+        // Afficher un avertissement si c'est un timeout, mais ne pas bloquer
+        if (emailError.message?.includes("timeout") || emailError.message?.includes("trop de temps")) {
+          toast.warning("Candidature sauvegardée", {
+            description: "Votre candidature a été enregistrée avec succès, mais l'email de confirmation n'a pas pu être envoyé immédiatement. Vous recevrez un email de confirmation sous peu.",
+            duration: 8000,
+          })
+        }
         // On continue même si l'email échoue, la candidature est déjà sauvegardée
       }
 
@@ -381,18 +393,21 @@ export function ApplicationForm() {
       let errorMessage = error.message || error.details || t("admissions.submitErrorDescription", "Veuillez réessayer plus tard.")
       let errorTitle = t("admissions.submitError", "Erreur lors de la soumission")
 
-      if (error.code === "UPLOAD_TIMEOUT" || error.message?.includes("trop de temps")) {
-        errorTitle = "⏱️ Téléchargement trop long"
-        errorMessage = "Le téléchargement de vos fichiers prend trop de temps. 💡 Conseils :\n• Vérifiez votre connexion internet\n• Réduisez la taille de vos fichiers (notamment la vidéo)\n• Réessayez dans quelques instants"
+      if (error.code === "UPLOAD_TIMEOUT" || error.message?.includes("trop de temps") || error.message?.includes("timeout")) {
+        errorTitle = "⏱️ Connexion lente détectée"
+        errorMessage = "Le téléchargement prend trop de temps. 💡 Conseils pour mobile :\n• Vérifiez votre connexion internet (WiFi ou 4G/5G)\n• Réduisez la taille de vos fichiers (notamment la vidéo)\n• Essayez de vous rapprocher du routeur WiFi\n• Réessayez dans quelques instants"
       } else if (error.message?.includes("téléchargement") || error.code === "UPLOAD_ERROR") {
         errorTitle = "📤 Erreur de téléchargement"
-        errorMessage = `${error.message}\n\n💡 Que faire ?\n• Vérifiez que vos fichiers sont valides\n• Réduisez leur taille si nécessaire\n• Réessayez`
+        errorMessage = `${error.message}\n\n💡 Que faire ?\n• Vérifiez que vos fichiers sont valides\n• Réduisez leur taille si nécessaire\n• Vérifiez votre connexion internet\n• Réessayez`
       } else if (error.message?.includes("Configuration email")) {
         errorTitle = "⚙️ Configuration manquante"
         errorMessage = "Le système d'envoi d'emails n'est pas configuré. Votre candidature a été sauvegardée, mais l'email de confirmation ne peut pas être envoyé. Contactez-nous directement."
+      } else if (error.message?.includes("AbortError") || error.message?.includes("aborted")) {
+        errorTitle = "🔌 Connexion interrompue"
+        errorMessage = "La connexion a été interrompue. 💡 Conseils :\n• Vérifiez votre connexion internet\n• Assurez-vous d'avoir un signal stable\n• Réessayez dans quelques instants"
       } else {
         errorTitle = "❌ Erreur lors de la soumission"
-        errorMessage = `${errorMessage}\n\n💡 Que faire ?\n• Vérifiez tous les champs du formulaire\n• Assurez-vous que vos fichiers sont valides\n• Réessayez dans quelques instants\n• Si le problème persiste, contactez-nous`
+        errorMessage = `${errorMessage}\n\n💡 Que faire ?\n• Vérifiez tous les champs du formulaire\n• Assurez-vous que vos fichiers sont valides\n• Vérifiez votre connexion internet\n• Réessayez dans quelques instants\n• Si le problème persiste, contactez-nous`
       }
 
       toast.error(errorTitle, {

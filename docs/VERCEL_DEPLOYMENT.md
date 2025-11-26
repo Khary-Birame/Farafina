@@ -69,8 +69,17 @@ EMAIL_PORT=587
 EMAIL_SECURE=false
 ```
 
-#### 3. URL du Site
+#### 3. URL du Site (OPTIONNEL mais RECOMMANDÉ)
 
+**⚠️ IMPORTANT :** Ne définissez PAS `NEXT_PUBLIC_SITE_URL` à `http://localhost:3000` sur Vercel !
+
+Le code utilise automatiquement `VERCEL_URL` si `NEXT_PUBLIC_SITE_URL` n'est pas défini. Vous avez deux options :
+
+**Option 1 (Recommandée) : Ne pas définir `NEXT_PUBLIC_SITE_URL`**
+- Le code utilisera automatiquement `VERCEL_URL` qui est fourni automatiquement par Vercel
+- Cela fonctionne pour tous les environnements (Production, Preview, Development)
+
+**Option 2 : Définir avec l'URL de production**
 ```
 NEXT_PUBLIC_SITE_URL=https://votre-domaine.vercel.app
 ```
@@ -79,6 +88,11 @@ Ou si vous avez un domaine personnalisé :
 ```
 NEXT_PUBLIC_SITE_URL=https://votre-domaine.com
 ```
+
+**⚠️ Pourquoi c'est important :**
+- Cette URL est utilisée dans les emails envoyés (liens vers les candidatures, logo, etc.)
+- Si elle pointe vers `localhost:3000`, les liens dans les emails ne fonctionneront pas sur mobile ou depuis d'autres appareils
+- Les formulaires peuvent sembler fonctionner mais les emails contiendront des liens cassés
 
 ### Variables Optionnelles
 
@@ -203,11 +217,17 @@ Avant de mettre en production, vérifiez :
 
 - [ ] Variables Supabase configurées
 - [ ] Variables Email configurées (`EMAIL_USER`, `EMAIL_PASS`, `EMAIL_TO`)
-- [ ] `NEXT_PUBLIC_SITE_URL` configuré
+- [ ] `NEXT_PUBLIC_SITE_URL` **N'EST PAS** défini à `http://localhost:3000` sur Vercel
 - [ ] Test du formulaire de contact réussi
 - [ ] Test de l'envoi d'email réussi
+- [ ] Les liens dans les emails pointent vers l'URL de production (pas localhost)
 - [ ] Aucune erreur dans les logs Vercel
 - [ ] Le logo `ffa.png` est accessible (dans `public/`)
+- [ ] Test sur mobile : les formulaires fonctionnent et les liens dans les emails sont accessibles
+
+## ⚠️ Problème Courant : localhost dans les URLs
+
+Si vous rencontrez des problèmes avec les formulaires sur mobile ou si les liens dans les emails pointent vers `localhost:3000`, consultez [FIX_LOCALHOST_URL.md](./FIX_LOCALHOST_URL.md) pour la solution.
 
 ## 🆘 Support
 
