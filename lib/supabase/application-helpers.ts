@@ -639,12 +639,13 @@ export async function submitApplication(
 
     console.log(`[submitApplication] Début de l'upload de ${uploadPromises.length} fichier(s)...`)
     
-    // Timeout global pour tous les uploads (augmenté pour mobile)
-    // 5 minutes pour permettre l'upload de plusieurs fichiers sur connexion mobile lente
-    const UPLOAD_TIMEOUT = 300000 // 5 minutes (300 secondes) - optimisé pour mobile
+    // Timeout global pour tous les uploads (optimisé pour mobile)
+    // 2 minutes pour permettre l'upload de plusieurs fichiers sur connexion mobile lente
+    // Mais pas trop long pour éviter que l'utilisateur attende indéfiniment
+    const UPLOAD_TIMEOUT = 120000 // 2 minutes (120 secondes) - équilibre entre patience et feedback
     const timeoutPromise = new Promise((_, reject) => {
       setTimeout(() => {
-        reject(new Error("Le téléchargement des fichiers prend trop de temps. Veuillez vérifier votre connexion internet et réessayer."))
+        reject(new Error("Le téléchargement des fichiers prend trop de temps (timeout après 2 minutes). Veuillez vérifier votre connexion internet et réessayer avec des fichiers plus petits."))
       }, UPLOAD_TIMEOUT)
     })
     

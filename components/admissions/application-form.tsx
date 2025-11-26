@@ -127,6 +127,9 @@ export function ApplicationForm() {
   const handleSubmitApplication = async () => {
     setIsSubmitting(true)
     setErrors({})
+    
+    // Variable pour stocker le timeout client (définie au niveau de la fonction)
+    let clientTimeout: NodeJS.Timeout | null = null
 
     try {
       // Validation finale des champs texte
@@ -195,11 +198,22 @@ export function ApplicationForm() {
         return
       }
 
-      // Afficher un message de progression clair et rassurant
+      // Afficher un message de progression clair et rassurant avec timeout visible
       toast.info("📤 Soumission en cours...", {
-        description: "Veuillez patienter pendant le téléchargement de vos fichiers. ⏳ Cela peut prendre quelques instants selon la taille de vos fichiers. Ne fermez pas cette page.",
-        duration: 15000,
+        description: "Veuillez patienter pendant le téléchargement de vos fichiers. ⏳ Cela peut prendre jusqu'à 2 minutes selon la taille de vos fichiers et votre connexion. Ne fermez pas cette page.",
+        duration: 20000,
       })
+      
+      // Ajouter un timeout de sécurité côté client pour éviter les blocages infinis
+      clientTimeout = setTimeout(() => {
+        if (isSubmitting) {
+          setIsSubmitting(false)
+          toast.error("⏱️ Timeout de sécurité", {
+            description: "La soumission prend trop de temps. Veuillez vérifier votre connexion internet et réessayer. Si le problème persiste, réduisez la taille de vos fichiers (notamment la vidéo).",
+            duration: 10000,
+          })
+        }
+      }, 150000) // 2,5 minutes côté client (légèrement plus que le timeout serveur)
 
       // Compression des images avant upload (optimisation mobile)
       setUploadProgress({ compression: 10 })
@@ -252,7 +266,10 @@ export function ApplicationForm() {
       })
 
       // Soumettre la candidature avec upload des fichiers compressés
-      const result = await submitApplication(
+      // Wrapper dans un try-catch pour gérer les timeouts
+      let result
+      try {
+        result = await submitApplication(
         {
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -279,9 +296,24 @@ export function ApplicationForm() {
           video: compressedFiles.video,
         },
         user?.id || null
-      )
+        )
+        
+        // Annuler le timeout client si la soumission réussit
+        clearTimeout(clientTimeout)
+      } catch (uploadError: any) {
+        clearTimeout(clientTimeout)
+        // Si c'est un timeout d'upload, lancer une erreur claire
+        if (uploadError.message?.includes("trop de temps") || uploadError.message?.includes("timeout")) {
+          throw {
+            code: "UPLOAD_TIMEOUT",
+            message: uploadError.message || "Le téléchargement des fichiers prend trop de temps. Veuillez vérifier votre connexion internet et réessayer avec des fichiers plus petits."
+          }
+        }
+        throw uploadError
+      }
 
       if (result.error) {
+        clearTimeout(clientTimeout)
         throw result.error
       }
 
@@ -356,6 +388,9 @@ export function ApplicationForm() {
         // On continue même si l'email échoue, la candidature est déjà sauvegardée
       }
 
+      // Annuler le timeout client si tout réussit
+      clearTimeout(clientTimeout)
+      
       toast.success(t("admissions.submitSuccess", "Candidature soumise avec succès"), {
         description: t("admissions.submitSuccessDescription", "Vous recevrez une confirmation par email. Nous vous contacterons bientôt."),
         duration: 6000,
@@ -388,7 +423,12 @@ export function ApplicationForm() {
       })
     } catch (error: any) {
       console.error("Erreur lors de la soumission:", error)
-
+      
+      // S'assurer que le timeout client est annulé en cas d'erreur
+      if (clientTimeout) {
+        clearTimeout(clientTimeout)
+      }
+      
       // Messages d'erreur plus clairs et intuitifs selon le type d'erreur
       let errorMessage = error.message || error.details || t("admissions.submitErrorDescription", "Veuillez réessayer plus tard.")
       let errorTitle = t("admissions.submitError", "Erreur lors de la soumission")
