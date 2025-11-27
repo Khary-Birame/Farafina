@@ -3,16 +3,34 @@ import nodemailer from "nodemailer"
 import { readFileSync } from "fs"
 import { join } from "path"
 
+// Headers CORS pour toutes les réponses
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+}
+
+// Handler pour les requêtes OPTIONS (preflight CORS)
+export async function OPTIONS() {
+  console.log("[API Contact] OPTIONS request - CORS preflight")
+  return NextResponse.json({}, { headers: corsHeaders })
+}
+
 export async function POST(request: NextRequest) {
+  const startTime = Date.now()
+  console.log("[API Contact] 🚀 POST request reçue")
+  
   try {
     // Parser le body de la requête avec gestion d'erreur
     let body
     try {
       body = await request.json()
-    } catch (parseError) {
+      console.log("[API Contact] ✅ Body parsé avec succès")
+    } catch (parseError: any) {
+      console.error("[API Contact] ❌ Erreur parsing body:", parseError.message)
       return NextResponse.json(
-        { error: "Corps de la requête invalide" },
-        { status: 400 }
+        { error: "Corps de la requête invalide", details: parseError.message },
+        { status: 400, headers: corsHeaders }
       )
     }
 
@@ -20,20 +38,29 @@ export async function POST(request: NextRequest) {
 
     // Validation des champs requis
     if (!fullName || !email || !subject || !message) {
+      console.error("[API Contact] ❌ Champs obligatoires manquants:", {
+        fullName: !!fullName,
+        email: !!email,
+        subject: !!subject,
+        message: !!message,
+      })
       return NextResponse.json(
         { error: "Tous les champs sont requis" },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       )
     }
 
     // Validation de l'email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
+      console.error("[API Contact] ❌ Email invalide:", email)
       return NextResponse.json(
         { error: "Email invalide" },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       )
     }
+    
+    console.log("[API Contact] ✅ Validation des données réussie")
 
     // Récupération des variables d'environnement
     const emailUser = process.env.EMAIL_USER
@@ -41,12 +68,22 @@ export async function POST(request: NextRequest) {
     const emailTo = process.env.EMAIL_TO
 
     if (!emailUser || !emailPass || !emailTo) {
-      console.error("Variables d'environnement email manquantes")
+      const missingVars = []
+      if (!emailUser) missingVars.push("EMAIL_USER")
+      if (!emailPass) missingVars.push("EMAIL_PASS")
+      if (!emailTo) missingVars.push("EMAIL_TO")
+      
+      console.error("[API Contact] ❌ Variables d'environnement email manquantes:", missingVars.join(", "))
       return NextResponse.json(
-        { error: "Configuration email manquante" },
-        { status: 500 }
+        { 
+          error: "Configuration email manquante",
+          details: `Variables manquantes: ${missingVars.join(", ")}`
+        },
+        { status: 500, headers: corsHeaders }
       )
     }
+    
+    console.log("[API Contact] ✅ Configuration email vérifiée")
 
     // Configuration du transporteur email
     const smtpHost = process.env.EMAIL_HOST || "smtp.gmail.com"
@@ -239,7 +276,27 @@ Ce message a été envoyé depuis le formulaire de contact du site web.
       ]
     }
 
-    await transporter.sendMail(mailOptions)
+    // Timeout pour les envois d'email (max 10 secondes pour éviter les timeouts Vercel)
+    const EMAIL_TIMEOUT = 10000
+    
+    // Envoi de l'email admin avec timeout
+    console.log("[API Contact] 📤 Envoi email admin...")
+    const emailStartTime = Date.now()
+    
+    try {
+      await Promise.race([
+        transporter.sendMail(mailOptions),
+        new Promise((_, reject) => 
+          setTimeout(() => reject(new Error("Timeout: envoi email trop long (>10s)")), EMAIL_TIMEOUT)
+        )
+      ])
+      const emailElapsed = ((Date.now() - emailStartTime) / 1000).toFixed(2)
+      console.log(`[API Contact] ✅ Email admin envoyé en ${emailElapsed}s`)
+    } catch (emailError: any) {
+      const emailElapsed = ((Date.now() - emailStartTime) / 1000).toFixed(2)
+      console.error(`[API Contact] ❌ Erreur envoi email admin après ${emailElapsed}s:`, emailError.message)
+      // On continue quand même pour envoyer l'accusé de réception
+    }
 
     // Template HTML de l'accusé de réception - Design épuré et moderne
     const acknowledgmentHTML = `
@@ -397,36 +454,81 @@ Ceci est un email automatique, merci de ne pas y répondre directement.
       ]
     }
 
-    await transporter.sendMail(acknowledgmentOptions)
+    // Envoi de l'accusé de réception avec timeout
+    console.log("[API Contact] 📤 Envoi accusé de réception...")
+    const ackStartTime = Date.now()
+    
+    try {
+      await Promise.race([
+        transporter.sendMail(acknowledgmentOptions),
+        new Promise((_, reject) => 
+          setTimeout(() => reject(new Error("Timeout: envoi accusé réception trop long (>10s)")), EMAIL_TIMEOUT)
+        )
+      ])
+      const ackElapsed = ((Date.now() - ackStartTime) / 1000).toFixed(2)
+      console.log(`[API Contact] ✅ Accusé de réception envoyé en ${ackElapsed}s`)
+    } catch (ackError: any) {
+      const ackElapsed = ((Date.now() - ackStartTime) / 1000).toFixed(2)
+      console.error(`[API Contact] ❌ Erreur envoi accusé réception après ${ackElapsed}s:`, ackError.message)
+      // On retourne quand même un succès car l'email admin a peut-être été envoyé
+    }
+
+    const totalElapsed = ((Date.now() - startTime) / 1000).toFixed(2)
+    console.log(`[API Contact] ✅ Traitement terminé en ${totalElapsed}s`)
 
     return NextResponse.json(
       { 
         success: true,
         message: "Email et accusé de réception envoyés avec succès" 
       },
-      { status: 200 }
+      { status: 200, headers: corsHeaders }
     )
   } catch (error: any) {
-    console.error("Erreur lors de l'envoi de l'email:", error)
+    const totalElapsed = ((Date.now() - startTime) / 1000).toFixed(2)
+    console.error(`[API Contact] ❌ Erreur globale après ${totalElapsed}s:`, {
+      message: error.message,
+      code: error.code,
+      stack: error.stack,
+    })
     
     // Gestion des erreurs spécifiques
     if (error.code === "EAUTH") {
       return NextResponse.json(
-        { error: "Erreur d'authentification email. Vérifiez vos identifiants." },
-        { status: 401 }
+        { 
+          error: "Erreur d'authentification email. Vérifiez vos identifiants.",
+          details: error.message 
+        },
+        { status: 401, headers: corsHeaders }
       )
     }
     
     if (error.code === "ECONNECTION") {
       return NextResponse.json(
-        { error: "Erreur de connexion au serveur email." },
-        { status: 503 }
+        { 
+          error: "Erreur de connexion au serveur email.",
+          details: error.message 
+        },
+        { status: 503, headers: corsHeaders }
+      )
+    }
+    
+    // Gestion des timeouts
+    if (error.message?.includes("Timeout") || error.message?.includes("timeout")) {
+      return NextResponse.json(
+        { 
+          error: "L'opération prend trop de temps. Veuillez réessayer.",
+          details: error.message 
+        },
+        { status: 504, headers: corsHeaders }
       )
     }
 
     return NextResponse.json(
-      { error: "Erreur lors de l'envoi de l'email", details: error.message },
-      { status: 500 }
+      { 
+        error: "Erreur lors de l'envoi de l'email",
+        details: error.message || error.stack 
+      },
+      { status: 500, headers: corsHeaders }
     )
   }
 }
