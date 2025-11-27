@@ -453,11 +453,12 @@ export function ApplicationForm() {
         clearInterval(heartbeatInterval)
       }
       
-      toast.success(t("admissions.submitSuccess", "Candidature soumise avec succès"), {
-        description: t("admissions.submitSuccessDescription", "Vous recevrez une confirmation par email. Nous vous contacterons bientôt."),
-        duration: 6000,
-      })
-
+      console.log("[ApplicationForm] ✅ Tous les processus terminés avec succès, réinitialisation du formulaire")
+      
+      // Réinitialiser isSubmitting AVANT de réinitialiser le formulaire
+      setIsSubmitting(false)
+      console.log("[ApplicationForm] ✅ isSubmitting mis à false après succès")
+      
       // Réinitialiser le formulaire
       setCurrentStep(1)
       setFormData({
@@ -483,6 +484,14 @@ export function ApplicationForm() {
         medicalCertificate: null,
         video: null,
       })
+      
+      // Afficher le message de succès APRÈS la réinitialisation
+      toast.success(t("admissions.submitSuccess", "Candidature soumise avec succès"), {
+        description: t("admissions.submitSuccessDescription", "Vous recevrez une confirmation par email. Nous vous contacterons bientôt."),
+        duration: 6000,
+      })
+      
+      console.log("[ApplicationForm] ✅ Formulaire réinitialisé et message de succès affiché")
     } catch (error: any) {
       console.error("Erreur lors de la soumission:", error)
       
