@@ -130,6 +130,7 @@ export function ApplicationForm() {
     
     // Variable pour stocker le timeout client (définie au niveau de la fonction)
     let clientTimeout: NodeJS.Timeout | null = null
+    let heartbeatInterval: NodeJS.Timeout | null = null
 
     try {
       // Validation finale des champs texte
