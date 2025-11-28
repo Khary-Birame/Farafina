@@ -81,7 +81,7 @@ export function ScholarshipSection() {
                 d'excellence et d'autonomisation.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/apply">
+                <Link href="/contact">
                   <Button size="lg" className="bg-white text-[#D4AF37] hover:bg-gray-100 font-semibold">
                     Demander une bourse
                   </Button>

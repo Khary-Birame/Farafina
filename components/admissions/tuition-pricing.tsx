@@ -1,12 +1,14 @@
 ﻿'use client'
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Check, Star } from "lucide-react"
 
 const pricingPlans = [
   {
     name: "Programme Externe",
+    value: "external", // Valeur pour le formulaire
     secondaryLabel: "École de foot",
     description: "Formation à temps partiel pour étudiants locaux",
     price: {
@@ -28,6 +30,7 @@ const pricingPlans = [
   },
   {
     name: "Programme Résident",
+    value: "resident", // Valeur pour le formulaire
     secondaryLabel: "Internat",
     description: "Programme résidentiel à temps plein",
     price: {
@@ -50,6 +53,7 @@ const pricingPlans = [
   },
   {
     name: "Programme Féminin",
+    value: "girls", // Valeur pour le formulaire
     secondaryLabel: undefined,
     description: "Autonomisation des athlètes féminines",
     price: {
@@ -74,6 +78,14 @@ const pricingPlans = [
 
 export function TuitionPricing() {
   const [showContact, setShowContact] = useState(false)
+  const router = useRouter()
+
+  const handleSelectProgram = (programValue: string) => {
+    // Sauvegarder le programme sélectionné dans le localStorage
+    localStorage.setItem('selectedProgram', programValue)
+    // Rediriger vers le formulaire de candidature
+    router.push('/admissions#application-form')
+  }
 
   return (
     <section className="py-20 lg:py-28 bg-muted/30">
@@ -152,6 +164,7 @@ export function TuitionPricing() {
 
               {/* CTA Button */}
               <Button
+                onClick={() => handleSelectProgram(plan.value)}
                 className={`w-full ${plan.popular
                   ? "bg-[#D4AF37] hover:bg-[#d17e00] text-white"
                   : "bg-secondary hover:bg-secondary/80 text-secondary-foreground"

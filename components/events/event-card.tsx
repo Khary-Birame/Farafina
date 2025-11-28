@@ -124,13 +124,27 @@ export function EventCard({
 
   const slug = generateSlug(title)
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Si l'événement n'est pas ouvert, empêcher la navigation
+    if (status !== "open") {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+  }
+
   return (
-    <Link href={`/events/${slug}`}>
+    <Link 
+      href={status === "open" ? `/events/${slug}` : "#"}
+      onClick={handleCardClick}
+      className="block"
+    >
       <article
         className={cn(
-          "group relative flex h-full flex-col overflow-hidden rounded-3xl border-2 transition-all duration-500 cursor-pointer",
+          "group relative flex h-full flex-col overflow-hidden rounded-3xl border-2 transition-all duration-500",
           "bg-gradient-to-br from-[#1a1a1a] to-[#0f1012] border-white/10",
-          "hover:border-[#D4AF37] hover:shadow-2xl hover:shadow-[#D4AF37]/20 hover:-translate-y-2",
+          status === "open" 
+            ? "cursor-pointer hover:border-[#D4AF37] hover:shadow-2xl hover:shadow-[#D4AF37]/20 hover:-translate-y-2"
+            : "cursor-not-allowed opacity-75",
           isFeatured && "ring-4 ring-[#D4AF37]/30"
         )}
         onMouseEnter={() => setIsHovered(true)}
@@ -253,20 +267,13 @@ export function EventCard({
           </div>
 
           {/* CTA Button */}
-          <Button
-            variant="outline"
+          <div
             className={cn(
-              "w-full border-2 rounded-xl font-bold transition-all duration-300 group/btn",
+              "w-full border-2 rounded-xl font-bold transition-all duration-300 group/btn flex items-center justify-center py-3 px-4",
               status === "open"
-                ? "border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white"
+                ? "border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white cursor-pointer"
                 : "border-white/20 text-white/50 cursor-not-allowed"
             )}
-            disabled={status !== "open"}
-            onClick={(e) => {
-              if (status !== "open") {
-                e.preventDefault()
-              }
-            }}
           >
             {status === "open" ? (
               <>
@@ -278,7 +285,7 @@ export function EventCard({
             ) : (
               "Clôturé"
             )}
-          </Button>
+          </div>
         </div>
       </article>
     </Link>

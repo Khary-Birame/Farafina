@@ -57,7 +57,7 @@ export function ApplyHero() {
           {/* CTA Button */}
           <div className="flex flex-col sm:flex-row gap-4">
             <AuthRedirectButton
-              href="/apply"
+              href="/admissions#application-form"
               size="lg"
               className="bg-white text-[#D4AF37] hover:bg-gray-100 font-semibold group w-full sm:w-auto"
               redirectMessage="Connectez-vous pour accéder au formulaire de candidature. C'est rapide et sécurisé !"

@@ -1,6 +1,6 @@
 ﻿"use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -70,6 +70,32 @@ export function ApplicationForm() {
   const handleFileChange = (field: "birthCertificate" | "photo" | "medicalCertificate" | "video", file: File | null) => {
     updateField(field, file)
   }
+
+  // Lire le programme sélectionné depuis le localStorage au chargement
+  useEffect(() => {
+    const selectedProgram = localStorage.getItem('selectedProgram')
+    if (selectedProgram) {
+      // Vérifier que la valeur est valide
+      const validPrograms = ['resident', 'external', 'girls', 'elite']
+      if (validPrograms.includes(selectedProgram)) {
+        // Mettre à jour le programme dans le formulaire
+        setFormData((prev) => ({ ...prev, program: selectedProgram }))
+        // Aller directement à l'étape 2 où se trouve le champ programme
+        setCurrentStep(2)
+        // Supprimer la valeur du localStorage après l'avoir utilisée
+        localStorage.removeItem('selectedProgram')
+        
+        // Faire défiler jusqu'au formulaire si on arrive avec le hash
+        setTimeout(() => {
+          const formElement = document.getElementById('application-form')
+          if (formElement) {
+            formElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
+        }, 100)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Validation avant de passer à l'étape suivante
   const validateStep = (step: number): boolean => {

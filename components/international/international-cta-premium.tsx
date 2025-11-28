@@ -77,7 +77,7 @@ export function InternationalCTAPremium() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <AuthRedirectButton
-                  href="/apply"
+                  href="/admissions#application-form"
                   size="lg"
                   className="group h-16 px-12 bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300"
                   redirectMessage="Connectez-vous pour accéder au formulaire de candidature. C'est rapide et sécurisé !"
