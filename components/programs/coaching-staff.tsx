@@ -55,15 +55,15 @@ export function CoachingStaff() {
               key={index}
               className="bg-white rounded-2xl overflow-hidden border border-border hover:border-[#D4AF37] transition-all hover:shadow-lg group"
             >
-              {/* Image */}
-              <div className="relative h-64 overflow-hidden bg-muted">
+              {/* Image temporairement masquée */}
+              {/* <div className="relative h-64 overflow-hidden bg-muted">
                 <img
                   src={member.image || "/placeholder.svg"}
                   alt={member.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/80 to-transparent" />
-              </div>
+              </div> */}
 
               {/* Content */}
               <div className="p-6">

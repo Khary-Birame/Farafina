@@ -68,13 +68,14 @@ export function Leadership() {
               key={index}
               className="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300"
             >
-              <div className="aspect-[3/4] overflow-hidden bg-gray-100">
+              {/* Photo temporairement masquée */}
+              {/* <div className="aspect-[3/4] overflow-hidden bg-gray-100">
                 <img
                   src={member.image || "/placeholder.svg"}
                   alt={member.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-              </div>
+              </div> */}
               <div className="p-6">
                 <h3 className="font-sans font-semibold text-xl text-[#1A1A1A] mb-1">{member.name}</h3>
                 <p className="text-sm font-medium text-[#D4AF37] mb-3">{member.role}</p>

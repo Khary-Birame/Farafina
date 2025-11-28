@@ -13,7 +13,7 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-[#D4AF37] rounded-lg flex items-center justify-center flex-shrink-0 p-2">
+              <div className="w-12 h-12 bg-[#CECECE] rounded-lg flex items-center justify-center flex-shrink-0 p-2">
                 <Image
                   src="ffa.png"
                   alt="Farafina Foot Academy"
