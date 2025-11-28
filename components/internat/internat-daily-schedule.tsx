@@ -21,56 +21,56 @@ export function InternatDailySchedule() {
       icon: Sun,
       title: t("internat.schedule.wakeup.title", "Réveil"),
       description: t("internat.schedule.wakeup.description", "Réveil matinal avec routine d'étirement et préparation pour la journée"),
-      color: "from-yellow-400 to-orange-500"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       time: "06:30",
       icon: Coffee,
       title: t("internat.schedule.breakfast.title", "Petit-déjeuner"),
       description: t("internat.schedule.breakfast.description", "Petit-déjeuner équilibré et énergisant pour bien commencer la journée"),
-      color: "from-amber-500 to-yellow-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       time: "07:30",
       icon: GraduationCap,
       title: t("internat.schedule.school.title", "École"),
       description: t("internat.schedule.school.description", "Cours académiques selon le programme scolaire officiel"),
-      color: "from-blue-500 to-indigo-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       time: "12:00",
       icon: UtensilsCrossed,
       title: t("internat.schedule.lunch.title", "Déjeuner"),
       description: t("internat.schedule.lunch.description", "Repas complet et nutritif adapté aux besoins des sportifs"),
-      color: "from-green-500 to-emerald-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       time: "14:00",
       icon: Dumbbell,
       title: t("internat.schedule.training.title", "Entraînement"),
       description: t("internat.schedule.training.description", "Séances d'entraînement technique, tactique et physique"),
-      color: "from-red-500 to-rose-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       time: "17:00",
       icon: BookOpen,
       title: t("internat.schedule.study.title", "Études Surveillées"),
       description: t("internat.schedule.study.description", "Séances d'étude encadrées avec aide aux devoirs et tutorat"),
-      color: "from-purple-500 to-pink-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       time: "19:00",
       icon: UtensilsCrossed,
       title: t("internat.schedule.dinner.title", "Dîner"),
       description: t("internat.schedule.dinner.description", "Dîner équilibré suivi d'un moment de détente"),
-      color: "from-indigo-500 to-purple-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       time: "21:00",
       icon: Moon,
       title: t("internat.schedule.rest.title", "Repos"),
       description: t("internat.schedule.rest.description", "Temps libre, détente et préparation au coucher pour une récupération optimale"),
-      color: "from-gray-600 to-gray-800"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
   ]
 

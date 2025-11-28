@@ -68,16 +68,8 @@ export function InternatTestimonials() {
   }
 
   const getTypeColor = (type: string) => {
-    switch (type) {
-      case "player":
-        return "from-blue-500 to-indigo-600"
-      case "parent":
-        return "from-green-500 to-emerald-600"
-      case "educator":
-        return "from-purple-500 to-pink-600"
-      default:
-        return "from-gray-500 to-gray-600"
-    }
+    // Toutes les icônes utilisent la couleur de la charte graphique
+    return "from-[#D4AF37] to-[#B8941F]"
   }
 
   return (

@@ -93,10 +93,7 @@ Total: ${formattedTotal}.`
           ) : (
             <div className="space-y-4">
               {items.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex gap-4 rounded-2xl border border-border bg-white/80 p-4 shadow-sm"
-                >
+                <div key={item.id} className="flex gap-4 rounded-2xl border border-border bg-white/80 p-4 shadow-sm">
                   <div className="relative h-20 w-20 overflow-hidden rounded-xl">
                     <Image src={item.image} alt={item.name} fill className="object-cover" />
                   </div>
