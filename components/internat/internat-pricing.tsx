@@ -82,13 +82,13 @@ export function InternatPricing() {
                 {/* Included */}
                 <div>
                   <h3 className="font-bold text-lg text-gray-900 mb-4 flex items-center gap-2">
-                    <Check className="w-5 h-5 text-green-600" />
+                    <Check className="w-5 h-5 text-[#D4AF37]" />
                     {t("internat.pricing.included.title", "Inclus dans le tarif")}
                   </h3>
                   <ul className="space-y-3">
                     {included.map((item, i) => (
                       <li key={i} className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                        <Check className="w-5 h-5 text-[#D4AF37] flex-shrink-0 mt-0.5" />
                         <span className="text-gray-700">{item}</span>
                       </li>
                     ))}
@@ -98,13 +98,17 @@ export function InternatPricing() {
                 {/* Not Included */}
                 <div>
                   <h3 className="font-bold text-lg text-gray-900 mb-4 flex items-center gap-2">
-                    <X className="w-5 h-5 text-red-600" />
+                    <div className="w-5 h-5 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-gray-600" />
+                    </div>
                     {t("internat.pricing.notIncluded.title", "Non inclus")}
                   </h3>
                   <ul className="space-y-3">
                     {notIncluded.map((item, i) => (
                       <li key={i} className="flex items-start gap-3">
-                        <X className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                        <div className="w-5 h-5 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-2 h-2 rounded-full bg-gray-600" />
+                        </div>
                         <span className="text-gray-700">{item}</span>
                       </li>
                     ))}

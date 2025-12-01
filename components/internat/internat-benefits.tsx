@@ -11,37 +11,37 @@ export function InternatBenefits() {
       icon: Shield,
       title: t("internat.benefits.discipline.title", "Discipline & Structure"),
       description: t("internat.benefits.discipline.description", "Un cadre structuré qui favorise l'autodiscipline et la responsabilisation, essentiels pour la réussite sportive et académique."),
-      color: "from-blue-500 to-indigo-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       icon: TrendingUp,
       title: t("internat.benefits.progress.title", "Progression Accélérée"),
       description: t("internat.benefits.progress.description", "L'environnement d'internat permet une progression plus rapide grâce à un encadrement constant et des conditions optimales."),
-      color: "from-green-500 to-emerald-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       icon: Users,
       title: t("internat.benefits.team.title", "Esprit d'Équipe"),
       description: t("internat.benefits.team.description", "Vivre ensemble renforce les liens, développe l'esprit d'équipe et crée des amitiés durables entre les joueurs."),
-      color: "from-purple-500 to-pink-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       icon: Clock,
       title: t("internat.benefits.time.title", "Gain de Temps"),
       description: t("internat.benefits.time.description", "Plus de temps pour l'entraînement et les études, sans perte de temps dans les transports quotidiens."),
-      color: "from-amber-500 to-orange-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       icon: Award,
       title: t("internat.benefits.excellence.title", "Excellence Académique"),
       description: t("internat.benefits.excellence.description", "Suivi scolaire renforcé et environnement propice aux études garantissent de meilleurs résultats académiques."),
-      color: "from-red-500 to-rose-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
     {
       icon: Heart,
       title: t("internat.benefits.wellbeing.title", "Bien-être Garanti"),
       description: t("internat.benefits.wellbeing.description", "Cadre sécurisé, nutrition adaptée et suivi médical pour garantir le bien-être physique et mental de chaque étudiant."),
-      color: "from-cyan-500 to-teal-600"
+      color: "from-[#D4AF37] to-[#B8941F]"
     },
   ]
 

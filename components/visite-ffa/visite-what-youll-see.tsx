@@ -11,12 +11,14 @@ import {
   Camera
 } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 interface Facility {
   icon: React.ElementType
   title: string
   description: string
   image: string
+  slug: string
 }
 
 export function VisiteWhatYoullSee() {
@@ -28,36 +30,42 @@ export function VisiteWhatYoullSee() {
       title: t("visite.facilities.sport.title", "Infrastructures Sportives"),
       description: t("visite.facilities.sport.description", "Terrains de football professionnels, salle de musculation, piste d'athlétisme et équipements de récupération."),
       image: "/african-football-academy-elite-training.jpg",
+      slug: "infrastructures-sportives",
     },
     {
       icon: Home,
       title: t("visite.facilities.internat.title", "Internat"),
       description: t("visite.facilities.internat.description", "Chambres modernes, espaces de vie communs et environnement sécurisé pour nos résidents."),
       image: "/student-residence-dormitory.jpg",
+      slug: "internat",
     },
     {
       icon: BookOpen,
       title: t("visite.facilities.study.title", "Salles d'Étude"),
       description: t("visite.facilities.study.description", "Espaces dédiés au travail scolaire avec un environnement calme et propice à la concentration."),
       image: "/african-students-studying-in-modern-classroom.jpg",
+      slug: "salles-etude",
     },
     {
       icon: Dumbbell,
       title: t("visite.facilities.gym.title", "Terrains & Gymnases"),
       description: t("visite.facilities.gym.description", "Installations sportives couvertes et extérieures pour tous types d'entraînements."),
       image: "/african-football-academy-elite-training.jpg",
+      slug: "terrains-gymnases",
     },
     {
       icon: Users,
       title: t("visite.facilities.life.title", "Espaces de Vie"),
       description: t("visite.facilities.life.description", "Zones de détente, réfectoire moderne et espaces conviviaux pour les moments de partage."),
       image: "/african-students-studying-in-modern-classroom.jpg",
+      slug: "espaces-vie",
     },
     {
       icon: Shield,
       title: t("visite.facilities.support.title", "Encadrement"),
       description: t("visite.facilities.support.description", "Rencontrez notre équipe d'éducateurs, entraîneurs et personnel médical."),
       image: "/student-residence-dormitory.jpg",
+      slug: "encadrement",
     },
   ]
 
@@ -83,10 +91,11 @@ export function VisiteWhatYoullSee() {
         {/* Facilities Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {facilities.map((facility, index) => (
-            <div
+            <Link
               key={index}
+              href={`/visite-ffa/${facility.slug}`}
               style={{ animationDelay: `${index * 100}ms` }}
-              className="reveal group bg-white rounded-2xl overflow-hidden border-2 border-gray-200 hover:border-[#D4AF37] transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
+              className="reveal group bg-white rounded-2xl overflow-hidden border-2 border-gray-200 hover:border-[#D4AF37] transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-pointer block"
             >
               <div className="relative h-48">
                 <Image
@@ -111,7 +120,7 @@ export function VisiteWhatYoullSee() {
                   {facility.description}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
