@@ -1,6 +1,8 @@
 "use client"
 
-import { Bell, Search, User, Settings as SettingsIcon } from "lucide-react"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Bell, Search, User, Settings as SettingsIcon, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -11,8 +13,34 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
+import { signOut } from "@/lib/auth/auth-helpers"
+import { useAuth } from "@/lib/auth/auth-context"
+import { toast } from "sonner"
 
 export function AdminHeader() {
+  const router = useRouter()
+  const { user, refreshUser } = useAuth()
+  const [loggingOut, setLoggingOut] = useState(false)
+
+  const handleLogout = async () => {
+    setLoggingOut(true)
+    try {
+      const result = await signOut()
+      if (result.success) {
+        await refreshUser()
+        toast.success("Déconnexion réussie")
+        router.push("/")
+        router.refresh()
+      } else {
+        toast.error(result.error || "Erreur lors de la déconnexion")
+      }
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion:", error)
+      toast.error("Une erreur s'est produite lors de la déconnexion")
+    } finally {
+      setLoggingOut(false)
+    }
+  }
   return (
     <header className="sticky top-0 z-30 h-16 bg-white border-b border-[#E5E7EB] shadow-md">
       <div className="flex items-center justify-between h-full px-6">
@@ -84,7 +112,11 @@ export function AdminHeader() {
                   <User className="w-4 h-4 text-white" />
                 </div>
                 <div className="hidden md:block text-left">
-                  <div className="text-sm font-medium text-[#1A1A1A]">Admin User</div>
+                  <div className="text-sm font-medium text-[#1A1A1A]">
+                    {user?.first_name && user?.last_name
+                      ? `${user.first_name} ${user.last_name}`
+                      : user?.email || "Admin User"}
+                  </div>
                   <div className="text-xs text-[#C0C0C0]">Administrateur</div>
                 </div>
               </Button>
@@ -99,8 +131,13 @@ export function AdminHeader() {
                 Paramètres
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer text-red-600">
-                Déconnexion
+              <DropdownMenuItem
+                className="cursor-pointer text-red-600 focus:text-red-600"
+                onClick={handleLogout}
+                disabled={loggingOut}
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                {loggingOut ? "Déconnexion..." : "Déconnexion"}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

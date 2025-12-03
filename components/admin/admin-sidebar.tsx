@@ -1,5 +1,7 @@
 "use client"
 
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
@@ -21,6 +23,9 @@ import {
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useAdmin } from "./admin-context"
+import { signOut } from "@/lib/auth/auth-helpers"
+import { useAuth } from "@/lib/auth/auth-context"
+import { toast } from "sonner"
 
 const menuItems = [
   {
@@ -77,7 +82,30 @@ const menuItems = [
 
 export function AdminSidebar() {
   const pathname = usePathname()
+  const router = useRouter()
+  const { user, refreshUser } = useAuth()
   const { sidebarCollapsed: collapsed, setSidebarCollapsed: setCollapsed } = useAdmin()
+  const [loggingOut, setLoggingOut] = useState(false)
+
+  const handleLogout = async () => {
+    setLoggingOut(true)
+    try {
+      const result = await signOut()
+      if (result.success) {
+        await refreshUser()
+        toast.success("Déconnexion réussie")
+        router.push("/")
+        router.refresh()
+      } else {
+        toast.error(result.error || "Erreur lors de la déconnexion")
+      }
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion:", error)
+      toast.error("Une erreur s'est produite lors de la déconnexion")
+    } finally {
+      setLoggingOut(false)
+    }
+  }
 
   return (
     <aside
@@ -144,8 +172,12 @@ export function AdminSidebar() {
           </div>
           {!collapsed && (
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-white truncate">Admin User</div>
-              <div className="text-xs text-[#C0C0C0] truncate">admin@farafina.com</div>
+              <div className="text-sm font-medium text-white truncate">
+                {user?.first_name && user?.last_name
+                  ? `${user.first_name} ${user.last_name}`
+                  : user?.email || "Admin User"}
+              </div>
+              <div className="text-xs text-[#C0C0C0] truncate">{user?.email || "admin@farafina.com"}</div>
             </div>
           )}
         </div>
@@ -156,9 +188,11 @@ export function AdminSidebar() {
             collapsed && "justify-center"
           )}
           size="sm"
+          onClick={handleLogout}
+          disabled={loggingOut}
         >
           <LogOut className="w-4 h-4 mr-2" />
-          {!collapsed && <span>Déconnexion</span>}
+          {!collapsed && <span>{loggingOut ? "Déconnexion..." : "Déconnexion"}</span>}
         </Button>
       </div>
     </aside>
