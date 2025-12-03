@@ -29,7 +29,7 @@ export function LoginForm() {
     password: "",
     rememberMe: false,
   })
-  
+
   // Vérifier s'il y a une redirection demandée pour afficher un message
   const redirectParam = searchParams.get("redirect")
 
@@ -56,8 +56,10 @@ export function LoginForm() {
       } else {
         router.replace("/login")
       }
+    } else if (messageParam === "admin_required") {
+      setError("Accès administrateur requis. Veuillez vous connecter avec un compte administrateur.")
     }
-  }, [searchParams, router])
+  }, [searchParams, router, t])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -73,17 +75,34 @@ export function LoginForm() {
       if (result.success) {
         // Rafraîchir les données utilisateur
         await refreshUser()
-        
+
         // Vérifier s'il y a une redirection demandée
         const redirectParam = searchParams.get("redirect")
-        
+
         if (redirectParam) {
-          // Rediriger vers la page demandée avec un message de succès
-          toast.success("Connexion réussie", {
-            description: "Vous allez être redirigé vers le formulaire de candidature.",
-            duration: 3000,
-          })
-          router.push(redirectParam)
+          // Si c'est une redirection vers /admin, vérifier que l'utilisateur est admin
+          if (redirectParam === "/admin") {
+            const { checkAdminAccess } = await import("@/lib/admin/auth/admin-auth")
+            const { isAdmin } = await checkAdminAccess()
+
+            if (isAdmin) {
+              toast.success("Connexion réussie", {
+                description: "Vous allez être redirigé vers la console d'administration.",
+                duration: 3000,
+              })
+              router.push(redirectParam)
+            } else {
+              setError("Votre compte n'a pas les droits administrateur nécessaires.")
+              return
+            }
+          } else {
+            // Rediriger vers la page demandée avec un message de succès
+            toast.success("Connexion réussie", {
+              description: "Vous allez être redirigé vers le formulaire de candidature.",
+              duration: 3000,
+            })
+            router.push(redirectParam)
+          }
         } else {
           // Rediriger vers la page d'accueil ou le dashboard
           router.push("/")
@@ -148,12 +167,21 @@ export function LoginForm() {
                   {t("login.title")}
                 </h1>
                 <p className="text-muted-foreground text-pretty">
-                  {redirectParam 
-                    ? "Connectez-vous pour accéder au formulaire de candidature. C'est rapide et sécurisé !"
-                    : t("login.subtitle")
+                  {redirectParam === "/admin"
+                    ? "Connectez-vous avec un compte administrateur pour accéder à la console d'administration."
+                    : redirectParam
+                      ? "Connectez-vous pour accéder au formulaire de candidature. C'est rapide et sécurisé !"
+                      : t("login.subtitle")
                   }
                 </p>
-                {redirectParam && (
+                {redirectParam === "/admin" && (
+                  <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-800 font-medium">
+                      ⚠️ Seuls les comptes administrateurs peuvent accéder à cette section.
+                    </p>
+                  </div>
+                )}
+                {redirectParam && redirectParam !== "/admin" && (
                   <div className="mt-4 p-3 bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-lg">
                     <p className="text-sm text-[#1A1A1A] font-medium">
                       💡 Après votre connexion, vous serez automatiquement redirigé vers le formulaire de candidature.
