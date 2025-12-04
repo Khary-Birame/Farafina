@@ -84,7 +84,7 @@ const playersData = [
     category: "U18",
     nationality: "Guinée",
     performance: 7.9,
-    image: "/young-african-football-player-defense.jpg",
+    image: "/young-african-football-player-defender-action.jpg",
   },
   {
     id: 8,
@@ -104,7 +104,7 @@ const playersData = [
     category: "U12",
     nationality: "Sénégal",
     performance: 7.2,
-    image: "/young-african-football-player-junior.jpg",
+    image: "/young-african-football-player-youth.jpg",
   },
   {
     id: 10,
@@ -124,7 +124,7 @@ const playersData = [
     category: "U18",
     nationality: "Sénégal",
     performance: 8.6,
-    image: "/young-african-female-football-player.jpg",
+    image: "/african-female-football-player-portrait.jpg",
   },
   {
     id: 12,

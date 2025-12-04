@@ -234,7 +234,7 @@ const getPlayerById = (id: string) => {
       preferredFoot: "Droit",
       section: "Garçons",
       performance: 7.9,
-      image: "/young-african-football-player-defense.jpg",
+      image: "/young-african-football-player-defender-action.jpg",
       stats: {
         matchesPlayed: 25,
         goals: 1,
@@ -298,7 +298,7 @@ const getPlayerById = (id: string) => {
       preferredFoot: "Droit",
       section: "Garçons",
       performance: 7.2,
-      image: "/young-african-football-player-junior.jpg",
+      image: "/young-african-football-player-youth.jpg",
       stats: {
         matchesPlayed: 16,
         goals: 3,
@@ -362,7 +362,7 @@ const getPlayerById = (id: string) => {
       preferredFoot: "Droit",
       section: "Filles",
       performance: 8.6,
-      image: "/young-african-female-football-player.jpg",
+      image: "/african-female-football-player-portrait.jpg",
       stats: {
         matchesPlayed: 24,
         goals: 18,

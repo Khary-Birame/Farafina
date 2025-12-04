@@ -48,7 +48,7 @@ export function PlayerProfiles() {
       position: t("scouting.profiles.positions.defender"),
       rating: 87,
       potential: 91,
-      image: "/african-youth-defender-portrait.jpg",
+      image: "/young-african-football-player-defender.jpg",
       highlights: [
         t("scouting.profiles.highlights.ndiaye.cleanSheet"),
         t("scouting.profiles.highlights.ndiaye.bestDefender"),
@@ -62,7 +62,7 @@ export function PlayerProfiles() {
       position: t("scouting.profiles.positions.goalkeeper"),
       rating: 90,
       potential: 95,
-      image: "/african-female-goalkeeper-portrait.jpg",
+      image: "/young-african-football-goalkeeper.jpg",
       highlights: [
         t("scouting.profiles.highlights.ba.goldenGlove"),
         t("scouting.profiles.highlights.ba.saveRate"),
