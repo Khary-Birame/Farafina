@@ -305,28 +305,7 @@ export function EventDetails({ event }: EventDetailsProps) {
                 {event.title}
               </h1>
 
-              {/* Rating */}
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={cn(
-                        "w-5 h-5",
-                        i < Math.floor(averageRating)
-                          ? 'fill-[#D4AF37] text-[#D4AF37]'
-                          : 'fill-white/20 text-white/20'
-                      )}
-                    />
-                  ))}
-                  <span className="text-white font-bold ml-2">{averageRating.toFixed(1)}</span>
-                </div>
-                {event.testimonials && (
-                  <span className="text-white/60">
-                    ({event.testimonials.length} avis)
-                  </span>
-                )}
-              </div>
+              {/* Rating - Masqué pour l'événement d'inscription */}
 
               {/* Key Info */}
               <div className="space-y-4 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
@@ -440,29 +419,7 @@ export function EventDetails({ event }: EventDetailsProps) {
                   )}
                 </Button>
                 
-                <div className="flex gap-3">
-                  <Button
-                    variant="outline"
-                    onClick={() => setIsLiked(!isLiked)}
-                    className={cn(
-                      "flex-1 h-14 border-2 rounded-xl transition-all duration-300",
-                      isLiked 
-                        ? "border-red-500 bg-red-500/20 text-red-400" 
-                        : "border-white/20 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 text-white bg-white/5"
-                    )}
-                    aria-label="Ajouter aux favoris"
-                  >
-                    <Heart className={cn("w-5 h-5 transition-all", isLiked && "fill-red-500 text-red-500 scale-110")} />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={handleShare}
-                    className="flex-1 h-14 border-2 border-white/20 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 text-white bg-white/5 rounded-xl transition-all duration-300"
-                    aria-label="Partager"
-                  >
-                    <Share2 className="w-5 h-5" />
-                  </Button>
-                </div>
+                {/* Boutons de partage et favoris - Masqués pour l'événement d'inscription */}
               </div>
             </div>
           </div>
@@ -529,35 +486,7 @@ export function EventDetails({ event }: EventDetailsProps) {
                   </div>
                 )}
 
-                {event.testimonials && event.testimonials.length > 0 && (
-                  <div className="p-8 rounded-2xl bg-white/5 border border-white/10">
-                    <h3 className="text-white font-bold text-2xl mb-6 flex items-center gap-3">
-                      <Star className="w-6 h-6 text-[#D4AF37] fill-[#D4AF37]" />
-                      Témoignages
-                    </h3>
-                    <div className="space-y-6">
-                      {event.testimonials.map((testimonial, i) => (
-                        <div key={i} className="p-6 rounded-xl bg-white/5 border border-white/10">
-                          <div className="flex items-center gap-2 mb-3">
-                            {[...Array(5)].map((_, j) => (
-                              <Star
-                                key={j}
-                                className={cn(
-                                  "w-4 h-4",
-                                  j < testimonial.rating
-                                    ? 'fill-[#D4AF37] text-[#D4AF37]'
-                                    : 'fill-white/20 text-white/20'
-                                )}
-                              />
-                            ))}
-                          </div>
-                          <p className="text-white/80 leading-relaxed mb-3">{testimonial.text}</p>
-                          <p className="text-white/60 text-sm font-semibold">— {testimonial.author}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                {/* Témoignages - Masqués pour l'événement d'inscription */}
               </div>
             )}
 

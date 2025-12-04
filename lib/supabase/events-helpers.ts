@@ -166,6 +166,116 @@ function transformEventData(data: any): Event {
 function getMockEvents(): Event[] {
   return [
     {
+      id: "9",
+      slug: generateSlug("Inscriptions Ouvertes - Saison 2025-2026"),
+      date: "Saison 2025-2026",
+      title: "Inscriptions Ouvertes - Saison 2025-2026",
+      location: "FARAFINA FOOT ACADEMY",
+      address: "FANN HOCK LOTS N°10 DAKAR",
+      type: "portes-ouvertes",
+      description: "Rejoignez l'élite de demain. Formez des talents, bâtissez des légendes. Inscriptions ouvertes pour la saison 2025-2026.",
+      longDescription: `
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <h2 style="font-size: 2.5rem; font-weight: bold; color: #D4AF37; margin-bottom: 1rem;">FORMEZ DES TALENTS, BATIR DES LÉGENDES</h2>
+          <p style="font-size: 1.25rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem;">
+            Rejoignez une académie d'excellence dédiée à la<br/>
+            formation des jeunes footballeurs et footballeuses
+          </p>
+        </div>
+        
+        <div style="text-align: center; margin: 3rem 0;">
+          <div style="display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap; font-size: 2rem; font-weight: bold; color: #D4AF37;">
+            <span>DISCIPLINE</span>
+            <span style="color: #D4AF37;">•</span>
+            <span>PASSION</span>
+            <span style="color: #D4AF37;">•</span>
+            <span>PERFORMANCE</span>
+          </div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%); padding: 2rem; border-radius: 1rem; margin: 2rem 0;">
+          <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; display: inline-block; margin-bottom: 1.5rem;">
+            <p style="color: white; font-weight: bold; font-size: 1.25rem; margin: 0;">ÂGE : 6 À 20 ANS</p>
+          </div>
+          
+          <div style="color: #1A1A1A; margin-top: 1.5rem;">
+            <p style="font-weight: bold; margin-bottom: 0.5rem; font-size: 1.1rem;">LIEU: FARAFINA FOOT ACADEMY</p>
+            <p style="font-weight: bold; margin-bottom: 0.5rem; font-size: 1.1rem;">HORAIRES: MERCREDI, SAMEDI, DIMANCHE</p>
+            <p style="font-weight: bold; margin-bottom: 1rem; font-size: 1.1rem;">TERRAIN ÉCOLE MEDINE & ENA</p>
+            
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid rgba(0, 0, 0, 0.2);">
+              <p style="font-weight: bold; margin-bottom: 0.5rem; font-size: 1.1rem;">Tél.: +221 76 317 12 02</p>
+              <p style="font-weight: bold; margin-bottom: 0.5rem; font-size: 1.1rem;">info@farafinafootacademy.com</p>
+              <p style="font-weight: bold; margin-top: 1rem; font-size: 1.1rem;">ADRESSE: FANN HOCK LOTS N°10 DAKAR</p>
+            </div>
+          </div>
+        </div>
+        
+        <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 0.5rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <h3 style="color: #D4AF37; font-size: 1.5rem; margin-bottom: 1rem;">Nos Valeurs</h3>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+              <span style="position: absolute; left: 0; color: #D4AF37; font-weight: bold;">•</span>
+              <strong style="color: #D4AF37;">DISCIPLINE</strong> : Un encadrement rigoureux pour développer l'excellence
+            </li>
+            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+              <span style="position: absolute; left: 0; color: #D4AF37; font-weight: bold;">•</span>
+              <strong style="color: #D4AF37;">PASSION</strong> : L'amour du football au cœur de notre méthode
+            </li>
+            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+              <span style="position: absolute; left: 0; color: #D4AF37; font-weight: bold;">•</span>
+              <strong style="color: #D4AF37;">PERFORMANCE</strong> : Des résultats mesurables et une progression constante
+            </li>
+          </ul>
+        </div>
+      `,
+      image: "/affiche.png",
+      images: [
+        "/affiche.png",
+        "/african-youth-football-training-action-shot.jpg",
+        "/african-football-academy-elite-training.jpg",
+        "/young-african-football-players-training.jpg",
+      ],
+      time: "Mercredi, Samedi, Dimanche",
+      duration: "Saison complète",
+      price: 0,
+      isFree: false,
+      participants: 0,
+      maxParticipants: 200,
+      status: "open",
+      isFeatured: true,
+      ageRange: "6-20 ans",
+      requirements: [
+        "Certificat médical (moins de 3 mois)",
+        "Autorisation parentale pour les mineurs",
+        "Dossier d'inscription complet",
+        "Tenue de sport complète",
+        "Chaussures de football"
+      ],
+      provided: [
+        "Encadrement professionnel",
+        "Équipements d'entraînement",
+        "Installations modernes",
+        "Suivi personnalisé",
+        "Formation académique et sportive"
+      ],
+      activities: [
+        "Entraînements techniques",
+        "Entraînements tactiques",
+        "Matchs et compétitions",
+        "Formation physique",
+        "Suivi académique",
+        "Développement personnel"
+      ],
+      testimonials: [
+        {
+          author: "Parent d'élève",
+          text: "Une académie exceptionnelle qui forme vraiment les talents de demain. L'encadrement est professionnel et les résultats sont au rendez-vous.",
+          rating: 5
+        }
+      ]
+    },
+    {
       id: "1",
       slug: generateSlug("Journée de Détection Nationale"),
       date: "15 Mars 2025",
