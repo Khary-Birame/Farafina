@@ -397,21 +397,21 @@
     "mission": {
       "title": "Notre Mission",
       "vision": "Notre Vision",
-      "visionText": "Devenir la référence de l'Afrique en éducation sport-études, produisant des athlètes de classe mondiale qui excellent à la fois sur le terrain et en classe.",
-      "visionDescription": "Nous envisageons un avenir où le talent africain est reconnu mondialement, où les jeunes joueurs ont accès à des installations d'entraînement de classe mondiale, et où l'éducation et le sport travaillent main dans la main pour créer des individus complets prêts à concourir aux plus hauts niveaux.",
+      "visionText": "Devenir la référence de l'Afrique en éducation sport-études, produisant des athlètes de haut niveau qui excellent à la fois sur le terrain et en études.",
+      "visionDescription": "Nous envisageons un avenir où le talent africain est reconnu à l'international, où les jeunes joueurs ont accès à des installations d'entraînement de classe mondiale, et où l'éducation et le sport travaillent main dans la main pour créer des individus complets prêts à concourir aux plus hauts niveaux.",
       "missionText": "Découvrir, former et autonomiser les jeunes talents africains grâce à l'innovation, l'éducation et l'intégrité.",
       "discover": "Découvrir :",
       "discoverText": "Identifier les jeunes talents prometteurs à travers l'Afrique en utilisant une technologie de détection IA de pointe et des réseaux de recrutement traditionnels.",
       "train": "Former :",
       "trainText": "Fournir un encadrement de classe mondiale, des installations modernes et une éducation académique complète pour développer des athlètes complets.",
       "empower": "Autonomiser :",
-      "empowerText": "Équiper nos étudiants de compétences de vie, de valeurs et d'opportunités pour réussir professionnellement et personnellement.",
+      "empowerText": "Équiper nos jeunes de compétences de vie, de <strong>valeurs</strong>, de <strong>discipline</strong> et d'opportunités pour réussir professionnellement et personnellement.",
       "excellence": "Excellence",
       "innovation": "Innovation",
       "integrity": "Intégrité"
     },
     "infrastructures": {
-      "title": "Infrastructures de Classe Mondiale",
+      "title": "Infrastructures Modernes",
       "description": "Nos installations sont conçues pour fournir le meilleur environnement pour l'excellence athlétique et académique.",
       "facilities": {
         "fifa": {

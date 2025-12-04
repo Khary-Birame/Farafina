@@ -60,7 +60,7 @@ const newsArticles = [
   },
   {
     id: 5,
-    title: "Installation de nouvelles installations d'entraînement de classe mondiale",
+    title: "Installation de nouvelles installations d'entraînement ",
     excerpt:
       "Nous avons récemment inauguré de nouvelles installations d'entraînement, incluant un terrain synthétique dernier cri et un laboratoire d'analyse vidéo avancé.",
     date: "28 Décembre 2024",

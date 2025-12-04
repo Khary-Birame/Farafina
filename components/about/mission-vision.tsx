@@ -66,7 +66,8 @@ export function MissionVision() {
               <div className="flex gap-4">
                 <div className="w-2 h-2 bg-[#D4AF37] rounded-full mt-2 flex-shrink-0" />
                 <p className="text-base text-gray-600 leading-relaxed">
-                  <span className="font-semibold text-[#1A1A1A]">{t("home.mission.empower")}</span> {t("home.mission.empowerText")}
+                  <span className="font-semibold text-[#1A1A1A]">{t("home.mission.empower")}</span>{" "}
+                  <span dangerouslySetInnerHTML={{ __html: t("home.mission.empowerText") }} />
                 </p>
               </div>
             </div>
