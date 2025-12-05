@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Calendar, MapPin, Users, Trophy, ArrowRight, Clock, Star, Sparkles } from "lucide-react"
+import { Calendar, MapPin, Users, ArrowRight, Clock, Sparkles } from "lucide-react"
 import Link from "next/link"
 import { useTranslation } from "@/lib/hooks/use-translation"
 import Image from "next/image"
@@ -29,16 +29,6 @@ export function FeaturedEvent() {
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/80 via-[#D4AF37]/60 to-transparent" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <Trophy className="w-32 h-32 text-white/20 mx-auto mb-4" />
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white font-bold text-sm">
-                      <Star className="w-4 h-4 fill-white" />
-                      Événement Phare
-                    </div>
-                  </div>
-                </div>
               </div>
 
               {/* Content */}
