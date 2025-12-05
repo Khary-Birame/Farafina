@@ -351,7 +351,9 @@ export function ContactForm() {
                     <Linkedin className="text-white" size={22} />
                   </a>
                   <a
-                    href="#"
+                    href="https://youtube.com/@farafinafootacademy?si=IGE1quXbGOROr-yH"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-3 shadow-lg"
                     aria-label="YouTube"
                   >

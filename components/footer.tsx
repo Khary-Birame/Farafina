@@ -47,7 +47,9 @@ export function Footer() {
                 <Instagram size={18} />
               </a>
               <a
-                href="#"
+                href="https://youtube.com/@farafinafootacademy?si=IGE1quXbGOROr-yH"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 bg-white/10 hover:bg-[#D4AF37] rounded-lg flex items-center justify-center transition-colors"
               >
                 <Youtube size={18} />
