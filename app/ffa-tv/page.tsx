@@ -4,7 +4,6 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { LiveStreamPlayer } from "@/components/ffa-tv/live-stream-player"
 import { VideoGrid } from "@/components/ffa-tv/video-grid"
-import { SponsorsSection } from "@/components/ffa-tv/sponsors-section"
 import { UserEngagement } from "@/components/ffa-tv/user-engagement"
 import { Button } from "@/components/ui/button"
 import { Play, Radio } from "lucide-react"
@@ -83,13 +82,6 @@ export default function FFATVPage() {
       <section id="video-grid" className="py-12 lg:py-16">
         <div className="container mx-auto px-4 lg:px-8">
           <VideoGrid />
-        </div>
-      </section>
-
-      {/* Sponsors Section */}
-      <section className="py-12 lg:py-16 bg-[#1A1A1A]/50">
-        <div className="container mx-auto px-4 lg:px-8">
-          <SponsorsSection />
         </div>
       </section>
 
