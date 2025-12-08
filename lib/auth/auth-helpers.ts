@@ -102,7 +102,7 @@ export async function signUp(signUpData: SignUpData): Promise<AuthResponse> {
       email: signUpData.email,
       password: signUpData.password,
       options: {
-        emailRedirectTo: typeof window !== 'undefined' 
+        emailRedirectTo: typeof window !== 'undefined'
           ? `${window.location.origin}/auth/callback`
           : undefined,
         data: {
@@ -155,9 +155,9 @@ export async function signUp(signUpData: SignUpData): Promise<AuthResponse> {
     if (userError) {
       // Si l'upsert échoue, essayer une mise à jour simple
       console.warn("Upsert échoué, tentative de mise à jour...", userError.message)
-      
+
       await new Promise(resolve => setTimeout(resolve, 1000))
-      
+
       // Réessayer avec update
       const { data: retryData, error: retryError } = await supabase
         .from("users")
@@ -173,7 +173,7 @@ export async function signUp(signUpData: SignUpData): Promise<AuthResponse> {
       if (retryError) {
         // Si ça échoue encore, récupérer l'utilisateur et vérifier les données
         console.warn("Mise à jour échouée, récupération de l'utilisateur existant:", retryError.message)
-        
+
         const { data: baseUser } = await supabase
           .from("users")
           .select("*")
@@ -234,19 +234,48 @@ export async function signUp(signUpData: SignUpData): Promise<AuthResponse> {
 /**
  * Se déconnecter
  * 
+ * Cette fonction déconnecte l'utilisateur et nettoie toutes les données de session :
+ * - Session Supabase
+ * - Cookies de session
+ * - localStorage (si utilisé)
+ * 
  * @returns Réponse avec succès/erreur
  */
 export async function signOut(): Promise<{ success: boolean; error?: string }> {
   try {
+    console.log("Déconnexion en cours...")
+
+    // Déconnecter de Supabase (nettoie automatiquement les cookies et localStorage)
     const { error } = await supabase.auth.signOut()
 
     if (error) {
+      console.error("Erreur Supabase lors de la déconnexion:", error)
       return {
         success: false,
         error: getErrorMessage(error),
       }
     }
 
+    // Nettoyer manuellement le localStorage au cas où
+    if (typeof window !== 'undefined') {
+      try {
+        // Nettoyer les clés Supabase dans localStorage
+        const keysToRemove: string[] = []
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i)
+          if (key && (key.includes('supabase') || key.includes('auth'))) {
+            keysToRemove.push(key)
+          }
+        }
+        keysToRemove.forEach(key => localStorage.removeItem(key))
+        console.log("localStorage nettoyé")
+      } catch (storageError) {
+        console.warn("Erreur lors du nettoyage du localStorage:", storageError)
+        // Ne pas faire échouer la déconnexion si le localStorage ne peut pas être nettoyé
+      }
+    }
+
+    console.log("Déconnexion réussie")
     return {
       success: true,
     }
@@ -266,18 +295,53 @@ export async function signOut(): Promise<{ success: boolean; error?: string }> {
  */
 export async function getCurrentUser() {
   try {
-    const { data: { user } } = await supabase.auth.getUser()
+    // D'abord vérifier la session pour s'assurer qu'elle est valide
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+
+    if (sessionError) {
+      console.error("Erreur de session:", sessionError)
+      return null
+    }
+
+    if (!session) {
+      return null
+    }
+
+    // Vérifier que le token n'est pas expiré
+    const now = Math.floor(Date.now() / 1000)
+    if (session.expires_at && session.expires_at < now) {
+      console.log("Session expirée, tentative de rafraîchissement...")
+      // Essayer de rafraîchir la session
+      const { data: refreshData, error: refreshError } = await supabase.auth.refreshSession()
+      if (refreshError || !refreshData.session) {
+        console.error("Impossible de rafraîchir la session:", refreshError)
+        return null
+      }
+    }
+
+    // Récupérer l'utilisateur
+    const { data: { user }, error: userError } = await supabase.auth.getUser()
+
+    if (userError) {
+      console.error("Erreur lors de la récupération de l'utilisateur:", userError)
+      return null
+    }
 
     if (!user) {
       return null
     }
 
     // Récupérer les données complètes depuis la table users
-    const { data: userData } = await supabase
+    const { data: userData, error: dbError } = await supabase
       .from("users")
       .select("*")
       .eq("id", user.id)
       .single()
+
+    // Si erreur DB mais utilisateur existe dans auth, retourner l'utilisateur auth
+    if (dbError && dbError.code !== 'PGRST116') {
+      console.warn("Erreur lors de la récupération des données utilisateur:", dbError)
+    }
 
     return userData || user
   } catch (error) {
@@ -319,7 +383,7 @@ function getErrorMessage(error: any): string {
 
   // Chercher un message correspondant
   const errorCode = error.message || error.code || ""
-  
+
   for (const [key, message] of Object.entries(errorMessages)) {
     if (errorCode.includes(key) || errorCode === key) {
       return message

@@ -43,12 +43,22 @@ export function Header({ variant = "default" }: HeaderProps) {
   const handleLogout = async () => {
     setLoggingOut(true)
     try {
-      await signOut()
-      router.push("/")
-      router.refresh()
+      const result = await signOut()
+      if (result.success) {
+        // Attendre un peu pour que l'événement SIGNED_OUT soit propagé
+        await new Promise(resolve => setTimeout(resolve, 200))
+
+        // Rediriger vers la page d'accueil
+        router.push("/")
+
+        // Forcer le rafraîchissement de la page pour nettoyer l'état
+        window.location.href = "/"
+      } else {
+        console.error("Erreur lors de la déconnexion:", result.error)
+        setLoggingOut(false)
+      }
     } catch (error) {
       console.error("Erreur lors de la déconnexion:", error)
-    } finally {
       setLoggingOut(false)
     }
   }
@@ -239,11 +249,10 @@ export function Header({ variant = "default" }: HeaderProps) {
                 <Link
                   key={href}
                   href={href}
-                  className={`font-semibold uppercase tracking-wide transition-colors ${
-                    isActive
+                  className={`font-semibold uppercase tracking-wide transition-colors ${isActive
                       ? "text-[#D4AF37] border-l-4 border-[#D4AF37] pl-3 font-bold"
                       : "text-[#1A1A1A] hover:text-[#D4AF37]"
-                  }`}
+                    }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {label}

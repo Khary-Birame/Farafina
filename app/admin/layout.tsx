@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { checkAdminAccess } from "@/lib/admin/auth/admin-auth"
 import { useAuth } from "@/lib/auth/auth-context"
@@ -15,37 +15,105 @@ export default function AdminLayout({
   const [isChecking, setIsChecking] = useState(true)
   const [isAuthorized, setIsAuthorized] = useState(false)
   const router = useRouter()
+  const hasCheckedRef = useRef(false)
+  const isRedirectingRef = useRef(false)
 
   useEffect(() => {
+    // Éviter les vérifications multiples en parallèle
+    if (hasCheckedRef.current || isRedirectingRef.current) {
+      return
+    }
+
+    let timeoutId: NodeJS.Timeout | null = null
+    let safetyTimeoutId: NodeJS.Timeout | null = null
+
+    // Timeout de sécurité pour éviter que isChecking reste à true indéfiniment
+    safetyTimeoutId = setTimeout(() => {
+      console.warn("Admin check timeout - forcing check to complete")
+      setIsChecking(false)
+      if (!isAuthorized && !isRedirectingRef.current) {
+        isRedirectingRef.current = true
+        router.push("/login?redirect=/admin&message=admin_required")
+      }
+    }, 10000) // 10 secondes max
+
     async function verifyAdminAccess() {
+      // Attendre que l'auth soit chargée (max 3 secondes)
       if (authLoading) {
+        console.log("Auth en cours de chargement, attente...")
+        timeoutId = setTimeout(() => {
+          console.warn("Auth loading taking too long, proceeding anyway")
+          hasCheckedRef.current = false // Réinitialiser pour permettre la vérification
+          verifyAdminAccess()
+        }, 3000)
         return
       }
 
+      // Marquer qu'on a commencé la vérification
+      hasCheckedRef.current = true
+
       try {
+        console.log("Vérification admin - user:", user ? "présent" : "absent", "authLoading:", authLoading)
+
+        // Vérifier d'abord si l'utilisateur est connecté
+        if (!user) {
+          console.log("Pas d'utilisateur connecté, redirection vers login")
+          setIsAuthorized(false)
+          setIsChecking(false)
+          if (safetyTimeoutId) clearTimeout(safetyTimeoutId)
+          if (!isRedirectingRef.current) {
+            isRedirectingRef.current = true
+            router.push("/login?redirect=/admin&message=admin_required")
+          }
+          return
+        }
+
+        console.log("Vérification des droits admin pour:", user.email)
+        // Vérifier les droits admin
         const { isAdmin, error } = await checkAdminAccess()
+
+        if (safetyTimeoutId) clearTimeout(safetyTimeoutId)
 
         if (error) {
           console.error("Erreur vérification admin:", error)
           setIsAuthorized(false)
+          setIsChecking(false)
+          if (!isRedirectingRef.current) {
+            isRedirectingRef.current = true
+            router.push("/login?redirect=/admin&message=admin_required")
+          }
         } else if (isAdmin) {
+          console.log("Accès admin autorisé")
           setIsAuthorized(true)
+          setIsChecking(false)
         } else {
+          console.log("Accès admin refusé - rôle:", user.role)
           setIsAuthorized(false)
-          // Rediriger vers la page de login avec un message
-          router.push("/login?redirect=/admin&message=admin_required")
+          setIsChecking(false)
+          if (!isRedirectingRef.current) {
+            isRedirectingRef.current = true
+            router.push("/login?redirect=/admin&message=admin_required")
+          }
         }
       } catch (error) {
         console.error("Erreur lors de la vérification admin:", error)
+        if (safetyTimeoutId) clearTimeout(safetyTimeoutId)
         setIsAuthorized(false)
-        router.push("/login?redirect=/admin&message=admin_required")
-      } finally {
         setIsChecking(false)
+        if (!isRedirectingRef.current) {
+          isRedirectingRef.current = true
+          router.push("/login?redirect=/admin&message=admin_required")
+        }
       }
     }
 
     verifyAdminAccess()
-  }, [authLoading, router])
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+      if (safetyTimeoutId) clearTimeout(safetyTimeoutId)
+    }
+  }, [authLoading, user, router])
 
   // Afficher un loader pendant la vérification
   if (authLoading || isChecking) {

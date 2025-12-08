@@ -34,34 +34,81 @@ function getSupabaseConfig() {
 }
 
 /**
+ * Configuration des options de cookies pour Supabase
+ * 
+ * Ces options garantissent la sécurité et la persistance des sessions
+ */
+function getCookieOptions() {
+  const isProduction = process.env.NODE_ENV === 'production'
+  const isSecure = isProduction || process.env.NEXT_PUBLIC_FORCE_SECURE_COOKIES === 'true'
+  
+  return {
+    httpOnly: true,
+    secure: isSecure,
+    sameSite: 'lax' as const,
+    path: '/',
+    maxAge: 60 * 60 * 24 * 7, // 7 jours
+  }
+}
+
+/**
  * Créer un client Supabase pour le serveur avec le contexte utilisateur
  * 
  * Cette fonction crée un client qui respecte la session de l'utilisateur
  * connecté. Utile pour les Server Components et Server Actions.
+ * 
+ * SÉCURITÉ :
+ * - Cookies HTTPOnly pour protéger contre XSS
+ * - Secure en production (HTTPS uniquement)
+ * - SameSite=Lax pour protéger contre CSRF
+ * - Path=/ pour que les cookies soient disponibles sur tout le site
  */
 export async function createServerClient() {
   const { supabaseUrl, supabaseAnonKey } = getSupabaseConfig()
   const cookieStore = await cookies()
+  const cookieOptions = getCookieOptions()
   
   return createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      flowType: 'pkce',
+    },
     cookies: {
       get(name: string) {
         return cookieStore.get(name)?.value
       },
       set(name: string, value: string, options: any) {
         try {
-          cookieStore.set({ name, value, ...options })
+          // Fusionner les options par défaut avec les options spécifiques
+          cookieStore.set({ 
+            name, 
+            value, 
+            ...cookieOptions,
+            ...options,
+            // S'assurer que httpOnly est toujours true pour les cookies d'auth
+            httpOnly: name.includes('auth-token') || name.includes('supabase') ? true : (options?.httpOnly ?? cookieOptions.httpOnly),
+          })
         } catch (error) {
           // Les cookies ne peuvent pas être modifiés dans certains contextes
           // (par exemple dans les Server Components statiques)
           // C'est normal et ne pose pas de problème
+          console.warn(`Impossible de définir le cookie ${name}:`, error)
         }
       },
       remove(name: string, options: any) {
         try {
-          cookieStore.set({ name, value: '', ...options })
+          cookieStore.set({ 
+            name, 
+            value: '', 
+            ...cookieOptions,
+            ...options,
+            maxAge: 0, // Supprimer immédiatement
+          })
         } catch (error) {
           // Même chose ici
+          console.warn(`Impossible de supprimer le cookie ${name}:`, error)
         }
       },
     },

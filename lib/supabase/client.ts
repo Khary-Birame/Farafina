@@ -42,6 +42,12 @@ function getSupabaseConfig() {
  * 
  * Note: La vérification des variables est faite au moment de l'utilisation,
  * pas au moment de l'import, pour permettre au build de continuer.
+ * 
+ * SÉCURITÉ :
+ * - PersistSession: true pour sauvegarder la session dans localStorage
+ * - AutoRefreshToken: true pour rafraîchir automatiquement les tokens expirés
+ * - DetectSessionInUrl: true pour détecter les sessions dans les URLs (callback OAuth)
+ * - FlowType: 'pkce' pour utiliser PKCE (Proof Key for Code Exchange) - plus sécurisé
  */
 let supabaseInstance: ReturnType<typeof createClient> | null = null
 
@@ -49,10 +55,18 @@ export const supabase = new Proxy({} as ReturnType<typeof createClient>, {
   get(_target, prop) {
     if (!supabaseInstance) {
       const { supabaseUrl, supabaseAnonKey } = getSupabaseConfig()
-      supabaseInstance = createClient(supabaseUrl, supabaseAnonKey)
+      supabaseInstance = createClient(supabaseUrl, supabaseAnonKey, {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: true,
+          flowType: 'pkce',
+          storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+        },
+      })
     }
     return (supabaseInstance as any)[prop]
-  }
+  },
 })
 
 /**
@@ -71,4 +85,3 @@ export const supabase = new Proxy({} as ReturnType<typeof createClient>, {
  *   password: 'password'
  * })
  */
-

@@ -92,17 +92,26 @@ export function AdminSidebar() {
     try {
       const result = await signOut()
       if (result.success) {
+        // Attendre un peu pour que l'événement SIGNED_OUT soit propagé
+        await new Promise(resolve => setTimeout(resolve, 200))
+
+        // Rafraîchir l'utilisateur pour mettre à jour l'état
         await refreshUser()
+
         toast.success("Déconnexion réussie")
+
+        // Rediriger vers la page d'accueil
         router.push("/")
-        router.refresh()
+
+        // Forcer le rafraîchissement de la page pour nettoyer l'état
+        window.location.href = "/"
       } else {
         toast.error(result.error || "Erreur lors de la déconnexion")
+        setLoggingOut(false)
       }
     } catch (error) {
       console.error("Erreur lors de la déconnexion:", error)
       toast.error("Une erreur s'est produite lors de la déconnexion")
-    } finally {
       setLoggingOut(false)
     }
   }
