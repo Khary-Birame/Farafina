@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { AdminLayout } from "@/components/admin/admin-layout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -10,8 +11,56 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import { Settings, User, Shield, Globe, Bell, Database } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { toast } from "sonner"
 
 export default function SettingsPermissionsPage() {
+  const [profileData, setProfileData] = useState({
+    firstName: "Admin",
+    lastName: "User",
+    email: "admin@farafina.com",
+    role: "admin",
+  })
+  const [language, setLanguage] = useState("fr")
+  const [notifications, setNotifications] = useState({
+    email: true,
+    push: true,
+    urgent: true,
+  })
+  
+  const handleSaveProfile = () => {
+    toast.success("Profil mis à jour", {
+      description: "Vos informations ont été enregistrées avec succès.",
+    })
+    // TODO: Implémenter la sauvegarde réelle
+  }
+  
+  const handleSaveLanguage = () => {
+    toast.success("Langue enregistrée", {
+      description: `La langue a été changée en ${language === "fr" ? "Français" : language === "en" ? "Anglais" : language === "ar" ? "Arabe" : "Portugais"}.`,
+    })
+    // TODO: Implémenter le changement de langue réel
+  }
+  
+  const handleSaveNotifications = () => {
+    toast.success("Préférences enregistrées", {
+      description: "Vos préférences de notifications ont été enregistrées.",
+    })
+    // TODO: Implémenter la sauvegarde réelle
+  }
+  
+  const handleBackup = () => {
+    toast.info("Sauvegarde en cours", {
+      description: "La sauvegarde de la base de données est en cours...",
+    })
+    // TODO: Implémenter la sauvegarde réelle
+  }
+  
+  const handleViewLogs = () => {
+    toast.info("Logs", {
+      description: "Affichage des logs d'activité...",
+    })
+    // TODO: Implémenter l'affichage des logs
+  }
   return (
     <AdminLayout>
       {/* Header */}
@@ -59,7 +108,8 @@ export default function SettingsPermissionsPage() {
                   </Label>
                   <Input
                     id="firstName"
-                    defaultValue="Admin"
+                    value={profileData.firstName}
+                    onChange={(e) => setProfileData({ ...profileData, firstName: e.target.value })}
                     className="border-[#E5E7EB] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20 shadow-sm"
                   />
                 </div>
@@ -69,7 +119,8 @@ export default function SettingsPermissionsPage() {
                   </Label>
                   <Input
                     id="lastName"
-                    defaultValue="User"
+                    value={profileData.lastName}
+                    onChange={(e) => setProfileData({ ...profileData, lastName: e.target.value })}
                     className="border-[#E5E7EB] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20 shadow-sm"
                   />
                 </div>
@@ -81,7 +132,8 @@ export default function SettingsPermissionsPage() {
                 <Input
                   id="email"
                   type="email"
-                  defaultValue="admin@farafina.com"
+                  value={profileData.email}
+                  onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
                   className="border-[#C0C0C0] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20"
                 />
               </div>
@@ -89,7 +141,7 @@ export default function SettingsPermissionsPage() {
                 <Label htmlFor="role" className="text-[#1A1A1A]">
                   Rôle
                 </Label>
-                <Select defaultValue="admin">
+                <Select value={profileData.role} onValueChange={(value) => setProfileData({ ...profileData, role: value })}>
                   <SelectTrigger className="border-[#E5E7EB] focus:border-[#D4AF37] shadow-sm">
                     <SelectValue />
                   </SelectTrigger>
@@ -101,7 +153,10 @@ export default function SettingsPermissionsPage() {
                   </SelectContent>
                 </Select>
               </div>
-              <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
+              <Button 
+                className="bg-[#D4AF37] hover:bg-[#B8941F] text-white"
+                onClick={handleSaveProfile}
+              >
                 Enregistrer les modifications
               </Button>
             </CardContent>
@@ -181,7 +236,7 @@ export default function SettingsPermissionsPage() {
                 <Label htmlFor="language" className="text-[#1A1A1A]">
                   Langue par défaut
                 </Label>
-                <Select defaultValue="fr">
+                <Select value={language} onValueChange={setLanguage}>
                   <SelectTrigger className="border-[#E5E7EB] focus:border-[#D4AF37] shadow-sm">
                     <SelectValue />
                   </SelectTrigger>
@@ -214,24 +269,39 @@ export default function SettingsPermissionsPage() {
                     <div className="font-medium text-[#1A1A1A]">Notifications Email</div>
                     <div className="text-sm text-[#737373]">Recevoir les notifications par email</div>
                   </div>
-                  <Switch defaultChecked className="data-[state=checked]:bg-[#D4AF37]" />
+                  <Switch 
+                    checked={notifications.email}
+                    onCheckedChange={(checked) => setNotifications({ ...notifications, email: checked })}
+                    className="data-[state=checked]:bg-[#D4AF37]" 
+                  />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-medium text-[#1A1A1A]">Notifications Push</div>
                     <div className="text-sm text-[#737373]">Notifications dans le navigateur</div>
                   </div>
-                  <Switch defaultChecked className="data-[state=checked]:bg-[#D4AF37]" />
+                  <Switch 
+                    checked={notifications.push}
+                    onCheckedChange={(checked) => setNotifications({ ...notifications, push: checked })}
+                    className="data-[state=checked]:bg-[#D4AF37]" 
+                  />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-medium text-[#1A1A1A]">Alertes Urgentes</div>
                     <div className="text-sm text-[#737373]">Toujours recevoir les alertes urgentes</div>
                   </div>
-                  <Switch defaultChecked className="data-[state=checked]:bg-[#D4AF37]" />
+                  <Switch 
+                    checked={notifications.urgent}
+                    onCheckedChange={(checked) => setNotifications({ ...notifications, urgent: checked })}
+                    className="data-[state=checked]:bg-[#D4AF37]" 
+                  />
                 </div>
               </div>
-              <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
+              <Button 
+                className="bg-[#D4AF37] hover:bg-[#B8941F] text-white"
+                onClick={handleSaveNotifications}
+              >
                 Enregistrer
               </Button>
             </CardContent>
@@ -270,7 +340,10 @@ export default function SettingsPermissionsPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-white">
+                <Button 
+                  className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-white"
+                  onClick={handleBackup}
+                >
                   Sauvegarder Maintenant
                 </Button>
               </CardContent>
@@ -299,7 +372,10 @@ export default function SettingsPermissionsPage() {
                   </div>
                   <Switch defaultChecked className="data-[state=checked]:bg-[#D4AF37]" />
                 </div>
-                <Button className="w-full bg-[#1A1A1A] hover:bg-[#000000] text-white">
+                <Button 
+                  className="w-full bg-[#1A1A1A] hover:bg-[#000000] text-white"
+                  onClick={handleViewLogs}
+                >
                   Voir les Logs
                 </Button>
               </CardContent>

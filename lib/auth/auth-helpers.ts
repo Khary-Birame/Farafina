@@ -245,18 +245,7 @@ export async function signOut(): Promise<{ success: boolean; error?: string }> {
   try {
     console.log("Déconnexion en cours...")
 
-    // Déconnecter de Supabase (nettoie automatiquement les cookies et localStorage)
-    const { error } = await supabase.auth.signOut()
-
-    if (error) {
-      console.error("Erreur Supabase lors de la déconnexion:", error)
-      return {
-        success: false,
-        error: getErrorMessage(error),
-      }
-    }
-
-    // Nettoyer manuellement le localStorage au cas où
+    // Nettoyer le localStorage AVANT la déconnexion Supabase
     if (typeof window !== 'undefined') {
       try {
         // Nettoyer les clés Supabase dans localStorage
@@ -269,10 +258,51 @@ export async function signOut(): Promise<{ success: boolean; error?: string }> {
         }
         keysToRemove.forEach(key => localStorage.removeItem(key))
         console.log("localStorage nettoyé")
+
+        // Nettoyer aussi sessionStorage
+        const sessionKeysToRemove: string[] = []
+        for (let i = 0; i < sessionStorage.length; i++) {
+          const key = sessionStorage.key(i)
+          if (key && (key.includes('supabase') || key.includes('auth') || key.includes('admin'))) {
+            sessionKeysToRemove.push(key)
+          }
+        }
+        sessionKeysToRemove.forEach(key => sessionStorage.removeItem(key))
+        console.log("sessionStorage nettoyé")
       } catch (storageError) {
-        console.warn("Erreur lors du nettoyage du localStorage:", storageError)
-        // Ne pas faire échouer la déconnexion si le localStorage ne peut pas être nettoyé
+        console.warn("Erreur lors du nettoyage du storage:", storageError)
+        // Ne pas faire échouer la déconnexion si le storage ne peut pas être nettoyé
       }
+    }
+
+    // Déconnecter de Supabase (nettoie automatiquement les cookies et localStorage)
+    const { error } = await supabase.auth.signOut()
+
+    if (error) {
+      console.error("Erreur Supabase lors de la déconnexion:", error)
+      // Même en cas d'erreur, on considère la déconnexion réussie si le storage est nettoyé
+      return {
+        success: true, // On retourne success même en cas d'erreur pour forcer la redirection
+        error: getErrorMessage(error),
+      }
+    }
+
+    // Nettoyer les cookies serveur en appelant l'API
+    try {
+      await fetch('/api/auth/sync-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_token: '',
+          refresh_token: '',
+        }),
+      }).catch(() => {
+        // Ignorer les erreurs de nettoyage des cookies serveur
+      })
+    } catch (apiError) {
+      console.warn("Erreur nettoyage cookies serveur (non bloquant):", apiError)
     }
 
     console.log("Déconnexion réussie")
@@ -281,8 +311,9 @@ export async function signOut(): Promise<{ success: boolean; error?: string }> {
     }
   } catch (error: any) {
     console.error("Erreur lors de la déconnexion:", error)
+    // Même en cas d'erreur, on retourne success pour forcer la redirection
     return {
-      success: false,
+      success: true,
       error: error.message || "Une erreur inattendue s'est produite",
     }
   }
@@ -311,10 +342,30 @@ export async function getCurrentUser() {
     const now = Math.floor(Date.now() / 1000)
     if (session.expires_at && session.expires_at < now) {
       console.log("Session expirée, tentative de rafraîchissement...")
-      // Essayer de rafraîchir la session
-      const { data: refreshData, error: refreshError } = await supabase.auth.refreshSession()
-      if (refreshError || !refreshData.session) {
-        console.error("Impossible de rafraîchir la session:", refreshError)
+      // Essayer de rafraîchir la session avec retry
+      let refreshAttempts = 0
+      const maxRetries = 3
+      let refreshData = null
+      let refreshError = null
+
+      while (refreshAttempts < maxRetries) {
+        const result = await supabase.auth.refreshSession()
+        refreshData = result.data
+        refreshError = result.error
+
+        if (!refreshError && refreshData?.session) {
+          break // Succès
+        }
+
+        refreshAttempts++
+        if (refreshAttempts < maxRetries) {
+          // Attendre avant de réessayer (backoff exponentiel)
+          await new Promise(resolve => setTimeout(resolve, 1000 * refreshAttempts))
+        }
+      }
+
+      if (refreshError || !refreshData?.session) {
+        console.error("Impossible de rafraîchir la session après", maxRetries, "tentatives:", refreshError)
         return null
       }
     }

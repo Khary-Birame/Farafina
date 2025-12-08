@@ -12,7 +12,7 @@ export async function checkAdminAccess() {
   try {
     // D'abord vérifier la session
     const { data: { session }, error: sessionError } = await supabase.auth.getSession()
-    
+
     if (sessionError) {
       console.error('Erreur de session:', sessionError)
       return { isAdmin: false, user: null, error: sessionError }
@@ -26,17 +26,37 @@ export async function checkAdminAccess() {
     const now = Math.floor(Date.now() / 1000)
     if (session.expires_at && session.expires_at < now) {
       console.log("Session expirée, tentative de rafraîchissement...")
-      // Essayer de rafraîchir la session
-      const { data: refreshData, error: refreshError } = await supabase.auth.refreshSession()
-      if (refreshError || !refreshData.session) {
-        console.error("Impossible de rafraîchir la session:", refreshError)
+      // Essayer de rafraîchir la session avec retry
+      let refreshAttempts = 0
+      const maxRetries = 3
+      let refreshData = null
+      let refreshError = null
+
+      while (refreshAttempts < maxRetries) {
+        const result = await supabase.auth.refreshSession()
+        refreshData = result.data
+        refreshError = result.error
+
+        if (!refreshError && refreshData?.session) {
+          break // Succès
+        }
+
+        refreshAttempts++
+        if (refreshAttempts < maxRetries) {
+          // Attendre avant de réessayer (backoff exponentiel)
+          await new Promise(resolve => setTimeout(resolve, 1000 * refreshAttempts))
+        }
+      }
+
+      if (refreshError || !refreshData?.session) {
+        console.error("Impossible de rafraîchir la session après", maxRetries, "tentatives:", refreshError)
         return { isAdmin: false, user: null, error: refreshError || new Error("Session expirée") }
       }
     }
 
     // Récupérer l'utilisateur
     const { data: { user }, error: userError } = await supabase.auth.getUser()
-    
+
     if (userError) {
       console.error('Erreur lors de la récupération de l\'utilisateur:', userError)
       return { isAdmin: false, user: null, error: userError }

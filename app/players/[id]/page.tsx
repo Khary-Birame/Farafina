@@ -9,12 +9,75 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Play, Mail, Trophy, TrendingUp, Target, Zap, Shield, Award, Star, Users, Calendar, MapPin, Flag, Ruler, Weight, Footprints, Share2, Download } from "lucide-react"
+import { ArrowLeft, Play, Mail, Trophy, TrendingUp, Target, Zap, Shield, Award, Star, Users, Calendar, MapPin, Flag, Ruler, Weight, Footprints, Share2, Download, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { getPlayerById } from "@/lib/supabase/players-helpers"
+import { toast } from "sonner"
 
-// Mock player data - in production, this would come from an API/database
-const getPlayerById = (id: string) => {
-  const players = [
+// Interface pour les données du joueur formatées
+interface PlayerData {
+  id: string
+  name: string
+  age: number
+  position: string
+  category: string
+  nationality: string
+  height: string
+  weight: string
+  preferredFoot: string
+  section: string
+  performance: number
+  image: string
+  stats: {
+    matchesPlayed: number
+    goals: number
+    assists: number
+    speed: number
+    endurance: number
+    intensity: number
+    technique: number
+  }
+  coachFeedback: string
+  highlights: Array<{
+    title: string
+    duration: string
+    thumbnail: string
+  }>
+}
+
+// Fonction pour formater les données Supabase en format attendu par la page
+const formatPlayerData = (data: any): PlayerData | null => {
+  if (!data) return null
+
+  return {
+    id: data.id,
+    name: `${data.first_name || ''} ${data.last_name || ''}`.trim() || 'Joueur sans nom',
+    age: data.age || 0,
+    position: data.position || 'Non défini',
+    category: data.category || 'Non défini',
+    nationality: data.nationality || data.country || 'Non défini',
+    height: data.height || 'Non défini',
+    weight: data.weight || 'Non défini',
+    preferredFoot: data.preferred_foot || 'Non défini',
+    section: data.section || 'Garçons',
+    performance: data.performance ? Number(data.performance) : 0,
+    image: data.photo_url || data.image || "/placeholder.svg",
+    stats: {
+      matchesPlayed: 0, // À récupérer depuis une autre table si disponible
+      goals: 0, // À récupérer depuis une autre table si disponible
+      assists: 0, // À récupérer depuis une autre table si disponible
+      speed: 0, // À récupérer depuis une autre table si disponible
+      endurance: 0, // À récupérer depuis une autre table si disponible
+      intensity: 0, // À récupérer depuis une autre table si disponible
+      technique: 0, // À récupérer depuis une autre table si disponible
+    },
+    coachFeedback: "Données à compléter depuis la base de données.",
+    highlights: [], // À récupérer depuis une autre table si disponible
+  }
+}
+
+// Anciennes données mockées (fallback si nécessaire)
+const mockPlayers = [
     {
       id: 1,
       name: "Amadou Diallo",
@@ -421,14 +484,14 @@ const getPlayerById = (id: string) => {
     },
   ]
 
-  return players.find((p) => p.id === Number.parseInt(id))
-}
-
 export default function PlayerDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
-  const player = getPlayerById(id)
+  const [player, setPlayer] = useState<PlayerData | null>(null)
+  const [loading, setLoading] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [notFoundState, setNotFoundState] = useState(false)
 
+  // Tous les Hooks doivent être appelés avant toute condition de retour
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100)
@@ -437,8 +500,68 @@ export default function PlayerDetailPage({ params }: { params: Promise<{ id: str
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  if (!player) {
+  useEffect(() => {
+    async function loadPlayer() {
+      try {
+        setLoading(true)
+        const { data, error } = await getPlayerById(id)
+
+        if (error || !data) {
+          console.error("Erreur chargement joueur:", error)
+          toast.error("Joueur introuvable", {
+            description: "Le joueur demandé n'existe pas ou n'est plus disponible.",
+          })
+          setNotFoundState(true)
+          return
+        }
+
+        const formattedPlayer = formatPlayerData(data)
+        if (!formattedPlayer) {
+          setNotFoundState(true)
+          return
+        }
+
+        setPlayer(formattedPlayer)
+      } catch (err: any) {
+        console.error("Erreur inattendue:", err)
+        toast.error("Erreur", {
+          description: "Une erreur s'est produite lors du chargement du joueur.",
+        })
+        setNotFoundState(true)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    if (id) {
+      loadPlayer()
+    }
+  }, [id])
+
+  // Conditions de retour APRÈS tous les Hooks
+  if (notFoundState) {
     notFound()
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 animate-spin text-[#D4AF37] mx-auto mb-4" />
+          <p className="text-gray-600">Chargement du joueur...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!player) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-600">Joueur introuvable</p>
+        </div>
+      </div>
+    )
   }
 
   const positionIcons: Record<string, any> = {

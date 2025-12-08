@@ -18,9 +18,18 @@ export default function AdminLayout({
   const hasCheckedRef = useRef(false)
   const isRedirectingRef = useRef(false)
 
+  // Utiliser un ref pour stocker le dernier user vérifié et éviter les vérifications multiples
+  const lastCheckedUserIdRef = useRef<string | null>(null)
+
   useEffect(() => {
     // Éviter les vérifications multiples en parallèle
     if (hasCheckedRef.current || isRedirectingRef.current) {
+      return
+    }
+
+    // Si l'utilisateur n'a pas changé depuis la dernière vérification, ne pas re-vérifier
+    const currentUserId = user?.id || null
+    if (currentUserId === lastCheckedUserIdRef.current && isAuthorized) {
       return
     }
 
@@ -35,17 +44,17 @@ export default function AdminLayout({
         isRedirectingRef.current = true
         router.push("/login?redirect=/admin&message=admin_required")
       }
-    }, 10000) // 10 secondes max
+    }, 5000) // Réduit de 10s à 5s
 
     async function verifyAdminAccess() {
-      // Attendre que l'auth soit chargée (max 3 secondes)
+      // Attendre que l'auth soit chargée (max 1 seconde seulement)
       if (authLoading) {
         console.log("Auth en cours de chargement, attente...")
         timeoutId = setTimeout(() => {
           console.warn("Auth loading taking too long, proceeding anyway")
           hasCheckedRef.current = false // Réinitialiser pour permettre la vérification
           verifyAdminAccess()
-        }, 3000)
+        }, 1000) // Réduit de 3s à 1s
         return
       }
 
@@ -58,6 +67,7 @@ export default function AdminLayout({
         // Vérifier d'abord si l'utilisateur est connecté
         if (!user) {
           console.log("Pas d'utilisateur connecté, redirection vers login")
+          lastCheckedUserIdRef.current = null
           setIsAuthorized(false)
           setIsChecking(false)
           if (safetyTimeoutId) clearTimeout(safetyTimeoutId)
@@ -73,6 +83,9 @@ export default function AdminLayout({
         const { isAdmin, error } = await checkAdminAccess()
 
         if (safetyTimeoutId) clearTimeout(safetyTimeoutId)
+
+        // Mettre à jour le dernier user vérifié
+        lastCheckedUserIdRef.current = currentUserId
 
         if (error) {
           console.error("Erreur vérification admin:", error)
@@ -104,6 +117,11 @@ export default function AdminLayout({
           isRedirectingRef.current = true
           router.push("/login?redirect=/admin&message=admin_required")
         }
+      } finally {
+        // Réinitialiser les refs après un délai pour permettre une nouvelle vérification si nécessaire
+        setTimeout(() => {
+          hasCheckedRef.current = false
+        }, 1000)
       }
     }
 
@@ -113,7 +131,7 @@ export default function AdminLayout({
       if (timeoutId) clearTimeout(timeoutId)
       if (safetyTimeoutId) clearTimeout(safetyTimeoutId)
     }
-  }, [authLoading, user, router])
+  }, [authLoading, user?.id, router, isAuthorized]) // Utiliser user?.id au lieu de user pour éviter les re-renders
 
   // Afficher un loader pendant la vérification
   if (authLoading || isChecking) {

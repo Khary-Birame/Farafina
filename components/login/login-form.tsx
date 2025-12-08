@@ -13,6 +13,7 @@ import { Eye, EyeOff, Shield, Lock, CheckCircle2, Loader2, AlertCircle } from "l
 import { signIn } from "@/lib/auth/auth-helpers"
 import { useAuth } from "@/lib/auth/auth-context"
 import { useTranslation } from "@/lib/hooks/use-translation"
+import { supabase } from "@/lib/supabase/client"
 import { toast } from "sonner"
 
 export function LoginForm() {
@@ -73,47 +74,61 @@ export function LoginForm() {
       })
 
       if (result.success) {
-        // Rafraîchir les données utilisateur
-        await refreshUser()
+        // Synchroniser la session de manière non-bloquante (en arrière-plan)
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session) {
+          // Ne pas attendre la synchronisation, la faire en arrière-plan
+          fetch('/api/auth/sync-session', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              access_token: session.access_token,
+              refresh_token: session.refresh_token,
+            }),
+          }).catch(err => console.warn('Sync session error (non-blocking):', err))
+        }
+
+        // Rafraîchir les données utilisateur de manière non-bloquante
+        refreshUser().catch(err => console.warn('Refresh user error (non-blocking):', err))
 
         // Vérifier s'il y a une redirection demandée
         const redirectParam = searchParams.get("redirect")
 
+        // Rediriger immédiatement sans attendre
         if (redirectParam) {
-          // Si c'est une redirection vers /admin, vérifier que l'utilisateur est admin
+          // Si c'est une redirection vers /admin, vérifier rapidement
           if (redirectParam === "/admin") {
-            const { checkAdminAccess } = await import("@/lib/admin/auth/admin-auth")
-            const { isAdmin } = await checkAdminAccess()
-
-            if (isAdmin) {
-              toast.success("Connexion réussie", {
-                description: "Vous allez être redirigé vers la console d'administration.",
-                duration: 3000,
-              })
-              router.push(redirectParam)
-            } else {
-              setError("Votre compte n'a pas les droits administrateur nécessaires.")
-              return
-            }
-          } else {
-            // Rediriger vers la page demandée avec un message de succès
+            // Vérification admin en arrière-plan, rediriger immédiatement
+            // Le layout admin fera la vérification finale
             toast.success("Connexion réussie", {
-              description: "Vous allez être redirigé vers le formulaire de candidature.",
-              duration: 3000,
+              description: "Vous allez être redirigé vers la console d'administration.",
+              duration: 2000,
             })
             router.push(redirectParam)
+            router.refresh()
+          } else {
+            toast.success("Connexion réussie", {
+              description: "Vous allez être redirigé.",
+              duration: 2000,
+            })
+            router.push(redirectParam)
+            router.refresh()
           }
         } else {
-          // Rediriger vers la page d'accueil ou le dashboard
           router.push("/")
+          router.refresh()
         }
-        router.refresh()
+        
+        // Réinitialiser le loading immédiatement après redirection
+        setLoading(false)
       } else {
         setError(result.error || t("login.connectionError"))
+        setLoading(false)
       }
     } catch (err: any) {
       setError(err.message || t("login.unexpectedError"))
-    } finally {
       setLoading(false)
     }
   }

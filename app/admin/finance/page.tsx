@@ -126,8 +126,19 @@ export default function FinanceAdmissionsPage() {
     {
       key: "actions",
       header: "Actions",
-      render: () => (
-        <Button variant="ghost" size="sm" className="h-8 px-2">
+      render: (row: typeof displayPayments[0]) => (
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="h-8 px-2"
+          onClick={(e) => {
+            e.stopPropagation()
+            toast.info("Téléchargement", {
+              description: `Téléchargement de la facture pour ${row.etudiant}...`,
+            })
+            // TODO: Implémenter le téléchargement réel de la facture
+          }}
+        >
           <Download className="w-4 h-4 text-[#D4AF37]" />
         </Button>
       ),

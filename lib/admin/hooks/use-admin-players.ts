@@ -25,10 +25,19 @@ export function useAdminPlayers(filters?: {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [hasLoaded, setHasLoaded] = useState(false) // Indique si les données ont été chargées depuis Supabase
+  const [refreshKey, setRefreshKey] = useState(0) // Clé pour forcer le refresh
+
+  const refresh = () => {
+    setRefreshKey((prev) => prev + 1)
+  }
 
   useEffect(() => {
+    let isMounted = true
+    
     async function fetchPlayers() {
       try {
+        setLoading(true)
+        // Limiter à 100 joueurs par défaut pour performance (pagination à ajouter plus tard)
         let query = supabase
           .from('players')
           .select(`
@@ -44,6 +53,7 @@ export function useAdminPlayers(filters?: {
             performance
           `)
           .order('created_at', { ascending: false })
+          .limit(100) // Limite pour performance
 
         // Appliquer les filtres
         if (filters?.category) {
@@ -64,8 +74,10 @@ export function useAdminPlayers(filters?: {
           query = query.eq('status', dbStatus)
         }
         if (filters?.search) {
+          const searchTerm = `%${filters.search}%`
+          // Recherche dans plusieurs champs : nom, prénom, position, catégorie, pays, nationalité
           query = query.or(
-            `first_name.ilike.%${filters.search}%,last_name.ilike.%${filters.search}%`
+            `first_name.ilike.${searchTerm},last_name.ilike.${searchTerm},position.ilike.${searchTerm},category.ilike.${searchTerm},country.ilike.${searchTerm},nationality.ilike.${searchTerm}`
           )
         }
 
@@ -81,24 +93,39 @@ export function useAdminPlayers(filters?: {
           throw queryError
         }
 
-        // Récupérer les présences pour tous les joueurs en une seule requête
-        const { data: attendanceData } = await supabase
-          .from('training_attendance')
-          .select('player_id, attended')
-
-        // Calculer le taux de présence par joueur
-        const attendanceByPlayer: Record<string, { attended: number; total: number }> = {}
+        // Récupérer les présences pour les joueurs récupérés seulement (limité et optimisé)
+        // On limite à 1000 enregistrements récents pour performance
+        const playerIds = (data || []).map(p => p.id)
+        let attendanceByPlayer: Record<string, { attended: number; total: number }> = {}
         
-        if (attendanceData) {
-          attendanceData.forEach((attendance: any) => {
-            if (!attendanceByPlayer[attendance.player_id]) {
-              attendanceByPlayer[attendance.player_id] = { attended: 0, total: 0 }
+        if (playerIds.length > 0) {
+          try {
+            // Récupérer les présences uniquement pour les joueurs affichés
+            // Limiter à 1000 enregistrements pour performance
+            const { data: attendanceData } = await supabase
+              .from('training_attendance')
+              .select('player_id, attended')
+              .in('player_id', playerIds)
+              .limit(1000)
+              .order('created_at', { ascending: false })
+
+            // Calculer le taux de présence par joueur
+            if (attendanceData) {
+              attendanceData.forEach((attendance: any) => {
+                if (!attendanceByPlayer[attendance.player_id]) {
+                  attendanceByPlayer[attendance.player_id] = { attended: 0, total: 0 }
+                }
+                attendanceByPlayer[attendance.player_id].total++
+                if (attendance.attended) {
+                  attendanceByPlayer[attendance.player_id].attended++
+                }
+              })
             }
-            attendanceByPlayer[attendance.player_id].total++
-            if (attendance.attended) {
-              attendanceByPlayer[attendance.player_id].attended++
-            }
-          })
+          } catch (attendanceError) {
+            // Si la table training_attendance n'existe pas ou erreur, continuer sans présences
+            console.warn('Erreur récupération présences (non bloquant):', attendanceError)
+            attendanceByPlayer = {}
+          }
         }
 
         // Formater les données selon le schéma de la base
@@ -128,13 +155,17 @@ export function useAdminPlayers(filters?: {
 
         // Toujours mettre à jour les joueurs et marquer comme chargé, même si le tableau est vide
         // Cela garantit qu'on utilise les données Supabase et non des mockups
-        setPlayers(formattedPlayers)
-        setHasLoaded(true) // Marquer comme chargé avec succès (même si vide)
-        setError(null)
+        if (isMounted) {
+          setPlayers(formattedPlayers)
+          setHasLoaded(true) // Marquer comme chargé avec succès (même si vide)
+          setError(null)
+        }
       } catch (err: any) {
         const errorMessage = err?.message || 'Erreur inconnue lors de la récupération des joueurs'
-        setError(errorMessage)
-        setHasLoaded(false) // En cas d'erreur, on n'a pas chargé avec succès
+        if (isMounted) {
+          setError(errorMessage)
+          setHasLoaded(false) // En cas d'erreur, on n'a pas chargé avec succès
+        }
         console.error('Erreur récupération joueurs:', {
           message: err?.message,
           code: err?.code,
@@ -144,12 +175,18 @@ export function useAdminPlayers(filters?: {
         })
         // Ne pas vider les joueurs en cas d'erreur, garder l'état précédent
       } finally {
-        setLoading(false)
+        if (isMounted) {
+          setLoading(false)
+        }
       }
     }
 
     fetchPlayers()
-  }, [filters])
+    
+    return () => {
+      isMounted = false
+    }
+  }, [filters, refreshKey])
 
-  return { players, loading, error, hasLoaded }
+  return { players, loading, error, hasLoaded, refresh }
 }

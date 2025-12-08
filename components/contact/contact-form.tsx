@@ -125,7 +125,7 @@ export function ContactForm() {
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto">
           {/* Left Column - Contact Form */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-8 lg:p-10 shadow-xl border border-gray-100/50 hover:shadow-2xl transition-all duration-500">
+          <div className="bg-white rounded-3xl p-6 md:p-8 lg:p-10 shadow-xl border border-gray-100/50 hover:shadow-2xl transition-all duration-500">
             <div className="mb-8">
               <div className="inline-flex items-center gap-2 bg-[#D4AF37]/10 px-3 py-1.5 rounded-full mb-4">
                 <div className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" />
@@ -251,7 +251,7 @@ export function ContactForm() {
                 href="https://www.google.com/maps/search/fann+hock+boulevard+martin+luther+king+n+10+dakar/@14.6792747,-17.4652576,16z?entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-white/80 backdrop-blur-sm border border-gray-200/80 rounded-2xl p-6 hover:shadow-xl hover:border-[#D4AF37]/30 transition-all duration-300 block transform hover:-translate-y-1"
+                className="group bg-white border border-gray-200/80 rounded-2xl p-6 hover:shadow-xl hover:border-[#D4AF37]/30 transition-all duration-300 block transform hover:-translate-y-1"
               >
                 <div className="flex items-start gap-4">
                   <div className="w-14 h-14 bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[#D4AF37]/30 group-hover:to-[#D4AF37]/20 transition-all duration-300 shadow-sm">
@@ -269,7 +269,7 @@ export function ContactForm() {
               </a>
 
               {/* Phone Card */}
-              <div className="group bg-white/80 backdrop-blur-sm border border-gray-200/80 rounded-2xl p-6 hover:shadow-xl hover:border-[#D4AF37]/30 transition-all duration-300 transform hover:-translate-y-1">
+              <div className="group bg-white border border-gray-200/80 rounded-2xl p-6 hover:shadow-xl hover:border-[#D4AF37]/30 transition-all duration-300 transform hover:-translate-y-1">
                 <div className="flex items-start gap-4">
                   <div className="w-14 h-14 bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[#D4AF37]/30 group-hover:to-[#D4AF37]/20 transition-all duration-300 shadow-sm">
                     <Phone className="text-[#D4AF37] group-hover:scale-110 transition-transform duration-300" size={26} />
@@ -289,7 +289,7 @@ export function ContactForm() {
               </div>
 
               {/* Email Card */}
-              <div className="group bg-white/80 backdrop-blur-sm border border-gray-200/80 rounded-2xl p-6 hover:shadow-xl hover:border-[#D4AF37]/30 transition-all duration-300 transform hover:-translate-y-1">
+              <div className="group bg-white border border-gray-200/80 rounded-2xl p-6 hover:shadow-xl hover:border-[#D4AF37]/30 transition-all duration-300 transform hover:-translate-y-1">
                 <div className="flex items-start gap-4">
                   <div className="w-14 h-14 bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[#D4AF37]/30 group-hover:to-[#D4AF37]/20 transition-all duration-300 shadow-sm">
                     <Mail className="text-[#D4AF37] group-hover:scale-110 transition-transform duration-300" size={26} />

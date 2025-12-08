@@ -87,25 +87,35 @@ export function AdminSidebar() {
   const { sidebarCollapsed: collapsed, setSidebarCollapsed: setCollapsed } = useAdmin()
   const [loggingOut, setLoggingOut] = useState(false)
 
-  const handleLogout = async () => {
+  const handleLogout = async (e?: React.MouseEvent) => {
+    e?.preventDefault()
+    e?.stopPropagation()
+
     setLoggingOut(true)
     try {
+      console.log("Déconnexion en cours...")
+
+      // Appeler signOut
       const result = await signOut()
+
       if (result.success) {
-        // Attendre un peu pour que l'événement SIGNED_OUT soit propagé
-        await new Promise(resolve => setTimeout(resolve, 200))
-
-        // Rafraîchir l'utilisateur pour mettre à jour l'état
-        await refreshUser()
-
+        console.log("Déconnexion réussie, redirection...")
         toast.success("Déconnexion réussie")
 
-        // Rediriger vers la page d'accueil
-        router.push("/")
+        // Attendre un peu pour que l'événement SIGNED_OUT soit propagé
+        await new Promise(resolve => setTimeout(resolve, 100))
 
-        // Forcer le rafraîchissement de la page pour nettoyer l'état
+        // Rafraîchir l'utilisateur
+        try {
+          await refreshUser()
+        } catch (refreshError) {
+          console.warn("Erreur refreshUser (non bloquant):", refreshError)
+        }
+
+        // Rediriger immédiatement
         window.location.href = "/"
       } else {
+        console.error("Erreur déconnexion:", result.error)
         toast.error(result.error || "Erreur lors de la déconnexion")
         setLoggingOut(false)
       }

@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { AdminLayout } from "@/components/admin/admin-layout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -8,9 +9,16 @@ import { Calendar, Clock, Users, MapPin, Plus } from "lucide-react"
 import { format } from "date-fns"
 import { fr } from "date-fns/locale"
 import { useAdminTraining } from "@/lib/admin/hooks/use-admin-training"
+import { toast } from "sonner"
 
 export default function TrainingMatchManagementPage() {
   const { trainingSessions, matches, loading, error } = useAdminTraining()
+  
+  const handleNewSession = () => {
+    toast.info("Fonctionnalité à venir", {
+      description: "La création de nouvelles sessions sera bientôt disponible.",
+    })
+  }
   
   // Calculer les statistiques depuis les données réelles
   const upcomingSessionsCount = trainingSessions.length
@@ -32,7 +40,10 @@ export default function TrainingMatchManagementPage() {
           <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">Entraînement & Matchs</h1>
           <p className="text-[#737373]">Gérez les sessions d'entraînement et les matchs</p>
         </div>
-        <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
+        <Button 
+          className="bg-[#D4AF37] hover:bg-[#B8941F] text-white"
+          onClick={handleNewSession}
+        >
           <Plus className="w-4 h-4 mr-2" />
           Nouvelle Session
         </Button>

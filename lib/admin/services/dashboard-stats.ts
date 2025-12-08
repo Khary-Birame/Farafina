@@ -4,7 +4,10 @@ import { supabase } from '@/lib/supabase/client'
 export async function getAttendanceStats() {
   try {
     // Essayer de récupérer depuis training_attendance si la table existe
-    // On récupère les sessions liées pour avoir les dates
+    // LIMITER à 1000 enregistrements pour performance (6 derniers mois)
+    const sixMonthsAgo = new Date()
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6)
+    
     const { data: attendanceData, error } = await supabase
       .from('training_attendance')
       .select(`
@@ -13,7 +16,9 @@ export async function getAttendanceStats() {
           date
         )
       `)
+      .gte('created_at', sixMonthsAgo.toISOString())
       .order('created_at', { ascending: true })
+      .limit(1000) // Limite pour performance
 
     if (error) {
       // Si la table n'existe pas, ce n'est pas grave
@@ -94,9 +99,11 @@ export async function getAttendanceStats() {
 // Performances académiques depuis players.academic (JSONB)
 export async function getAcademicPerformance() {
   try {
+    // Limiter à 200 joueurs pour performance (échantillonnage)
     const { data, error } = await supabase
       .from('players')
       .select('academic')
+      .limit(200) // Limite pour performance
 
     if (error) {
       console.error('Erreur récupération académique:', {
@@ -188,11 +195,17 @@ export async function getAcademicPerformance() {
 // Données financières depuis orders - séparées par devise
 export async function getFinancialData() {
   try {
+    // Limiter aux 12 derniers mois pour performance
+    const twelveMonthsAgo = new Date()
+    twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12)
+    
     const { data, error } = await supabase
       .from('orders')
       .select('total, created_at, payment_status, currency')
       .eq('payment_status', 'paid')
+      .gte('created_at', twelveMonthsAgo.toISOString())
       .order('created_at', { ascending: true })
+      .limit(1000) // Limite pour performance
 
     if (error) {
       console.error('Erreur récupération finances:', {

@@ -1,15 +1,18 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback, useMemo, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { AdminLayout } from "@/components/admin/admin-layout"
 import { DataTable } from "@/components/admin/data-table"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Eye, Edit, Plus, Users, TrendingUp, Award, Activity, Filter } from "lucide-react"
+import { Eye, Edit, Plus, Users, TrendingUp, Award, Activity, Filter, Trash2 } from "lucide-react"
 import { useAdminPlayers } from "@/lib/admin/hooks/use-admin-players"
+import { PlayerFormDialog } from "@/components/admin/player-form-dialog"
+import { PlayerDeleteDialog } from "@/components/admin/player-delete-dialog"
 import { cn } from "@/lib/utils"
+import { toast } from "sonner"
 
 export default function PlayersManagementPage() {
   const router = useRouter()
@@ -19,30 +22,177 @@ export default function PlayersManagementPage() {
     status?: string
     search?: string
   }>({})
+  const [searchQuery, setSearchQuery] = useState("")
+  const [debouncedSearch, setDebouncedSearch] = useState("")
   
-  const { players, loading, error, hasLoaded } = useAdminPlayers(filters)
+  // États pour les modals
+  const [formDialogOpen, setFormDialogOpen] = useState(false)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null)
+  const [selectedPlayerName, setSelectedPlayerName] = useState<string>("")
+  
+  // Debounce de la recherche (300ms) pour un chargement plus rapide
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery)
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [searchQuery])
+
+  // Mettre à jour les filtres quand la recherche debounced change
+  useEffect(() => {
+    setFilters((prev) => ({
+      ...prev,
+      search: debouncedSearch.trim() || undefined,
+    }))
+  }, [debouncedSearch])
+  
+  // Mettre à jour la recherche (le debounce se charge de mettre à jour les filtres)
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value)
+  }
+
+  // Gérer les changements de filtres
+  const handleFilterChange = (filterType: string) => {
+    // Ouvrir un modal ou afficher des options selon le type de filtre
+    if (filterType === "status") {
+      // Toggle entre les statuts
+      const currentStatus = filters.status
+      const statuses = ["active", "inactive", "graduated", "transferred"]
+      const currentIndex = statuses.indexOf(currentStatus || "")
+      const nextIndex = (currentIndex + 1) % (statuses.length + 1)
+      setFilters((prev) => ({
+        ...prev,
+        status: nextIndex === 0 ? undefined : statuses[nextIndex - 1],
+      }))
+    } else if (filterType === "category") {
+      // Toggle entre les catégories
+      const categories = ["U8", "U10", "U12", "U15", "U18", "Senior"]
+      const currentCategory = filters.category
+      const currentIndex = categories.indexOf(currentCategory || "")
+      const nextIndex = (currentIndex + 1) % (categories.length + 1)
+      setFilters((prev) => ({
+        ...prev,
+        category: nextIndex === 0 ? undefined : categories[nextIndex - 1],
+      }))
+    }
+  }
+
+  // Fonction pour exporter les données en CSV
+  const handleExport = () => {
+    try {
+      // Préparer les données pour l'export
+      const csvHeaders = ["Nom", "Âge", "Position", "Catégorie", "Pays", "Statut", "Présence", "Performance"]
+      const csvRows = displayPlayers.map((player) => [
+        player.nom || "",
+        player.age?.toString() || "N/A",
+        player.position || "N/A",
+        player.categorie || "N/A",
+        player.pays || "N/A",
+        player.statut || "N/A",
+        player.presence || "N/A",
+        player.performance?.toString() || "N/A",
+      ])
+
+      // Créer le contenu CSV
+      const csvContent = [
+        csvHeaders.join(","),
+        ...csvRows.map((row) => row.map((cell) => `"${cell}"`).join(",")),
+      ].join("\n")
+
+      // Créer un blob et télécharger
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
+      const link = document.createElement("a")
+      const url = URL.createObjectURL(blob)
+      link.setAttribute("href", url)
+      link.setAttribute("download", `joueurs_${new Date().toISOString().split("T")[0]}.csv`)
+      link.style.visibility = "hidden"
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+
+      toast.success("Export réussi", {
+        description: "Le fichier CSV a été téléchargé avec succès.",
+      })
+    } catch (error: any) {
+      console.error("Erreur lors de l'export:", error)
+      toast.error("Erreur lors de l'export", {
+        description: error.message || "Impossible d'exporter les données.",
+      })
+    }
+  }
+
+  const { players, loading, error, hasLoaded, refresh } = useAdminPlayers(filters)
   
   const displayPlayers = players
-  
-  // Calculer les statistiques depuis les données Supabase uniquement
-  const totalPlayers = displayPlayers.length
-  const activePlayers = displayPlayers.filter(p => p.statut === 'Actif').length
-  const inactivePlayers = displayPlayers.filter(p => p.statut !== 'Actif').length
-  const avgPresence = displayPlayers.length > 0
-    ? Math.round(
-        displayPlayers.reduce((sum, p) => {
-          if (p.presence === 'N/A') return sum
-          const presence = parseInt(p.presence.replace('%', '').replace('N/A', '')) || 0
-          return sum + presence
-        }, 0) / displayPlayers.filter(p => p.presence !== 'N/A').length || 1
-      )
-    : 0
 
-  const avgPerformance = displayPlayers.length > 0
-    ? displayPlayers
-        .filter(p => p.performance !== null)
-        .reduce((sum, p) => sum + (p.performance || 0), 0) / displayPlayers.filter(p => p.performance !== null).length
-    : 0
+  // Calculer les statistiques avec useMemo pour optimiser (évite les recalculs inutiles)
+  const stats = useMemo(() => {
+    if (loading || displayPlayers.length === 0) {
+      return {
+        totalPlayers: 0,
+        activePlayers: 0,
+        inactivePlayers: 0,
+        avgPresence: 0,
+        avgPerformance: 0,
+      }
+    }
+
+    const activePlayers = displayPlayers.filter(p => p.statut === 'Actif').length
+    const inactivePlayers = displayPlayers.filter(p => p.statut !== 'Actif').length
+    
+    const avgPresence = displayPlayers.length > 0
+      ? Math.round(
+          displayPlayers.reduce((sum, p) => {
+            if (p.presence === 'N/A') return sum
+            const presence = parseInt(p.presence.replace('%', '').replace('N/A', '')) || 0
+            return sum + presence
+          }, 0) / displayPlayers.filter(p => p.presence !== 'N/A').length || 1
+        )
+      : 0
+
+    const avgPerformance = displayPlayers.length > 0
+      ? displayPlayers
+          .filter(p => p.performance !== null)
+          .reduce((sum, p) => sum + (p.performance || 0), 0) / displayPlayers.filter(p => p.performance !== null).length
+      : 0
+
+    return {
+      totalPlayers: displayPlayers.length,
+      activePlayers,
+      inactivePlayers,
+      avgPresence,
+      avgPerformance: avgPerformance || 0,
+    }
+  }, [displayPlayers, loading])
+
+  // Fonction pour gérer le succès des actions CRUD
+  const handleSuccess = useCallback(() => {
+    refresh()
+  }, [refresh])
+
+  // Ouvrir le formulaire de création
+  const handleCreateClick = () => {
+    setSelectedPlayerId(null)
+    setFormDialogOpen(true)
+  }
+
+  // Ouvrir le formulaire d'édition
+  const handleEditClick = (e: React.MouseEvent, player: typeof displayPlayers[0]) => {
+    e.stopPropagation() // Empêcher le clic sur la ligne
+    setSelectedPlayerId(player.id)
+    setFormDialogOpen(true)
+  }
+
+  // Ouvrir le dialog de suppression
+  const handleDeleteClick = (e: React.MouseEvent, player: typeof displayPlayers[0]) => {
+    e.stopPropagation() // Empêcher le clic sur la ligne
+    setSelectedPlayerId(player.id)
+    setSelectedPlayerName(player.nom)
+    setDeleteDialogOpen(true)
+  }
+  
 
   const columns = [
     {
@@ -153,8 +303,13 @@ export default function PlayersManagementPage() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => router.push(`/players/${row.id}`)}
+            onClick={(e) => {
+              e.stopPropagation()
+              // Rediriger vers la page de détails du joueur (route publique)
+              router.push(`/players/${row.id}`)
+            }}
             className="text-[#D4AF37] hover:text-white hover:bg-[#D4AF37] transition-all duration-200 shadow-sm hover:shadow-md"
+            title="Voir les détails du joueur"
           >
             <Eye className="w-4 h-4 mr-2" />
             Voir
@@ -162,9 +317,20 @@ export default function PlayersManagementPage() {
           <Button
             variant="ghost"
             size="sm"
-            className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all"
+            onClick={(e) => handleEditClick(e, row)}
+            className="text-blue-600 hover:text-white hover:bg-blue-600 transition-all duration-200 shadow-sm hover:shadow-md"
+            title="Modifier"
           >
             <Edit className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={(e) => handleDeleteClick(e, row)}
+            className="text-red-600 hover:text-white hover:bg-red-600 transition-all duration-200 shadow-sm hover:shadow-md"
+            title="Supprimer"
+          >
+            <Trash2 className="w-4 h-4" />
           </Button>
         </div>
       ),
@@ -183,7 +349,10 @@ export default function PlayersManagementPage() {
             </h1>
             <p className="text-[#737373] text-lg">Gérez tous les joueurs de l'académie</p>
           </div>
-          <Button className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white shadow-lg hover:shadow-xl transition-all">
+          <Button 
+            onClick={handleCreateClick}
+            className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white shadow-lg hover:shadow-xl transition-all"
+          >
             <Plus className="w-4 h-4 mr-2" />
             Ajouter un Joueur
           </Button>
@@ -203,7 +372,7 @@ export default function PlayersManagementPage() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-              {loading ? "..." : totalPlayers}
+              {loading ? "..." : stats.totalPlayers}
             </div>
             <p className="text-xs text-[#737373] mt-1">Dans l'académie</p>
           </CardContent>
@@ -220,7 +389,7 @@ export default function PlayersManagementPage() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-800 bg-clip-text text-transparent">
-              {loading ? "..." : activePlayers}
+              {loading ? "..." : stats.activePlayers}
             </div>
             <p className="text-xs text-[#737373] mt-1">En activité</p>
           </CardContent>
@@ -237,7 +406,7 @@ export default function PlayersManagementPage() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
-              {loading ? "..." : `${avgPresence}%`}
+              {loading ? "..." : `${stats.avgPresence}%`}
             </div>
             <p className="text-xs text-[#737373] mt-1">Taux moyen</p>
           </CardContent>
@@ -254,7 +423,7 @@ export default function PlayersManagementPage() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold bg-gradient-to-r from-[#D4AF37] to-[#B8941F] bg-clip-text text-transparent">
-              {loading ? "..." : avgPerformance.toFixed(1)}
+              {loading ? "..." : stats.avgPerformance.toFixed(1)}
             </div>
             <p className="text-xs text-[#737373] mt-1">Sur 100</p>
           </CardContent>
@@ -267,17 +436,23 @@ export default function PlayersManagementPage() {
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
               <CardTitle className="text-2xl font-bold text-[#1A1A1A] mb-1">Liste des Joueurs</CardTitle>
-              <CardDescription className="text-[#737373]">Recherchez, filtrez et gérez les joueurs</CardDescription>
+              <CardDescription className="text-[#737373]">
+                Recherchez, filtrez et gérez les joueurs
+                {filters.status && ` • Statut: ${filters.status === 'active' ? 'Actif' : filters.status === 'inactive' ? 'Inactif' : filters.status === 'graduated' ? 'Diplômé' : 'Transféré'}`}
+                {filters.category && ` • Catégorie: ${filters.category}`}
+              </CardDescription>
             </div>
             <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-gray-200 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all"
-              >
-                <Filter className="w-4 h-4 mr-2" />
-                Filtres
-              </Button>
+              {(filters.status || filters.category) && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setFilters({ search: filters.search })}
+                  className="border-[#E5E7EB] text-[#1A1A1A] hover:bg-[#F9FAFB]"
+                >
+                  Réinitialiser les filtres
+                </Button>
+              )}
             </div>
           </div>
         </CardHeader>
@@ -304,7 +479,10 @@ export default function PlayersManagementPage() {
               </div>
               <h3 className="text-xl font-semibold text-[#1A1A1A] mb-2">Aucun joueur trouvé</h3>
               <p className="text-[#737373] mb-6">Il n'y a pas encore de joueurs dans la base de données.</p>
-              <Button className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white shadow-lg hover:shadow-xl transition-all">
+              <Button 
+                onClick={handleCreateClick}
+                className="bg-gradient-to-r from-[#D4AF37] to-[#B8941F] hover:from-[#B8941F] hover:to-[#D4AF37] text-white shadow-lg hover:shadow-xl transition-all"
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 Ajouter le premier joueur
               </Button>
@@ -315,13 +493,32 @@ export default function PlayersManagementPage() {
                 data={displayPlayers}
                 columns={columns}
                 searchPlaceholder="Rechercher un joueur..."
-                onExport={() => console.log("Export")}
+                searchValue={searchQuery}
+                onSearchChange={handleSearchChange}
+                onFilterChange={handleFilterChange}
+                onExport={handleExport}
                 onRowClick={(row) => router.push(`/players/${row.id}`)}
               />
             </div>
           )}
         </CardContent>
       </Card>
+
+      {/* Modals */}
+      <PlayerFormDialog
+        open={formDialogOpen}
+        onOpenChange={setFormDialogOpen}
+        playerId={selectedPlayerId}
+        onSuccess={handleSuccess}
+      />
+
+      <PlayerDeleteDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        playerId={selectedPlayerId}
+        playerName={selectedPlayerName}
+        onSuccess={handleSuccess}
+      />
     </AdminLayout>
   )
 }

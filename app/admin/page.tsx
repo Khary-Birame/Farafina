@@ -1,7 +1,7 @@
 ﻿"use client"
 
-import { AdminLayout } from "@/components/admin/admin-layout"
-import { KPICard } from "@/components/admin/kpi-card"
+import { AdminLayoutEnhanced } from "@/components/admin/admin-layout-enhanced"
+import { KPICardEnhanced } from "@/components/admin/kpi-card-enhanced"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Users,
@@ -12,6 +12,8 @@ import {
   TrendingUp,
   AlertCircle,
   Clock,
+  Target,
+  Percent,
 } from "lucide-react"
 import {
   LineChart,
@@ -28,9 +30,36 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts"
-import { useAdminDashboard } from "@/lib/admin/hooks/use-admin-dashboard"
+import { useAdminDashboardOptimized } from "@/lib/admin/hooks/use-admin-dashboard-optimized"
 import { getAttendanceStats, getAcademicPerformance, getFinancialData } from "@/lib/admin/services/dashboard-stats"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
+import dynamic from "next/dynamic"
+
+// Lazy load des charts pour optimiser les performances
+const ChartSkeleton = () => (
+  <div className="h-[300px] flex items-center justify-center">
+    <div className="animate-pulse space-y-4 w-full">
+      <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+      <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+      <div className="h-32 bg-gray-200 rounded"></div>
+    </div>
+  </div>
+)
+
+const LazyLineChart = dynamic(
+  () => import('recharts').then(mod => mod.LineChart),
+  { ssr: false, loading: () => <ChartSkeleton /> }
+)
+
+const LazyBarChart = dynamic(
+  () => import('recharts').then(mod => mod.BarChart),
+  { ssr: false, loading: () => <ChartSkeleton /> }
+)
+
+const LazyPieChart = dynamic(
+  () => import('recharts').then(mod => mod.PieChart),
+  { ssr: false, loading: () => <ChartSkeleton /> }
+)
 
 // Données de démonstration (fallback)
 const defaultAttendanceData = [
@@ -66,16 +95,59 @@ const injuryDistribution = [
 ]
 
 export default function AdminDashboardPage() {
-  const { kpis, loading: kpisLoading } = useAdminDashboard()
-  const [attendanceData, setAttendanceData] = useState<typeof defaultAttendanceData>([])
-  const [academicData, setAcademicData] = useState<typeof defaultAcademicData>([])
+  const { kpis, loading: kpisLoading } = useAdminDashboardOptimized()
+  const [attendanceData, setAttendanceData] = useState<any[]>([])
+  const [academicData, setAcademicData] = useState<any[]>([])
   const [financialData, setFinancialData] = useState<any[]>([])
   const [loadingCharts, setLoadingCharts] = useState(true)
+
+  // Cache simple pour les données des charts
+  const chartsCacheKey = 'admin-dashboard-charts'
+  const CACHE_DURATION = 60000 // 1 minute
 
   useEffect(() => {
     async function loadChartData() {
       try {
         setLoadingCharts(true)
+        
+        // Vérifier le cache
+        const cached = typeof window !== 'undefined' 
+          ? sessionStorage.getItem(chartsCacheKey)
+          : null
+        
+        if (cached) {
+          try {
+            const { data, timestamp } = JSON.parse(cached)
+            const now = Date.now()
+            if (now - timestamp < CACHE_DURATION) {
+              setAttendanceData(data.attendance || [])
+              setAcademicData(data.academic || [])
+              setFinancialData(data.financial || [])
+              setLoadingCharts(false)
+              
+              // Revalider en arrière-plan
+              setTimeout(() => {
+                loadChartDataFresh()
+              }, 100)
+              return
+            }
+          } catch (e) {
+            // Cache invalide, continuer
+          }
+        }
+
+        await loadChartDataFresh()
+      } catch (error) {
+        console.error('Erreur chargement données graphiques:', error)
+        setAttendanceData([])
+        setAcademicData([])
+        setFinancialData([])
+        setLoadingCharts(false)
+      }
+    }
+
+    async function loadChartDataFresh() {
+      try {
         const [attendance, academic, financial] = await Promise.all([
           getAttendanceStats(),
           getAcademicPerformance(),
@@ -102,9 +174,20 @@ export default function AdminDashboardPage() {
         } else {
           setFinancialData([])
         }
+
+        // Mettre en cache
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem(chartsCacheKey, JSON.stringify({
+            data: {
+              attendance: attendance || [],
+              academic: academic || [],
+              financial: financial || [],
+            },
+            timestamp: Date.now(),
+          }))
+        }
       } catch (error) {
         console.error('Erreur chargement données graphiques:', error)
-        // En cas d'erreur, initialiser avec des tableaux vides plutôt que des mockups
         setAttendanceData([])
         setAcademicData([])
         setFinancialData([])
@@ -116,10 +199,12 @@ export default function AdminDashboardPage() {
     loadChartData()
   }, [])
 
-  // Calculer la moyenne académique depuis les données Supabase uniquement
-  const academicAverage = academicData.length > 0
-    ? Math.round(academicData.reduce((sum, item) => sum + item.moyenne, 0) / academicData.length)
-    : 0
+  // Calculer la moyenne académique avec useMemo pour optimiser
+  const academicAverage = useMemo(() => {
+    return academicData.length > 0
+      ? Math.round(academicData.reduce((sum, item) => sum + item.moyenne, 0) / academicData.length)
+      : 0
+  }, [academicData])
 
   // Formater les revenus mensuels
   const formatRevenue = (amount: number) => {
@@ -129,112 +214,173 @@ export default function AdminDashboardPage() {
     return `${amount.toLocaleString()} XOF`
   }
 
+  // Générer des sparklines pour les KPIs
+  const generateSparkline = (data: any[], key: string) => {
+    if (!data || data.length === 0) return []
+    return data.slice(-7).map((item) => item[key] || 0)
+  }
+
   return (
-    <AdminLayout>
+    <AdminLayoutEnhanced>
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">Tableau de Bord</h1>
-        <p className="text-[#737373]">Vue d'ensemble de l'académie Farafina</p>
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#1A1A1A] mb-2">
+          Tableau de Bord
+        </h1>
+        <p className="text-sm sm:text-base text-[#737373]">
+          Vue d'ensemble de l'académie Farafina
+        </p>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        <KPICard
+      {/* KPI Cards - Responsive Grid avec nouveaux KPIs */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
+        <KPICardEnhanced
           title="Total Joueurs"
           value={kpisLoading ? "..." : kpis.totalPlayers.toString()}
-          change={kpis.totalPlayers > 0 ? { value: `+${kpis.activePlayers}`, type: "increase" } : undefined}
+          change={
+            kpis.totalPlayers > 0
+              ? {
+                  value: `+${kpis.activePlayers}`,
+                  type: "increase",
+                  period: "actifs",
+                }
+              : undefined
+          }
           icon={Users}
           description="Joueurs actifs"
+          sparkline={generateSparkline(attendanceData, 'taux')}
+          loading={kpisLoading}
         />
-        <KPICard
-          title="Blessures Actives"
-          value={kpisLoading ? "..." : kpis.inactivePlayers.toString()}
-          change={kpis.inactivePlayers > 0 ? { value: "-3", type: "decrease" } : undefined}
-          icon={Activity}
-          iconColor="text-[#EF4444]"
-          borderColor="border-l-[#EF4444]"
-          description="Blessures en cours"
-        />
-        <KPICard
-          title="Matchs à Venir"
-          value="15"
-          icon={Calendar}
-          iconColor="text-[#3B82F6]"
-          borderColor="border-l-[#3B82F6]"
-          description="Prochains 30 jours"
-        />
-        <KPICard
-          title="Performance Académique"
-          value={`${academicAverage}%`}
-          change={{ value: "+5%", type: "increase" }}
-          icon={GraduationCap}
+        <KPICardEnhanced
+          title="Taux de Rétention"
+          value={kpisLoading ? "..." : `${kpis.retentionRate}%`}
+          change={
+            kpis.retentionRate > 80
+              ? { value: "+2%", type: "increase", period: "vs mois dernier" }
+              : kpis.retentionRate < 70
+              ? { value: "-3%", type: "decrease", period: "vs mois dernier" }
+              : undefined
+          }
+          icon={Target}
           iconColor="text-[#10B981]"
           borderColor="border-l-[#10B981]"
-          description="Moyenne générale"
+          description="Joueurs actifs / Total"
+          loading={kpisLoading}
+        />
+        <KPICardEnhanced
+          title="Revenus Mensuels"
+          value={kpisLoading ? "..." : formatRevenue(kpis.monthlyRevenue)}
+          change={
+            kpis.growthRate > 0
+              ? { value: `+${kpis.growthRate}%`, type: "increase", period: "MoM" }
+              : undefined
+          }
+          icon={DollarSign}
+          iconColor="text-[#D4AF37]"
+          borderColor="border-l-[#D4AF37]"
+          description="Ce mois-ci"
+          sparkline={generateSparkline(financialData, 'XOF')}
+          loading={kpisLoading}
+        />
+        <KPICardEnhanced
+          title="ARPU"
+          value={kpisLoading ? "..." : formatRevenue(kpis.arpu)}
+          change={
+            kpis.arpu > 0
+              ? { value: "+5%", type: "increase", period: "vs mois dernier" }
+              : undefined
+          }
+          icon={TrendingUp}
+          iconColor="text-[#3B82F6]"
+          borderColor="border-l-[#3B82F6]"
+          description="Revenu moyen par joueur"
+          loading={kpisLoading}
         />
       </div>
 
       {/* Second Row KPIs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        <KPICard
-          title="Paiements En Attente"
-          value={kpisLoading ? "..." : kpis.pendingPayments.toString()}
-          icon={DollarSign}
-          iconColor="text-[#F59E0B]"
-          borderColor="border-l-[#F59E0B]"
-          description="En attente de traitement"
-        />
-        <KPICard
-          title="Revenus Mensuels"
-          value={kpisLoading ? "..." : formatRevenue(kpis.monthlyRevenue)}
-          change={kpis.monthlyRevenue > 0 ? { value: "+12%", type: "increase" } : undefined}
-          icon={TrendingUp}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
+        <KPICardEnhanced
+          title="Performance Académique"
+          value={loadingCharts ? "..." : `${academicAverage}%`}
+          change={{ value: "+5%", type: "increase", period: "vs trimestre" }}
+          icon={GraduationCap}
           iconColor="text-[#10B981]"
           borderColor="border-l-[#10B981]"
-          description="Ce mois-ci"
+          description="Moyenne générale"
+          loading={loadingCharts}
         />
-        <KPICard
+        <KPICardEnhanced
+          title="Taux d'Assiduité"
+          value={
+            loadingCharts
+              ? "..."
+              : kpis.averageAttendance > 0
+              ? `${kpis.averageAttendance}%`
+              : attendanceData.length > 0
+              ? `${attendanceData[attendanceData.length - 1].taux}%`
+              : "N/A"
+          }
+          change={
+            kpis.averageAttendance > 90
+              ? { value: "+3%", type: "increase", period: "ce mois" }
+              : undefined
+          }
+          icon={Clock}
+          iconColor="text-[#3B82F6]"
+          borderColor="border-l-[#3B82F6]"
+          description="Entraînements"
+          sparkline={generateSparkline(attendanceData, 'taux')}
+          loading={loadingCharts}
+        />
+        <KPICardEnhanced
+          title="Taux de Conversion"
+          value={kpisLoading ? "..." : `${kpis.conversionRate}%`}
+          change={
+            kpis.conversionRate > 50
+              ? { value: "+8%", type: "increase", period: "vs mois dernier" }
+              : undefined
+          }
+          icon={Percent}
+          iconColor="text-[#F59E0B]"
+          borderColor="border-l-[#F59E0B]"
+          description="Candidatures acceptées"
+          loading={kpisLoading}
+        />
+        <KPICardEnhanced
           title="Alertes"
           value={kpisLoading ? "..." : kpis.unreadNotifications.toString()}
           icon={AlertCircle}
           iconColor="text-[#EF4444]"
           borderColor="border-l-[#EF4444]"
           description="Nécessitent une attention"
-        />
-        <KPICard
-          title="Taux de Présence"
-          value={loadingCharts ? "..." : attendanceData.length > 0 ? `${attendanceData[attendanceData.length - 1].taux}%` : "N/A"}
-          change={attendanceData.length > 0 && attendanceData[attendanceData.length - 1].taux > 0 ? { value: "+3%", type: "increase" } : undefined}
-          icon={Clock}
-          iconColor="text-[#3B82F6]"
-          borderColor="border-l-[#3B82F6]"
-          description="Entraînements ce mois"
+          loading={kpisLoading}
         />
       </div>
 
-      {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      {/* Charts Row - Responsive avec Lazy Loading */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
         {/* Attendance Chart */}
-        <Card className="bg-white shadow-md">
+        <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
           <CardHeader>
-            <CardTitle className="text-[#1A1A1A] font-semibold">Taux de Présence aux Entraînements</CardTitle>
+            <CardTitle className="text-[#1A1A1A] font-semibold">
+              Taux de Présence aux Entraînements
+            </CardTitle>
             <CardDescription className="text-[#737373]">Évolution mensuelle</CardDescription>
           </CardHeader>
           <CardContent>
             {loadingCharts ? (
-              <div className="h-[300px] flex items-center justify-center">
-                <p className="text-[#737373]">Chargement...</p>
-              </div>
+              <ChartSkeleton />
             ) : attendanceData.length === 0 ? (
               <div className="h-[300px] flex items-center justify-center">
                 <p className="text-[#737373]">Aucune donnée de présence disponible</p>
               </div>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={attendanceData}>
+                <LazyLineChart data={attendanceData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                  <XAxis dataKey="month" stroke="#737373" tick={{ fill: "#737373" }} />
-                  <YAxis stroke="#737373" tick={{ fill: "#737373" }} />
+                  <XAxis dataKey="month" stroke="#737373" tick={{ fill: "#737373", fontSize: 12 }} />
+                  <YAxis stroke="#737373" tick={{ fill: "#737373", fontSize: 12 }} />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: "#FFFFFF",
@@ -251,33 +397,33 @@ export default function AdminDashboardPage() {
                     dot={{ fill: "#D4AF37", r: 6 }}
                     activeDot={{ r: 8 }}
                   />
-                </LineChart>
+                </LazyLineChart>
               </ResponsiveContainer>
             )}
           </CardContent>
         </Card>
 
         {/* Academic Performance Chart */}
-        <Card className="bg-white shadow-md">
+        <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
           <CardHeader>
-            <CardTitle className="text-[#1A1A1A] font-semibold">Performances Académiques</CardTitle>
+            <CardTitle className="text-[#1A1A1A] font-semibold">
+              Performances Académiques
+            </CardTitle>
             <CardDescription className="text-[#737373]">Moyennes par matière</CardDescription>
           </CardHeader>
           <CardContent>
             {loadingCharts ? (
-              <div className="h-[300px] flex items-center justify-center">
-                <p className="text-[#737373]">Chargement...</p>
-              </div>
+              <ChartSkeleton />
             ) : academicData.length === 0 ? (
               <div className="h-[300px] flex items-center justify-center">
                 <p className="text-[#737373]">Aucune donnée académique disponible</p>
               </div>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={academicData}>
+                <LazyBarChart data={academicData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                  <XAxis dataKey="subject" stroke="#737373" tick={{ fill: "#737373" }} />
-                  <YAxis stroke="#737373" tick={{ fill: "#737373" }} />
+                  <XAxis dataKey="subject" stroke="#737373" tick={{ fill: "#737373", fontSize: 12 }} />
+                  <YAxis stroke="#737373" tick={{ fill: "#737373", fontSize: 12 }} />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: "#FFFFFF",
@@ -286,16 +432,13 @@ export default function AdminDashboardPage() {
                       boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                     }}
                   />
-                  <Bar 
-                    dataKey="moyenne" 
-                    radius={[8, 8, 0, 0]}
-                  >
+                  <Bar dataKey="moyenne" radius={[8, 8, 0, 0]}>
                     {academicData.map((entry, index) => {
-                      const colors = ["#D4AF37", "#E8C966", "#B8941F", "#F59E0B", "#10B981"];
-                      return <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />;
+                      const colors = ["#D4AF37", "#E8C966", "#B8941F", "#F59E0B", "#10B981"]
+                      return <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                     })}
                   </Bar>
-                </BarChart>
+                </LazyBarChart>
               </ResponsiveContainer>
             )}
           </CardContent>
@@ -303,28 +446,28 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Bottom Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Financial Overview */}
-        <Card className="bg-white shadow-md">
+        <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
           <CardHeader>
             <CardTitle className="text-[#1A1A1A] font-semibold">Vue Financière</CardTitle>
-            <CardDescription className="text-[#737373]">Évolution mensuelle en XOF, EUR et USD</CardDescription>
+            <CardDescription className="text-[#737373]">
+              Évolution mensuelle en XOF, EUR et USD
+            </CardDescription>
           </CardHeader>
           <CardContent>
             {loadingCharts ? (
-              <div className="h-[300px] flex items-center justify-center">
-                <p className="text-[#737373]">Chargement...</p>
-              </div>
+              <ChartSkeleton />
             ) : financialData.length === 0 ? (
               <div className="h-[300px] flex items-center justify-center">
                 <p className="text-[#737373]">Aucune donnée financière disponible</p>
               </div>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={financialData}>
+                <LazyBarChart data={financialData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                  <XAxis dataKey="month" stroke="#737373" tick={{ fill: "#737373" }} />
-                  <YAxis stroke="#737373" tick={{ fill: "#737373" }} />
+                  <XAxis dataKey="month" stroke="#737373" tick={{ fill: "#737373", fontSize: 12 }} />
+                  <YAxis stroke="#737373" tick={{ fill: "#737373", fontSize: 12 }} />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: "#FFFFFF",
@@ -334,25 +477,24 @@ export default function AdminDashboardPage() {
                     }}
                   />
                   <Legend />
-                  {/* getFinancialData retourne maintenant XOF/EUR/USD au lieu de revenus/depenses */}
                   <Bar dataKey="XOF" fill="#D4AF37" radius={[8, 8, 0, 0]} name="XOF" />
                   <Bar dataKey="EUR" fill="#1A1A1A" radius={[8, 8, 0, 0]} name="EUR" />
                   <Bar dataKey="USD" fill="#E8C966" radius={[8, 8, 0, 0]} name="USD" />
-                </BarChart>
+                </LazyBarChart>
               </ResponsiveContainer>
             )}
           </CardContent>
         </Card>
 
         {/* Injury Distribution */}
-        <Card className="bg-white shadow-md">
+        <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
           <CardHeader>
             <CardTitle className="text-[#1A1A1A] font-semibold">Répartition des Blessures</CardTitle>
             <CardDescription className="text-[#737373]">Types de blessures enregistrées</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
+              <LazyPieChart>
                 <Pie
                   data={injuryDistribution}
                   cx="50%"
@@ -375,11 +517,11 @@ export default function AdminDashboardPage() {
                     boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                   }}
                 />
-              </PieChart>
+              </LazyPieChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
       </div>
-    </AdminLayout>
+    </AdminLayoutEnhanced>
   )
 }

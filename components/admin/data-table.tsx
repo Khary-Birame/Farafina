@@ -31,6 +31,9 @@ interface DataTableProps<T> {
   data: T[]
   columns: Column<T>[]
   searchPlaceholder?: string
+  searchValue?: string
+  onSearchChange?: (value: string) => void
+  onFilterChange?: (filterType: string) => void
   onExport?: () => void
   onRowClick?: (row: T) => void
 }
@@ -39,18 +42,27 @@ export function DataTable<T extends { id: number | string }>({
   data,
   columns,
   searchPlaceholder = "Rechercher...",
+  searchValue,
+  onSearchChange,
+  onFilterChange,
   onExport,
   onRowClick,
 }: DataTableProps<T>) {
-  const [searchQuery, setSearchQuery] = useState("")
+  const [localSearchQuery, setLocalSearchQuery] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
 
+  // Utiliser searchValue si fourni (recherche côté serveur), sinon recherche locale
+  const searchQuery = searchValue !== undefined ? searchValue : localSearchQuery
+
   const filteredData = data.filter((row) => {
     if (!searchQuery) return true
-    return Object.values(row).some((value) =>
-      String(value).toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    // Recherche dans tous les champs visibles
+    return Object.values(row).some((value) => {
+      if (value === null || value === undefined) return false
+      const stringValue = String(value).toLowerCase()
+      return stringValue.includes(searchQuery.toLowerCase())
+    })
   })
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage)
@@ -69,7 +81,18 @@ export function DataTable<T extends { id: number | string }>({
             type="search"
             placeholder={searchPlaceholder}
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => {
+              const newValue = e.target.value
+              if (onSearchChange) {
+                // Recherche côté serveur
+                onSearchChange(newValue)
+              } else {
+                // Recherche locale
+                setLocalSearchQuery(newValue)
+              }
+              // Réinitialiser à la page 1 lors d'une nouvelle recherche
+              setCurrentPage(1)
+            }}
             className="pl-10 bg-white border-[#E5E7EB] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20 shadow-sm"
           />
         </div>
@@ -82,9 +105,24 @@ export function DataTable<T extends { id: number | string }>({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-white border-[#E5E7EB] shadow-lg">
-              <DropdownMenuItem className="hover:bg-[#F9FAFB]">Par statut</DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-[#F9FAFB]">Par date</DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-[#F9FAFB]">Par catégorie</DropdownMenuItem>
+              <DropdownMenuItem 
+                className="hover:bg-[#F9FAFB] cursor-pointer"
+                onClick={() => onFilterChange?.("status")}
+              >
+                Par statut
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                className="hover:bg-[#F9FAFB] cursor-pointer"
+                onClick={() => onFilterChange?.("category")}
+              >
+                Par catégorie
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                className="hover:bg-[#F9FAFB] cursor-pointer"
+                onClick={() => onFilterChange?.("date")}
+              >
+                Par date
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           {onExport && (

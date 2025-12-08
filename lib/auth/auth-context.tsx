@@ -79,6 +79,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  // Fonction pour synchroniser la session localStorage → cookies
+  const syncSessionToServer = async (session: any) => {
+    if (!session || typeof window === 'undefined') return
+
+    try {
+      const response = await fetch('/api/auth/sync-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_token: session.access_token,
+          refresh_token: session.refresh_token,
+        }),
+      })
+
+      if (!response.ok) {
+        console.warn('Échec synchronisation session vers serveur')
+      }
+    } catch (error) {
+      console.warn('Erreur synchronisation session:', error)
+      // Ne pas bloquer le flux si la synchronisation échoue
+    }
+  }
+
   useEffect(() => {
     // Éviter les initialisations multiples
     if (isInitializedRef.current) {
@@ -114,9 +139,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (!isMounted) return
 
+      // Synchroniser la session vers les cookies serveur pour les événements de connexion
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED" || event === "INITIAL_SESSION") {
-        // Attendre un peu pour que les cookies soient synchronisés
-        await new Promise(resolve => setTimeout(resolve, 100))
+        if (session) {
+          // Synchroniser en arrière-plan sans bloquer
+          syncSessionToServer(session).catch(err =>
+            console.warn('Sync session error (non-blocking):', err)
+          )
+        }
+
+        // Récupérer l'utilisateur immédiatement sans délai
         const currentUser = await getCurrentUser()
         if (isMounted) {
           setUser(currentUser as User | null)
@@ -135,6 +167,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         // Pour les autres événements, vérifier la session
         if (session) {
+          // Synchroniser si nécessaire en arrière-plan
+          syncSessionToServer(session).catch(err =>
+            console.warn('Sync session error (non-blocking):', err)
+          )
           const currentUser = await getCurrentUser()
           if (isMounted) {
             setUser(currentUser as User | null)

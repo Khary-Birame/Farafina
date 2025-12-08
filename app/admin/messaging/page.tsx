@@ -9,10 +9,48 @@ import { Textarea } from "@/components/ui/textarea"
 import { MessageSquare, Send, Search, Filter, Bell, AlertCircle, Info } from "lucide-react"
 import { useState } from "react"
 import { useAdminMessaging } from "@/lib/admin/hooks/use-admin-messaging"
+import { toast } from "sonner"
 
 export default function MessagingNotificationsPage() {
   const { messages, notifications, loading, error } = useAdminMessaging()
   const [selectedMessage, setSelectedMessage] = useState<typeof messages[0] | null>(null)
+  const [replyText, setReplyText] = useState("")
+  const [showFilters, setShowFilters] = useState(false)
+  
+  const handleNewMessage = () => {
+    toast.info("Nouveau message", {
+      description: "La création de nouveaux messages sera bientôt disponible.",
+    })
+  }
+  
+  const handleSendReply = () => {
+    if (!replyText.trim()) {
+      toast.error("Message vide", {
+        description: "Veuillez saisir un message avant d'envoyer.",
+      })
+      return
+    }
+    
+    if (!selectedMessage) {
+      toast.error("Aucun message sélectionné", {
+        description: "Veuillez sélectionner un message pour répondre.",
+      })
+      return
+    }
+    
+    toast.success("Message envoyé", {
+      description: `Réponse envoyée à ${selectedMessage.from}`,
+    })
+    setReplyText("")
+    // TODO: Implémenter l'envoi réel du message
+  }
+  
+  const handleFilter = () => {
+    setShowFilters(!showFilters)
+    toast.info("Filtres", {
+      description: showFilters ? "Filtres masqués" : "Filtres affichés",
+    })
+  }
 
   return (
     <AdminLayout>
@@ -33,13 +71,19 @@ export default function MessagingNotificationsPage() {
                   <CardDescription className="text-[#737373]">Communication interne</CardDescription>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Button variant="outline" size="sm" className="border-[#E5E7EB] text-[#1A1A1A] hover:bg-[#F9FAFB]">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="border-[#E5E7EB] text-[#1A1A1A] hover:bg-[#F9FAFB]"
+                    onClick={handleFilter}
+                  >
                     <Filter className="w-4 h-4 mr-2" />
                     Filtres
                   </Button>
                   <Button
                     size="sm"
                     className="bg-[#D4AF37] hover:bg-[#B8941F] text-white"
+                    onClick={handleNewMessage}
                   >
                     <MessageSquare className="w-4 h-4 mr-2" />
                     Nouveau Message
@@ -134,8 +178,13 @@ export default function MessagingNotificationsPage() {
                   <Textarea
                     placeholder="Répondre au message..."
                     className="min-h-[100px] border-[#E5E7EB] focus:border-[#D4AF37] focus:ring-[#D4AF37]/20 shadow-sm"
+                    value={replyText}
+                    onChange={(e) => setReplyText(e.target.value)}
                   />
-                  <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
+                  <Button 
+                    className="bg-[#D4AF37] hover:bg-[#B8941F] text-white"
+                    onClick={handleSendReply}
+                  >
                     <Send className="w-4 h-4 mr-2" />
                     Envoyer
                   </Button>

@@ -28,7 +28,7 @@ interface CacheEntry {
 
 // Cache simple en mémoire (remplace SWR pour l'instant)
 const cache: Map<string, CacheEntry> = new Map()
-const CACHE_DURATION = 30000 // 30 secondes
+const CACHE_DURATION = 60000 // 60 secondes (augmenté pour réduire les requêtes)
 
 function getCachedData(key: string): DashboardKPIs | null {
   const entry = cache.get(key)
@@ -141,21 +141,40 @@ export function useAdminDashboardOptimized() {
           ? Math.round((activePlayers / totalPlayers) * 100) 
           : 0
 
-        // Taux de conversion = (candidatures acceptées / total candidatures) * 100
-        // Pour l'instant, on utilise une estimation basée sur les données disponibles
-        const { count: totalApplications } = await supabase
-          .from('form_submissions')
-          .select('*', { count: 'exact', head: true })
-          .eq('form_type', 'application')
-        
-        const { count: acceptedApplications } = await supabase
-          .from('form_submissions')
-          .select('*', { count: 'exact', head: true })
-          .eq('form_type', 'application')
-          .eq('status', 'accepted')
+        // Paralléliser toutes les requêtes supplémentaires
+        const lastMonth = new Date()
+        lastMonth.setMonth(lastMonth.getMonth() - 1)
+        const startOfLastMonth = new Date(lastMonth.getFullYear(), lastMonth.getMonth(), 1).toISOString()
+        const endOfLastMonth = new Date(lastMonth.getFullYear(), lastMonth.getMonth() + 1, 0).toISOString()
 
-        const conversionRate = (totalApplications || 0) > 0
-          ? Math.round(((acceptedApplications || 0) / (totalApplications || 1)) * 100)
+        // Fonction helper pour gérer les erreurs de requête training_attendance
+        const getAttendanceData = async () => {
+          try {
+            const result = await supabase.from('training_attendance').select('attended').limit(500)
+            return result
+          } catch (error) {
+            // Table peut ne pas exister
+            return { data: null, error: null }
+          }
+        }
+
+        const [
+          totalApplicationsResult,
+          acceptedApplicationsResult,
+          attendanceDataResult,
+          lastMonthOrdersResult,
+        ] = await Promise.all([
+          supabase.from('form_submissions').select('*', { count: 'exact', head: true }).eq('form_type', 'application'),
+          supabase.from('form_submissions').select('*', { count: 'exact', head: true }).eq('form_type', 'application').eq('status', 'accepted'),
+          getAttendanceData(),
+          supabase.from('orders').select('total').eq('payment_status', 'paid').gte('created_at', startOfLastMonth).lte('created_at', endOfLastMonth),
+        ])
+
+        // Taux de conversion
+        const totalApplications = totalApplicationsResult.count || 0
+        const acceptedApplications = acceptedApplicationsResult.count || 0
+        const conversionRate = totalApplications > 0
+          ? Math.round((acceptedApplications / totalApplications) * 100)
           : 0
 
         // ARPU = Revenus mensuels / Nombre de joueurs actifs
@@ -163,36 +182,15 @@ export function useAdminDashboardOptimized() {
           ? Math.round(monthlyRevenue / activePlayers)
           : 0
 
-        // Taux d'assiduité moyen (depuis training_attendance si disponible)
+        // Taux d'assiduité moyen (limité à 500 enregistrements pour performance)
         let averageAttendance = 0
-        try {
-          const { data: attendanceData } = await supabase
-            .from('training_attendance')
-            .select('attended')
-            .limit(100)
-
-          if (attendanceData && attendanceData.length > 0) {
-            const attended = attendanceData.filter(a => a.attended).length
-            averageAttendance = Math.round((attended / attendanceData.length) * 100)
-          }
-        } catch (err) {
-          // Table peut ne pas exister
+        if (attendanceDataResult.data && attendanceDataResult.data.length > 0) {
+          const attended = attendanceDataResult.data.filter((a: any) => a.attended).length
+          averageAttendance = Math.round((attended / attendanceDataResult.data.length) * 100)
         }
 
-        // Taux de croissance MoM (comparaison avec le mois précédent)
-        const lastMonth = new Date()
-        lastMonth.setMonth(lastMonth.getMonth() - 1)
-        const startOfLastMonth = new Date(lastMonth.getFullYear(), lastMonth.getMonth(), 1).toISOString()
-        const endOfLastMonth = new Date(lastMonth.getFullYear(), lastMonth.getMonth() + 1, 0).toISOString()
-
-        const { data: lastMonthOrders } = await supabase
-          .from('orders')
-          .select('total')
-          .eq('payment_status', 'paid')
-          .gte('created_at', startOfLastMonth)
-          .lte('created_at', endOfLastMonth)
-
-        const lastMonthRevenue = lastMonthOrders?.reduce(
+        // Taux de croissance MoM
+        const lastMonthRevenue = lastMonthOrdersResult.data?.reduce(
           (sum, order) => sum + (Number(order.total) || 0),
           0
         ) || 0
