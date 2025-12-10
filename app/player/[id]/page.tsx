@@ -20,6 +20,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { use } from "react"
+import { ProtectedPage } from "@/components/auth/protected-page"
 
 // Données de démonstration
 const playerData = {
@@ -313,6 +314,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
       </main>
       <Footer />
     </div>
+    </ProtectedPage >
   )
 }
 

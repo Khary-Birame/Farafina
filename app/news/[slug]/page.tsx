@@ -3,6 +3,7 @@ import { Footer } from "@/components/footer"
 import { NewsDetails } from "@/components/news/news-details"
 import { notFound } from "next/navigation"
 import { generateSlug } from "@/lib/utils"
+import { ProtectedServerContent } from "@/components/auth/protected-server-content"
 
 // Mock data - À remplacer par une vraie source de données
 const getArticleBySlug = async (slug: string) => {
@@ -172,13 +173,15 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header variant="solid" />
-      <main className="pt-20">
-        <NewsDetails article={article} />
-      </main>
-      <Footer />
-    </div>
+    <ProtectedServerContent>
+      <div className="min-h-screen bg-white">
+        <Header variant="solid" />
+        <main className="pt-20">
+          <NewsDetails article={article} />
+        </main>
+        <Footer />
+      </div>
+    </ProtectedServerContent>
   )
 }
 

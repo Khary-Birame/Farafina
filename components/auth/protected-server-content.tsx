@@ -5,22 +5,17 @@ import { useRouter, usePathname } from "next/navigation"
 import { useAuth } from "@/lib/auth/auth-context"
 import { Loader2 } from "lucide-react"
 
-interface ProtectedPageProps {
+interface ProtectedServerContentProps {
   children: React.ReactNode
-  /**
-   * Si true, affiche un loader pendant la vérification
-   * Si false, retourne null (utile si la page a son propre loader)
-   */
-  showLoader?: boolean
 }
 
 /**
- * Composant de protection de page
+ * Composant wrapper pour protéger le contenu des pages serveur
  * 
- * Vérifie si l'utilisateur est authentifié et redirige vers /login avec le paramètre redirect
- * si l'utilisateur n'est pas connecté.
+ * Ce composant doit être utilisé dans les pages serveur (async) pour vérifier
+ * l'authentification côté client et rediriger si nécessaire.
  */
-export function ProtectedPage({ children, showLoader = true }: ProtectedPageProps) {
+export function ProtectedServerContent({ children }: ProtectedServerContentProps) {
   const router = useRouter()
   const pathname = usePathname()
   const { user, loading } = useAuth()
@@ -40,7 +35,7 @@ export function ProtectedPage({ children, showLoader = true }: ProtectedPageProp
   }, [user, loading, router, pathname])
 
   // Afficher un loader pendant la vérification
-  if (loading && showLoader) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -59,3 +54,4 @@ export function ProtectedPage({ children, showLoader = true }: ProtectedPageProp
   // Si l'utilisateur est connecté, afficher le contenu
   return <>{children}</>
 }
+

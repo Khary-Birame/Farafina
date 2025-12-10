@@ -4,6 +4,7 @@ import { FacilityDetail } from "@/components/visite-ffa/facility-detail"
 import { notFound } from "next/navigation"
 import { RevealScript } from "@/components/reveal-script"
 import type { Metadata } from "next"
+import { ProtectedServerContent } from "@/components/auth/protected-server-content"
 
 // Définition des facilities avec leurs détails
 const facilities = [
@@ -160,14 +161,16 @@ export default async function FacilityPage({ params }: { params: Promise<{ slug:
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header variant="solid" />
-      <main>
-        <FacilityDetail facility={facility} />
-      </main>
-      <Footer />
-      <RevealScript />
-    </div>
+    <ProtectedServerContent>
+      <div className="min-h-screen bg-white">
+        <Header variant="solid" />
+        <main>
+          <FacilityDetail facility={facility} />
+        </main>
+        <Footer />
+        <RevealScript />
+      </div>
+    </ProtectedServerContent>
   )
 }
 

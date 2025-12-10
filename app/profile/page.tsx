@@ -57,10 +57,12 @@ export default function ProfilePage() {
     }
   }, [user])
 
-  // Rediriger si non connecté
+  // Rediriger si non connecté avec le paramètre redirect
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/login")
+      const currentUrl = "/profile"
+      const encodedUrl = encodeURIComponent(currentUrl)
+      router.push(`/login?redirect=${encodedUrl}`)
     }
   }, [user, loading, router])
 
