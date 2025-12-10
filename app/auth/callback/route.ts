@@ -36,17 +36,32 @@ export async function GET(request: Request) {
 
       if (error) {
         console.error("Erreur de vérification OTP:", error)
-        // En cas d'erreur, rediriger vers la page de login avec un message d'erreur
-        const errorUrl = new URL("/login", requestUrl.origin)
-        errorUrl.searchParams.set("error", "token_invalid")
-        errorUrl.searchParams.set("message", "Le lien de confirmation est invalide ou a expiré. Veuillez demander un nouveau lien.")
-        return NextResponse.redirect(errorUrl.toString())
+        // En cas d'erreur, rediriger selon le type
+        if (type === "recovery") {
+          const errorUrl = new URL("/forgot-password", requestUrl.origin)
+          errorUrl.searchParams.set("error", "token_invalid")
+          errorUrl.searchParams.set("message", "Le lien de réinitialisation est invalide ou a expiré. Veuillez demander un nouveau lien.")
+          return NextResponse.redirect(errorUrl.toString())
+        } else {
+          const errorUrl = new URL("/login", requestUrl.origin)
+          errorUrl.searchParams.set("error", "token_invalid")
+          errorUrl.searchParams.set("message", "Le lien de confirmation est invalide ou a expiré. Veuillez demander un nouveau lien.")
+          return NextResponse.redirect(errorUrl.toString())
+        }
       }
 
-      // Succès : rediriger vers la page de login avec un message de succès
-      const successUrl = new URL("/login", requestUrl.origin)
-      successUrl.searchParams.set("confirmed", "true")
-      return NextResponse.redirect(successUrl.toString())
+      // Succès : rediriger selon le type
+      if (type === "recovery") {
+        // Pour la réinitialisation de mot de passe, rediriger vers /reset-password
+        // La session est maintenant active, l'utilisateur peut changer son mot de passe
+        const resetUrl = new URL("/reset-password", requestUrl.origin)
+        return NextResponse.redirect(resetUrl.toString())
+      } else {
+        // Pour la confirmation d'email, rediriger vers login avec message de succès
+        const successUrl = new URL("/login", requestUrl.origin)
+        successUrl.searchParams.set("confirmed", "true")
+        return NextResponse.redirect(successUrl.toString())
+      }
     } catch (err: any) {
       console.error("Erreur inattendue lors de la vérification:", err)
       const errorUrl = new URL("/login", requestUrl.origin)

@@ -41,7 +41,15 @@ export function LoginForm() {
     const confirmedParam = searchParams.get("confirmed")
     const redirectParam = searchParams.get("redirect")
 
-    if (confirmedParam === "true") {
+    if (messageParam === "password_reset_success") {
+      setSuccess("Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter.")
+      // Nettoyer l'URL mais garder redirect si présent
+      if (redirectParam) {
+        router.replace(`/login?redirect=${encodeURIComponent(redirectParam)}`)
+      } else {
+        router.replace("/login")
+      }
+    } else if (confirmedParam === "true") {
       setSuccess(t("login.emailConfirmed"))
       // Nettoyer l'URL mais garder redirect si présent
       if (redirectParam) {
@@ -120,7 +128,7 @@ export function LoginForm() {
           router.push("/")
           router.refresh()
         }
-        
+
         // Réinitialiser le loading immédiatement après redirection
         setLoading(false)
       } else {

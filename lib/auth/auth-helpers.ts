@@ -416,6 +416,72 @@ export async function isAuthenticated(): Promise<boolean> {
 }
 
 /**
+ * Demander une réinitialisation de mot de passe
+ * 
+ * @param email - Email de l'utilisateur
+ * @returns Réponse avec succès/erreur
+ */
+export async function resetPassword(email: string): Promise<{ success: boolean; error?: string }> {
+  try {
+    const redirectUrl = typeof window !== 'undefined'
+      ? `${window.location.origin}/reset-password`
+      : undefined
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectUrl,
+    })
+
+    if (error) {
+      return {
+        success: false,
+        error: getErrorMessage(error),
+      }
+    }
+
+    return {
+      success: true,
+    }
+  } catch (error: any) {
+    console.error("Erreur lors de la demande de réinitialisation:", error)
+    return {
+      success: false,
+      error: error.message || "Une erreur inattendue s'est produite",
+    }
+  }
+}
+
+/**
+ * Mettre à jour le mot de passe avec un token de réinitialisation
+ * 
+ * @param newPassword - Nouveau mot de passe
+ * @returns Réponse avec succès/erreur
+ */
+export async function updatePassword(newPassword: string): Promise<{ success: boolean; error?: string }> {
+  try {
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
+    })
+
+    if (error) {
+      return {
+        success: false,
+        error: getErrorMessage(error),
+      }
+    }
+
+    return {
+      success: true,
+    }
+  } catch (error: any) {
+    console.error("Erreur lors de la mise à jour du mot de passe:", error)
+    return {
+      success: false,
+      error: error.message || "Une erreur inattendue s'est produite",
+    }
+  }
+}
+
+/**
  * Convertir les erreurs Supabase en messages lisibles en français
  * 
  * @param error - Erreur Supabase
@@ -430,6 +496,8 @@ function getErrorMessage(error: any): string {
     "Signup is disabled": "L'inscription est désactivée",
     "Email rate limit exceeded": "Trop de tentatives. Veuillez réessayer plus tard",
     "Invalid email": "Adresse email invalide",
+    "User not found": "Aucun compte trouvé avec cet email",
+    "For security purposes, you can only request this once every 60 seconds": "Veuillez attendre 60 secondes avant de redemander un lien de réinitialisation",
   }
 
   // Chercher un message correspondant
