@@ -130,7 +130,7 @@ const getFacilityBySlug = async (slug: string) => {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const facility = await getFacilityBySlug(slug)
-  
+
   if (!facility) {
     return {
       title: "Facilité non trouvée | Farafina Foot Academy",

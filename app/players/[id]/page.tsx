@@ -78,411 +78,411 @@ const formatPlayerData = (data: any): PlayerData | null => {
 
 // Anciennes données mockées (fallback si nécessaire)
 const mockPlayers = [
-    {
-      id: 1,
-      name: "Amadou Diallo",
-      age: 17,
-      position: "Attaquant",
-      category: "U18",
-      nationality: "Sénégal",
-      height: "1,78 m",
-      weight: "72 kg",
-      preferredFoot: "Droit",
-      section: "Garçons",
-      performance: 8.5,
-      image: "/young-african-football-player-striker.jpg",
-      stats: {
-        matchesPlayed: 28,
-        goals: 15,
-        assists: 8,
-        speed: 9.0,
-        endurance: 8.5,
-        intensity: 8.8,
-        technique: 8.2,
-      },
-      coachFeedback:
-        "Amadou est un attaquant prometteur avec une excellente lecture du jeu. Son explosivité et sa capacité à créer des espaces font de lui un joueur à suivre de près. Il continue de progresser dans sa prise de décision offensive.",
-      highlights: [
-        {
-          title: "Triplé vs École de Football Dakar",
-          duration: "4:12",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-        {
-          title: "Meilleurs buts de la saison",
-          duration: "6:45",
-          thumbnail: "/football-training-session-tactical-drills.jpg",
-        },
-        {
-          title: "Compétences techniques",
-          duration: "3:30",
-          thumbnail: "/young-african-football-player-interview.jpg",
-        },
-      ],
+  {
+    id: 1,
+    name: "Amadou Diallo",
+    age: 17,
+    position: "Attaquant",
+    category: "U18",
+    nationality: "Sénégal",
+    height: "1,78 m",
+    weight: "72 kg",
+    preferredFoot: "Droit",
+    section: "Garçons",
+    performance: 8.5,
+    image: "/young-african-football-player-striker.jpg",
+    stats: {
+      matchesPlayed: 28,
+      goals: 15,
+      assists: 8,
+      speed: 9.0,
+      endurance: 8.5,
+      intensity: 8.8,
+      technique: 8.2,
     },
-    {
-      id: 2,
-      name: "Kwame Mensah",
-      age: 16,
-      position: "Milieu",
-      category: "U18",
-      nationality: "Ghana",
-      height: "1,75 m",
-      weight: "68 kg",
-      preferredFoot: "Gauche",
-      section: "Garçons",
-      performance: 8.2,
-      image: "/young-african-football-player-midfielder.jpg",
-      stats: {
-        matchesPlayed: 26,
-        goals: 6,
-        assists: 12,
-        speed: 8.0,
-        endurance: 9.0,
-        intensity: 8.5,
-        technique: 8.7,
+    coachFeedback:
+      "Amadou est un attaquant prometteur avec une excellente lecture du jeu. Son explosivité et sa capacité à créer des espaces font de lui un joueur à suivre de près. Il continue de progresser dans sa prise de décision offensive.",
+    highlights: [
+      {
+        title: "Triplé vs École de Football Dakar",
+        duration: "4:12",
+        thumbnail: "/football-match-highlight-goal.jpg",
       },
-      coachFeedback:
-        "Kwame possède une vision de jeu exceptionnelle et une capacité rare à contrôler le tempo d'un match. Son intelligence tactique et sa précision dans les passes longues en font un milieu de terrain complet.",
-      highlights: [
-        {
-          title: "Passe décisive de 40 mètres",
-          duration: "2:15",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-        {
-          title: "Contrôle du milieu de terrain",
-          duration: "5:20",
-          thumbnail: "/football-training-session-tactical-drills.jpg",
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: "Ibrahim Traoré",
-      age: 15,
-      position: "Défenseur",
-      category: "U15",
-      nationality: "Côte d'Ivoire",
-      height: "1,72 m",
-      weight: "65 kg",
-      preferredFoot: "Droit",
-      section: "Garçons",
-      performance: 7.8,
-      image: "/young-african-football-player-defender.jpg",
-      stats: {
-        matchesPlayed: 22,
-        goals: 2,
-        assists: 4,
-        speed: 7.5,
-        endurance: 8.0,
-        intensity: 8.2,
-        technique: 7.5,
+      {
+        title: "Meilleurs buts de la saison",
+        duration: "6:45",
+        thumbnail: "/football-training-session-tactical-drills.jpg",
       },
-      coachFeedback:
-        "Ibrahim montre une grande maturité défensive pour son âge. Son anticipation et son placement font de lui un défenseur solide et fiable.",
-      highlights: [
-        {
-          title: "Actions défensives",
-          duration: "3:45",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-      ],
-    },
-    {
-      id: 4,
-      name: "Mohamed Keita",
-      age: 14,
-      position: "Gardien",
-      category: "U15",
-      nationality: "Mali",
-      height: "1,80 m",
-      weight: "70 kg",
-      preferredFoot: "Droit",
-      section: "Garçons",
-      performance: 8.0,
-      image: "/young-african-football-goalkeeper.jpg",
-      stats: {
-        matchesPlayed: 20,
-        goals: 0,
-        assists: 1,
-        speed: 7.0,
-        endurance: 8.5,
-        intensity: 8.0,
-        technique: 8.5,
+      {
+        title: "Compétences techniques",
+        duration: "3:30",
+        thumbnail: "/young-african-football-player-interview.jpg",
       },
-      coachFeedback:
-        "Mohamed est un gardien réactif avec de bonnes capacités d'arrêt. Il continue de progresser dans sa communication avec la défense.",
-      highlights: [
-        {
-          title: "Arrêts décisifs",
-          duration: "4:00",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-      ],
+    ],
+  },
+  {
+    id: 2,
+    name: "Kwame Mensah",
+    age: 16,
+    position: "Milieu",
+    category: "U18",
+    nationality: "Ghana",
+    height: "1,75 m",
+    weight: "68 kg",
+    preferredFoot: "Gauche",
+    section: "Garçons",
+    performance: 8.2,
+    image: "/young-african-football-player-midfielder.jpg",
+    stats: {
+      matchesPlayed: 26,
+      goals: 6,
+      assists: 12,
+      speed: 8.0,
+      endurance: 9.0,
+      intensity: 8.5,
+      technique: 8.7,
     },
-    {
-      id: 5,
-      name: "Youssouf Cissé",
-      age: 17,
-      position: "Attaquant",
-      category: "U18",
-      nationality: "Burkina Faso",
-      height: "1,76 m",
-      weight: "71 kg",
-      preferredFoot: "Droit",
-      section: "Garçons",
-      performance: 8.7,
-      image: "/young-african-football-player-forward.jpg",
-      stats: {
-        matchesPlayed: 30,
-        goals: 20,
-        assists: 10,
-        speed: 9.2,
-        endurance: 8.8,
-        intensity: 9.0,
-        technique: 8.5,
+    coachFeedback:
+      "Kwame possède une vision de jeu exceptionnelle et une capacité rare à contrôler le tempo d'un match. Son intelligence tactique et sa précision dans les passes longues en font un milieu de terrain complet.",
+    highlights: [
+      {
+        title: "Passe décisive de 40 mètres",
+        duration: "2:15",
+        thumbnail: "/football-match-highlight-goal.jpg",
       },
-      coachFeedback:
-        "Youssouf est un attaquant complet avec une finition remarquable. Son agressivité dans les surfaces et son instinct de buteur en font un joueur précieux.",
-      highlights: [
-        {
-          title: "Buts spectaculaires",
-          duration: "5:30",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-      ],
-    },
-    {
-      id: 6,
-      name: "Samuel Okonkwo",
-      age: 13,
-      position: "Milieu",
-      category: "U12",
-      nationality: "Nigeria",
-      height: "1,60 m",
-      weight: "55 kg",
-      preferredFoot: "Droit",
-      section: "Garçons",
-      performance: 7.5,
-      image: "/young-african-football-player-youth.jpg",
-      stats: {
-        matchesPlayed: 18,
-        goals: 5,
-        assists: 7,
-        speed: 7.8,
-        endurance: 7.5,
-        intensity: 7.5,
-        technique: 7.8,
+      {
+        title: "Contrôle du milieu de terrain",
+        duration: "5:20",
+        thumbnail: "/football-training-session-tactical-drills.jpg",
       },
-      coachFeedback:
-        "Samuel montre un grand potentiel pour son jeune âge. Sa technique et sa vision du jeu sont déjà très développées.",
-      highlights: [
-        {
-          title: "Dribbles techniques",
-          duration: "3:20",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-      ],
+    ],
+  },
+  {
+    id: 3,
+    name: "Ibrahim Traoré",
+    age: 15,
+    position: "Défenseur",
+    category: "U15",
+    nationality: "Côte d'Ivoire",
+    height: "1,72 m",
+    weight: "65 kg",
+    preferredFoot: "Droit",
+    section: "Garçons",
+    performance: 7.8,
+    image: "/young-african-football-player-defender.jpg",
+    stats: {
+      matchesPlayed: 22,
+      goals: 2,
+      assists: 4,
+      speed: 7.5,
+      endurance: 8.0,
+      intensity: 8.2,
+      technique: 7.5,
     },
-    {
-      id: 7,
-      name: "Abdoulaye Sow",
-      age: 16,
-      position: "Défenseur",
-      category: "U18",
-      nationality: "Guinée",
-      height: "1,74 m",
-      weight: "69 kg",
-      preferredFoot: "Droit",
-      section: "Garçons",
-      performance: 7.9,
-      image: "/young-african-football-player-defender-action.jpg",
-      stats: {
-        matchesPlayed: 25,
-        goals: 1,
-        assists: 3,
-        speed: 7.8,
-        endurance: 8.2,
-        intensity: 8.0,
-        technique: 7.8,
+    coachFeedback:
+      "Ibrahim montre une grande maturité défensive pour son âge. Son anticipation et son placement font de lui un défenseur solide et fiable.",
+    highlights: [
+      {
+        title: "Actions défensives",
+        duration: "3:45",
+        thumbnail: "/football-match-highlight-goal.jpg",
       },
-      coachFeedback:
-        "Abdoulaye est un défenseur polyvalent qui peut évoluer sur plusieurs postes. Sa polyvalence est un atout majeur.",
-      highlights: [
-        {
-          title: "Actions défensives",
-          duration: "3:50",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-      ],
+    ],
+  },
+  {
+    id: 4,
+    name: "Mohamed Keita",
+    age: 14,
+    position: "Gardien",
+    category: "U15",
+    nationality: "Mali",
+    height: "1,80 m",
+    weight: "70 kg",
+    preferredFoot: "Droit",
+    section: "Garçons",
+    performance: 8.0,
+    image: "/young-african-football-goalkeeper.jpg",
+    stats: {
+      matchesPlayed: 20,
+      goals: 0,
+      assists: 1,
+      speed: 7.0,
+      endurance: 8.5,
+      intensity: 8.0,
+      technique: 8.5,
     },
-    {
-      id: 8,
-      name: "Kofi Asante",
-      age: 15,
-      position: "Attaquant",
-      category: "U15",
-      nationality: "Ghana",
-      height: "1,73 m",
-      weight: "66 kg",
-      preferredFoot: "Gauche",
-      section: "Garçons",
-      performance: 8.3,
-      image: "/young-african-football-player-striker-action.jpg",
-      stats: {
-        matchesPlayed: 24,
-        goals: 12,
-        assists: 6,
-        speed: 8.5,
-        endurance: 8.0,
-        intensity: 8.5,
-        technique: 8.3,
+    coachFeedback:
+      "Mohamed est un gardien réactif avec de bonnes capacités d'arrêt. Il continue de progresser dans sa communication avec la défense.",
+    highlights: [
+      {
+        title: "Arrêts décisifs",
+        duration: "4:00",
+        thumbnail: "/football-match-highlight-goal.jpg",
       },
-      coachFeedback:
-        "Kofi est un attaquant rapide et agile. Sa capacité à dribbler et à créer des opportunités est remarquable.",
-      highlights: [
-        {
-          title: "Dribbles et buts",
-          duration: "4:30",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-      ],
+    ],
+  },
+  {
+    id: 5,
+    name: "Youssouf Cissé",
+    age: 17,
+    position: "Attaquant",
+    category: "U18",
+    nationality: "Burkina Faso",
+    height: "1,76 m",
+    weight: "71 kg",
+    preferredFoot: "Droit",
+    section: "Garçons",
+    performance: 8.7,
+    image: "/young-african-football-player-forward.jpg",
+    stats: {
+      matchesPlayed: 30,
+      goals: 20,
+      assists: 10,
+      speed: 9.2,
+      endurance: 8.8,
+      intensity: 9.0,
+      technique: 8.5,
     },
-    {
-      id: 9,
-      name: "Mamadou Ba",
-      age: 12,
-      position: "Milieu",
-      category: "U12",
-      nationality: "Sénégal",
-      height: "1,58 m",
-      weight: "52 kg",
-      preferredFoot: "Droit",
-      section: "Garçons",
-      performance: 7.2,
-      image: "/young-african-football-player-youth.jpg",
-      stats: {
-        matchesPlayed: 16,
-        goals: 3,
-        assists: 5,
-        speed: 7.2,
-        endurance: 7.0,
-        intensity: 7.2,
-        technique: 7.5,
+    coachFeedback:
+      "Youssouf est un attaquant complet avec une finition remarquable. Son agressivité dans les surfaces et son instinct de buteur en font un joueur précieux.",
+    highlights: [
+      {
+        title: "Buts spectaculaires",
+        duration: "5:30",
+        thumbnail: "/football-match-highlight-goal.jpg",
       },
-      coachFeedback:
-        "Mamadou est un jeune joueur prometteur avec une bonne base technique. Il continue de progresser régulièrement.",
-      highlights: [
-        {
-          title: "Moments forts",
-          duration: "2:45",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-      ],
+    ],
+  },
+  {
+    id: 6,
+    name: "Samuel Okonkwo",
+    age: 13,
+    position: "Milieu",
+    category: "U12",
+    nationality: "Nigeria",
+    height: "1,60 m",
+    weight: "55 kg",
+    preferredFoot: "Droit",
+    section: "Garçons",
+    performance: 7.5,
+    image: "/young-african-football-player-youth.jpg",
+    stats: {
+      matchesPlayed: 18,
+      goals: 5,
+      assists: 7,
+      speed: 7.8,
+      endurance: 7.5,
+      intensity: 7.5,
+      technique: 7.8,
     },
-    {
-      id: 10,
-      name: "Cheikh Ndiaye",
-      age: 17,
-      position: "Défenseur",
-      category: "U18",
-      nationality: "Sénégal",
-      height: "1,77 m",
-      weight: "73 kg",
-      preferredFoot: "Droit",
-      section: "Garçons",
-      performance: 8.1,
-      image: "/young-african-football-player-defender-action.jpg",
-      stats: {
-        matchesPlayed: 27,
-        goals: 3,
-        assists: 5,
-        speed: 8.0,
-        endurance: 8.3,
-        intensity: 8.2,
-        technique: 8.0,
+    coachFeedback:
+      "Samuel montre un grand potentiel pour son jeune âge. Sa technique et sa vision du jeu sont déjà très développées.",
+    highlights: [
+      {
+        title: "Dribbles techniques",
+        duration: "3:20",
+        thumbnail: "/football-match-highlight-goal.jpg",
       },
-      coachFeedback:
-        "Cheikh est un défenseur solide avec une bonne lecture du jeu. Son leadership sur le terrain est apprécié.",
-      highlights: [
-        {
-          title: "Leadership défensif",
-          duration: "4:15",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-      ],
+    ],
+  },
+  {
+    id: 7,
+    name: "Abdoulaye Sow",
+    age: 16,
+    position: "Défenseur",
+    category: "U18",
+    nationality: "Guinée",
+    height: "1,74 m",
+    weight: "69 kg",
+    preferredFoot: "Droit",
+    section: "Garçons",
+    performance: 7.9,
+    image: "/young-african-football-player-defender-action.jpg",
+    stats: {
+      matchesPlayed: 25,
+      goals: 1,
+      assists: 3,
+      speed: 7.8,
+      endurance: 8.2,
+      intensity: 8.0,
+      technique: 7.8,
     },
-    {
-      id: 11,
-      name: "Fatou Sall",
-      age: 16,
-      position: "Attaquant",
-      category: "U18",
-      nationality: "Sénégal",
-      height: "1,68 m",
-      weight: "60 kg",
-      preferredFoot: "Droit",
-      section: "Filles",
-      performance: 8.6,
-      image: "/african-female-football-player-portrait.jpg",
-      stats: {
-        matchesPlayed: 24,
-        goals: 18,
-        assists: 10,
-        speed: 9.2,
-        endurance: 8.7,
-        intensity: 9.0,
-        technique: 8.5,
+    coachFeedback:
+      "Abdoulaye est un défenseur polyvalent qui peut évoluer sur plusieurs postes. Sa polyvalence est un atout majeur.",
+    highlights: [
+      {
+        title: "Actions défensives",
+        duration: "3:50",
+        thumbnail: "/football-match-highlight-goal.jpg",
       },
-      coachFeedback:
-        "Fatou est une leader naturelle sur et en dehors du terrain. Sa détermination, sa technique et son sens du but en font l'une des meilleures attaquantes de sa génération. Un modèle pour le football féminin africain.",
-      highlights: [
-        {
-          title: "Quadruplé en finale régionale",
-          duration: "5:30",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-        {
-          title: "Dribbles et finitions",
-          duration: "4:05",
-          thumbnail: "/football-training-session-tactical-drills.jpg",
-        },
-      ],
+    ],
+  },
+  {
+    id: 8,
+    name: "Kofi Asante",
+    age: 15,
+    position: "Attaquant",
+    category: "U15",
+    nationality: "Ghana",
+    height: "1,73 m",
+    weight: "66 kg",
+    preferredFoot: "Gauche",
+    section: "Garçons",
+    performance: 8.3,
+    image: "/young-african-football-player-striker-action.jpg",
+    stats: {
+      matchesPlayed: 24,
+      goals: 12,
+      assists: 6,
+      speed: 8.5,
+      endurance: 8.0,
+      intensity: 8.5,
+      technique: 8.3,
     },
-    {
-      id: 12,
-      name: "Aisha Diop",
-      age: 15,
-      position: "Milieu",
-      category: "U15",
-      nationality: "Mali",
-      height: "1,65 m",
-      weight: "58 kg",
-      preferredFoot: "Droit",
-      section: "Filles",
-      performance: 8.0,
-      image: "/young-african-female-football-midfielder.jpg",
-      stats: {
-        matchesPlayed: 22,
-        goals: 8,
-        assists: 9,
-        speed: 8.2,
-        endurance: 8.5,
-        intensity: 8.0,
-        technique: 8.3,
+    coachFeedback:
+      "Kofi est un attaquant rapide et agile. Sa capacité à dribbler et à créer des opportunités est remarquable.",
+    highlights: [
+      {
+        title: "Dribbles et buts",
+        duration: "4:30",
+        thumbnail: "/football-match-highlight-goal.jpg",
       },
-      coachFeedback:
-        "Aisha est une milieu de terrain créative avec une excellente vision du jeu. Son travail d'équipe est exemplaire.",
-      highlights: [
-        {
-          title: "Passes décisives",
-          duration: "3:40",
-          thumbnail: "/football-match-highlight-goal.jpg",
-        },
-      ],
+    ],
+  },
+  {
+    id: 9,
+    name: "Mamadou Ba",
+    age: 12,
+    position: "Milieu",
+    category: "U12",
+    nationality: "Sénégal",
+    height: "1,58 m",
+    weight: "52 kg",
+    preferredFoot: "Droit",
+    section: "Garçons",
+    performance: 7.2,
+    image: "/young-african-football-player-youth.jpg",
+    stats: {
+      matchesPlayed: 16,
+      goals: 3,
+      assists: 5,
+      speed: 7.2,
+      endurance: 7.0,
+      intensity: 7.2,
+      technique: 7.5,
     },
-  ]
+    coachFeedback:
+      "Mamadou est un jeune joueur prometteur avec une bonne base technique. Il continue de progresser régulièrement.",
+    highlights: [
+      {
+        title: "Moments forts",
+        duration: "2:45",
+        thumbnail: "/football-match-highlight-goal.jpg",
+      },
+    ],
+  },
+  {
+    id: 10,
+    name: "Cheikh Ndiaye",
+    age: 17,
+    position: "Défenseur",
+    category: "U18",
+    nationality: "Sénégal",
+    height: "1,77 m",
+    weight: "73 kg",
+    preferredFoot: "Droit",
+    section: "Garçons",
+    performance: 8.1,
+    image: "/young-african-football-player-defender-action.jpg",
+    stats: {
+      matchesPlayed: 27,
+      goals: 3,
+      assists: 5,
+      speed: 8.0,
+      endurance: 8.3,
+      intensity: 8.2,
+      technique: 8.0,
+    },
+    coachFeedback:
+      "Cheikh est un défenseur solide avec une bonne lecture du jeu. Son leadership sur le terrain est apprécié.",
+    highlights: [
+      {
+        title: "Leadership défensif",
+        duration: "4:15",
+        thumbnail: "/football-match-highlight-goal.jpg",
+      },
+    ],
+  },
+  {
+    id: 11,
+    name: "Fatou Sall",
+    age: 16,
+    position: "Attaquant",
+    category: "U18",
+    nationality: "Sénégal",
+    height: "1,68 m",
+    weight: "60 kg",
+    preferredFoot: "Droit",
+    section: "Filles",
+    performance: 8.6,
+    image: "/african-female-football-player-portrait.jpg",
+    stats: {
+      matchesPlayed: 24,
+      goals: 18,
+      assists: 10,
+      speed: 9.2,
+      endurance: 8.7,
+      intensity: 9.0,
+      technique: 8.5,
+    },
+    coachFeedback:
+      "Fatou est une leader naturelle sur et en dehors du terrain. Sa détermination, sa technique et son sens du but en font l'une des meilleures attaquantes de sa génération. Un modèle pour le football féminin africain.",
+    highlights: [
+      {
+        title: "Quadruplé en finale régionale",
+        duration: "5:30",
+        thumbnail: "/football-match-highlight-goal.jpg",
+      },
+      {
+        title: "Dribbles et finitions",
+        duration: "4:05",
+        thumbnail: "/football-training-session-tactical-drills.jpg",
+      },
+    ],
+  },
+  {
+    id: 12,
+    name: "Aisha Diop",
+    age: 15,
+    position: "Milieu",
+    category: "U15",
+    nationality: "Mali",
+    height: "1,65 m",
+    weight: "58 kg",
+    preferredFoot: "Droit",
+    section: "Filles",
+    performance: 8.0,
+    image: "/young-african-female-football-midfielder.jpg",
+    stats: {
+      matchesPlayed: 22,
+      goals: 8,
+      assists: 9,
+      speed: 8.2,
+      endurance: 8.5,
+      intensity: 8.0,
+      technique: 8.3,
+    },
+    coachFeedback:
+      "Aisha est une milieu de terrain créative avec une excellente vision du jeu. Son travail d'équipe est exemplaire.",
+    highlights: [
+      {
+        title: "Passes décisives",
+        duration: "3:40",
+        thumbnail: "/football-match-highlight-goal.jpg",
+      },
+    ],
+  },
+]
 
 export default function PlayerDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -504,10 +504,56 @@ export default function PlayerDetailPage({ params }: { params: Promise<{ id: str
     async function loadPlayer() {
       try {
         setLoading(true)
-        const { data, error } = await getPlayerById(id)
 
-        if (error || !data) {
+        // Vérifier si l'ID est un nombre (données mockées) ou un UUID (Supabase)
+        const isNumericId = /^\d+$/.test(id)
+
+        let data = null
+        let error = null
+
+        if (isNumericId) {
+          // Si c'est un ID numérique, utiliser les données mockées
+          const mockPlayer = mockPlayers.find(p => p.id.toString() === id)
+          if (mockPlayer) {
+            // Convertir les données mockées au format attendu par formatPlayerData
+            data = {
+              id: mockPlayer.id.toString(),
+              first_name: mockPlayer.name.split(' ')[0] || '',
+              last_name: mockPlayer.name.split(' ').slice(1).join(' ') || '',
+              age: mockPlayer.age,
+              position: mockPlayer.position,
+              category: mockPlayer.category,
+              nationality: mockPlayer.nationality,
+              country: mockPlayer.nationality,
+              height: mockPlayer.height,
+              weight: mockPlayer.weight,
+              preferred_foot: mockPlayer.preferredFoot,
+              section: mockPlayer.section,
+              performance: mockPlayer.performance,
+              photo_url: mockPlayer.image,
+              image: mockPlayer.image,
+            }
+          } else {
+            error = { message: "Joueur mocké introuvable" }
+          }
+        } else {
+          // Si c'est un UUID, chercher dans Supabase
+          const result = await getPlayerById(id)
+          data = result.data
+          error = result.error
+        }
+
+        if (error) {
           console.error("Erreur chargement joueur:", error)
+          toast.error("Erreur lors du chargement", {
+            description: error.message || "Impossible de charger les données du joueur.",
+          })
+          setNotFoundState(true)
+          return
+        }
+
+        if (!data) {
+          console.error("Aucune donnée retournée pour le joueur:", id)
           toast.error("Joueur introuvable", {
             description: "Le joueur demandé n'existe pas ou n'est plus disponible.",
           })
