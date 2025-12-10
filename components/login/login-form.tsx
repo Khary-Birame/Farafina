@@ -318,24 +318,26 @@ export function LoginForm() {
               </form>
 
               {/* Secondary Actions */}
-              <div className="mt-8 space-y-4">
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-border" />
+              {redirectParam !== "/admin" && (
+                <div className="mt-8 space-y-4">
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-border" />
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                      <span className="px-4 bg-white text-muted-foreground">{t("common.newToFarafina")}</span>
+                    </div>
                   </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-4 bg-white text-muted-foreground">{t("common.newToFarafina")}</span>
+                  <div className="text-center">
+                    <Link
+                      href="/signup"
+                      className="text-sm text-[#D4AF37] hover:text-[#B8941F] hover:underline font-medium transition-colors"
+                    >
+                      {t("common.noAccount")}
+                    </Link>
                   </div>
                 </div>
-                <div className="text-center">
-                  <Link
-                    href="/signup"
-                    className="text-sm text-[#D4AF37] hover:text-[#B8941F] hover:underline font-medium transition-colors"
-                  >
-                    {t("common.noAccount")}
-                  </Link>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
