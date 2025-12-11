@@ -23,6 +23,34 @@ export async function GET(request: Request) {
   const type = requestUrl.searchParams.get("type")
   const next = requestUrl.searchParams.get("next") || "/"
 
+  // Vérifier s'il y a des erreurs dans l'URL (cas où Supabase redirige avec erreur)
+  const error = requestUrl.searchParams.get("error")
+  const errorCode = requestUrl.searchParams.get("error_code")
+  const errorDescription = requestUrl.searchParams.get("error_description")
+
+  // Si erreur détectée, rediriger vers la page appropriée
+  if (error || errorCode) {
+    console.error("Erreur dans le callback:", { error, errorCode, errorDescription })
+
+    // Déterminer le type depuis l'URL ou le hash
+    const hashType = requestUrl.hash.includes("type=recovery") ? "recovery" : null
+
+    if (errorCode === "otp_expired" || error === "access_denied") {
+      // Lien expiré ou invalide
+      if (hashType === "recovery" || type === "recovery") {
+        const errorUrl = new URL("/forgot-password", requestUrl.origin)
+        errorUrl.searchParams.set("error", "token_expired")
+        errorUrl.searchParams.set("message", "Le lien de réinitialisation a expiré. Veuillez demander un nouveau lien.")
+        return NextResponse.redirect(errorUrl.toString())
+      } else {
+        const errorUrl = new URL("/login", requestUrl.origin)
+        errorUrl.searchParams.set("error", "token_expired")
+        errorUrl.searchParams.set("message", "Le lien de confirmation a expiré. Veuillez demander un nouveau lien.")
+        return NextResponse.redirect(errorUrl.toString())
+      }
+    }
+  }
+
   // Créer le client Supabase côté serveur
   const supabase = await createServerClient()
 
@@ -36,16 +64,25 @@ export async function GET(request: Request) {
 
       if (error) {
         console.error("Erreur de vérification OTP:", error)
+
+        // Déterminer le message d'erreur approprié
+        let errorMessage = "Le lien est invalide ou a expiré. Veuillez demander un nouveau lien."
+        if (error.message?.includes("expired") || error.message?.includes("expiré") || error.code === "otp_expired") {
+          errorMessage = "Le lien a expiré. Les liens de réinitialisation sont valides pendant 1 heure. Veuillez demander un nouveau lien."
+        } else if (error.message?.includes("invalid") || error.message?.includes("invalide")) {
+          errorMessage = "Le lien est invalide. Veuillez demander un nouveau lien."
+        }
+
         // En cas d'erreur, rediriger selon le type
         if (type === "recovery") {
           const errorUrl = new URL("/forgot-password", requestUrl.origin)
           errorUrl.searchParams.set("error", "token_invalid")
-          errorUrl.searchParams.set("message", "Le lien de réinitialisation est invalide ou a expiré. Veuillez demander un nouveau lien.")
+          errorUrl.searchParams.set("message", errorMessage)
           return NextResponse.redirect(errorUrl.toString())
         } else {
           const errorUrl = new URL("/login", requestUrl.origin)
           errorUrl.searchParams.set("error", "token_invalid")
-          errorUrl.searchParams.set("message", "Le lien de confirmation est invalide ou a expiré. Veuillez demander un nouveau lien.")
+          errorUrl.searchParams.set("message", errorMessage)
           return NextResponse.redirect(errorUrl.toString())
         }
       }

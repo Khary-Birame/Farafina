@@ -23,7 +23,7 @@ export async function globalSearch(query: string): Promise<{
         return { results: [], error: null }
     }
 
-    const trimmedQuery = query.trim()b
+    const trimmedQuery = query.trim()
     const results: SearchResult[] = []
 
     try {
@@ -108,7 +108,7 @@ export async function globalSearch(query: string): Promise<{
                     id: candidature.id,
                     title: `${candidature.first_name || ""} ${candidature.last_name || ""}`.trim() || candidature.email,
                     subtitle: candidature.program || "Candidature",
-                    url: `/admin/candidatures?search=${encodeURIComponent(query)}`,
+                    url: `/admin/candidatures?search=${encodeURIComponent(trimmedQuery)}`,
                 })
             })
         }

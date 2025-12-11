@@ -423,8 +423,10 @@ export async function isAuthenticated(): Promise<boolean> {
  */
 export async function resetPassword(email: string): Promise<{ success: boolean; error?: string }> {
   try {
+    // URL de redirection : Supabase ajoutera automatiquement token_hash et type=recovery
+    // On utilise le callback pour vérifier le token de manière sécurisée
     const redirectUrl = typeof window !== 'undefined'
-      ? `${window.location.origin}/reset-password`
+      ? `${window.location.origin}/auth/callback?type=recovery&next=/reset-password`
       : undefined
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {

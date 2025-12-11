@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -15,17 +15,38 @@ import { useTranslation } from "@/lib/hooks/use-translation"
 
 export default function ForgotPasswordPage() {
     const router = useRouter()
+    const searchParams = useSearchParams()
     const { t } = useTranslation()
     const [email, setEmail] = useState("")
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
+    const [error, setError] = useState<string | null>(null)
+
+    // Vérifier les paramètres d'URL pour les messages d'erreur
+    useEffect(() => {
+        const errorParam = searchParams.get("error")
+        const messageParam = searchParams.get("message")
+
+        if (errorParam && messageParam) {
+            setError(messageParam)
+            // Nettoyer l'URL
+            router.replace("/forgot-password")
+        }
+    }, [searchParams, router])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
+        setError(null)
+
+        if (!email || !email.trim()) {
+            setError("Veuillez entrer une adresse email valide.")
+            setLoading(false)
+            return
+        }
 
         try {
-            const result = await resetPassword(email)
+            const result = await resetPassword(email.trim())
 
             if (result.success) {
                 setSuccess(true)
@@ -33,13 +54,17 @@ export default function ForgotPasswordPage() {
                     description: "Un lien de réinitialisation a été envoyé à votre adresse email.",
                 })
             } else {
+                const errorMessage = result.error || "Impossible d'envoyer l'email de réinitialisation."
+                setError(errorMessage)
                 toast.error("Erreur", {
-                    description: result.error || "Impossible d'envoyer l'email de réinitialisation.",
+                    description: errorMessage,
                 })
             }
         } catch (error: any) {
+            const errorMessage = error.message || "Une erreur inattendue s'est produite."
+            setError(errorMessage)
             toast.error("Erreur", {
-                description: error.message || "Une erreur inattendue s'est produite.",
+                description: errorMessage,
             })
         } finally {
             setLoading(false)
@@ -114,6 +139,21 @@ export default function ForgotPasswordPage() {
                                 </div>
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-6">
+                                    {/* Message d'erreur */}
+                                    {error && (
+                                        <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+                                            <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" />
+                                            <div className="flex-1">
+                                                <p className="text-sm text-red-800 font-medium mb-1">
+                                                    Erreur
+                                                </p>
+                                                <p className="text-xs text-red-700">
+                                                    {error}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )}
+
                                     {/* Email */}
                                     <div className="space-y-2">
                                         <Label htmlFor="email" className="text-sm font-medium text-[#1A1A1A]">
@@ -124,9 +164,13 @@ export default function ForgotPasswordPage() {
                                             type="email"
                                             placeholder="votre.email@exemple.com"
                                             value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
+                                            onChange={(e) => {
+                                                setEmail(e.target.value)
+                                                setError(null)
+                                            }}
                                             required
-                                            className="h-12 transition-all duration-200 focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37]"
+                                            className={`h-12 transition-all duration-200 focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] ${error ? "border-red-500" : ""
+                                                }`}
                                         />
                                     </div>
 
