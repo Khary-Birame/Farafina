@@ -23,7 +23,7 @@ export async function globalSearch(query: string): Promise<{
         return { results: [], error: null }
     }
 
-    const trimmedQuery = query.trim()
+    const trimmedQuery = query.trim()b
     const results: SearchResult[] = []
 
     try {
