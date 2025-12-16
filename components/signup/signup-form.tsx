@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import type React from "react"
 
@@ -71,12 +71,12 @@ export function SignUpForm() {
 
       if (result.success) {
         setSuccess(true)
-        // Rafraîchir les données utilisateur
-        await refreshUser()
+        setLoading(false) // Arrêter le loading même en cas de succès
+        // Ne pas appeler refreshUser() car l'utilisateur n'est pas encore connecté
+        // Il doit d'abord confirmer son email
         // Rediriger après 2 secondes
         setTimeout(() => {
           router.push("/")
-          router.refresh()
         }, 2000)
       } else {
         setError(result.error || t("signup.signupError"))
@@ -84,7 +84,7 @@ export function SignUpForm() {
     } catch (err: any) {
       setError(err.message || t("login.unexpectedError"))
     } finally {
-      setLoading(false)
+      setLoading(false) // S'assurer que le loading est toujours arrêté
     }
   }
 
