@@ -3,7 +3,6 @@ import { Footer } from "@/components/footer"
 import { ContactHero } from "@/components/contact/contact-hero"
 import { ContactForm } from "@/components/contact/contact-form"
 import { MapSection } from "@/components/contact/map-section"
-import { PartnersSection } from "@/components/contact/partners-section"
 import { NewsletterBanner } from "@/components/contact/newsletter-banner"
 
 export default function ContactPage() {
@@ -14,7 +13,6 @@ export default function ContactPage() {
         <ContactHero />
         <ContactForm />
         <MapSection />
-        <PartnersSection />
         <NewsletterBanner />
       </main>
       <Footer />
