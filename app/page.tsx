@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -10,7 +10,7 @@ import { Infrastructures } from "@/components/about/infrastructures"
 import { Leadership } from "@/components/about/leadership"
 import { SocialInclusion } from "@/components/about/social-inclusion"
 
-export default function HomePage() {
+function HomePageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -54,5 +54,23 @@ export default function HomePage() {
       </main>
       <Footer />
     </div>
+  )
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white">
+        <Header />
+        <main className="pt-20">
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="animate-pulse text-muted-foreground">Chargement...</div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    }>
+      <HomePageContent />
+    </Suspense>
   )
 }

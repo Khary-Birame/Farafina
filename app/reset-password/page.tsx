@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Header } from "@/components/header"
@@ -14,7 +14,7 @@ import { toast } from "sonner"
 import { useTranslation } from "@/lib/hooks/use-translation"
 import { supabase } from "@/lib/supabase/client"
 
-export default function ResetPasswordPage() {
+function ResetPasswordContent() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const { t } = useTranslation()
@@ -313,4 +313,18 @@ export default function ResetPasswordPage() {
     )
 }
 
+export default function ResetPasswordPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                <div className="text-center">
+                    <Loader2 className="w-12 h-12 animate-spin text-[#D4AF37] mx-auto mb-4" />
+                    <p className="text-muted-foreground">Chargement...</p>
+                </div>
+            </div>
+        }>
+            <ResetPasswordContent />
+        </Suspense>
+    )
+}
 
