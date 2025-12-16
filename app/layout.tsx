@@ -53,18 +53,6 @@ export default function RootLayout({
             `,
           }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "Farafina Foot Academy",
-              "url": "https://farafinafootacademy.com",
-              "logo": "https://farafinafootacademy.com/logo_ffa.png"
-            }),
-          }}
-        />
       </head>
       <body>
         <LanguageProvider>
