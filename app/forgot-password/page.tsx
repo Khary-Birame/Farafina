@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Header } from "@/components/header"
@@ -13,7 +13,7 @@ import { resetPassword } from "@/lib/auth/auth-helpers"
 import { toast } from "sonner"
 import { useTranslation } from "@/lib/hooks/use-translation"
 
-export default function ForgotPasswordPage() {
+function ForgotPasswordContent() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const { t } = useTranslation()
@@ -209,6 +209,30 @@ export default function ForgotPasswordPage() {
             </main>
             <Footer />
         </div>
+    )
+}
+
+export default function ForgotPasswordPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-gray-50">
+                <Header />
+                <main className="pt-20 pb-24">
+                    <div className="flex items-center justify-center px-4 sm:px-6 lg:px-8">
+                        <div className="w-full max-w-md">
+                            <div className="bg-white rounded-2xl shadow-lg p-8 sm:p-12">
+                                <div className="flex items-center justify-center">
+                                    <Loader2 className="w-6 h-6 animate-spin text-[#D4AF37]" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <Footer />
+            </div>
+        }>
+            <ForgotPasswordContent />
+        </Suspense>
     )
 }
 
